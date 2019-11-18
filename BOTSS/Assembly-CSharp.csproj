@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\CharacterBase\ClassID.cs" />
     <Compile Include="Assets\Scripts\CharacterBase\PlayerID.cs" />
     <Compile Include="Assets\Scripts\CharacterBattle.cs" />
+    <Compile Include="Assets\Scripts\Target.cs" />
     <None Include="Assets\Materials\VertexColors.shader" />
     <None Include="Assets\ProCore\ProBuilder\readme.txt" />
     <Reference Include="Unity.Timeline.Editor">
