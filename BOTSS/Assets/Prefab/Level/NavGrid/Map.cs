@@ -13,67 +13,57 @@ public class Map : MonoBehaviour
 
     void Start()
     {
-        //Debug.Log("Starting to build map");
         PrintMap();
     }
 
     void PrintMap()
     {
-        /*
-         1) Print origin Line
-         2) Print r rows in positive direction where each successive row is 1 hex smaller than the last
-            [a] Offset each odd row by half a hex
-            [b] Move each row's start position half a hex forward in the x
-         */
-         
-        int numInRow= (radius*2)+1;
-        bool oddRow =false;
-        Vector3 rowStart= this.transform.position;
-        bool boolx = false;
-        int rowCount = radius*2;
-        PrintSection(1, 1, numInRow, oddRow, rowStart, boolx, rowCount);
+        //Used as the start point from which all of the tiles will be spawned
+        Vector3 origin= this.transform.position;
+
+        //Print each quarter of the map row by row
+
+        //TopRight
+        PrintQuarter(1,1, origin);
+        //TopLeft
+        PrintQuarter(-1,1, origin);
+        //BottomRight
+        PrintQuarter(1,-1, origin);
+        //BottomLeft
+        PrintQuarter(-1,-1, origin);
     }
-    static int printCount = 0;
 
-    void PrintSection(int x, int z, int numInRow, bool oddRow, Vector3 rowStart, bool boolx, int rowCount)
+    void PrintQuarter(int xDirection, int zDirection, Vector3 origin)
     {
-        for (int i = 0; i < rowCount; i++)
+        
+        
+        for (int z = 0; z<(radius*zDirection); z += zDirection)
         {
-            float zPos = zOffset * i * z;
-
+            Vector3 rowStart = origin;
             //If An odd numbered row, offset the row
-            if (i % 2 == 1)
+            if (z % 2 == 1)
             {
-                oddRow = true;
                 rowStart.x += xOffset / 2;
             }
-            else
-            {
-                oddRow = false;
-            }
 
-            rowStart.x += xOffset / 2;
-            rowStart.z = zPos;
-            PrintRow(hexPrefab, numInRow, oddRow, z, rowStart);
-            numInRow--;
+            
+
+            PrintRow(hexPrefab, radius, z, xDirection, rowStart);
         }
     }
 
-    void PrintRow(GameObject baseShape, int numInRow, bool oddRowCount, int positive, Vector3 position)
+    //Print count is used to check what position in the z is printed
+    void PrintRow(GameObject baseShape, int numInRow, int rowNum, int positive, Vector3 position)
     {
         Vector3 hexPos = position;
         for (int i=0;i<numInRow;i++)
         {
             float xPos = i * xOffset;
-            if (oddRowCount)
-            {
-                xPos += xOffset / 2;
-            }
             hexPos.x = xPos;
-            PrintHex(baseShape, hexPos, i,printCount);
+            PrintHex(baseShape, hexPos, i, rowNum);
         }
-        printCount++;
     }
+
     void PrintHex(GameObject baseShape, Vector3 position, int x, int z)
     {
         GameObject hex_go = (GameObject)Instantiate(hexPrefab, position, Quaternion.identity);

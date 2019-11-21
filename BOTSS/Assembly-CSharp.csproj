@@ -63,37 +63,37 @@
      <Compile Include="Assets\Scripts\CharacterBase\PlayerID.cs" />
      <None Include="Assets\ProCore\ProBuilder\readme.txt" />
  <Reference Include="Unity.Timeline.Editor">
- <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/#001_BOTSS/BOTSS/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/GD4_TeamProject/BOTSS/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
- <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/#001_BOTSS/BOTSS/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/GD4_TeamProject/BOTSS/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
- <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/#001_BOTSS/BOTSS/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
+ <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/GD4_TeamProject/BOTSS/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/#001_BOTSS/BOTSS/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/GD4_TeamProject/BOTSS/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/#001_BOTSS/BOTSS/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/GD4_TeamProject/BOTSS/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/#001_BOTSS/BOTSS/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/GD4_TeamProject/BOTSS/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/#001_BOTSS/BOTSS/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/GD4_TeamProject/BOTSS/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
- <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/#001_BOTSS/BOTSS/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/GD4_TeamProject/BOTSS/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.ProBuilder.AddOns.Editor">
- <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/#001_BOTSS/BOTSS/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
+ <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/GD4_TeamProject/BOTSS/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/#001_BOTSS/BOTSS/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/GD4_TeamProject/BOTSS/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/#001_BOTSS/BOTSS/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>B:/Users/Josh/Documents/UnityProjects/Unity/GD4_TeamProject/BOTSS/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>B:/Program Files/Unity/Editor/2019.2.12f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
