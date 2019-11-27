@@ -274,8 +274,8 @@ MonoBehaviour:
   hexPrefab: {fileID: 7478881518419364906, guid: 264c3ec50d1600644aadd9fb034fde8a,
     type: 3}
   radius: 3
-  xOffset: 3
-  zOffset: 0.87
+  xOffset: 1.7
+  zOffset: 1.5
 --- !u!4 &713380093
 Transform:
   m_ObjectHideFlags: 0
@@ -284,7 +284,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713380091}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.06, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

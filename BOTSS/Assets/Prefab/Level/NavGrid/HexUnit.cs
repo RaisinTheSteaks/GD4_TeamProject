@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class HexUnit : MonoBehaviour
 {
+    
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter(Collider other)
     {
-        if (true)
-        {
-            Debug.Log("entered");
-        }
+        Debug.Log(other.name + " has entered trigger volume: " + this.name);
+        other.transform.TransformPoint(this.transform.position.x,0.0f,this.transform.position.z);
     }
 }

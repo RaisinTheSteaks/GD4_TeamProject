@@ -11,7 +11,7 @@ public class Map : MonoBehaviour
     public float xOffset;           //Space between hexes in the x and z direction
     public float zOffset;
 
-    void Start()
+    private void Start()
     {
         PrintMap();
     }
@@ -26,11 +26,11 @@ public class Map : MonoBehaviour
         //TopRight
         PrintQuarter(1,1, origin);
         //TopLeft
-        PrintQuarter(-1,1, origin);
+        //PrintQuarter(-1,1, origin);
         //BottomRight
-        PrintQuarter(1,-1, origin);
+        //PrintQuarter(1,-1, origin);
         //BottomLeft
-        PrintQuarter(-1,-1, origin);
+        //PrintQuarter(-1,-1, origin);
     }
 
     void PrintQuarter(int xDirection, int zDirection, Vector3 origin)
@@ -48,25 +48,28 @@ public class Map : MonoBehaviour
 
             
 
-            PrintRow(hexPrefab, radius, z, xDirection, rowStart);
+            PrintRow(hexPrefab, radius-z, z, xDirection, rowStart);
         }
     }
 
     //Print count is used to check what position in the z is printed
     void PrintRow(GameObject baseShape, int numInRow, int rowNum, int positive, Vector3 position)
     {
-        Vector3 hexPos = position;
+        Vector3 hexPos = new Vector3();
         for (int i=0;i<numInRow;i++)
         {
             float xPos = i * xOffset;
-            hexPos.x = xPos;
+            hexPos.x = position.x + xPos;
+            hexPos.z = rowNum * zOffset;
             PrintHex(baseShape, hexPos, i, rowNum);
         }
     }
 
     void PrintHex(GameObject baseShape, Vector3 position, int x, int z)
     {
+        
         GameObject hex_go = (GameObject)Instantiate(hexPrefab, position, Quaternion.identity);
+        hex_go.transform.rotation = Quaternion.Euler(0, -90, 0);
         hex_go.name = "Hex_" + x + "_" + z;
         hex_go.transform.SetParent(this.transform);
         hex_go.isStatic = true;
