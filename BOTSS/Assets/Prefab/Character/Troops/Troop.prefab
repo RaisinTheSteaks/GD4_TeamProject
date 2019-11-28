@@ -1928,6 +1928,7 @@ GameObject:
   - component: {fileID: 5825871208889530921}
   - component: {fileID: 5825871208889530920}
   - component: {fileID: 5825871208889530923}
+  - component: {fileID: -8284027845591430466}
   m_Layer: 0
   m_Name: Troop
   m_TagString: Untagged
@@ -1942,7 +1943,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2591905051317712722}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: 5.69, y: -4.3, z: -3.17}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
@@ -2073,6 +2074,18 @@ MonoBehaviour:
   attack: 30
   classID: 0
   alliance: 0
+--- !u!114 &-8284027845591430466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2591905051317712722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ed47679749526549821e82c60bede46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2627977511773139514
 GameObject:
   m_ObjectHideFlags: 0
