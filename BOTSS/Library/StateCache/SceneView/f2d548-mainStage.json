@@ -1,5 +1,10 @@
 <<<<<<< HEAD
 ﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":true,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":true,"pivot":{"x":-18.915599822998048,"y":200.1022491455078,"z":-249.3626251220703},"rotation":{"x":0.0,"y":0.0,"z":0.0,"w":1.0},"size":614.8057250976563,"orthographic":true}
 =======
+<<<<<<< HEAD
 ﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":true,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":false,"pivot":{"x":5.871065139770508,"y":-6.56413459777832,"z":5.3332719802856449},"rotation":{"x":-0.20873679220676423,"y":-0.5883610248565674,"z":0.16047045588493348,"w":-0.7646971344947815},"size":21.9554500579834,"orthographic":false}
 >>>>>>> TurnBasedGameplay
+=======
+﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":false,"audioPlay":false,"sceneViewState":{"showFog":false,"showMaterialUpdate":false,"showSkybox":false,"showFlares":false,"showImageEffects":false,"showParticleSystems":false},"in2DMode":false,"pivot":{"x":0.568029522895813,"y":0.4587254524230957,"z":4.21225643157959},"rotation":{"x":0.29903164505958559,"y":-0.035773277282714847,"z":0.011218941770493985,"w":0.953506588935852},"size":5.136297702789307,"orthographic":false}
+>>>>>>> 8ecbd1cac7bdab7fc83426ba6d38d244e56b05f8
+>>>>>>> 92ced910a526b33a79a4189735c70a7c0d4626ad

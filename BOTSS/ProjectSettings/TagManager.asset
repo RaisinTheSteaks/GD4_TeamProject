@@ -4,8 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< HEAD
   - Normal Hex
   - Cube
+=======
+  - Map
+>>>>>>> 92ced910a526b33a79a4189735c70a7c0d4626ad
   layers:
   - Default
   - TransparentFX
