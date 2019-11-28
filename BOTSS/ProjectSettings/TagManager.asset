@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Normal Hex
+  - Cube
   layers:
   - Default
   - TransparentFX
