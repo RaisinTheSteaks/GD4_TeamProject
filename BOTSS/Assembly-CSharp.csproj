@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\CharacterBase\CharacterStat.cs" />
     <Compile Include="Assets\Scripts\CharacterBase\ClassID.cs" />
     <Compile Include="Assets\Scripts\CharacterBase\PlayerID.cs" />
+    <Compile Include="Assets\Scripts\UI Scripts\ToggleAction.cs" />
     <None Include="Assets\ProCore\ProBuilder\readme.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/School/GD4 Team Project/BOTSS/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
