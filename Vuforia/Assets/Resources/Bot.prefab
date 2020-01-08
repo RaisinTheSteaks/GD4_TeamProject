@@ -2100,6 +2100,7 @@ GameObject:
   - component: {fileID: 7326950034814556776}
   - component: {fileID: 7326950034824410576}
   - component: {fileID: 4007836377123196219}
+  - component: {fileID: 6956144906709237833}
   - component: {fileID: 136020876879983764}
   - component: {fileID: 7326950034815043143}
   - component: {fileID: 7326950034815043141}
@@ -2163,6 +2164,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &6956144906709237833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7326950034815043144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2be00b61d7028284da3962e415b83d60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  isSelected: 0
+  rig: {fileID: 0}
+  playerNickname: {fileID: 0}
 --- !u!136 &136020876879983764
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2190,11 +2207,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  coalition: 
-  selected: 0
+  isSelected: 0
   rig: {fileID: 4007836377123196219}
   playerNickname: {fileID: 873913149235763201}
-  animator: {fileID: 0}
 --- !u!114 &7326950034815043141
 MonoBehaviour:
   m_ObjectHideFlags: 0

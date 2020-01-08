@@ -106,7 +106,7 @@ public class Menu : MonoBehaviourPunCallbacks
 
     public void OnStartGameButton()
     {
-        NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, "Game");
+        NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, "MasterScene");
     }
 
 

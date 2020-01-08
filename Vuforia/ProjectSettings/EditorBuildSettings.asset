@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/VuforiaDemoScenes/Menu.unity
     guid: 85a873a04550a8c458993748bb290e2d
   - enabled: 1
-    path: Assets/Scenes/VuforiaDemoScenes/Game.unity
-    guid: 0840170e87c9f3742a1eb6e43c98e28a
+    path: Assets/Scenes/MasterScene.unity
+    guid: 97bb54fe49bd092439b0e42ffabe868c
   m_configObjects: {}
