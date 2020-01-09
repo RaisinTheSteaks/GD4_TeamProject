@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/VuforiaDemoScenes/Menu.unity
-    guid: 85a873a04550a8c458993748bb290e2d
+    path: Assets/Scenes/ActionSelection/DummyMenu.unity
+    guid: 1fff421ad96ba9d4490927f1c0a7431c
   - enabled: 1
-    path: Assets/Scenes/MasterScene.unity
-    guid: 97bb54fe49bd092439b0e42ffabe868c
+    path: Assets/Scenes/ActionSelection/ActionSelectionScene.unity
+    guid: d68f3deb55c079d46a865cbcd4e922ba
   m_configObjects: {}
