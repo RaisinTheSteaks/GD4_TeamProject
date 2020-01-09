@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [HideInInspector]
     public int id;
     public Player photonPlayer;
+    public bool isMyTurn = false;
 
     [PunRPC]
     public void Initialize(Player player)
@@ -18,6 +19,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         transform.SetParent(GameManager.instance.imageTarget.transform);
         photonPlayer = player;
         id = player.ActorNumber;
+
+       GameManager.instance.players[id - 1] = this;
 
        foreach(Transform child in transform)
         {
@@ -29,12 +32,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-
+        transform.name = photonPlayer.NickName;
     }
 
     private void Update()
     {
-
+        
     }
 
    

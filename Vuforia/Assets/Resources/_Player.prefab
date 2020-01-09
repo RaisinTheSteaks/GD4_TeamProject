@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3508599053502881481}
   m_Layer: 0
   m_Name: _Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  isMyTurn: 0
 --- !u!114 &3508599053502881481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,7 +65,8 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 0
   OwnershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -82,6 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   isSelected: 0
+  playerScript: {fileID: 0}
   rig: {fileID: 0}
   playerNickname: {fileID: 0}
 --- !u!1001 &6311243023530143628
