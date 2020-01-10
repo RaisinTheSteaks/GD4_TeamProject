@@ -17,19 +17,19 @@ public class AssignButtonEvent : MonoBehaviour
     void Start()
     {
         allAssigned = false;
-        StartCoroutine(assignListener());
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        frame++;
+        assignListener();
         
     }
 
-    public IEnumerator assignListener()
+    public void assignListener()
     {
-        yield return new WaitUntil(() => frame >= 20);
+        
         if (!allAssigned)
         { //check if all button have been assigned or not
 
