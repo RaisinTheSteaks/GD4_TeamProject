@@ -6,6 +6,8 @@ using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
 
+
+
 public class BotController : MonoBehaviourPunCallbacks
 {
     [HideInInspector]
@@ -17,9 +19,13 @@ public class BotController : MonoBehaviourPunCallbacks
 
     [Header("Component")]
     public Rigidbody rig;
-    
-    public TextMeshProUGUI playerNickname;
 
+
+    [Header("Stat")]
+    public float health;
+    public float attackDamage;
+
+    private bool attackingMode;
  
     public void InitializeBot()
     {
@@ -40,7 +46,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        //debuging purposes, will delete later
+        attackingPhase();
         
     }
 
@@ -58,11 +64,47 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         //debugging for action windows, replace this with real move method
 
-        if (isSelected && playerScript.isMyTurn)
+        if (isSelected)
         {
-            print(transform.name + "attacking");
+            attackingMode = true;
+            print("attacking...");
         }
 
+    }
+
+    public void attackingPhase()
+    {
+        if(attackingMode)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, 100))
+                {
+                    print("bot detected..");
+                    if(hit.transform.parent != playerScript.transform)
+                    {
+                        print("not the same player");
+                        if(hit.transform.tag == "Bot")
+                        {
+                            print("its a bot");
+                            BotController target = hit.transform.gameObject.GetComponent<BotController>();
+                            damage(target);
+                            attackingMode = false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void damage(BotController target)
+    {
+
+        float rng = Random.Range(1, 21);
+        target.health -= attackDamage + rng;
+        print(target.health);
     }
 
     public void guard()

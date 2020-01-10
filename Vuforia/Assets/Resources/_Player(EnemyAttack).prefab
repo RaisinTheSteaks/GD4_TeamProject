@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7191764171420207871}
   - component: {fileID: 3508599053502881481}
   m_Layer: 0
-  m_Name: _Player
+  m_Name: _Player(EnemyAttack)
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +86,8 @@ MonoBehaviour:
   isSelected: 0
   playerScript: {fileID: 0}
   rig: {fileID: 0}
-  playerNickname: {fileID: 0}
+  health: 0
+  attackDamage: 0
 --- !u!1001 &6311243023530143628
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -97,7 +98,12 @@ PrefabInstance:
     - target: {fileID: 7326950034815043144, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
       propertyPath: m_Name
-      value: Bot 1
+      value: Troop
+      objectReference: {fileID: 0}
+    - target: {fileID: 7326950034815043144, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Bot
       objectReference: {fileID: 0}
     - target: {fileID: 7326950034814556776, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
@@ -162,7 +168,7 @@ PrefabInstance:
     - target: {fileID: 873913149235763201, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 873913149235763201, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
@@ -172,7 +178,7 @@ PrefabInstance:
     - target: {fileID: 873913149235763201, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 873913149235763201, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
@@ -183,6 +189,28 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 873913149235763201, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: m_text
+      value: 'Troop
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6956144906709237833, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: rig
+      value: 
+      objectReference: {fileID: 6919987416270643895}
+    - target: {fileID: 6956144906709237833, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: health
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 6956144906709237833, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: attackDamage
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7326950034815043143, guid: 70c4a2bd82118004991f262dba0b585d, type: 3}
@@ -199,6 +227,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6311243023530143628}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &6919987416270643895 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 4007836377123196219, guid: 70c4a2bd82118004991f262dba0b585d,
+    type: 3}
+  m_PrefabInstance: {fileID: 6311243023530143628}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8809864230308409589
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -209,7 +243,12 @@ PrefabInstance:
     - target: {fileID: 7326950034815043144, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
       propertyPath: m_Name
-      value: Bot 2
+      value: Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 7326950034815043144, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Bot
       objectReference: {fileID: 0}
     - target: {fileID: 7326950034814556776, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
@@ -274,7 +313,7 @@ PrefabInstance:
     - target: {fileID: 873913149235763201, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 873913149235763201, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
@@ -284,7 +323,7 @@ PrefabInstance:
     - target: {fileID: 873913149235763201, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 873913149235763201, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
@@ -296,12 +335,40 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 873913149235763201, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: m_text
+      value: 'Tank
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6956144906709237833, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: health
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 6956144906709237833, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: attackDamage
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6956144906709237833, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: rig
+      value: 
+      objectReference: {fileID: 5610461646718959054}
     m_RemovedComponents:
     - {fileID: 7326950034815043143, guid: 70c4a2bd82118004991f262dba0b585d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 70c4a2bd82118004991f262dba0b585d, type: 3}
 --- !u!4 &2300322273801513629 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7326950034814556776, guid: 70c4a2bd82118004991f262dba0b585d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8809864230308409589}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &5610461646718959054 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 4007836377123196219, guid: 70c4a2bd82118004991f262dba0b585d,
     type: 3}
   m_PrefabInstance: {fileID: 8809864230308409589}
   m_PrefabAsset: {fileID: 0}
