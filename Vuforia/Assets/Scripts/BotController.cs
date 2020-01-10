@@ -19,13 +19,18 @@ public class BotController : MonoBehaviourPunCallbacks
 
     [Header("Component")]
     public Rigidbody rig;
+    public TextMeshProUGUI healthNumberIndicator;
+    public GameObject healthBar;
+    private RectTransform healthBarRect;
+    public float maxWidth;
 
 
     [Header("Stat")]
+    public float maxHealth;
     public float health;
     public float attackDamage;
-
     private bool attackingMode;
+    private bool updatingHealth;
  
     public void InitializeBot()
     {
@@ -42,11 +47,16 @@ public class BotController : MonoBehaviourPunCallbacks
     private void Start()
     {
         playerScript = transform.parent.GetComponent<PlayerController>();
+        maxHealth = health;
+        healthNumberIndicator.text = ((int)health).ToString();
+        healthBarRect = healthBar.GetComponent<RectTransform>();
+        maxWidth = healthBarRect.rect.width;
     }
 
     private void Update()
     {
         attackingPhase();
+        updateHealth();
         
     }
 
@@ -104,8 +114,35 @@ public class BotController : MonoBehaviourPunCallbacks
 
         float rng = Random.Range(1, 21);
         target.health -= attackDamage + rng;
+        target.updatingHealth = true;
         print(target.health);
     }
+
+    public void updateHealth()
+    {
+        if(updatingHealth)
+        {
+            
+            healthNumberIndicator.text = ((int)health).ToString();
+            healthBarRect.sizeDelta = new Vector2(maxWidth * (health / maxHealth), healthBarRect.rect.height);
+            if(health/maxHealth <= 0.2)
+            {
+                healthBar.GetComponent<Image>().color = Color.red;
+            }else if(health/maxHealth <= 0.5)
+            {
+                healthBar.GetComponent<Image>().color = new Color(1, 0.5f, 0);
+            }
+
+            if (health <= 0)
+            {
+                transform.gameObject.SetActive(false);
+            }
+
+
+            updatingHealth = false;
+        }
+    }
+
 
     public void guard()
     {
