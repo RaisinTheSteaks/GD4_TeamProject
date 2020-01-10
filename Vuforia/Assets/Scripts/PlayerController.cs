@@ -32,7 +32,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        transform.name = photonPlayer.NickName;
+        if (photonPlayer == null)
+        {
+            Debug.Log("no networking");
+        }
+        else
+        {
+            transform.name = photonPlayer.NickName;
+        }
+        
+        
     }
 
     private void Update()

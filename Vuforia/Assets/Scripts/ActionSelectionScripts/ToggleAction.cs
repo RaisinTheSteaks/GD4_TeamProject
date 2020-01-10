@@ -8,8 +8,8 @@ public class ToggleAction : MonoBehaviour
     public GameObject gameObject;
     
     private RectTransform windowTransform;
-    private float minX;
-    private float maxX;
+    public float minX;
+    public float maxX;
     private Vector3 speed = new Vector3(15f,0,0);
     
     void Start()

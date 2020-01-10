@@ -11,21 +11,25 @@ public class AssignButtonEvent : MonoBehaviour
     public Button attackButton;
     public Button guardButton;
     public Button specialAbilitiesButton;
-    private bool allAssigned;
+    public bool allAssigned;
+    private int frame;
 
     void Start()
     {
         allAssigned = false;
+        StartCoroutine(assignListener());
     }
 
     // Update is called once per frame
     void Update()
     {
-        assignListener();
+        frame++;
+        
     }
 
-    public void assignListener()
+    public IEnumerator assignListener()
     {
+        yield return new WaitUntil(() => frame >= 20);
         if (!allAssigned)
         { //check if all button have been assigned or not
 
