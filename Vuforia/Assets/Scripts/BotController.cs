@@ -48,6 +48,7 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         playerScript = transform.parent.GetComponent<PlayerController>();
         maxHealth = health;
+        transform.name = playerScript.name + " " + transform.name;
         healthNumberIndicator.text = ((int)health).ToString();
         healthBarRect = healthBar.GetComponent<RectTransform>();
         maxWidth = healthBarRect.rect.width;
@@ -99,8 +100,8 @@ public class BotController : MonoBehaviourPunCallbacks
                         if(hit.transform.tag == "Bot")
                         {
                             print("its a bot");
-                            BotController target = hit.transform.gameObject.GetComponent<BotController>();
-                            damage(target);
+                            float rng = Random.Range(1, 21);
+                            photonView.RPC("damage", RpcTarget.All, hit.transform.name, rng);
                             attackingMode = false;
                         }
                     }
@@ -109,11 +110,13 @@ public class BotController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void damage(BotController target)
+    [PunRPC]
+    public void damage(string botName, float bonusDamage)
     {
-
-        float rng = Random.Range(1, 21);
-        target.health -= attackDamage + rng;
+        GameObject bot = GameObject.Find(botName);
+        BotController target = bot.GetComponent<BotController>();
+        
+        target.health -= attackDamage + bonusDamage;
         target.updatingHealth = true;
         print(target.health);
     }
