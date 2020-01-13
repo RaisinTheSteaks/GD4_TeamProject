@@ -1040,7 +1040,7 @@ PrefabInstance:
     - target: {fileID: 5033012552571896892, guid: bddcefe9ebf7dba47b2ae9fbdd104e0f,
         type: 3}
       propertyPath: showWindow
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5033012553891977070, guid: bddcefe9ebf7dba47b2ae9fbdd104e0f,
         type: 3}

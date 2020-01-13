@@ -13,6 +13,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
     [Header("Info")]
     public bool isSelected = false;
+    public PlayerController playerScript;
 
     [Header("Component")]
     public Rigidbody rig;
@@ -34,14 +35,58 @@ public class BotController : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-       
+        playerScript = transform.parent.GetComponent<PlayerController>();
     }
 
     private void Update()
     {
+        //debuging purposes, will delete later
         
     }
 
-  
+    public void move()
+    {
+        //debugging for action windows, replace this with real move method
+        if(isSelected && playerScript.isMyTurn)
+        {
+            print(transform.name + "moving");
+        }
+        
+    }
+
+    public void attack()
+    {
+        //debugging for action windows, replace this with real move method
+
+        if (isSelected && playerScript.isMyTurn)
+        {
+            print(transform.name + "attacking");
+        }
+
+    }
+
+    public void guard()
+    {
+        //debugging for action windows, replace this with real move method
+
+        if (isSelected && playerScript.isMyTurn)
+        {
+            print(transform.name + "guarding");
+        }
+
+    }
+
+    public void abilities()
+    {
+        //debugging for action windows, replace this with real move method
+
+        if (isSelected && playerScript.isMyTurn)
+        {
+            print(transform.name + "using abilities");
+        }
+
+    }
+
+
 
 }

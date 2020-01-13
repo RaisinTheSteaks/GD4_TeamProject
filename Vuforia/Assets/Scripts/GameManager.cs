@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         players = new PlayerController[PhotonNetwork.PlayerList.Length];
         bots = new BotController[players.Length * 2];
         photonView.RPC("ImInGame", RpcTarget.AllBuffered);
+        
     }
 
     private void Update()
@@ -82,7 +83,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         PlayerController playerScript = playerObject.GetComponent<PlayerController>();
         playerScript.photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
 
-     
+
+        players[0].isMyTurn = true;
 
 
     }
@@ -97,4 +99,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         return players.First(x => x.gameObject == playerObj);
     }
+
+    public PlayerController GetPlayer(string nickname)
+    {
+        return players.First(x => x.transform.name == nickname);
+    }
+
+   
 }
