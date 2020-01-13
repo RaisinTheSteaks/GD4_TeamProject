@@ -32,21 +32,24 @@ public class AssignButtonEvent : MonoBehaviour
         
         if (!allAssigned)
         { //check if all button have been assigned or not
-
-            PlayerController player = GameManager.instance.GetPlayer(PhotonNetwork.NickName);
-            if (player)
+            if(GameManager.instance.players.Length > 0)
             {
-                // assign all action buttons after the player exist in the game
-                foreach (Transform child in player.transform)
+                PlayerController player = GameManager.instance.GetPlayer(PhotonNetwork.NickName);
+                if (player)
                 {
-                    BotController botScript = child.GetComponent<BotController>();
-                    moveButton.onClick.AddListener(delegate { botScript.move(); });
-                    attackButton.onClick.AddListener(delegate { botScript.attack(); });
-                    guardButton.onClick.AddListener(delegate { botScript.guard(); });
-                    specialAbilitiesButton.onClick.AddListener(delegate { botScript.abilities(); });
-                }
+                    // assign all action buttons after the player exist in the game
+                    foreach (Transform child in player.transform)
+                    {
+                        BotController botScript = child.GetComponent<BotController>();
+                        moveButton.onClick.AddListener(delegate { botScript.move(); });
+                        attackButton.onClick.AddListener(delegate { botScript.attack(); });
+                        guardButton.onClick.AddListener(delegate { botScript.guard(); });
+                        specialAbilitiesButton.onClick.AddListener(delegate { botScript.abilities(); });
+                    }
 
-                 allAssigned = true;
+                    allAssigned = true;
+                }
+            
             }
 
 
