@@ -27,6 +27,9 @@ public class HexGrid : MonoBehaviour
     public Text cellLabelPrefab;
     Canvas gridCanvas;
 
+    public Color defaultColor = Color.white;
+    public Color touchedColor = Color.magenta;
+
     //Awake is used to generate each individual tile in the level
     void Awake()
     {
@@ -59,6 +62,8 @@ public class HexGrid : MonoBehaviour
         cell.transform.localPosition = position;
         cell.name="HexCell_"+x+"_"+z;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
+        cell.GetComponentInChildren<MeshRenderer>().material.color = defaultColor;
+
 
         Text label = Instantiate<Text>(cellLabelPrefab);
         label.rectTransform.SetParent(gridCanvas.transform, false);
@@ -85,8 +90,23 @@ public class HexGrid : MonoBehaviour
 
     void TouchCell(Vector3 position)
     {
+        /*
+         Known issue with the touching cells.
+         As the grid gets wider/ further from origin, rounding errors in
+            from position start to crop up more and they aren't being adjusted.
+            There is a correlation between the radius set down in the 
+                HexMetrics.cs and the rounding error
+            I suspect that there is some incongruity between the hex metrics and
+                the size of the mesh being used thats causing the issue. 
+            -Josh 12-01-20
+
+         */
+
         position = transform.InverseTransformPoint(position);
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
+        int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
+        HexCell cell = cells[index];
+        cell.GetComponentInChildren<MeshRenderer>().material.color = touchedColor;
         Debug.Log("touched at: " + coordinates);
     }
 
