@@ -70,6 +70,31 @@ public class HexGrid : MonoBehaviour
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
         label.text = cell.coordinates.ToStringOnSeparateLines();
 
+        //Setting the directions of the neighboring cells
+        if (x > 0)
+        {
+            cell.SetNeighbor(HexDirection.W, cells[i - 1]);
+        }
+        if (z > 0)
+        {
+            if ((z & 1) == 0)
+            {
+                cell.SetNeighbor(HexDirection.SE, cells[i - width]);
+                if (x > 0)
+                {
+                    cell.SetNeighbor(HexDirection.SW, cells[i - width - 1]);
+                }
+            }
+            else
+            {
+                cell.SetNeighbor(HexDirection.SW, cells[i - width]);
+                if (x > 0)
+                {
+                    cell.SetNeighbor(HexDirection.SE, cells[i - width - 1]);
+                }
+            }
+        }
+
     }
 
     void Update()
@@ -91,15 +116,15 @@ public class HexGrid : MonoBehaviour
     void TouchCell(Vector3 position)
     {
         /*
-         Known issue with the touching cells.
-         As the grid gets wider/ further from origin, rounding errors in
-            from position start to crop up more and they aren't being adjusted.
-            There is a correlation between the radius set down in the 
-                HexMetrics.cs and the rounding error
-            I suspect that there is some incongruity between the hex metrics and
-                the size of the mesh being used thats causing the issue. 
-            -Josh 12-01-20
-
+         *Known issue with the touching cells.
+         *As the grid gets wider/ further from origin, rounding errors in
+         *   from position start to crop up more and they aren't being adjusted.
+         *   There is a correlation between the radius set down in the 
+         *       HexMetrics.cs and the rounding error
+         *   I suspect that there is some incongruity between the hex metrics and
+         *       the size of the mesh being used thats causing the issue. 
+         *   -Josh 12-01-20
+         *
          */
 
         position = transform.InverseTransformPoint(position);

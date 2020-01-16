@@ -147,7 +147,7 @@ Camera:
   m_GameObject: {fileID: 732264111}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
@@ -225,12 +225,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 6
   height: 6
-  xOffset: 0.9
-  zOffset: 0.9
+  xOffset: 1
+  zOffset: 1
   cellPrefab: {fileID: 731278323277106583, guid: 8a4d96e433a03274ea008fbca97d11a6,
     type: 3}
   cellLabelPrefab: {fileID: 826624572803633606, guid: 8847c82ce9aa5b1418745c87e9e1253e,
     type: 3}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  touchedColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!4 &774264234
 Transform:
   m_ObjectHideFlags: 0
