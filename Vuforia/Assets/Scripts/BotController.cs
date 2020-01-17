@@ -23,7 +23,9 @@ public class BotController : MonoBehaviourPunCallbacks
     public GameObject healthBar;
     private RectTransform healthBarRect;
     public float maxWidth;
-
+    public AudioClip attackSound;
+    public AudioSource audioSource;
+    public AudioClip deathSound;
 
     [Header("Stat")]
     public float maxHealth;
@@ -52,6 +54,7 @@ public class BotController : MonoBehaviourPunCallbacks
         healthNumberIndicator.text = ((int)health).ToString();
         healthBarRect = healthBar.GetComponent<RectTransform>();
         maxWidth = healthBarRect.rect.width;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -101,7 +104,9 @@ public class BotController : MonoBehaviourPunCallbacks
                         {
                             print("its a bot");
                             float rng = Random.Range(1, 21);
-                            photonView.RPC("damage", RpcTarget.All, hit.transform.name, rng);
+                            photonView.RPC("attackAudio", RpcTarget.All, transform.name);
+                            photonView.RPC("startDamage", RpcTarget.All, hit.transform.name, rng);
+                            
                             attackingMode = false;
                         }
                     }
@@ -111,14 +116,37 @@ public class BotController : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void damage(string botName, float bonusDamage)
+    public void startDamage(string botName, float bonusDamage)
+    {
+        StartCoroutine(damage(botName, bonusDamage));
+    }
+
+    public IEnumerator damage(string botName, float bonusDamage)
+    {
+        yield return new WaitForSeconds(0.5f);
+        GameObject bot = GameObject.Find(botName);
+        BotController target = bot.GetComponent<BotController>();
+        target.health -= attackDamage + bonusDamage;
+        target.updatingHealth = true;
+  
+        print(target.health);
+
+    }
+
+    [PunRPC]
+    public void attackAudio(string botName)
     {
         GameObject bot = GameObject.Find(botName);
         BotController target = bot.GetComponent<BotController>();
-        
-        target.health -= attackDamage + bonusDamage;
-        target.updatingHealth = true;
-        print(target.health);
+        target.audioSource.PlayOneShot(target.attackSound);
+    }
+
+    [PunRPC]
+    public void deathAudio(string botName)
+    {
+        GameObject bot = GameObject.Find(botName);
+        BotController target = bot.GetComponent<BotController>();
+        target.audioSource.PlayOneShot(target.deathSound);
     }
 
     public void updateHealth()
@@ -138,12 +166,21 @@ public class BotController : MonoBehaviourPunCallbacks
 
             if (health <= 0)
             {
-                transform.gameObject.SetActive(false);
+                health = 0;
+                StartCoroutine(destroyBot());
+
             }
 
 
             updatingHealth = false;
         }
+    }
+
+    public IEnumerator destroyBot()
+    {
+        photonView.RPC("deathAudio", RpcTarget.All, transform.name);
+        yield return new WaitForSeconds(0.3f);
+        transform.gameObject.SetActive(false);
     }
 
 

@@ -2,8 +2,8 @@ Android
 PlayerPath?
 C:/School/AR/Vuforia2018Test/Output/Vuforia2018Test.apk
 SceneListBegin?
-Assets/Scenes/ActionSelection/DummyMenu.unity
-Assets/Scenes/ActionSelection/ActionSelectionScene.unity
+Assets/Scenes/Menu.unity
+Assets/Scenes/EnemyAttack/EnemyAttackScene.unity
 SceneListEnd?
 71bb6a6b6c8f052f948db64c7dd3ca4f PhotonUnityNetworking.Utilities.dll:Photon.Pun.UtilityScripts.PunTeams
 71bb6a6b6c8f052f948db64c7dd3ca4f VuforiaScripts.dll:.BoundingBoxRenderer
@@ -27,7 +27,7 @@ ee1dba1a186ac062d564e9eb73a1c56f PhotonUnityNetworking.Utilities.dll:Photon.Pun.
 3ba023cd67d72cace33969ab863e0fd4 PhotonUnityNetworking.Utilities.dll:Photon.Pun.UtilityScripts.PhotonStatsGui
 e7a73f5f78ba6445195ec23b74a1ce2d Unity.TextMeshPro.dll:TMPro.TMP_ScrollbarEventHandler
 2b1d1de79e4d31f1861f586502176c81 PhotonUnityNetworking.dll:Photon.Pun.PhotonAnimatorView
-5fed95fc13ac0c85064282dfcb2d3ce8 GameAssembly.dll:.BotController
+b2b56a62cbcf538f637dedd886ef7187 GameAssembly.dll:.BotController
 3f7e68da71e9dc936db9d09704a6945b GameAssembly.dll:.SelectingTarget
 ee1dba1a186ac062d564e9eb73a1c56f PhotonUnityNetworking.Utilities.dll:Photon.Pun.UtilityScripts.TextToggleIsOnTransition
 71bb6a6b6c8f052f948db64c7dd3ca4f PhotonUnityNetworking.Utilities.dll:Photon.Pun.UtilityScripts.ButtonInsideScrollList
