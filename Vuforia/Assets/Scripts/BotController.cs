@@ -18,7 +18,7 @@ public class BotController : MonoBehaviourPunCallbacks
     [Header("Component")]
     public Rigidbody rig;
     
-    public TextMeshProUGUI playerNickname;
+    public TextMeshProUGUI SelectedStatus;
 
  
     public void InitializeBot()
@@ -41,7 +41,7 @@ public class BotController : MonoBehaviourPunCallbacks
     private void Update()
     {
         //debuging purposes, will delete later
-        
+        SelectedText();
     }
 
     public void move()
@@ -87,6 +87,13 @@ public class BotController : MonoBehaviourPunCallbacks
 
     }
 
+    private void SelectedText()
+    {
+        if (isSelected)
+            SelectedStatus.text = "Selected";
+        else if (isSelected == false)
+            SelectedStatus.text = "Not Selected";
+    }
 
 
 }
