@@ -19,6 +19,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
     [Header("Component")]
     public Rigidbody rig;
+
     public TextMeshProUGUI healthNumberIndicator;
     public GameObject healthBar;
     private RectTransform healthBarRect;
@@ -33,6 +34,11 @@ public class BotController : MonoBehaviourPunCallbacks
     public float attackDamage;
     private bool attackingMode;
     private bool updatingHealth;
+
+    
+    public TextMeshProUGUI SelectedStatus;
+
+
  
     public void InitializeBot()
     {
@@ -59,9 +65,13 @@ public class BotController : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+
         attackingPhase();
         updateHealth();
         
+
+        //debuging purposes, will delete later
+        SelectedText();
     }
 
     public void move()
@@ -206,6 +216,13 @@ public class BotController : MonoBehaviourPunCallbacks
 
     }
 
+    private void SelectedText()
+    {
+        if (isSelected)
+            SelectedStatus.text = "Selected";
+        else if (isSelected == false)
+            SelectedStatus.text = "Not Selected";
+    }
 
 
 }

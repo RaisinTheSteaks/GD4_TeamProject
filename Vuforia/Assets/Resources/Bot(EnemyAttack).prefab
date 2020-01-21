@@ -107,7 +107,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: 0.00000001397}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.4, y: 0.0795}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4201507318153670450
@@ -2336,7 +2336,9 @@ GameObject:
   - component: {fileID: 5505762049933800047}
   - component: {fileID: 82359548268176138}
   m_Layer: 0
-  m_Name: Bot(EnemyAttack)
+
+  m_Name: Bot
+
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2415,6 +2417,9 @@ MonoBehaviour:
   maxHealth: 0
   health: 0
   attackDamage: 0
+
+  SelectedStatus: {fileID: 873913149235763201}
+
 --- !u!136 &136020876879983764
 CapsuleCollider:
   m_ObjectHideFlags: 0
