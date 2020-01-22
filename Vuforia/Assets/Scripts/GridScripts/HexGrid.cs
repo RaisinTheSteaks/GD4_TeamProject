@@ -109,6 +109,7 @@ public class HexGrid : MonoBehaviour
     {
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+        //Debug.DrawRay(inputRay.origin, inputRay.direction,Color.red);
         if (Physics.Raycast(inputRay, out hit))
             TouchCell(hit.point);
     }
