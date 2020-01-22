@@ -3,7 +3,7 @@ PlayerPath?
 D:/GD4SelectionBranch/GD4_TeamProject/Vuforia/Builds/TurnBased2.apk
 SceneListBegin?
 Assets/Scenes/Menu.unity
-Assets/Scenes/Duplicate.unity
+Assets/Scenes/TurnBased/Duplicate.unity
 Assets/Scenes/MasterScene.unity
 SceneListEnd?
 71bb6a6b6c8f052f948db64c7dd3ca4f PhotonUnityNetworking.Utilities.dll:Photon.Pun.UtilityScripts.PunTeams

@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: bf9dec2440379374cb012f956fd991f9
   - enabled: 1
-    path: Assets/Scenes/Duplicate.unity
+    path: Assets/Scenes/TurnBased/Duplicate.unity
     guid: ca0c3b389cecb8d4881c9edd9feefbc3
   - enabled: 1
     path: Assets/Scenes/MasterScene.unity

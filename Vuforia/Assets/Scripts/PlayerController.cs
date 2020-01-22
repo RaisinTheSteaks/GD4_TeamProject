@@ -19,8 +19,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
         transform.SetParent(GameManager.instance.imageTarget.transform);
         photonPlayer = player;
         id = player.ActorNumber;
-
         GameManager.instance.players[id - 1] = this;
+
+
         if (id == 1)
             GameManager.instance.ChangeActivePlayer(id, true); //if the player is the first in the list, then the game starts with them being the active player
 
@@ -42,8 +43,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             transform.name = photonPlayer.NickName;
         }
-
-
     }
 
     private void Update()
@@ -89,8 +88,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public void onEndTurnButton()
     {
+        //Game Manager is being called as an RPC function, 
         GameManager.instance.photonView.RPC("ChangeActivePlayer", RpcTarget.All, id, false);
     }
+
 
     public void setActive(bool isActive)
     {
