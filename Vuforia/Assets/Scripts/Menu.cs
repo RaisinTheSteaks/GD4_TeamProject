@@ -12,6 +12,7 @@ public class Menu : MonoBehaviourPunCallbacks
     [Header("Screens")]
     public GameObject mainScreen;
     public GameObject lobbyScreen;
+    public string sceneName;
 
     [Header("Main Screen")]
     public Button createRoomButton;
@@ -106,7 +107,7 @@ public class Menu : MonoBehaviourPunCallbacks
 
     public void OnStartGameButton()
     {
-        NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, "Game");
+        NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, sceneName);
     }
 
 
