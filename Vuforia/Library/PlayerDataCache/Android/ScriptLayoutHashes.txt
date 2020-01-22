@@ -1,9 +1,9 @@
 Android
 PlayerPath?
-D:/GD4SelectionBranch/GD4_TeamProject/Vuforia/Builds/SelectionBuild.apk
+C:/School/Year 4/Vuforia.apk
 SceneListBegin?
-Assets/Scenes/Menu.unity
-Assets/Scenes/MasterScene.unity
+Assets/Scenes/EnemyAttack/EnemyAttackMenu.unity
+Assets/Scenes/EnemyAttack/EnemyAttackScene.unity
 SceneListEnd?
 71bb6a6b6c8f052f948db64c7dd3ca4f PhotonUnityNetworking.Utilities.dll:Photon.Pun.UtilityScripts.PunTeams
 71bb6a6b6c8f052f948db64c7dd3ca4f VuforiaScripts.dll:.BoundingBoxRenderer
@@ -27,7 +27,7 @@ ee1dba1a186ac062d564e9eb73a1c56f PhotonUnityNetworking.Utilities.dll:Photon.Pun.
 3ba023cd67d72cace33969ab863e0fd4 PhotonUnityNetworking.Utilities.dll:Photon.Pun.UtilityScripts.PhotonStatsGui
 e7a73f5f78ba6445195ec23b74a1ce2d Unity.TextMeshPro.dll:TMPro.TMP_ScrollbarEventHandler
 2b1d1de79e4d31f1861f586502176c81 PhotonUnityNetworking.dll:Photon.Pun.PhotonAnimatorView
-c72693b782c8f844d6b918e5ae10a2a2 GameAssembly.dll:.BotController
+b440920205d0e3fb49ab8dc2da1d5ff8 GameAssembly.dll:.BotController
 3f7e68da71e9dc936db9d09704a6945b GameAssembly.dll:.SelectingTarget
 ee1dba1a186ac062d564e9eb73a1c56f PhotonUnityNetworking.Utilities.dll:Photon.Pun.UtilityScripts.TextToggleIsOnTransition
 71bb6a6b6c8f052f948db64c7dd3ca4f PhotonUnityNetworking.Utilities.dll:Photon.Pun.UtilityScripts.ButtonInsideScrollList
@@ -232,7 +232,7 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 9b895dcabbc1faf095c000c32d471fd0 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 5887ef1bc706b22b773d253fd443ceef UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 4ce15e99c635d2567873d27549d1f16f PhotonUnityNetworking.Utilities.dll:Photon.Pun.UtilityScripts.PointedAtGameObjectInfo
-451337f112a0b94b816fc2fe1b5f7e2c GameAssembly.dll:.Menu
+e85069d574971ddd1f60432b0fc51d83 GameAssembly.dll:.Menu
 71bb6a6b6c8f052f948db64c7dd3ca4f VuforiaScripts.dll:.DefaultTrackableEventHandler
 35a9693c388776aaf487636491a20f11 Unity.TextMeshPro.dll:TMPro.TMP_FontAsset
 e1300922cc039f41ab46a47f4cb05898 Unity.TextMeshPro.dll:TMPro.TMP_Settings

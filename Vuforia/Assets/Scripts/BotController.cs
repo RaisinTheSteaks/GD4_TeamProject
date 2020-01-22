@@ -114,6 +114,7 @@ public class BotController : MonoBehaviourPunCallbacks
                         {
                             print("its a bot");
                             float rng = Random.Range(1, 21);
+                            StartCoroutine(animation("IsShooting"));
                             photonView.RPC("attackAudio", RpcTarget.All, transform.name);
                             photonView.RPC("startDamage", RpcTarget.All, hit.transform.name, rng);
                             
@@ -123,6 +124,15 @@ public class BotController : MonoBehaviourPunCallbacks
                 }
             }
         }
+    }
+
+    public IEnumerator animation(string boolName)
+    {
+        GetComponent<Animator>().SetBool(boolName, true);
+        yield return new WaitForSeconds(1.12f);
+        GetComponent<Animator>().SetBool(boolName, false);
+
+
     }
 
     [PunRPC]

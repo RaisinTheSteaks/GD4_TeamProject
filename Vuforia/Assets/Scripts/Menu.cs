@@ -17,17 +17,23 @@ public class Menu : MonoBehaviourPunCallbacks
     [Header("Main Screen")]
     public Button createRoomButton;
     public Button joinRoomButton;
+    public TextMeshProUGUI roomListText;
+ 
 
     [Header("Lobby Screen")]
     public TextMeshProUGUI playerListText;
     public Button startGameButton;
     public TextMeshProUGUI roomNameText;
 
+
     private void Start()
     {
         createRoomButton.interactable = false;
         joinRoomButton.interactable = false;
+        
     }
+
+    
 
     public override void OnConnectedToMaster()
     {
@@ -97,6 +103,7 @@ public class Menu : MonoBehaviourPunCallbacks
         else
             startGameButton.interactable = false;
 
+        roomListText.text = PhotonNetwork.CloudRegion;
     }
 
     public void OnLeaveLobbyButton()
