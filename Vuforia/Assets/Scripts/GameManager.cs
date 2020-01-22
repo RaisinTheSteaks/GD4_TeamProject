@@ -83,9 +83,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         PlayerController playerScript = playerObject.GetComponent<PlayerController>();
         playerScript.photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
 
-
-        players[0].isMyTurn = true;
-
+        players[0].Turn = true;
 
     }
 
@@ -105,5 +103,42 @@ public class GameManager : MonoBehaviourPunCallbacks
         return players.First(x => x.transform.name == nickname);
     }
 
-   
+    [PunRPC]
+    public void ChangeActivePlayer(int playerId, bool initialActive)
+    {
+        //if this is the first time the active player is being decided then the first player in the players list becomes active
+        if (initialActive)
+        {
+            GetPlayer(playerId).setActive(true);
+            foreach (PlayerController player in players)
+            {
+                if (player.id != playerId)
+                    player.setActive(false);
+                else
+                    player.setActive(true);
+            }
+        }
+
+        else if (!initialActive)
+        {
+            foreach (PlayerController player in players)
+            {
+                if (player.id == playerId)
+                    player.setActive(true);
+                else
+                    player.setActive(false);
+            }
+        }
+
+        //if this isn't the first time the active player is being decided, then set the active player to false.
+        //if (!initialActive)
+        //GetPlayer(activePlayer).setActive(false);
+
+        // give the hat to the new player
+        //activePlayer = playerId;
+        //GetPlayer(playerId).setActive(true);
+
+
+    }
+
 }

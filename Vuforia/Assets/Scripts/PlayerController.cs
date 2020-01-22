@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [HideInInspector]
     public int id;
     public Player photonPlayer;
-    public bool isMyTurn = false;
+    public bool Turn;
 
     [PunRPC]
     public void Initialize(Player player)
@@ -20,9 +20,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         photonPlayer = player;
         id = player.ActorNumber;
 
-       GameManager.instance.players[id - 1] = this;
+        GameManager.instance.players[id - 1] = this;
+        if (id == 1)
+            GameManager.instance.ChangeActivePlayer(id, true); //if the player is the first in the list, then the game starts with them being the active player
 
-       foreach(Transform child in transform)
+        foreach (Transform child in transform)
         {
             BotController botScript = child.GetComponent<BotController>();
             botScript.InitializeBot();
@@ -40,13 +42,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             transform.name = photonPlayer.NickName;
         }
-        
-        
+
+
     }
 
     private void Update()
     {
-        SelectCharacter();
+        if (Turn)
+        {
+            SelectCharacter();
+        }
     }
 
 
@@ -82,6 +87,20 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
+    public void onEndTurnButton()
+    {
+        GameManager.instance.photonView.RPC("ChangeActivePlayer", RpcTarget.All, id, false);
+    }
 
+    public void setActive(bool isActive)
+    {
+        Turn = isActive;
+        foreach (Transform child in transform)
+        {
+            BotController botScript = child.GetComponent<BotController>();
+            if(!Turn)
+            botScript.SelectedStatus.SetText(Turn.ToString());
+        }
 
+    }
 }
