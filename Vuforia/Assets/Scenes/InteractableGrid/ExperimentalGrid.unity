@@ -227,9 +227,9 @@ MonoBehaviour:
   height: 6
   xOffset: 1
   zOffset: 1
-  cellPrefab: {fileID: 731278323277106583, guid: 8a4d96e433a03274ea008fbca97d11a6,
+  cellPrefab: {fileID: 731278323277106583, guid: 11394786101796b46b74a40975104c67,
     type: 3}
-  cellLabelPrefab: {fileID: 826624572803633606, guid: 8847c82ce9aa5b1418745c87e9e1253e,
+  cellLabelPrefab: {fileID: 826624572803633606, guid: 95d6d773f086f1d4b86deaa85e39e0a2,
     type: 3}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   touchedColor: {r: 1, g: 0, b: 1, a: 1}
