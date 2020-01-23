@@ -22,8 +22,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
         GameManager.instance.players[id - 1] = this;
 
 
-        if (id == 1)
-            GameManager.instance.ChangeActivePlayer(id, true); //if the player is the first in the list, then the game starts with them being the active player
+        if (player.IsMasterClient)
+            Turn = true; //if the player is the first in the list, then the game starts with them being the active player
+        else
+            Turn = false;
 
         foreach (Transform child in transform)
         {
@@ -89,11 +91,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public void onEndTurnButton()
     {
         //Game Manager is being called as an RPC function, 
-        GameManager.instance.photonView.RPC("ChangeActivePlayer", RpcTarget.All, id, false);
+        GameManager.instance.photonView.RPC("ChangeActivePlayer", RpcTarget.All);
     }
 
 
-    public void setActive(bool isActive)
+    public void setTurn(bool isActive)
     {
         Turn = isActive;
         foreach (Transform child in transform)

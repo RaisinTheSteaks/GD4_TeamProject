@@ -101,27 +101,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void ChangeActivePlayer(int playerId, bool initialActive)
+    public void ChangeActivePlayer()
     {
-        //if this is the first time the active player is being decided then the first player in the players list becomes active
-        if (initialActive)
+        foreach (PlayerController player in players)
         {
-            GetPlayer(playerId).setActive(true);
-            foreach (PlayerController player in players)
-            {
-                if (player.id != playerId)
-                    player.setActive(false);
-            }
-        }
-        else if (!initialActive)
-        {
-            foreach (PlayerController player in players)
-            {
-                if (player.id != playerId)
-                    player.setActive(true);
-                else
-                    player.setActive(false);
-            }
+          player.Turn = !player.Turn;
+          player.setTurn(player.Turn);
         }
     }
 }
