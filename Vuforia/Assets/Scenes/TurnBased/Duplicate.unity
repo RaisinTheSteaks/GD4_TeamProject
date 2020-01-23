@@ -890,7 +890,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7191764171420207871, guid: 8fd2ecee7eb32a446bcb56b0f34a4dfb,
           type: 3}
-        m_MethodName: onEndTurnButton
+        m_MethodName: OnEndTurnButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

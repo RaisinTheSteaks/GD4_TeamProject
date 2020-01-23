@@ -42,6 +42,7 @@ public class BotController : MonoBehaviourPunCallbacks
     private void Update()
     {
         //debuging purposes, will delete later
+        if (playerScript.Turn)
         SelectedText();
     }
 

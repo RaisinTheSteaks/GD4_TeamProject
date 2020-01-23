@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public int id;
     public Player photonPlayer;
     public bool Turn;
+    private Button EndTurnButton;
+
 
     [PunRPC]
     public void Initialize(Player player)
@@ -23,16 +25,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
 
         if (player.IsMasterClient)
-            Turn = true; //if the player is the first in the list, then the game starts with them being the active player
+            setTurn(true); //if the player is the first in the list, then the game starts with them being the active player
         else
-            Turn = false;
+             setTurn(false);
 
         foreach (Transform child in transform)
         {
             BotController botScript = child.GetComponent<BotController>();
             botScript.InitializeBot();
         }
-
+        EndTurnButton = GetComponent<Button>();
     }
 
     private void Start()
@@ -45,10 +47,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             transform.name = photonPlayer.NickName;
         }
+
+        EndTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
     }
 
     private void Update()
     {
+        checkTurn();
         if (Turn)
         {
             SelectCharacter();
@@ -88,12 +93,19 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void onEndTurnButton()
+
+    public void checkTurn()
     {
-        //Game Manager is being called as an RPC function, 
-        GameManager.instance.photonView.RPC("ChangeActivePlayer", RpcTarget.All);
+        if (this.Turn)
+            EndTurnButton.interactable = true;
+        else
+            EndTurnButton.interactable = false;
     }
 
+    public void OnEndTurnButton()
+    {
+            GameManager.instance.photonView.RPC("ChangeActivePlayer", RpcTarget.AllBuffered);
+    }
 
     public void setTurn(bool isActive)
     {
@@ -104,6 +116,5 @@ public class PlayerController : MonoBehaviourPunCallbacks
             if(!Turn)
             botScript.SelectedStatus.SetText(Turn.ToString());
         }
-
     }
 }
