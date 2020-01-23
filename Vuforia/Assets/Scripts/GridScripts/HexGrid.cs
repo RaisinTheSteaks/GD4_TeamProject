@@ -62,8 +62,7 @@ public class HexGrid : MonoBehaviour
         cell.transform.localPosition = position;
         cell.name="HexCell_"+x+"_"+z;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-        cell.GetComponentInChildren<MeshRenderer>().material.color = defaultColor;
-
+        
 
         Text label = Instantiate<Text>(cellLabelPrefab);
         label.rectTransform.SetParent(gridCanvas.transform, false);
@@ -111,7 +110,9 @@ public class HexGrid : MonoBehaviour
         RaycastHit hit;
         //Debug.DrawRay(inputRay.origin, inputRay.direction,Color.red);
         if (Physics.Raycast(inputRay, out hit))
+        {
             TouchCell(hit.point);
+        }
     }
 
     void TouchCell(Vector3 position)
@@ -132,7 +133,6 @@ public class HexGrid : MonoBehaviour
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
         int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
         HexCell cell = cells[index];
-        cell.GetComponentInChildren<MeshRenderer>().material.color = touchedColor;
         Debug.Log("touched at: " + coordinates);
     }
 
