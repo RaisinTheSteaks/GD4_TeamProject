@@ -34,6 +34,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public float attackDamage;
     private bool attackingMode;
     private bool updatingHealth;
+    private bool once;
 
     
     public TextMeshProUGUI SelectedStatus;
@@ -229,9 +230,22 @@ public class BotController : MonoBehaviourPunCallbacks
     private void SelectedText()
     {
         if (isSelected)
+        {
             SelectedStatus.text = "Selected";
+            if(once)
+            {
+                StartCoroutine(animation("IsSelected"));
+                once = false;
+            }
+                
+        }
         else if (isSelected == false)
+        {
             SelectedStatus.text = "Not Selected";
+            once = true;
+        }
+            
+            
     }
 
 
