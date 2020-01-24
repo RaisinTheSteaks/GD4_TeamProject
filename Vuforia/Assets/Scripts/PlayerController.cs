@@ -96,10 +96,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public void checkTurn()
     {
-        if (this.Turn)
-            EndTurnButton.interactable = true;
-        else
-            EndTurnButton.interactable = false;
+        if (photonPlayer == PhotonNetwork.LocalPlayer)
+            EndTurnButton.interactable = Turn;
     }
 
     public void OnEndTurnButton()
