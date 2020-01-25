@@ -41,7 +41,7 @@ public class HexGrid : MonoBehaviour
          -Josh 11-01
 
          */
-        for(int z=0,i=0;z<height;z++)
+        for (int z = 0, i = 0; z < height; z++)
         {
             for (int x = 0; x < width; x++)
             {
@@ -53,16 +53,16 @@ public class HexGrid : MonoBehaviour
     void CreateCell(int x, int z, int i)
     {
         Vector3 position;
-        position.x = (x + z*0.5f - z/2) * (HexMetrics.innerRadius*2f)*xOffset;
+        position.x = (x + z * 0.5f - z / 2) * (HexMetrics.innerRadius * 2f) * xOffset;
         position.y = 0f;
-        position.z = z * (HexMetrics.outerRadius * 1.5f)*zOffset;
+        position.z = z * (HexMetrics.outerRadius * 1.5f) * zOffset;
 
         HexCell cell = cells[i] = Instantiate<HexCell>(cellPrefab);
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
-        cell.name="HexCell_"+x+"_"+z;
+        cell.name = "HexCell_" + x + "_" + z;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-        
+
 
         Text label = Instantiate<Text>(cellLabelPrefab);
         label.rectTransform.SetParent(gridCanvas.transform, false);
@@ -98,7 +98,7 @@ public class HexGrid : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
         {
             HandleInput();
         }
@@ -136,4 +136,12 @@ public class HexGrid : MonoBehaviour
         Debug.Log("touched at: " + coordinates);
     }
 
+    //Used to update the distance values of each cell
+    public void FindDistancesTo(HexCell cell)
+    {
+        for (int i = 0; i < cells.Length; i++)
+        {
+            cells[i].Distance = cell.coordinates.DistanceTo(cells[i].coordinates);
+        }
+    }
 }
