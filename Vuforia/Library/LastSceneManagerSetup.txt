@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/InteractableGrid/ExperimentalGrid.unity
+- path: Assets/Scenes/TurnBased/Duplicate.unity
   isLoaded: 1
   isActive: 1

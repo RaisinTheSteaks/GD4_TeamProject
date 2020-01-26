@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 public class BotController : MonoBehaviourPunCallbacks
 {
@@ -41,13 +42,15 @@ public class BotController : MonoBehaviourPunCallbacks
     private void Update()
     {
         //debuging purposes, will delete later
+        if (playerScript.Turn)
         SelectedText();
     }
+
 
     public void move()
     {
         //debugging for action windows, replace this with real move method
-        if(isSelected && playerScript.isMyTurn)
+        if(isSelected && playerScript.Turn)
         {
             print(transform.name + "moving");
         }
@@ -58,7 +61,7 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         //debugging for action windows, replace this with real move method
 
-        if (isSelected && playerScript.isMyTurn)
+        if (isSelected && playerScript.Turn)
         {
             print(transform.name + "attacking");
         }
@@ -69,7 +72,7 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         //debugging for action windows, replace this with real move method
 
-        if (isSelected && playerScript.isMyTurn)
+        if (isSelected && playerScript.Turn)
         {
             print(transform.name + "guarding");
         }
@@ -80,7 +83,7 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         //debugging for action windows, replace this with real move method
 
-        if (isSelected && playerScript.isMyTurn)
+        if (isSelected && playerScript.Turn)
         {
             print(transform.name + "using abilities");
         }

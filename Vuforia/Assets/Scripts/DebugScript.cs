@@ -17,7 +17,7 @@ public class DebugScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             PlayerController player = GameManager.instance.GetPlayer(PhotonNetwork.NickName);
-            if(player.isMyTurn)
+            if(player.Turn)
             {
                 BotController botScript = player.transform.GetChild(0).gameObject.GetComponent<BotController>();
                 botScript.isSelected = !botScript.isSelected;
@@ -35,8 +35,8 @@ public class DebugScript : MonoBehaviour
         {
             foreach(PlayerController player in GameManager.instance.players)
             {
-                player.isMyTurn = !player.isMyTurn;
-                if(player.isMyTurn)
+                player.Turn = !player.Turn;
+                if(player.Turn)
                 {
                     print(player.transform.name + " turn");
                 }

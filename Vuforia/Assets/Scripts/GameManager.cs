@@ -46,7 +46,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-       
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -83,10 +82,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         PlayerController playerScript = playerObject.GetComponent<PlayerController>();
         playerScript.photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
 
-
-        players[0].isMyTurn = true;
-
-
     }
 
 
@@ -105,5 +100,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         return players.First(x => x.transform.name == nickname);
     }
 
-   
+    [PunRPC]
+    public void ChangeActivePlayer()
+    {
+        foreach (PlayerController player in players)
+        {
+          player.Turn = !player.Turn;
+          player.setTurn(player.Turn);
+        }
+    }
 }

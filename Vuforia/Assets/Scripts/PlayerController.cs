@@ -11,7 +11,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [HideInInspector]
     public int id;
     public Player photonPlayer;
-    public bool isMyTurn = false;
+    public bool Turn;
+    private Button EndTurnButton;
+
 
     [PunRPC]
     public void Initialize(Player player)
@@ -19,15 +21,20 @@ public class PlayerController : MonoBehaviourPunCallbacks
         transform.SetParent(GameManager.instance.imageTarget.transform);
         photonPlayer = player;
         id = player.ActorNumber;
+        GameManager.instance.players[id - 1] = this;
 
-       GameManager.instance.players[id - 1] = this;
 
-       foreach(Transform child in transform)
+        if (player.IsMasterClient)
+            setTurn(true); //if the player is the first in the list, then the game starts with them being the active player
+        else
+             setTurn(false);
+
+        foreach (Transform child in transform)
         {
             BotController botScript = child.GetComponent<BotController>();
             botScript.InitializeBot();
         }
-
+        EndTurnButton = GetComponent<Button>();
     }
 
     private void Start()
@@ -40,13 +47,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             transform.name = photonPlayer.NickName;
         }
-        
-        
+
+        EndTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
     }
 
     private void Update()
     {
-        SelectCharacter();
+        checkTurn();
+        if (Turn)
+        {
+            SelectCharacter();
+        }
     }
 
 
@@ -83,5 +94,26 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
 
+    public void checkTurn()
+    {
+        if (photonPlayer == PhotonNetwork.LocalPlayer)
+            //EndTurnButton.interactable = Turn;
+            EndTurnButton.gameObject.SetActive(Turn);
+    }
 
+    public void OnEndTurnButton()
+    {
+            GameManager.instance.photonView.RPC("ChangeActivePlayer", RpcTarget.AllBuffered);
+    }
+
+    public void setTurn(bool isActive)
+    {
+        Turn = isActive;
+        foreach (Transform child in transform)
+        {
+            BotController botScript = child.GetComponent<BotController>();
+            if(!Turn)
+            botScript.SelectedStatus.SetText(Turn.ToString());
+        }
+    }
 }
