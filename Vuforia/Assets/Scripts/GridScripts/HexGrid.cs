@@ -62,12 +62,14 @@ public class HexGrid : MonoBehaviour
         cell.transform.localPosition = position;
         cell.name = "HexCell_" + x + "_" + z;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-
+        
 
         Text label = Instantiate<Text>(cellLabelPrefab);
         label.rectTransform.SetParent(gridCanvas.transform, false);
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
         label.text = cell.coordinates.ToStringOnSeparateLines();
+
+        cell.uiRect = label.rectTransform;
 
         //Setting the directions of the neighboring cells
         if (x > 0)
@@ -96,7 +98,7 @@ public class HexGrid : MonoBehaviour
 
     }
 
-    void TouchCell(Vector3 position)
+    public void TouchCell(Vector3 position)
     {
         /*
          * Currently able to select any cell on the map.

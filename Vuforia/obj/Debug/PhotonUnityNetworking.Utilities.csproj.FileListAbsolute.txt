@@ -250,3 +250,5 @@ B:\Users\Josh\Documents\UnityProjects\Unity\TeamProject\GD4_TeamProject\Vuforia\
 B:\Users\Josh\Documents\UnityProjects\Unity\TeamProject\GD4_TeamProject\Vuforia\obj\Debug\PhotonUnityNetworking.Utilities.csproj.CopyComplete
 B:\Users\Josh\Documents\UnityProjects\Unity\TeamProject\GD4_TeamProject\Vuforia\obj\Debug\PhotonUnityNetworking.Utilities.dll
 B:\Users\Josh\Documents\UnityProjects\Unity\TeamProject\GD4_TeamProject\Vuforia\obj\Debug\PhotonUnityNetworking.Utilities.pdb
+B:\Users\Josh\Documents\UnityProjects\Unity\TeamProject\GD4_TeamProject\Vuforia\Temp\bin\Debug\UnityEditor.Android.Extensions.dll
+B:\Users\Josh\Documents\UnityProjects\Unity\TeamProject\GD4_TeamProject\Vuforia\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.dll
