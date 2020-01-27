@@ -6,16 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-<<<<<<< HEAD
-    path: Assets/Scenes/Menu.unity
-    guid: bf9dec2440379374cb012f956fd991f9
-  - enabled: 0
-    path: Assets/Scenes/TurnBased/Duplicate.unity
-    guid: ca0c3b389cecb8d4881c9edd9feefbc3
-=======
     path: Assets/Scenes/EnemyAttack/EnemyAttackMenu.unity
     guid: 53406c94c54f0014eb7f758f26b3d826
->>>>>>> origin/Animation
   - enabled: 1
     path: Assets/Scenes/EnemyAttack/EnemyAttackScene.unity
     guid: e8fe061d89d398c4fbb2af3c6bf29d76

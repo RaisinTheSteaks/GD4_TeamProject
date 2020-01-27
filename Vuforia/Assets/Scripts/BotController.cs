@@ -124,6 +124,8 @@ public class BotController : MonoBehaviourPunCallbacks
                             photonView.RPC("startDamage", RpcTarget.All, hit.transform.name, rng);
                             
                             attackingMode = false;
+
+                            playerScript.OnEndTurnButton();
                         }
                     }
                 }

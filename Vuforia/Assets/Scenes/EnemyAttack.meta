@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Vuforia/Assets/Scenes/TurnBased.meta
 guid: 99afd0eb16f03504cb820b6e64667c15
-=======
-guid: c28af1c463398ac41b8d85252bccea49
->>>>>>> origin/Animation:Vuforia/Assets/Scenes/EnemyAttack.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
