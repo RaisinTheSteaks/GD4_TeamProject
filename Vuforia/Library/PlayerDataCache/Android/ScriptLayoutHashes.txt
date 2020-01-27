@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-D:/GD4SelectionBranch/GD4_TeamProject/Vuforia/Builds/TurnBased2.apk
+C:/Users/Josh/Desktop/Vuforia2018Test.apk
 SceneListBegin?
 Assets/Scenes/Menu.unity
 Assets/Scenes/MasterScene.unity
