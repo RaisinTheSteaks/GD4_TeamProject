@@ -92,9 +92,10 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         //debugging for action windows, replace this with real move method
 
-
-        if (isSelected)
+        //checking if the bot is selected while the player turn
+        if (isSelected && playerScript.Turn)
         {
+            //enter attacking mode
             attackingMode = true;
             print("attacking...");
         }
@@ -105,26 +106,38 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         if(attackingMode)
         {
+            //if attacking mode, pressing down mouse button will do something different
             if (Input.GetMouseButtonDown(0))
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, 100))
                 {
+                    //casting ray
                     print("bot detected..");
                     if(hit.transform.parent != playerScript.transform)
                     {
+                        //check if the bot detected is the opponents bot
                         print("not the same player");
                         if(hit.transform.tag == "Bot")
                         {
+                            //checking if its a bot
                             print("its a bot");
+
+                            //creates random damage
                             float rng = Random.Range(1, 21);
+
+                            //start shooting animation
                             StartCoroutine(animation("IsShooting"));
+
+                            //start attack audio and calculating damages
                             photonView.RPC("attackAudio", RpcTarget.All, transform.name);
                             photonView.RPC("startDamage", RpcTarget.All, hit.transform.name, rng);
                             
+                            //set attacking moded to false
                             attackingMode = false;
 
+                            //end player turn
                             playerScript.OnEndTurnButton();
                         }
                     }
