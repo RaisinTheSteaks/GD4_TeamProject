@@ -7,8 +7,9 @@ public class HexMapController : MonoBehaviour
     public HexGrid hexGrid;
 
     private Color activeColor;
+    public Color highlightColor;
 
-    HexCell previousCell, searchFromCell;
+    HexCell currentCell, previousCell, searchFromCell;
 
 
     void Awake()
@@ -37,7 +38,7 @@ public class HexMapController : MonoBehaviour
          *          set all highlights to false
          *  
          */
-        if (Input.GetMouseButton(0))
+        if (Input.OnRelease())
         {
             HandleInput();
         }
@@ -45,14 +46,27 @@ public class HexMapController : MonoBehaviour
 
     void HandleInput()
     {
+
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        //Debug.DrawRay(inputRay.origin, inputRay.direction,Color.red);
+
+
         if (Physics.Raycast(inputRay, out hit))
         {
-            hexGrid.TouchCell(hit.point);
+            if(currentCell)
+            {
+                currentCell.DisableHighlight();
+            }
+            currentCell = hexGrid.GetCell(hit.point);
 
+            currentCell.EnableHighlight(highlightColor);
+            //hexGrid.TouchCell(currentCell);
+
+            previousCell = currentCell;
+
+            Debug.Log("Current Cell: " + currentCell.coordinates);
         }
+
     }
 
     public void SelectColor(int index)

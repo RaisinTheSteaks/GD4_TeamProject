@@ -15,11 +15,14 @@ handling the player movement input
 
 public class HexGrid : MonoBehaviour
 {
+    [Header ("Grid Inputs")]
     public int width = 6;
     public int height = 6;
 
     public float xOffset = 1;
     public float zOffset = 1;
+
+    int cellCountX, cellCountZ;
 
     public HexCell cellPrefab;
     HexCell[] cells;
@@ -49,6 +52,8 @@ public class HexGrid : MonoBehaviour
             }
         }
     }
+
+
     //Build each given cell at these coordinates
     void CreateCell(int x, int z, int i)
     {
@@ -112,12 +117,21 @@ public class HexGrid : MonoBehaviour
         
     }
 
+
+
     //Used to update the distance values of each cell
-    public void FindDistancesTo(HexCell cell)
+    public void FindPath(HexCell fromCell, HexCell toCell)
     {
         for (int i = 0; i < cells.Length; i++)
         {
-            cells[i].Distance = cell.coordinates.DistanceTo(cells[i].coordinates);
+            cells[i].Distance = fromCell.coordinates.DistanceTo(cells[i].coordinates);
         }
+    }
+
+    public HexCell GetCell(HexCoordinates coordinates)
+    {
+        int z = coordinates.Z;
+        int x = coordinates.X + z / 2;
+        return cells[x + z * width];
     }
 }
