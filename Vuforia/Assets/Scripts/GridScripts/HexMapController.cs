@@ -6,12 +6,15 @@ public class HexMapController : MonoBehaviour
 
     public HexGrid hexGrid;
 
-    private Color activeColor;
     public Color highlightColor;
-
-    HexCell currentCell, previousCell;
-
+    public Color selectedColor;
+    public Color movementRangeColor;
+    HexCell currentCell, previousCell, moveToCell;
+   
+    private Color activeColor;
     private bool isMoving=false;
+
+
     void Awake()
     {
         SelectColor(0);
@@ -43,7 +46,7 @@ public class HexMapController : MonoBehaviour
         
 
         //Checking if the player has just tapped the screen
-        if ((Input.touchCount>0&&Input.touchCount<3)||Input.GetMouseButtonUp(0))
+        if (Input.touchCount>0||Input.GetMouseButtonUp(0))
         {
             HandleTapInput();
         }
@@ -51,39 +54,54 @@ public class HexMapController : MonoBehaviour
 
     void HandleTapInput()
     {
+        //If a cell has been selected, show how far away it is
 
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-
         if (Physics.Raycast(inputRay, out hit))
         {
 
-            currentCell = hexGrid.GetCell(hit.point);
+            #region Handle input on hexagon in grid
+                //if (hit.transform.gameObject.tag == "HexCell")
+                //{
+                currentCell = hexGrid.GetCell(hit.point);
 
-            if (isMoving)
-            {
-                currentCell.EnableHighlight(Color.red);
-                isMoving = false;
-            }
-            else
-            {
-                currentCell.EnableHighlight(highlightColor);
-                if (previousCell)
-                    previousCell.DisableHighlight();
-            }
+                if (moveToCell)
+                    moveToCell.DisableHighlight();
 
-            previousCell = currentCell;
+                if (isMoving)
+                {
+                    isMoving = false;
+                    moveToCell = currentCell;
+                    moveToCell.EnableHighlight(selectedColor);
+                }
+                else
+                {
+                    currentCell.EnableHighlight(highlightColor);
+                    if (previousCell)
+                        previousCell.DisableHighlight();
 
-            Debug.Log("Current Cell: " + currentCell.coordinates);
+                    previousCell = currentCell;
+                }
+
+
+                Debug.Log("Current Cell: " + currentCell.coordinates);
+                //}
+            #endregion
         }
 
+        if (currentCell)
+        {
+            hexGrid.FindDistancesTo(currentCell);
+        }
     }
 
     public void SelectColor(int index)
     {
         activeColor = colors[index];
     }
+
     public void SetMovementState(bool state)
     {
         isMoving = state;

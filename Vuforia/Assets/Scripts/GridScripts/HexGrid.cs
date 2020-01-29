@@ -15,24 +15,24 @@ handling the player movement input
 
 public class HexGrid : MonoBehaviour
 {
+    #region Inspector Inputs
     [Header ("Grid Inputs")]
     public int width = 6;
     public int height = 6;
 
     public float xOffset = 1;
     public float zOffset = 1;
-
-    int cellCountX, cellCountZ;
-
+    
     public HexCell cellPrefab;
     HexCell[] cells;
 
     public Text cellLabelPrefab;
     Canvas gridCanvas;
 
-    public Color defaultColor = Color.white;
-    public Color touchedColor = Color.magenta;
+    public int movementRange = 3;
+    public Color movementRangeHighlightColor;
 
+    #endregion
     //Awake is used to generate each individual tile in the level
     void Awake()
     {
@@ -70,6 +70,7 @@ public class HexGrid : MonoBehaviour
         cell.transform.localPosition = position;
         cell.name = "HexCell_" + x + "_" + z;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
+        cell.tag = "HexCell";
         #endregion
 
         #region Adding the Cell's UI and Highlight components
@@ -132,6 +133,52 @@ public class HexGrid : MonoBehaviour
         {
             cells[i].Distance = fromCell.coordinates.DistanceTo(cells[i].coordinates);
         }
+    }
+
+    public void FindDistancesTo(HexCell cell)
+    {
+        StopAllCoroutines();
+        StartCoroutine(Search(cell));
+    }
+
+    IEnumerator Search(HexCell cell)
+    {
+        /*
+         I am setting the distance to max value to act as a check on what cell's distances haven't been gotten yet
+        The code will perform a breadth first search on all available cells to find the fastes route to the target cell 
+         */
+
+        for (int i = 0; i < cells.Length; i++)
+        {
+            cells[i].Distance = int.MaxValue;
+        }
+
+        WaitForSeconds delay = new WaitForSeconds(1 / 60f);
+        List<HexCell> openSet = new List<HexCell>();
+        cell.Distance = 0;
+        openSet.Add(cell);
+        
+        while(openSet.Count>0)
+        {
+            yield return delay;
+            HexCell current = openSet[0];
+            openSet.RemoveAt(0);
+            /* Hex Direction is an enum set of neighbors directions.
+             * The loop will prioritise searching in the dierection of the cells neighbors, not top to bottom
+             */
+            for(HexDirection d=HexDirection.NE;d<=HexDirection.NW;d++)
+            {
+                HexCell neighbor = current.GetNeighbor(d);
+                if(neighbor!=null && neighbor.Distance==int.MaxValue)
+                {
+                    
+                    neighbor.Distance = current.Distance + 1;
+                    openSet.Add(neighbor);
+                    openSet.Sort((x, y) => x.Distance.CompareTo(y.Distance));
+                }
+            }
+        }
+        
     }
 
     public HexCell GetCell(Vector3 position)

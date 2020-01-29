@@ -21,7 +21,8 @@ public class HexCell : MonoBehaviour
     void UpdateDistanceLabel()
     {
         Text label = uiRect.GetComponent<Text>();
-        label.text = distance.ToString();
+        //If the distance is set to the max [IE hasn't been searched yet, set it's text to 0]
+        label.text = distance == int.MaxValue ? "" : distance.ToString();
     }
 
     public int Distance
