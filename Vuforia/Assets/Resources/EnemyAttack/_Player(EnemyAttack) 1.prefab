@@ -77,16 +77,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3030669867982936048}
     m_Modifications:
-    - target: {fileID: 7326950034815043144, guid: 70c4a2bd82118004991f262dba0b585d,
-        type: 3}
-      propertyPath: m_Name
-      value: Troop
-      objectReference: {fileID: 0}
-    - target: {fileID: 7326950034815043144, guid: 70c4a2bd82118004991f262dba0b585d,
-        type: 3}
-      propertyPath: m_TagString
-      value: Bot
-      objectReference: {fileID: 0}
     - target: {fileID: 7326950034814556776, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -141,6 +131,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82359548268176138, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7326950034815043144, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: m_Name
+      value: Troop
+      objectReference: {fileID: 0}
+    - target: {fileID: 7326950034815043144, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Bot
       objectReference: {fileID: 0}
     - target: {fileID: 6956144906709237833, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
@@ -218,11 +223,6 @@ PrefabInstance:
       value: 'Troop
 
 '
-      objectReference: {fileID: 0}
-    - target: {fileID: 82359548268176138, guid: 70c4a2bd82118004991f262dba0b585d,
-        type: 3}
-      propertyPath: m_audioClip
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7326950034824410576, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
@@ -354,16 +354,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3030669867982936048}
     m_Modifications:
-    - target: {fileID: 7326950034815043144, guid: 70c4a2bd82118004991f262dba0b585d,
-        type: 3}
-      propertyPath: m_Name
-      value: Tank
-      objectReference: {fileID: 0}
-    - target: {fileID: 7326950034815043144, guid: 70c4a2bd82118004991f262dba0b585d,
-        type: 3}
-      propertyPath: m_TagString
-      value: Bot
-      objectReference: {fileID: 0}
     - target: {fileID: 7326950034814556776, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -418,6 +408,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82359548268176138, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.465
+      objectReference: {fileID: 0}
+    - target: {fileID: 82359548268176138, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: spreadCustomCurve.m_Curve.Array.data[0].value
+      value: 0.06111111
+      objectReference: {fileID: 0}
+    - target: {fileID: 82359548268176138, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: DopplerLevel
+      value: 1.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 82359548268176138, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7326950034815043144, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: m_Name
+      value: Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 7326950034815043144, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Bot
       objectReference: {fileID: 0}
     - target: {fileID: 6956144906709237833, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
@@ -495,26 +515,6 @@ PrefabInstance:
       value: 'Tank
 
 '
-      objectReference: {fileID: 0}
-    - target: {fileID: 82359548268176138, guid: 70c4a2bd82118004991f262dba0b585d,
-        type: 3}
-      propertyPath: m_Volume
-      value: 0.465
-      objectReference: {fileID: 0}
-    - target: {fileID: 82359548268176138, guid: 70c4a2bd82118004991f262dba0b585d,
-        type: 3}
-      propertyPath: spreadCustomCurve.m_Curve.Array.data[0].value
-      value: 0.06111111
-      objectReference: {fileID: 0}
-    - target: {fileID: 82359548268176138, guid: 70c4a2bd82118004991f262dba0b585d,
-        type: 3}
-      propertyPath: DopplerLevel
-      value: 1.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 82359548268176138, guid: 70c4a2bd82118004991f262dba0b585d,
-        type: 3}
-      propertyPath: m_audioClip
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7326950034824410576, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}

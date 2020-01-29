@@ -33,7 +33,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public float maxHealth;
     public float health;
     public float attackDamage;
-    private bool attackingMode;
+    public bool attackingMode;
     private bool updatingHealth;
     private bool once;
 
@@ -189,6 +189,7 @@ public class BotController : MonoBehaviourPunCallbacks
         target.audioSource.PlayOneShot(target.deathSound);
     }
 
+    
     public void updateHealth()
     {
         if(updatingHealth)

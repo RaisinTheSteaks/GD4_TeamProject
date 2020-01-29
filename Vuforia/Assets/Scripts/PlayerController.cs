@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public void OnEndTurnButton()
     {
-            GameManager.instance.photonView.RPC("ChangeActivePlayer", RpcTarget.AllBuffered);
+        GameManager.instance.photonView.RPC("ChangeActivePlayer", RpcTarget.AllBuffered);
     }
 
     public void setTurn(bool isActive)
