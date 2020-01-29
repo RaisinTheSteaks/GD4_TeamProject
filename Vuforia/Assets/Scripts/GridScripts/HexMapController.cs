@@ -9,9 +9,9 @@ public class HexMapController : MonoBehaviour
     private Color activeColor;
     public Color highlightColor;
 
-    HexCell currentCell, previousCell, searchFromCell;
+    HexCell currentCell, previousCell;
 
-
+    private bool isMoving=false;
     void Awake()
     {
         SelectColor(0);
@@ -19,6 +19,7 @@ public class HexMapController : MonoBehaviour
 
     void Update()
     {
+        #region Notes for planning movement
         /*
          *  Need to set the Search from cell
          *      -Do when selecting bot action?
@@ -38,13 +39,17 @@ public class HexMapController : MonoBehaviour
          *          set all highlights to false
          *  
          */
-        if (Input.OnRelease())
+        #endregion
+        
+
+        //Checking if the player has just tapped the screen
+        if ((Input.touchCount>0&&Input.touchCount<3)||Input.GetMouseButtonUp(0))
         {
-            HandleInput();
+            HandleTapInput();
         }
     }
 
-    void HandleInput()
+    void HandleTapInput()
     {
 
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -53,14 +58,20 @@ public class HexMapController : MonoBehaviour
 
         if (Physics.Raycast(inputRay, out hit))
         {
-            if(currentCell)
-            {
-                currentCell.DisableHighlight();
-            }
+
             currentCell = hexGrid.GetCell(hit.point);
 
-            currentCell.EnableHighlight(highlightColor);
-            //hexGrid.TouchCell(currentCell);
+            if (isMoving)
+            {
+                currentCell.EnableHighlight(Color.red);
+                isMoving = false;
+            }
+            else
+            {
+                currentCell.EnableHighlight(highlightColor);
+                if (previousCell)
+                    previousCell.DisableHighlight();
+            }
 
             previousCell = currentCell;
 
@@ -73,5 +84,8 @@ public class HexMapController : MonoBehaviour
     {
         activeColor = colors[index];
     }
-
+    public void SetMovementState(bool state)
+    {
+        isMoving = state;
+    }
 }

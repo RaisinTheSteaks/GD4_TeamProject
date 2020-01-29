@@ -52,7 +52,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 145034290446002587}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -83,7 +83,6 @@ GameObject:
   - component: {fileID: 879298467969592862}
   - component: {fileID: 9008106525452659095}
   - component: {fileID: 1106478905305417586}
-  - component: {fileID: 7275641570657780316}
   m_Layer: 0
   m_Name: HexCellLabel
   m_TagString: Untagged
@@ -151,15 +150,3 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: New Text
---- !u!114 &7275641570657780316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 254899855275191704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0593e45277a1ade48b661834eb7320ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

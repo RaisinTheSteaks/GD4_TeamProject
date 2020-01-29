@@ -57,26 +57,32 @@ public class HexGrid : MonoBehaviour
     //Build each given cell at these coordinates
     void CreateCell(int x, int z, int i)
     {
+        #region Setting the position
         Vector3 position;
         position.x = (x + z * 0.5f - z / 2) * (HexMetrics.innerRadius * 2f) * xOffset;
         position.y = 0f;
         position.z = z * (HexMetrics.outerRadius * 1.5f) * zOffset;
+        #endregion
 
+        #region Building the Cell's transform and name
         HexCell cell = cells[i] = Instantiate<HexCell>(cellPrefab);
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
         cell.name = "HexCell_" + x + "_" + z;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-        
+        #endregion
 
+        #region Adding the Cell's UI and Highlight components
         Text label = Instantiate<Text>(cellLabelPrefab);
         label.rectTransform.SetParent(gridCanvas.transform, false);
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
         label.text = cell.coordinates.ToStringOnSeparateLines();
-
+        label.name = cell.name + "_Label";
         cell.uiRect = label.rectTransform;
+        
+        #endregion
 
-        //Setting the directions of the neighboring cells
+        #region Setting the cell's Neighbors
         if (x > 0)
         {
             cell.SetNeighbor(HexDirection.W, cells[i - 1]);
@@ -100,7 +106,7 @@ public class HexGrid : MonoBehaviour
                 }
             }
         }
-
+        #endregion
     }
 
     public void TouchCell(Vector3 position)
@@ -128,6 +134,13 @@ public class HexGrid : MonoBehaviour
         }
     }
 
+    public HexCell GetCell(Vector3 position)
+    {
+        position = transform.InverseTransformPoint(position);
+        HexCoordinates coordinates = HexCoordinates.FromPosition(position);
+        int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
+        return cells[index];
+    }
     public HexCell GetCell(HexCoordinates coordinates)
     {
         int z = coordinates.Z;
