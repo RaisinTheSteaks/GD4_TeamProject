@@ -11,17 +11,28 @@ public class BotController : MonoBehaviourPunCallbacks
 {
     [HideInInspector]
     public int id;
+    //variables created & used for the TankSpecial Ability
+    Vector3 tap = new Vector3();
+    Ray ray;
+    public bool confirm = false;
 
     [Header("Info")]
     public bool isSelected = false;
     public PlayerController playerScript;
+    public TextMeshProUGUI SelectedStatus;
 
     [Header("Component")]
     public Rigidbody rig;
-    
-    public TextMeshProUGUI SelectedStatus;
+    public bool specialAbility = false;
+    public bool specialAbilityUsed;
 
- 
+    Collider[] hitColliders;
+    int health = 100;
+
+    [Header("PopUp")]
+    public GameObject popUp;
+
+
     public void InitializeBot()
     {
         //photonPlayer = player;
@@ -30,6 +41,7 @@ public class BotController : MonoBehaviourPunCallbacks
         if (!photonView.IsMine)
         {
             rig.isKinematic = true;
+            specialAbility = false;
         }
 
     }
@@ -37,13 +49,19 @@ public class BotController : MonoBehaviourPunCallbacks
     private void Start()
     {
         playerScript = transform.parent.GetComponent<PlayerController>();
+        popUp = GetComponent<GameObject>();
+        popUp = GameObject.Find("AbilityPopUp");
+        popUp.SetActive(false);
     }
-
     private void Update()
     {
         //debuging purposes, will delete later
         if (playerScript.Turn)
-        SelectedText();
+        SelectedText(); if (specialAbility && !specialAbilityUsed)
+            ExplosionDamage();
+        
+        if (confirm)
+            loadExplosion();
     }
 
 
@@ -85,9 +103,41 @@ public class BotController : MonoBehaviourPunCallbacks
 
         if (isSelected && playerScript.Turn)
         {
-            print(transform.name + "using abilities");
+            specialAbility = true;
         }
 
+    }
+
+    private void loadExplosion()
+    {
+        hitColliders = Physics.OverlapSphere(tap, 0.1f);
+        for (int i = 0; i < hitColliders.Length; i++)
+        {
+            if (hitColliders[i].transform.name == transform.name)
+            {
+                hitColliders[i].transform.GetComponent<BotController>().SelectedStatus.text = "BANG BANG";
+            }
+        }
+        specialAbilityUsed = true;
+    }
+
+    void ExplosionDamage()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                tap = hit.point;
+                GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                sphere.transform.position = tap;
+                sphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                popUp.SetActive(true);
+            }
+            //this will be where the damage is dealt
+        }
     }
 
     private void SelectedText()
