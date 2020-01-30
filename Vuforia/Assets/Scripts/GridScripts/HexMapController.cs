@@ -2,22 +2,32 @@ using UnityEngine;
 
 public class HexMapController : MonoBehaviour
 {
-    public Color[] colors;
-
     public HexGrid hexGrid;
 
-    public Color highlightColor;
-    public Color selectedColor;
-    public Color movementRangeColor;
-    HexCell currentCell, previousCell, moveToCell;
-   
-    private Color activeColor;
-    private bool isMoving=false;
+    [Header("Highlights")]
+    public Color highlightColor, selectedColor, movementRangeColor;
+    HexCell currentCell, previousCell, moveToCell, startCell;
 
+    [Header("Movement")]
+    public int speed = 3;
+    private bool isMoving = false;
+
+    [Header("Spawning")]
+    public Transform spawnPoint1;
+    public Transform spawnPoint2;
+
+    public GameObject botPrefab;
+    Unit botUnit;
+
+    private HexCoordinates spawnHex1;
+    private HexCoordinates spawnHex2;
 
     void Awake()
     {
-        SelectColor(0);
+        //To be added for bot spawning
+        //spawnHex1 = HexCoordinates.FromOffsetCoordinates(spawnPoint1.position.x, spawnPoint1.position.z);
+        //spawnHex2 = HexCoordinates.FromPosition(spawnPoint2.position);
+        //Debug.Log("Spawn 1:"+spawnHex1.ToString()+"  Spawn 2: "+spawnHex2.ToString());
     }
 
     void Update()
@@ -43,11 +53,12 @@ public class HexMapController : MonoBehaviour
          *  
          */
         #endregion
-        
+
 
         //Checking if the player has just tapped the screen
-        if (Input.touchCount>0||Input.GetMouseButtonUp(0))
+        if (Input.touchCount > 0 || Input.GetMouseButtonUp(0))
         {
+            //Named tapInput as we may add in different controlls for dragging movement
             HandleTapInput();
         }
     }
@@ -56,54 +67,74 @@ public class HexMapController : MonoBehaviour
     {
         //If a cell has been selected, show how far away it is
 
-        Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(inputRay, out hit))
-        {
-
-            #region Handle input on hexagon in grid
-                //if (hit.transform.gameObject.tag == "HexCell")
-                //{
-                currentCell = hexGrid.GetCell(hit.point);
-
-                if (moveToCell)
-                    moveToCell.DisableHighlight();
-
-                if (isMoving)
-                {
-                    isMoving = false;
-                    moveToCell = currentCell;
-                    moveToCell.EnableHighlight(selectedColor);
-                }
-                else
-                {
-                    currentCell.EnableHighlight(highlightColor);
-                    if (previousCell)
-                        previousCell.DisableHighlight();
-
-                    previousCell = currentCell;
-                }
-
-
-                Debug.Log("Current Cell: " + currentCell.coordinates);
-                //}
-            #endregion
-        }
+        HexCell currentCell = GetCellUnderCursor();
 
         if (currentCell)
         {
-            hexGrid.FindDistancesTo(currentCell);
-        }
-    }
 
-    public void SelectColor(int index)
-    {
-        activeColor = colors[index];
+            #region Handle input on hexagon in grid
+            //if (hit.transform.gameObject.tag == "HexCell")
+            //{
+
+            if (moveToCell)
+            {
+                moveToCell.DisableHighlight();
+                moveToCell = null;
+            }
+            if (isMoving)
+            {
+                isMoving = false;
+                moveToCell = currentCell;
+                moveToCell.EnableHighlight(selectedColor);
+                startCell = previousCell;
+            }
+            else
+            {
+                currentCell.EnableHighlight(highlightColor);
+                if (previousCell)
+                    previousCell.DisableHighlight();
+
+                previousCell = currentCell;
+            }
+
+
+            Debug.Log("Current Cell: " + currentCell.coordinates);
+            //}
+            #endregion
+        }
+
+        if (moveToCell)
+        {
+            hexGrid.FindPath(startCell, moveToCell, speed);
+        }
     }
 
     public void SetMovementState(bool state)
     {
         isMoving = state;
+    }
+
+    HexCell GetCellUnderCursor()
+    {
+        Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(inputRay, out hit))
+        {
+            //not effective at filtering out objects behind UI
+            //if(hit.transform.IsChildOf(hexGrid.transform))
+                return hexGrid.GetCell(hit.point);
+        }
+        return null;
+    }
+
+    void CreateBot()
+    {
+        HexCell cell = GetCellUnderCursor();
+        if(cell)
+        {
+            Unit unit=Instantiate(botUnit);
+            unit.transform.SetParent(hexGrid.transform, false);
+        }
     }
 }

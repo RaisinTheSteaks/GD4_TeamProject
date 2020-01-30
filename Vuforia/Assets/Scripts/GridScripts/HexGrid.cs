@@ -29,8 +29,8 @@ public class HexGrid : MonoBehaviour
     public Text cellLabelPrefab;
     Canvas gridCanvas;
 
-    public int movementRange = 3;
     public Color movementRangeHighlightColor;
+
 
     #endregion
     //Awake is used to generate each individual tile in the level
@@ -123,62 +123,90 @@ public class HexGrid : MonoBehaviour
         Debug.Log("touched at: " + coordinates);
         
     }
-
-
-
+    
     //Used to update the distance values of each cell
-    public void FindPath(HexCell fromCell, HexCell toCell)
-    {
-        for (int i = 0; i < cells.Length; i++)
-        {
-            cells[i].Distance = fromCell.coordinates.DistanceTo(cells[i].coordinates);
-        }
-    }
-
-    public void FindDistancesTo(HexCell cell)
+    public void FindPath(HexCell fromCell, HexCell toCell, int speed)
     {
         StopAllCoroutines();
-        StartCoroutine(Search(cell));
+
+        StartCoroutine(Search(fromCell, toCell, speed));
+        //Search(fromCell, toCell, speed);
     }
-
-    IEnumerator Search(HexCell cell)
+    
+    IEnumerator Search(HexCell fromCell, HexCell toCell, int speed)
     {
-        /*
-         I am setting the distance to max value to act as a check on what cell's distances haven't been gotten yet
-        The code will perform a breadth first search on all available cells to find the fastes route to the target cell 
-         */
-
+        /*I am setting the distance to max value to act as a check on what cell's distances haven't been gotten yet.The code will perform a breadth first search on all available cells to find the fastes route to the target cell */
+        #region Setting all Hex Distances to Max int value and building the open set
         for (int i = 0; i < cells.Length; i++)
         {
             cells[i].Distance = int.MaxValue;
+            cells[i].SetLabel(null);
+            cells[i].DisableHighlight();
         }
+		fromCell.EnableHighlight(movementRangeHighlightColor);
+		toCell.EnableHighlight(Color.red);
+
+        #endregion
 
         WaitForSeconds delay = new WaitForSeconds(1 / 60f);
         List<HexCell> openSet = new List<HexCell>();
-        cell.Distance = 0;
-        openSet.Add(cell);
-        
-        while(openSet.Count>0)
+        fromCell.Distance = 0;
+        openSet.Add(fromCell);
+
+
+        #region BFS
+        while (openSet.Count>0)
         {
             yield return delay;
             HexCell current = openSet[0];
             openSet.RemoveAt(0);
-            /* Hex Direction is an enum set of neighbors directions.
-             * The loop will prioritise searching in the dierection of the cells neighbors, not top to bottom
-             */
-            for(HexDirection d=HexDirection.NE;d<=HexDirection.NW;d++)
+
+			if (current == toCell)
             {
-                HexCell neighbor = current.GetNeighbor(d);
-                if(neighbor!=null && neighbor.Distance==int.MaxValue)
+                current = current.PathFrom;
+                while(current!=fromCell)
                 {
-                    
-                    neighbor.Distance = current.Distance + 1;
-                    openSet.Add(neighbor);
-                    openSet.Sort((x, y) => x.Distance.CompareTo(y.Distance));
+                    current.EnableHighlight(movementRangeHighlightColor);
+                    current = current.PathFrom;
                 }
+                break;
             }
+
+            //Used to figure out how far the player can go this turn
+            int currentTurn = (current.Distance / speed);
+
+            /* Hex Direction is an enum set of neighbors directions.The loop will prioritise searching in the direction of the cells neighbors, not top to bottom             */
+            for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+            {
+                //int turn = current.Distance / speed;
+                HexCell neighbor = current.GetNeighbor(d);
+				if (neighbor == null)
+				{
+					continue;
+				}
+                if (neighbor.Distance == int.MaxValue)
+                {
+                    neighbor.PathFrom = current;
+                    neighbor.Distance = current.Distance + 1;
+                    //neighbor.SetLabel(turn.ToString());
+                    openSet.Add(neighbor);
+                }
+				else if(current.Distance<neighbor.Distance)
+				{
+                    neighbor.Distance = current.Distance;
+					neighbor.PathFrom=current;
+				}
+               
+
+				openSet.Sort((x, y) => x.Distance.CompareTo(y.Distance));
+            }
+
+            
+
+
+           
         }
-        
+        #endregion
     }
 
     public HexCell GetCell(Vector3 position)

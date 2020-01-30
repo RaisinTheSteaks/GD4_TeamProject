@@ -10,19 +10,17 @@ public class HexCell : MonoBehaviour
     [SerializeField]
     HexCell[] neighbors;
 
+    public HexCell PathFrom { get; set; }
+
     /*
      * Distance is used to track how far away this cell is from the selected cell
      */
     int distance;
-
-    /*
-     Used to change the display of the label to show the distance
-         */
-    void UpdateDistanceLabel()
+    
+    public void SetLabel(string text)
     {
-        Text label = uiRect.GetComponent<Text>();
-        //If the distance is set to the max [IE hasn't been searched yet, set it's text to 0]
-        label.text = distance == int.MaxValue ? "" : distance.ToString();
+        UnityEngine.UI.Text label = uiRect.GetComponent<Text>();
+        label.text = text;
     }
 
     public int Distance
@@ -34,7 +32,7 @@ public class HexCell : MonoBehaviour
         set
         {
             distance = value;
-            UpdateDistanceLabel();
+
         }
     }
 
