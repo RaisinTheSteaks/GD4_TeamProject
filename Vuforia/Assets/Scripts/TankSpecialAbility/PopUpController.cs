@@ -11,7 +11,7 @@ public class PopUpController : MonoBehaviour
     {
         GameObject popUp;
         popUp = GetComponent<GameObject>();
-        popUp = GameObject.Find("AbilityPopUp");
+        popUp = GameObject.Find("PopUp");
         popUp.SetActive(false);
 
         //create a for each that goes to every bot in the gma eand sets their special ability to false.
@@ -27,7 +27,7 @@ public class PopUpController : MonoBehaviour
     {
         GameObject popUp;
         popUp = GetComponent<GameObject>();
-        popUp = GameObject.Find("AbilityPopUp");
+        popUp = GameObject.Find("PopUp");
         popUp.SetActive(false);
 
         var objects = GameObject.FindGameObjectsWithTag("Player");

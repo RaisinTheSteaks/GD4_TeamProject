@@ -1,0 +1,4 @@
+#Thu Jan 30 00:33:40 GMT 2020
+base.0=D\:\\GD4Final\\GD4_TeamProject\\Vuforia\\Temp\\gradleOut\\build\\intermediates\\transforms\\dexMerger\\release\\0
+path.0=classes.dex
+renamed.0=classes.dex

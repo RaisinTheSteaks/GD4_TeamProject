@@ -50,14 +50,15 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         playerScript = transform.parent.GetComponent<PlayerController>();
         popUp = GetComponent<GameObject>();
-        popUp = GameObject.Find("AbilityPopUp");
+        popUp = GameObject.Find("PopUp");
         popUp.SetActive(false);
     }
     private void Update()
     {
         //debuging purposes, will delete later
-        if (playerScript.Turn)
-        SelectedText(); if (specialAbility && !specialAbilityUsed)
+        if (playerScript.Turn && SelectedStatus.text != "BANG BANG")
+            SelectedText();
+        if (specialAbility && !specialAbilityUsed)
             ExplosionDamage();
         
         if (confirm)
@@ -110,7 +111,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
     private void loadExplosion()
     {
-        hitColliders = Physics.OverlapSphere(tap, 0.1f);
+        hitColliders = Physics.OverlapSphere(tap, 1.0f);
         for (int i = 0; i < hitColliders.Length; i++)
         {
             if (hitColliders[i].transform.name == transform.name)
