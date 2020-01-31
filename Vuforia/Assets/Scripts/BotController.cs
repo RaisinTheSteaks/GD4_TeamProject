@@ -21,6 +21,7 @@ public class BotController : MonoBehaviourPunCallbacks
     
     public TextMeshProUGUI SelectedStatus;
 
+    public string type="Gamma";
  
     public void InitializeBot()
     {
