@@ -115,7 +115,7 @@ public class HexGrid : MonoBehaviour
         }
     }
 
-    void TouchCell(Vector3 position)
+    public void TouchCell(Vector3 position)
     {
         /*
          *Known issue with the touching cells.
@@ -134,6 +134,16 @@ public class HexGrid : MonoBehaviour
         int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
         HexCell cell = cells[index];
         Debug.Log("touched at: " + coordinates);
+    }
+
+    //below function works the same as the 
+    public HexCell getCell(Vector3 position)
+    {
+        position = transform.InverseTransformPoint(position);
+        HexCoordinates coordinates = HexCoordinates.FromPosition(position);
+        int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
+        HexCell cell = cells[index];
+        return cell;
     }
 
 }

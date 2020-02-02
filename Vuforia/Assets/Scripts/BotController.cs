@@ -25,6 +25,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public Rigidbody rig;
     public bool specialAbility = false;
     public bool specialAbilityUsed;
+    public GameObject hexGrid;
 
     Collider[] hitColliders;
     int health = 100;
@@ -50,7 +51,10 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         playerScript = transform.parent.GetComponent<PlayerController>();
         popUp = GetComponent<GameObject>();
+        hexGrid = GetComponent<GameObject>();
         popUp = GameObject.Find("PopUp");
+        hexGrid = GameObject.Find("HexGrid");
+        popUp.SetActive(false);
         popUp.SetActive(false);
     }
     private void Update()
@@ -60,7 +64,6 @@ public class BotController : MonoBehaviourPunCallbacks
             SelectedText();
         if (specialAbility && !specialAbilityUsed)
             ExplosionDamage();
-        
         if (confirm)
             loadExplosion();
     }
@@ -69,7 +72,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public void move()
     {
         //debugging for action windows, replace this with real move method
-        if(isSelected && playerScript.Turn)
+        if(isSelected && playerScript.Turn && !specialAbility)
         {
             print(transform.name + "moving");
         }
@@ -80,7 +83,7 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         //debugging for action windows, replace this with real move method
 
-        if (isSelected && playerScript.Turn)
+        if (isSelected && playerScript.Turn && !specialAbility)
         {
             print(transform.name + "attacking");
         }
@@ -91,7 +94,7 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         //debugging for action windows, replace this with real move method
 
-        if (isSelected && playerScript.Turn)
+        if (isSelected && playerScript.Turn && !specialAbility)
         {
             print(transform.name + "guarding");
         }
@@ -111,7 +114,11 @@ public class BotController : MonoBehaviourPunCallbacks
 
     private void loadExplosion()
     {
-        hitColliders = Physics.OverlapSphere(tap, 1.0f);
+        HexCell hex = hexGrid.GetComponent<HexGrid>().getCell(tap);
+        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        sphere.transform.position = hex.transform.position;
+        sphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        hitColliders = Physics.OverlapSphere(hex.transform.position, 1.0f);
         for (int i = 0; i < hitColliders.Length; i++)
         {
             if (hitColliders[i].transform.name == transform.name)
@@ -132,9 +139,6 @@ public class BotController : MonoBehaviourPunCallbacks
             if (Physics.Raycast(ray, out hit))
             {
                 tap = hit.point;
-                GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                sphere.transform.position = tap;
-                sphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                 popUp.SetActive(true);
             }
             //this will be where the damage is dealt
