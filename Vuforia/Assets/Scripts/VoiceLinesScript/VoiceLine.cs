@@ -6,5 +6,5 @@ public struct VoiceLine
 {
     public string action;
     public string botName;
-
+    public AudioSource audioSource;
 }

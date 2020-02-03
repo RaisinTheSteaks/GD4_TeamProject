@@ -4,26 +4,44 @@ using UnityEngine;
 
 public class VoiceLineManager : MonoBehaviour
 {
-    public Dictionary<VoiceLine, AudioSource> lines;
+    public VoiceLineClass[] voiceLines;
 
+    string action;
+    string botName;
 
-
-    public AudioSource PickVoiceLine(string botName, string action)
+    public void SetBotName(string s)
     {
-        string debug = "ERROR Not able to find line in map: [" + botName + ", " + action + "]";
-        
-        VoiceLine vl;
-        vl.botName = botName;
-        vl.action = action;
+        Debug.Log("Setting Bot Name: " + s);
+        botName = s;
+    }
+    public void SetAction(string a)
+    {
+        Debug.Log("Setting action: " + a);
+        action = a;
+    }
+
+    public void PlayVoiceLine()
+    {
+        string debug = "ERROR Not able to find line: [" + botName + ", " + "" + "]";
         AudioSource audio = new AudioSource();
-
-        if(lines.TryGetValue(vl, out audio))
+        for (int i = 0; i < voiceLines.Length; i++)
         {
-            debug = "Found Voice Line: [" + botName + ", " + action + "]";
+            if (voiceLines[i].botName == botName)
+            {
+                if (voiceLines[i].action == action)
+                {
+                    debug = "Found Voice line: [" + botName + ", " + action + "]";
+                    audio = voiceLines[i].audioSource;
+                    goto FOUND;
+                }
+            }
         }
-
+        FOUND:;
         Debug.Log(debug);
 
-        return audio;
+        if (audio.clip != null)
+        {
+            audio.PlayOneShot(audio.clip);
+        }
     }
 }
