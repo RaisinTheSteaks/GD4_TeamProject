@@ -8,7 +8,8 @@ D00190830
 _________
 HexGrid.cs is used for:
 Constructing the hex map,
-handling the player movement input
+handling the player movement input,
+pathfinding in player movement
 
 */
 
@@ -29,8 +30,9 @@ public class HexGrid : MonoBehaviour
     public Text cellLabelPrefab;
     Canvas gridCanvas;
 
+    [Header ("Cell Highlight Colors")]
     public Color movementRangeHighlightColor;
-
+    public Color toCellHighlightColor;
 
     #endregion
     //Awake is used to generate each individual tile in the level
@@ -59,16 +61,16 @@ public class HexGrid : MonoBehaviour
     {
         #region Setting the position
         Vector3 position;
-        position.x = (x + z * 0.5f - z / 2) * (HexMetrics.innerRadius * 2f) * xOffset;
+        position.x = (x + z * 0.5f - z / 2) * (HexMetrics.innerRadius * 2f);
         position.y = 0f;
-        position.z = z * (HexMetrics.outerRadius * 1.5f) * zOffset;
+        position.z = z * (HexMetrics.outerRadius * 1.5f) ;
         #endregion
 
         #region Building the Cell's transform and name
         HexCell cell = cells[i] = Instantiate<HexCell>(cellPrefab);
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
-        cell.name = "HexCell_" + x + "_" + z;
+        cell.name = "HexCell_" + (x - z / 2) + "_" + z;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
         cell.tag = "HexCell";
         #endregion
@@ -84,7 +86,7 @@ public class HexGrid : MonoBehaviour
         #endregion
 
         #region Setting the cell's Neighbors
-        if (x > 0)
+        if(x > 0)
         {
             cell.SetNeighbor(HexDirection.W, cells[i - 1]);
         }
@@ -101,9 +103,9 @@ public class HexGrid : MonoBehaviour
             else
             {
                 cell.SetNeighbor(HexDirection.SW, cells[i - width]);
-                if (x > 0)
+                if (x <width-1)
                 {
-                    cell.SetNeighbor(HexDirection.SE, cells[i - width - 1]);
+                    cell.SetNeighbor(HexDirection.SE, cells[i - width + 1]);
                 }
             }
         }
@@ -135,7 +137,14 @@ public class HexGrid : MonoBehaviour
     
     IEnumerator Search(HexCell fromCell, HexCell toCell, int speed)
     {
-        /*I am setting the distance to max value to act as a check on what cell's distances haven't been gotten yet.The code will perform a breadth first search on all available cells to find the fastes route to the target cell */
+        /* I am setting the distance to max value.
+         * I can use the max value as a check for any distance I haven't calculated yet.
+         *  -As in, if the distance == int.max, it means I haven't calculated it's distance
+         *  yet
+         * .The code will perform a breadth first search on all available cells to find the fastes route to the target cell 
+         * The open set is used to track the cells and order of cells that we have yet to calculate
+         */
+
         #region Setting all Hex Distances to Max int value and building the open set
         for (int i = 0; i < cells.Length; i++)
         {
@@ -143,8 +152,9 @@ public class HexGrid : MonoBehaviour
             cells[i].SetLabel(null);
             cells[i].DisableHighlight();
         }
-		fromCell.EnableHighlight(movementRangeHighlightColor);
-		toCell.EnableHighlight(Color.red);
+
+        fromCell.EnableHighlight(movementRangeHighlightColor);
+		toCell.EnableHighlight(toCellHighlightColor);
 
         #endregion
 
@@ -152,9 +162,7 @@ public class HexGrid : MonoBehaviour
         List<HexCell> openSet = new List<HexCell>();
         fromCell.Distance = 0;
         openSet.Add(fromCell);
-
-
-        #region BFS
+        #region Best First Search
         while (openSet.Count>0)
         {
             yield return delay;
@@ -166,6 +174,7 @@ public class HexGrid : MonoBehaviour
                 current = current.PathFrom;
                 while(current!=fromCell)
                 {
+                    yield return new WaitForSeconds(0.5f);
                     current.EnableHighlight(movementRangeHighlightColor);
                     current = current.PathFrom;
                 }
@@ -178,7 +187,8 @@ public class HexGrid : MonoBehaviour
             /* Hex Direction is an enum set of neighbors directions.The loop will prioritise searching in the direction of the cells neighbors, not top to bottom             */
             for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
             {
-                //int turn = current.Distance / speed;
+                
+                int turn = current.Distance / speed;
                 HexCell neighbor = current.GetNeighbor(d);
 				if (neighbor == null)
 				{
@@ -186,9 +196,9 @@ public class HexGrid : MonoBehaviour
 				}
                 if (neighbor.Distance == int.MaxValue)
                 {
-                    neighbor.PathFrom = current;
                     neighbor.Distance = current.Distance + 1;
-                    //neighbor.SetLabel(turn.ToString());
+                    neighbor.PathFrom = current;
+                    neighbor.SetLabel(turn.ToString());
                     openSet.Add(neighbor);
                 }
 				else if(current.Distance<neighbor.Distance)
@@ -209,6 +219,11 @@ public class HexGrid : MonoBehaviour
         #endregion
     }
 
+
+    /*
+     The GetCell(Vector3) is used to get the grid cell from a click or player's world position
+     The GetCell(HexCoordinates) uses a pre-defined co-ordinate to retrieve the position
+     */
     public HexCell GetCell(Vector3 position)
     {
         position = transform.InverseTransformPoint(position);

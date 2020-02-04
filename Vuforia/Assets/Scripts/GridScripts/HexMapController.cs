@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class HexMapController : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class HexMapController : MonoBehaviour
     HexCell currentCell, previousCell, moveToCell, startCell;
 
     [Header("Movement")]
-    public int speed = 3;
+    public int speed = 2;
     private bool isMoving = false;
 
     [Header("Spawning")]
@@ -58,6 +59,8 @@ public class HexMapController : MonoBehaviour
         //Checking if the player has just tapped the screen
         if (Input.touchCount > 0 || Input.GetMouseButtonUp(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
             //Named tapInput as we may add in different controlls for dragging movement
             HandleTapInput();
         }
@@ -85,6 +88,7 @@ public class HexMapController : MonoBehaviour
             {
                 isMoving = false;
                 moveToCell = currentCell;
+                currentCell = previousCell;
                 moveToCell.EnableHighlight(selectedColor);
                 startCell = previousCell;
             }
@@ -99,11 +103,11 @@ public class HexMapController : MonoBehaviour
 
 
             Debug.Log("Current Cell: " + currentCell.coordinates);
-            //}
+           
             #endregion
         }
 
-        if (moveToCell)
+        if (moveToCell != null && moveToCell!=currentCell)
         {
             hexGrid.FindPath(startCell, moveToCell, speed);
         }

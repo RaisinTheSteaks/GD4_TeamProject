@@ -11,7 +11,7 @@ public class HexCell : MonoBehaviour
     HexCell[] neighbors;
 
     public HexCell PathFrom { get; set; }
-
+    public int SearchHeuristic { get; set; }
     /*
      * Distance is used to track how far away this cell is from the selected cell
      */

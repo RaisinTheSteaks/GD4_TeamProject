@@ -32,6 +32,7 @@ public struct HexCoordinates
     public static HexCoordinates FromOffsetCoordinates(int x, int z)
     {
         return new HexCoordinates(x-z/2, z);
+        //return new HexCoordinates(x, z);
     }
 
     public override string ToString()
