@@ -70,26 +70,32 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (Input.GetMouseButtonDown(0))
         {
-
-            Debug.Log("Selecting");
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            if (photonPlayer == PhotonNetwork.LocalPlayer)
             {
-                if (hit.transform.parent == null)
+                if (Turn)
                 {
-                    Debug.Log("Cannot be selected");
-                }
-                else if (hit.transform.parent.name == transform.name)
-                {
-                    foreach (Transform child in hit.transform.parent)
+                    Debug.Log("Selecting");
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit))
                     {
-                        if (child != hit.transform)
-                            child.transform.GetComponent<BotController>().isSelected = false;
+                        if (hit.transform.parent == null)
+                        {
+                            Debug.Log("Cannot be selected");
+                        }
+                        else if (hit.transform.parent == transform)
+                        {
+                            foreach (Transform child in hit.transform.parent)
+                            {
+                                if (child != hit.transform)
+                                    child.transform.GetComponent<BotController>().isSelected = false;
+                            }
+                            hit.transform.GetComponent<BotController>().isSelected = true;
+                        }
                     }
-                    hit.transform.GetComponent<BotController>().isSelected = true;
                 }
             }
+            
         }
     }
 
@@ -103,7 +109,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public void OnEndTurnButton()
     {
-            GameManager.instance.photonView.RPC("ChangeActivePlayer", RpcTarget.AllBuffered);
+        GameManager.instance.photonView.RPC("ChangeActivePlayer", RpcTarget.AllBuffered);
     }
 
     public void setTurn(bool isActive)
