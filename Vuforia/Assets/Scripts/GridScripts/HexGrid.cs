@@ -159,9 +159,9 @@ public class HexGrid : MonoBehaviour
 
         WaitForSeconds delay = new WaitForSeconds(1 / 5f);
 
-        List<HexCell> openSet = new List<HexCell>();
+        Queue<HexCell> openSet = new Queue<HexCell>();
         fromCell.Distance = 0;
-        openSet.Add(fromCell);
+        openSet.Enqueue(fromCell);
         #endregion
 
         #region Best First Search
@@ -170,8 +170,7 @@ public class HexGrid : MonoBehaviour
         while (openSet.Count>0)
         {
             //Current is the first on the open set
-            HexCell current = openSet[0];
-            openSet.RemoveAt(0);
+            HexCell current = openSet.Dequeue();
 
 
 
@@ -201,25 +200,20 @@ public class HexGrid : MonoBehaviour
                 
                // int turn = current.Distance / speed;
                 HexCell neighbor = current.GetNeighbor(d);
-				if (neighbor == null)
+				if (neighbor != null)
 				{
-					continue;
-				}
-                if (neighbor.Distance == int.MaxValue)
-                {
-                    neighbor.Distance = current.Distance + 1;
-                    neighbor.PathFrom = current;
-                   // neighbor.SetLabel(turn.ToString());
-                    openSet.Add(neighbor);
-                }
-				else if(current.Distance < neighbor.Distance)
-				{
-                    neighbor.Distance = current.Distance;
-					neighbor.PathFrom=current;
-				}
-               
+                    if (neighbor.Distance == int.MaxValue)
+                    {
+                        neighbor.Distance = current.Distance + 1;
+                        neighbor.PathFrom = current;
+                        // neighbor.SetLabel(turn.ToString());
+                        openSet.Enqueue(neighbor);
+                       
+                    }
 
-				openSet.Sort((x, y) => x.Distance.CompareTo(y.Distance));
+
+                }
+                
             }
 
             
