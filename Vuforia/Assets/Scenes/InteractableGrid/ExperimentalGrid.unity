@@ -250,6 +250,86 @@ PrefabInstance:
       propertyPath: toCellHighlightColor.a
       value: 0.57254905
       objectReference: {fileID: 0}
+    - target: {fileID: 969398884590114037, guid: 092b2c1be01130a418a193da686715f4,
+        type: 3}
+      propertyPath: pathHexColor.r
+      value: 0.042452812
+      objectReference: {fileID: 0}
+    - target: {fileID: 969398884590114037, guid: 092b2c1be01130a418a193da686715f4,
+        type: 3}
+      propertyPath: pathHexColor.g
+      value: 0.78328335
+      objectReference: {fileID: 0}
+    - target: {fileID: 969398884590114037, guid: 092b2c1be01130a418a193da686715f4,
+        type: 3}
+      propertyPath: pathHexColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 969398884590114037, guid: 092b2c1be01130a418a193da686715f4,
+        type: 3}
+      propertyPath: pathHexColor.a
+      value: 0.60784316
+      objectReference: {fileID: 0}
+    - target: {fileID: 969398884590114037, guid: 092b2c1be01130a418a193da686715f4,
+        type: 3}
+      propertyPath: startHexColor.r
+      value: 0.08018869
+      objectReference: {fileID: 0}
+    - target: {fileID: 969398884590114037, guid: 092b2c1be01130a418a193da686715f4,
+        type: 3}
+      propertyPath: startHexColor.g
+      value: 0.17228596
+      objectReference: {fileID: 0}
+    - target: {fileID: 969398884590114037, guid: 092b2c1be01130a418a193da686715f4,
+        type: 3}
+      propertyPath: startHexColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 969398884590114037, guid: 092b2c1be01130a418a193da686715f4,
+        type: 3}
+      propertyPath: startHexColor.a
+      value: 0.6156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 969398884590114037, guid: 092b2c1be01130a418a193da686715f4,
+        type: 3}
+      propertyPath: destinationHexColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 969398884590114037, guid: 092b2c1be01130a418a193da686715f4,
+        type: 3}
+      propertyPath: destinationHexColor.g
+      value: 0.07980805
+      objectReference: {fileID: 0}
+    - target: {fileID: 969398884590114037, guid: 092b2c1be01130a418a193da686715f4,
+        type: 3}
+      propertyPath: destinationHexColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 969398884590114037, guid: 092b2c1be01130a418a193da686715f4,
+        type: 3}
+      propertyPath: destinationHexColor.a
+      value: 0.627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 969398884590114037, guid: 092b2c1be01130a418a193da686715f4,
+        type: 3}
+      propertyPath: defaultHexColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 969398884590114037, guid: 092b2c1be01130a418a193da686715f4,
+        type: 3}
+      propertyPath: defaultHexColor.r
+      value: 0.12611249
+      objectReference: {fileID: 0}
+    - target: {fileID: 969398884590114037, guid: 092b2c1be01130a418a193da686715f4,
+        type: 3}
+      propertyPath: defaultHexColor.g
+      value: 0.17801684
+      objectReference: {fileID: 0}
+    - target: {fileID: 969398884590114037, guid: 092b2c1be01130a418a193da686715f4,
+        type: 3}
+      propertyPath: defaultHexColor.b
+      value: 0.24528301
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 092b2c1be01130a418a193da686715f4, type: 3}
 --- !u!4 &58871088 stripped

@@ -31,10 +31,18 @@ public class HexGrid : MonoBehaviour
     Canvas gridCanvas;
 
     [Header ("Cell Highlight Colors")]
-    public Color movementRangeHighlightColor;
-    public Color toCellHighlightColor;
+    public Color pathHexColor;
+    public Color startHexColor;
+    public Color destinationHexColor;
+    public Color defaultHexColor;
 
     #endregion
+
+    HexCell currentPathFrom, currentPathTo;
+    bool currentPathExists;
+    
+    
+    
     //Awake is used to generate each individual tile in the level
     void Awake()
     {
@@ -76,13 +84,15 @@ public class HexGrid : MonoBehaviour
         #endregion
 
         #region Adding the Cell's UI and Highlight components
+
         Text label = Instantiate<Text>(cellLabelPrefab);
         label.rectTransform.SetParent(gridCanvas.transform, false);
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
-        label.text = cell.coordinates.ToStringOnSeparateLines();
+        label.text = "";
         label.name = cell.name + "_Label";
         cell.uiRect = label.rectTransform;
-        
+
+       // cell.EnableHighlight(defaultHexColor);
         #endregion
 
         #region Setting the cell's Neighbors
@@ -129,101 +139,98 @@ public class HexGrid : MonoBehaviour
     //Used to update the distance values of each cell
     public void FindPath(HexCell fromCell, HexCell toCell, int speed)
     {
-        StopAllCoroutines();
-
-        StartCoroutine(Search(fromCell, toCell, speed));
-        //Search(fromCell, toCell, speed);
+        ClearPath();
+        currentPathFrom = fromCell;
+        currentPathTo = toCell;
+        currentPathExists=Search(fromCell, toCell, speed);
+        if(currentPathExists)
+            ShowPath(speed);
     }
     
-    IEnumerator Search(HexCell fromCell, HexCell toCell, int speed)
+    bool Search(HexCell fromCell, HexCell toCell, int speed)
     {
-        /* I am setting the distance to max value.
-         * I can use the max value as a check for any distance I haven't calculated yet.
-         *  -As in, if the distance == int.max, it means I haven't calculated it's distance
-         *  yet
-         * .The code will perform a breadth first search on all available cells to find the fastes route to the target cell 
-         * The open set is used to track the cells and order of cells that we have yet to calculate
-         */
-
         #region Setting all Hex Distances to Max int value and building the open set
         for (int i = 0; i < cells.Length; i++)
         {
             cells[i].Distance = int.MaxValue;
-            cells[i].SetLabel(null);
-            cells[i].DisableHighlight();
         }
-
-        fromCell.EnableHighlight(movementRangeHighlightColor);
-		toCell.EnableHighlight(toCellHighlightColor);
-
-
-        WaitForSeconds delay = new WaitForSeconds(1 / 5f);
 
         Queue<HexCell> openSet = new Queue<HexCell>();
         fromCell.Distance = 0;
         openSet.Enqueue(fromCell);
+
         #endregion
+        #region Breadth First Search
 
-        #region Best First Search
-
-        //Starting with just the fromCell
         while (openSet.Count>0)
         {
-            //Current is the first on the open set
             HexCell current = openSet.Dequeue();
-
-
-
-            //If the current cell is the desintation, quit
+            #region Termination Condition
             if (current == toCell)
             {
-                current = current.PathFrom;
-                //Backtrack through all previous cells in the path and activate their movement highlight
-                //This is probably where we will move the bots
-                while(current != fromCell)
-                {
-                    //Used to figure out how far the player can go this turn
-                    int currentTurn = (current.Distance / speed);
-                    yield return delay;
-                    current.EnableHighlight(movementRangeHighlightColor);
-                    current.SetLabel(currentTurn.ToString());
-                    current = current.PathFrom;
-                }
-                //Once we've reached the start of the path, quit
-                break;
+                return true;
             }
-
-
-            /* Hex Direction is an enum set of neighbors directions.The loop will prioritise searching in the direction of the cells neighbors, not top to bottom             */
+            #endregion
+            #region Recurse 
             for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
             {
-                
-               // int turn = current.Distance / speed;
                 HexCell neighbor = current.GetNeighbor(d);
 				if (neighbor != null)
 				{
+                    //This currently Checks all it's neighbors
                     if (neighbor.Distance == int.MaxValue)
                     {
                         neighbor.Distance = current.Distance + 1;
                         neighbor.PathFrom = current;
-                        // neighbor.SetLabel(turn.ToString());
                         openSet.Enqueue(neighbor);
-                       
                     }
-
-
+                    //To search more intelligently, we would add an else statement here to check if any other cells have a lower heuristic
                 }
-                
             }
-
-            
-
-
-           
+            #endregion
         }
+        return false;
         #endregion
     }
 
+    void ShowPath(int speed)
+    {
+        if (currentPathExists)
+        {
+            HexCell current = currentPathTo;
+            while (current != currentPathFrom)
+            {
+                int turn = current.Distance / speed;
+                current.SetLabel(turn.ToString());
+                current.EnableHighlight(pathHexColor);
+                current = current.PathFrom;
+            }
+            currentPathFrom.EnableHighlight(startHexColor);
+            currentPathTo.EnableHighlight(destinationHexColor);
+        }
+    }
+
+    void ClearPath()
+    {
+        if (currentPathExists)
+        {
+            HexCell current = currentPathTo;
+            while (current != currentPathFrom)
+            {
+                current.SetLabel(null);
+                current.DisableHighlight();
+                current = current.PathFrom;
+            }
+            current.DisableHighlight();
+            currentPathExists = false;
+        }
+        else if(currentPathFrom)
+        {
+            currentPathFrom.DisableHighlight();
+            currentPathTo.DisableHighlight();
+        }
+        currentPathFrom = currentPathTo = null;
+    }
 
     /*
      The GetCell(Vector3) is used to get the grid cell from a click or player's world position
