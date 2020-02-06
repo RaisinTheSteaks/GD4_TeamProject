@@ -156,39 +156,50 @@ public class HexGrid : MonoBehaviour
         fromCell.EnableHighlight(movementRangeHighlightColor);
 		toCell.EnableHighlight(toCellHighlightColor);
 
-        #endregion
 
-        WaitForSeconds delay = new WaitForSeconds(1 / 60f);
+        WaitForSeconds delay = new WaitForSeconds(1 / 5f);
+
         List<HexCell> openSet = new List<HexCell>();
         fromCell.Distance = 0;
         openSet.Add(fromCell);
+        #endregion
+
         #region Best First Search
+
+        //Starting with just the fromCell
         while (openSet.Count>0)
         {
-            yield return delay;
+            //Current is the first on the open set
             HexCell current = openSet[0];
             openSet.RemoveAt(0);
 
-			if (current == toCell)
+
+
+            //If the current cell is the desintation, quit
+            if (current == toCell)
             {
                 current = current.PathFrom;
-                while(current!=fromCell)
+                //Backtrack through all previous cells in the path and activate their movement highlight
+                //This is probably where we will move the bots
+                while(current != fromCell)
                 {
-                    yield return new WaitForSeconds(0.5f);
+                    //Used to figure out how far the player can go this turn
+                    int currentTurn = (current.Distance / speed);
+                    yield return delay;
                     current.EnableHighlight(movementRangeHighlightColor);
+                    current.SetLabel(currentTurn.ToString());
                     current = current.PathFrom;
                 }
+                //Once we've reached the start of the path, quit
                 break;
             }
 
-            //Used to figure out how far the player can go this turn
-            int currentTurn = (current.Distance / speed);
 
             /* Hex Direction is an enum set of neighbors directions.The loop will prioritise searching in the direction of the cells neighbors, not top to bottom             */
             for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
             {
                 
-                int turn = current.Distance / speed;
+               // int turn = current.Distance / speed;
                 HexCell neighbor = current.GetNeighbor(d);
 				if (neighbor == null)
 				{
@@ -198,10 +209,10 @@ public class HexGrid : MonoBehaviour
                 {
                     neighbor.Distance = current.Distance + 1;
                     neighbor.PathFrom = current;
-                    neighbor.SetLabel(turn.ToString());
+                   // neighbor.SetLabel(turn.ToString());
                     openSet.Add(neighbor);
                 }
-				else if(current.Distance<neighbor.Distance)
+				else if(current.Distance < neighbor.Distance)
 				{
                     neighbor.Distance = current.Distance;
 					neighbor.PathFrom=current;
