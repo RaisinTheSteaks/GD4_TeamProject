@@ -55,7 +55,6 @@ public class BotController : MonoBehaviourPunCallbacks
         popUp = GameObject.Find("PopUp");
         hexGrid = GameObject.Find("HexGrid");
         popUp.SetActive(false);
-        popUp.SetActive(false);
     }
     private void Update()
     {
@@ -64,7 +63,7 @@ public class BotController : MonoBehaviourPunCallbacks
             SelectedText();
         if (specialAbility && !specialAbilityUsed)
             ExplosionDamage();
-        if (confirm)
+        if (!popUp.activeSelf && confirm)
             loadExplosion();
     }
 
@@ -117,8 +116,8 @@ public class BotController : MonoBehaviourPunCallbacks
         HexCell hex = hexGrid.GetComponent<HexGrid>().getCell(tap);
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         sphere.transform.position = hex.transform.position;
-        sphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-        hitColliders = Physics.OverlapSphere(hex.transform.position, 1.0f);
+        sphere.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        hitColliders = Physics.OverlapSphere(hex.transform.position, 0.5f);
         for (int i = 0; i < hitColliders.Length; i++)
         {
             if (hitColliders[i].transform.name == transform.name)
@@ -135,13 +134,15 @@ public class BotController : MonoBehaviourPunCallbacks
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
+            if(!popUp.activeSelf && !confirm)
             {
-                tap = hit.point;
-                popUp.SetActive(true);
+                if (Physics.Raycast(ray, out hit))
+                {
+                    tap = hit.point;
+                    popUp.SetActive(true);
+                }
+                //this will be where the damage is dealt
             }
-            //this will be where the damage is dealt
         }
     }
 
