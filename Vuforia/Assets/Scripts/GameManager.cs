@@ -10,7 +10,7 @@ using TMPro;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     public GameObject imageTarget;
-
+    public HexGrid grid;
     [Header("Stats")]
     public bool gameEnded = false;
     public TextMeshProUGUI pingUI;

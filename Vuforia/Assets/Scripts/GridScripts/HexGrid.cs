@@ -16,6 +16,7 @@ pathfinding in player movement
 
 public class HexGrid : MonoBehaviour
 {
+    public GameManager gameManager;
     #region Inspector Inputs
     [Header ("Grid Inputs")]
     public int width = 6;
@@ -36,13 +37,15 @@ public class HexGrid : MonoBehaviour
     public Color destinationHexColor;
     public Color defaultHexColor;
 
+    [Header("Spawning")]
+    public Transform[] spawnPoints;
     #endregion
 
     HexCell currentPathFrom, currentPathTo;
     bool currentPathExists;
-    
-    
-    
+
+
+
     //Awake is used to generate each individual tile in the level
     void Awake()
     {
@@ -61,8 +64,16 @@ public class HexGrid : MonoBehaviour
                 CreateCell(x, z, i++);
             }
         }
+        SetSpawnPoints(cells[0]);
+        SetSpawnPoints(cells[cells.Length-1]);
+        SetSpawnPoints(cells[7]);
+        SetSpawnPoints(cells[cells.Length-7]);
     }
 
+    void SetSpawnPoints(HexCell cell)
+    {
+        gameManager.spawnPoints[0] = cell.transform;
+    }
 
     //Build each given cell at these coordinates
     void CreateCell(int x, int z, int i)

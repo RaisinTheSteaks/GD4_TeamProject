@@ -13,22 +13,10 @@ public class HexMapController : MonoBehaviour
     public int speed = 2;
     private bool isMoving = false;
 
-    [Header("Spawning")]
-    public Transform spawnPoint1;
-    public Transform spawnPoint2;
-
-    public GameObject botPrefab;
-    Unit botUnit;
-
-    private HexCoordinates spawnHex1;
-    private HexCoordinates spawnHex2;
-
+    
     void Awake()
     {
-        //To be added for bot spawning
-        //spawnHex1 = HexCoordinates.FromOffsetCoordinates(spawnPoint1.position.x, spawnPoint1.position.z);
-        //spawnHex2 = HexCoordinates.FromPosition(spawnPoint2.position);
-        //Debug.Log("Spawn 1:"+spawnHex1.ToString()+"  Spawn 2: "+spawnHex2.ToString());
+
     }
 
     void Update()
@@ -131,14 +119,5 @@ public class HexMapController : MonoBehaviour
         }
         return null;
     }
-
-    void CreateBot()
-    {
-        HexCell cell = GetCellUnderCursor();
-        if(cell)
-        {
-            Unit unit=Instantiate(botUnit);
-            unit.transform.SetParent(hexGrid.transform, false);
-        }
-    }
+    
 }
