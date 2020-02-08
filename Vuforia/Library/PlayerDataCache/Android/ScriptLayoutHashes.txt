@@ -1,9 +1,9 @@
 Android
 PlayerPath?
-C:/Users/Josh/Desktop/Vuforia2018Test.apk
+C:/Users/rianm/OneDrive/Documents/GitHub/GD4_TeamProject/Vuforia/B.apk
 SceneListBegin?
 Assets/Scenes/Menu.unity
-Assets/Scenes/MasterScene.unity
+Assets/Scenes/GammaExperiment.unity
 SceneListEnd?
 71bb6a6b6c8f052f948db64c7dd3ca4f PhotonUnityNetworking.Utilities.dll:Photon.Pun.UtilityScripts.PunTeams
 71bb6a6b6c8f052f948db64c7dd3ca4f VuforiaScripts.dll:.BoundingBoxRenderer

@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  isMyTurn: 0
+  Turn: 0
 --- !u!114 &3508599053502881481
 MonoBehaviour:
   m_ObjectHideFlags: 0
