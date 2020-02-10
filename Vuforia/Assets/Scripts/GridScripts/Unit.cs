@@ -2,17 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ Going to Start out the unit spawning according to the tutorial, then modify it
+ to spawn the appropriate bots
+     */
+
 public class Unit : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public HexCell Location
     {
-        
+        get
+        {
+            return location;
+        }
+        set
+        {
+            location = value;
+            value.unit = this;
+            transform.localPosition = value.Position;
+        }
     }
+    HexCell location;
 
-    // Update is called once per frame
-    void Update()
+    public float Orientation
     {
-        
+        get
+        {
+            return orientation;
+        }
+        set
+        {
+            orientation = value;
+            transform.localRotation = Quaternion.Euler(0f, value, 0f);
+        }
     }
+    float orientation;
 }

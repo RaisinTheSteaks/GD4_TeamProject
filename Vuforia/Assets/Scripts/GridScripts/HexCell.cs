@@ -4,19 +4,43 @@ using UnityEngine;
 using UnityEngine.UI;
 public class HexCell : MonoBehaviour
 {
+    #region Member Variables
+    //The current grid-position of this cell
     public HexCoordinates coordinates;
+    //The Color this cell should be shaded
     public Color color;
+    
+    //The debug information on top of the cell, like the highlights and the turns - to - travel information
     public RectTransform uiRect;
+
+    //Track all of the cells next to this one
     [SerializeField]
     HexCell[] neighbors;
 
+    //Used to track the path that the player travels along
     public HexCell PathFrom { get; set; }
-    public int SearchHeuristic { get; set; }
-    /*
-     * Distance is used to track how far away this cell is from the selected cell
-     */
-    int distance;
+
+    //To be added when smarter pathfinding is built
+    //public int SearchHeuristic { get; set; }
     
+    // Distance is used to track how far away this cell is from the selected cell
+    int distance;
+
+    //Unit is tracking what unit is currently set into this cell
+    public Unit unit;
+
+    #endregion
+
+
+
+    public Vector3 Position
+    {
+        get
+        {
+            return transform.localPosition;
+        }
+    }
+
     public void SetLabel(string text)
     {
         UnityEngine.UI.Text label = uiRect.GetComponent<Text>();

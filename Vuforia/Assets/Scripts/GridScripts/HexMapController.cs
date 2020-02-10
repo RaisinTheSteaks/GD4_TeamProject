@@ -13,7 +13,9 @@ public class HexMapController : MonoBehaviour
     public int speed = 2;
     private bool isMoving = false;
 
-    
+    [Header("Bots")]
+    public Unit unitPrefab;
+
     void Awake()
     {
 
@@ -43,6 +45,15 @@ public class HexMapController : MonoBehaviour
          */
         #endregion
 
+        #region Temporary Bot spawning
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Debug.Log("[[Create Unit]]");
+            CreateUnit();
+            return;
+        }
+
+        #endregion
 
         //Checking if the player has just tapped the screen
         if (Input.touchCount > 0 || Input.GetMouseButtonUp(0))
@@ -51,6 +62,7 @@ public class HexMapController : MonoBehaviour
                 return;
             //Named tapInput as we may add in different controlls for dragging movement
             HandleTapInput();
+            return;
         }
     }
 
@@ -106,6 +118,22 @@ public class HexMapController : MonoBehaviour
         isMoving = state;
     }
 
+    public void CreateUnit()
+    {
+        HexCell cell = GetCellUnderCursor();
+        if (cell)
+        {
+            //If the selected cell doesn't have a unit on it
+            if (!cell.unit)
+            {
+                Unit unit = Instantiate(unitPrefab);
+                unit.transform.SetParent(hexGrid.transform, false);
+                unit.Location = cell;
+                unit.Orientation = Random.Range(0f, 360f);
+            }
+        }
+    }
+
     HexCell GetCellUnderCursor()
     {
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -113,9 +141,7 @@ public class HexMapController : MonoBehaviour
 
         if (Physics.Raycast(inputRay, out hit))
         {
-            //not effective at filtering out objects behind UI
-            //if(hit.transform.IsChildOf(hexGrid.transform))
-                return hexGrid.GetCell(hit.point);
+            return hexGrid.GetCell(hit.point);
         }
         return null;
     }
