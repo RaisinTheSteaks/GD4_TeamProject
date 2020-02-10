@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public Player photonPlayer;
     public bool Turn;
     private Button EndTurnButton;
+    public float timer;
+    public bool endTurnPressed;
 
 
     [PunRPC]
@@ -49,6 +51,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
 
         EndTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
+        endTurnPressed = false;
     }
 
     private void Update()
@@ -58,6 +61,19 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             SelectCharacter();
         }
+
+        
+        if(endTurnPressed)
+        {
+            timer += Time.deltaTime;
+            if (timer >= 3)
+            {
+                print("3 second");
+                EndTurn();
+                ResetEndTurnButton();
+            }
+        }
+        
     }
 
 
@@ -103,13 +119,50 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public void checkTurn()
     {
         if (photonPlayer == PhotonNetwork.LocalPlayer)
-            //EndTurnButton.interactable = Turn;
-            EndTurnButton.gameObject.SetActive(Turn);
+        //EndTurnButton.interactable = Turn;
+        {
+            foreach(Transform text in EndTurnButton.transform)
+            {
+                text.gameObject.SetActive(Turn);
+            }
+            EndTurnButton.enabled = Turn;
+            
+            if (!Turn)
+            {
+                EndTurnButton.gameObject.GetComponent<Image>().material = Resources.Load("EndTurnDisabled", typeof(Material)) as Material;
+
+            }
+            else
+            {
+                EndTurnButton.gameObject.GetComponent<Image>().material = Resources.Load("EndTurn", typeof(Material)) as Material;
+            }
+
+        }
+           
     }
 
-    public void OnEndTurnButton()
+    public void OnEndTurnButtonPressed()
+    {
+        //print("pressing down");
+        endTurnPressed = true;
+    }
+
+    public void EndTurn()
     {
         GameManager.instance.photonView.RPC("ChangeActivePlayer", RpcTarget.AllBuffered);
+
+    }
+
+    public void OnEndTurnRelease()
+    {
+        // print("releasing");
+        ResetEndTurnButton();
+    }
+
+    public void ResetEndTurnButton()
+    {
+        endTurnPressed = false;
+        timer = 0;
     }
 
     public void setTurn(bool isActive)

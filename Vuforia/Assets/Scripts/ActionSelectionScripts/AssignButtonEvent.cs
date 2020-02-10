@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using Photon.Pun;
 
 public class AssignButtonEvent : MonoBehaviour
@@ -11,6 +12,7 @@ public class AssignButtonEvent : MonoBehaviour
     public Button attackButton;
     public Button guardButton;
     public Button specialAbilitiesButton;
+    public Button endTurnButton;
     public bool allAssigned;
     private int frame;
 
@@ -45,8 +47,10 @@ public class AssignButtonEvent : MonoBehaviour
                         attackButton.onClick.AddListener(delegate { botScript.attack(); });
                         guardButton.onClick.AddListener(delegate { botScript.guard(); });
                         specialAbilitiesButton.onClick.AddListener(delegate { botScript.abilities(); });
+                        
                     }
-
+                    assignEventTrigger(player);
+                    
                     allAssigned = true;
                 }
             
@@ -55,6 +59,20 @@ public class AssignButtonEvent : MonoBehaviour
 
         }
        
+    }
+
+    public void assignEventTrigger(PlayerController player)
+    {
+        EventTrigger trigger = endTurnButton.GetComponent<EventTrigger>();
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = EventTriggerType.PointerDown;
+        entry.callback.AddListener((eventData) => { player.OnEndTurnButtonPressed(); });
+        trigger.triggers.Add(entry);
+
+        EventTrigger.Entry entry2 = new EventTrigger.Entry();
+        entry2.eventID = EventTriggerType.PointerUp;
+        entry2.callback.AddListener((eventData) => { player.OnEndTurnRelease(); });
+        trigger.triggers.Add(entry2);
     }
 
 

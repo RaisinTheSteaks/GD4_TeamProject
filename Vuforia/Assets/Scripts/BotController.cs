@@ -139,7 +139,7 @@ public class BotController : MonoBehaviourPunCallbacks
                             attackingMode = false;
 
                             //end player turn
-                            playerScript.OnEndTurnButton();
+                            playerScript.EndTurn();
                         }
                     }
                 }
