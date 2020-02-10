@@ -43,8 +43,14 @@ public class HexGrid : MonoBehaviour
 
     HexCell currentPathFrom, currentPathTo;
     bool currentPathExists;
-
-
+    Unit selectedUnit;
+    public bool HasPath
+    {
+        get
+        {
+            return currentPathExists;
+        }
+    }
 
     //Awake is used to generate each individual tile in the level
     void Awake()
@@ -69,6 +75,8 @@ public class HexGrid : MonoBehaviour
         SetSpawnPoints(cells[7]);
         SetSpawnPoints(cells[cells.Length-7]);
     }
+
+    
 
     void SetSpawnPoints(HexCell cell)
     {
@@ -150,6 +158,14 @@ public class HexGrid : MonoBehaviour
     //Used to update the distance values of each cell
     public void FindPath(HexCell fromCell, HexCell toCell, int speed)
     {
+        if (fromCell.unit)
+        {
+            selectedUnit = fromCell.unit;
+        }
+        else
+        {
+            selectedUnit = null;
+        }
         ClearPath();
         currentPathFrom = fromCell;
         currentPathTo = toCell;
@@ -243,10 +259,37 @@ public class HexGrid : MonoBehaviour
         currentPathFrom = currentPathTo = null;
     }
 
+    void DoSelection()
+    {
+        if(currentPathFrom)
+        {
+            selectedUnit = currentPathFrom.unit;
+        }
+    }
+
+    public void DoMove()
+    {
+        if(HasPath)
+        {
+            selectedUnit.Location = currentPathTo;
+            ClearPath();
+        }
+    }
+
     /*
      The GetCell(Vector3) is used to get the grid cell from a click or player's world position
      The GetCell(HexCoordinates) uses a pre-defined co-ordinate to retrieve the position
      */
+     
+    public HexCell GetCell(Ray ray)
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(ray,out hit))
+        {
+            return GetCell(hit.point);
+        }
+        return null;
+    }
     public HexCell GetCell(Vector3 position)
     {
         position = transform.InverseTransformPoint(position);

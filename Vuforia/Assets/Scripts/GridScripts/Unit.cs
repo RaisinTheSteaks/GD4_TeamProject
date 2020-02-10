@@ -17,6 +17,10 @@ public class Unit : MonoBehaviour
         }
         set
         {
+            if(location)
+            {
+                location.unit = null;
+            }
             location = value;
             value.unit = this;
             transform.localPosition = value.Position;
@@ -37,4 +41,10 @@ public class Unit : MonoBehaviour
         }
     }
     float orientation;
+
+    public void Die()
+    {
+        location.unit = null;
+        Destroy(gameObject);
+    }
 }

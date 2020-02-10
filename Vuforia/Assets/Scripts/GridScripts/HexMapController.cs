@@ -15,7 +15,7 @@ public class HexMapController : MonoBehaviour
 
     [Header("Bots")]
     public Unit unitPrefab;
-
+    Unit currentUnit;
     void Awake()
     {
 
@@ -48,22 +48,31 @@ public class HexMapController : MonoBehaviour
         #region Temporary Bot spawning
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Debug.Log("[[Create Unit]]");
             CreateUnit();
             return;
         }
-
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            DestroyUnit();
+            return;
+        }
         #endregion
 
         //Checking if the player has just tapped the screen
-        if (Input.touchCount > 0 || Input.GetMouseButtonUp(0))
+        if (Input.touchCount > 0 || Input.GetMouseButtonDown(0))
         {
-            if (EventSystem.current.IsPointerOverGameObject())
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
+                //Named tapInput as we may add in different controlls for dragging movement
+                HandleTapInput();
                 return;
-            //Named tapInput as we may add in different controlls for dragging movement
-            HandleTapInput();
-            return;
+            }
         }
+        if(Input.GetMouseButtonUp(0))
+        {
+            hexGrid.DoMove();
+        }
+
     }
 
     void HandleTapInput()
@@ -74,10 +83,7 @@ public class HexMapController : MonoBehaviour
 
         if (currentCell)
         {
-
             #region Handle input on hexagon in grid
-            //if (hit.transform.gameObject.tag == "HexCell")
-            //{
 
             if (moveToCell)
             {
@@ -91,6 +97,11 @@ public class HexMapController : MonoBehaviour
                 currentCell = previousCell;
                 moveToCell.EnableHighlight(selectedColor);
                 startCell = previousCell;
+
+                if (startCell.unit)
+                {
+                    currentUnit = startCell.unit;
+                }
             }
             else
             {
@@ -100,16 +111,20 @@ public class HexMapController : MonoBehaviour
 
                 previousCell = currentCell;
             }
-
-
             Debug.Log("Current Cell: " + currentCell.coordinates);
            
             #endregion
         }
 
-        if (moveToCell != null && moveToCell!=currentCell)
+        if (moveToCell != null)
         {
-            hexGrid.FindPath(startCell, moveToCell, speed);
+            if (moveToCell != currentCell)
+            {
+                if (currentUnit)
+                {
+                    hexGrid.FindPath(currentUnit.Location, moveToCell, speed);
+                }
+            }
         }
     }
 
@@ -134,16 +149,19 @@ public class HexMapController : MonoBehaviour
         }
     }
 
+    public void DestroyUnit()
+    {
+        //If the selected cell has a unit in it, destroy the unit
+        HexCell cell = GetCellUnderCursor();
+        if(cell && cell.unit)
+        {
+            cell.unit.Die();
+        }
+    }
+
     HexCell GetCellUnderCursor()
     {
-        Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(inputRay, out hit))
-        {
-            return hexGrid.GetCell(hit.point);
-        }
-        return null;
+        return hexGrid.GetCell(Camera.main.ScreenPointToRay(Input.mousePosition));
     }
     
 }
