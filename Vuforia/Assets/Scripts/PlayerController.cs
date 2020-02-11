@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private Button EndTurnButton;
     public float timer;
     public bool endTurnPressed;
+    public Text endTurnMessage;
+    public GameObject endTurnMessageImage;
+    public GameObject botSymbol;
 
 
     [PunRPC]
@@ -51,7 +54,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
 
         EndTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
+        endTurnMessageImage = GameObject.Find("EndTurnMessage");
+        endTurnMessage = endTurnMessageImage.transform.Find("Text").GetComponent<Text>();
+        endTurnMessageImage.SetActive(false);
         endTurnPressed = false;
+        botSymbol = GameObject.Find("Symbol");
+       
     }
 
     private void Update()
@@ -65,13 +73,27 @@ public class PlayerController : MonoBehaviourPunCallbacks
         
         if(endTurnPressed)
         {
+            endTurnMessage.text = "End Turn \n" + (3 - (int)timer);
             timer += Time.deltaTime;
+            
             if (timer >= 3)
             {
-                print("3 second");
+                
                 EndTurn();
                 ResetEndTurnButton();
             }
+        }
+
+        foreach(Transform bot in transform)
+        {
+            if(bot.GetComponent<BotController>().isSelected)
+            {
+                botSymbol.SetActive(true);
+                break;
+            }
+
+            botSymbol.SetActive(false);
+
         }
         
     }
@@ -107,6 +129,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                                     child.transform.GetComponent<BotController>().isSelected = false;
                             }
                             hit.transform.GetComponent<BotController>().isSelected = true;
+                            botSymbol.GetComponent<RawImage>().material = hit.transform.GetComponent<BotController>().symbol;
                         }
                     }
                 }
@@ -144,6 +167,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public void OnEndTurnButtonPressed()
     {
         //print("pressing down");
+        endTurnMessageImage.SetActive(true);
+        //endTurnMessage.gameObject.SetActive(true);
         endTurnPressed = true;
     }
 
@@ -161,6 +186,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public void ResetEndTurnButton()
     {
+        endTurnMessageImage.SetActive(false);
+        //endTurnMessage.gameObject.SetActive(false);
         endTurnPressed = false;
         timer = 0;
     }

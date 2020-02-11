@@ -50,6 +50,10 @@ MonoBehaviour:
   Turn: 0
   timer: 0
   endTurnPressed: 1
+  endTurnMessage: {fileID: 0}
+  endTurnMessageImage: {fileID: 6350253553445170105, guid: f8e604de16356d640a964b4a9baf88d7,
+    type: 3}
+  botSymbol: {fileID: 0}
 --- !u!114 &3508599053502881481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,6 +188,11 @@ PrefabInstance:
       propertyPath: deathSound
       value: 
       objectReference: {fileID: 8300000, guid: 8a567576ff5a6d244acf46e8b1e50d07, type: 3}
+    - target: {fileID: 6956144906709237833, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: symbol
+      value: 
+      objectReference: {fileID: 2100000, guid: 98ccd5d81e21c404d923f4f6fadaf95e, type: 2}
     - target: {fileID: 7326950034824410576, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
       propertyPath: m_Controller
@@ -461,6 +470,11 @@ PrefabInstance:
       propertyPath: deathSound
       value: 
       objectReference: {fileID: 8300000, guid: 8a567576ff5a6d244acf46e8b1e50d07, type: 3}
+    - target: {fileID: 6956144906709237833, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: symbol
+      value: 
+      objectReference: {fileID: 2100000, guid: 15f4fb3458bbd914fa446212aec78640, type: 2}
     - target: {fileID: 7326950034824410576, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
       propertyPath: m_Controller
