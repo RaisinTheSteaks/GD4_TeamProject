@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 731278323277106583}
   m_Layer: 0
   m_Name: HexCell
-  m_TagString: Untagged
+  m_TagString: HexCell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0.9056604, g: 0.09825563, b: 0.7251359, a: 0}
+  uiRect: {fileID: 0}
   neighbors:
   - {fileID: 0}
   - {fileID: 0}

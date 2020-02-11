@@ -32,6 +32,7 @@ public struct HexCoordinates
     public static HexCoordinates FromOffsetCoordinates(int x, int z)
     {
         return new HexCoordinates(x-z/2, z);
+        //return new HexCoordinates(x, z);
     }
 
     public override string ToString()
@@ -73,5 +74,14 @@ public struct HexCoordinates
             //Debug.LogWarning("Rounding error");
         }
         return new HexCoordinates(iX, iZ);
+    }
+
+    public int DistanceTo(HexCoordinates other)
+    {
+        //Calculating the absolute distance between this cell and other along each axis
+        return 
+            ((X < other.X ? other.X - X : X - other.X)+
+            (Y < other.Y ? other.Y - Y : Y - other.Y)+
+            (Z < other.Z ? other.Z - Z : Z - other.Z)) / 2;
     }
 }

@@ -10,7 +10,7 @@ using TMPro;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     public GameObject imageTarget;
-
+    public HexGrid grid;
     [Header("Stats")]
     public bool gameEnded = false;
     public TextMeshProUGUI pingUI;
@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             index = 0;
+            //Hex points is these 2 points
         }
         else
         {
