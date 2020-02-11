@@ -124,13 +124,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c3fec08a00e73468248827283f0352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 6
-  height: 6
+  gameManager: {fileID: 0}
+  width: 8
+  height: 8
   xOffset: 1
   zOffset: 1
   cellPrefab: {fileID: 731278323277106583, guid: 11394786101796b46b74a40975104c67,
     type: 3}
-  cellLabelPrefab: {fileID: 1106478905305417586, guid: c977b66cc20c2fa4aa51777acd7a4b06,
+  cellLabelPrefab: {fileID: 1106478905305417586, guid: 745eb8dcadad7964f9accf6b98edc316,
     type: 3}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  touchedColor: {r: 1, g: 0, b: 1, a: 1}
+  pathHexColor: {r: 0.13679248, g: 0.7846361, b: 1, a: 0.67058825}
+  startHexColor: {r: 0.1372549, g: 0.30409348, b: 1, a: 0.69803923}
+  destinationHexColor: {r: 1, g: 0, b: 0, a: 0.6862745}
+  defaultHexColor: {r: 1, g: 1, b: 1, a: 1}
+  spawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
