@@ -38,7 +38,7 @@ public class HexGrid : MonoBehaviour
     public Color defaultHexColor;
 
     [Header("Spawning")]
-    public Transform[] spawnPoints;
+    public HexCell[] spawnPoints;
     #endregion
 
     HexCell currentPathFrom, currentPathTo;
@@ -52,7 +52,7 @@ public class HexGrid : MonoBehaviour
         }
     }
 
-    //Awake is used to generate each individual tile in the level
+    //Awake is used to generate each individual tile in the level and set the spawn points
     void Awake()
     {
         cells = new HexCell[height * width];
@@ -70,17 +70,18 @@ public class HexGrid : MonoBehaviour
                 CreateCell(x, z, i++);
             }
         }
-        SetSpawnPoints(cells[0]);
-        SetSpawnPoints(cells[cells.Length-1]);
-        SetSpawnPoints(cells[7]);
-        SetSpawnPoints(cells[cells.Length-7]);
+        SetSpawnPoints();
     }
 
-    
 
-    void SetSpawnPoints(HexCell cell)
+
+    void SetSpawnPoints()
     {
-        gameManager.spawnPoints[0] = cell.transform;
+        spawnPoints[0] = cells[0];
+        spawnPoints[1] = cells[1];
+        spawnPoints[2] = cells[cells.Length - 1];
+        spawnPoints[3] = cells[cells.Length - 2];
+        gameManager.spawnPoints = spawnPoints;
     }
 
     //Build each given cell at these coordinates

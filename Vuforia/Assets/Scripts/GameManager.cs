@@ -11,13 +11,14 @@ public class GameManager : MonoBehaviourPunCallbacks
 {
     public GameObject imageTarget;
     public HexGrid grid;
+    public HexMapController mapController;
     [Header("Stats")]
     public bool gameEnded = false;
     public TextMeshProUGUI pingUI;
 
     [Header("Players")]
     public string playerPrefabLocation;
-    public Transform[] spawnPoints;
+    public HexCell[] spawnPoints;
     public BotController[] bots;
     public PlayerController[] players;
     private int playersInGame;
@@ -65,26 +66,45 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
 
         int index;
+        int spawnPoint1;
+        int spawnPoint2;
         if (PhotonNetwork.IsMasterClient)
         {
             index = 0;
+            spawnPoint1 = 0;
+            spawnPoint2 = 1;
             //Hex points is these 2 points
         }
         else
         {
             index = 1;
+            spawnPoint1 = 2;
+            spawnPoint2 = 3;
         }
-            
-        
-        GameObject playerObject = PhotonNetwork.Instantiate(playerPrefabLocation, spawnPoints[index].position, Quaternion.identity);
 
+        
+        GameObject playerObject = PhotonNetwork.Instantiate(playerPrefabLocation, spawnPoints[index].Position, Quaternion.identity);
+
+        Transform bot1 = playerObject.transform.Find("Tank");
+        Unit bot1Unit = bot1.GetComponent<Unit>();
+        if (bot1Unit)
+        {
+            mapController.CreateUnit(spawnPoints[spawnPoint1], bot1Unit);
+        }
+
+        Transform bot2 = playerObject.transform.Find("Troop");
+        Unit bot2Unit = bot2.GetComponent<Unit>();
+        if(bot2Unit)
+        {
+            mapController.CreateUnit(spawnPoints[spawnPoint2], bot2Unit);
+        }
 
         ////initialize the player
         PlayerController playerScript = playerObject.GetComponent<PlayerController>();
         playerScript.photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
 
     }
-
+    
 
     public PlayerController GetPlayer (int playerID)
     {

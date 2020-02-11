@@ -149,6 +149,28 @@ public class HexMapController : MonoBehaviour
         }
     }
 
+    public void CreateUnit(HexCell cell)
+    {
+        //If the selected cell doesn't have a unit on it
+        if (!cell.unit)
+        {
+            Unit unit = Instantiate(unitPrefab);
+            unit.transform.SetParent(hexGrid.transform, false);
+            unit.Location = cell;
+            unit.Orientation = Random.Range(0f, 360f);
+        }
+    }
+
+    public void CreateUnit(HexCell cell, Unit unit)
+    {
+        //If the selected cell doesn't have a unit on it
+        if (!cell.unit)
+        {
+            unit.transform.SetParent(hexGrid.transform, false);
+            unit.Location = cell;
+            unit.Orientation = Random.Range(0f, 360f);
+        }
+    }
     public void DestroyUnit()
     {
         //If the selected cell has a unit in it, destroy the unit
