@@ -42,6 +42,7 @@ public class Unit : MonoBehaviour
     }
     float orientation;
 
+    //Probably just set this to inactive. Needs further investigation
     public void Die()
     {
         location.unit = null;

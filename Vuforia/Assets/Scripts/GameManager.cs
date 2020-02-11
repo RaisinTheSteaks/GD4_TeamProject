@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             index = 0;
+            //Hex points is these 2 points
         }
         else
         {
