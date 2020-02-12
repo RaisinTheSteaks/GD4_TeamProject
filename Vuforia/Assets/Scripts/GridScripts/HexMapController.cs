@@ -170,7 +170,7 @@ public class HexMapController : MonoBehaviour
         //If the selected cell doesn't have a unit on it
         if (!cell.unit)
         {
-            unit.transform.SetParent(hexGrid.transform, false);
+            //unit.transform.SetParent(hexGrid.transform, false);
             unit.Location = cell;
             unit.Orientation = Random.Range(0f, 360f);
         }

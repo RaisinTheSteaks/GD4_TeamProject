@@ -64,26 +64,23 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void SpawnPlayer()
     {
-
-        int index;
+        
         int spawnPoint1;
         int spawnPoint2;
         if (PhotonNetwork.IsMasterClient)
         {
-            index = 0;
             spawnPoint1 = 0;
             spawnPoint2 = 1;
             //Hex points is these 2 points
         }
         else
         {
-            index = 1;
             spawnPoint1 = 2;
             spawnPoint2 = 3;
         }
 
         
-        GameObject playerObject = PhotonNetwork.Instantiate(playerPrefabLocation, spawnPoints[index].Position, Quaternion.identity);
+        GameObject playerObject = PhotonNetwork.Instantiate(playerPrefabLocation, spawnPoints[0].Position, Quaternion.identity);
 
         Transform bot1 = playerObject.transform.Find("Tank");
         Unit bot1Unit = bot1.GetComponent<Unit>();

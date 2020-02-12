@@ -30,9 +30,7 @@ public class HexCell : MonoBehaviour
     public Unit unit;
 
     #endregion
-
-
-
+    
     public Vector3 Position
     {
         get

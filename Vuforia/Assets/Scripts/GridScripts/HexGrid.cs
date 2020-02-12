@@ -79,8 +79,8 @@ public class HexGrid : MonoBehaviour
     {
         spawnPoints[0] = cells[0];
         spawnPoints[1] = cells[1];
-        spawnPoints[2] = cells[2];
-        spawnPoints[3] = cells[3];
+        spawnPoints[2] = cells[cells.Length-2];
+        spawnPoints[3] = cells[cells.Length-3];
         gameManager.spawnPoints = spawnPoints;
     }
 
@@ -89,9 +89,9 @@ public class HexGrid : MonoBehaviour
     {
         #region Setting the position
         Vector3 position;
-        position.x = (x + z * 0.5f - z / 2) * (HexMetrics.innerRadius * 2f);
+        position.x = (x + z * 0.5f - z / 2) * (HexMetrics.innerRadius * 2f * xOffset);
         position.y = 0f;
-        position.z = z * (HexMetrics.outerRadius * 1.5f) ;
+        position.z = z * (HexMetrics.outerRadius * 1.5f * zOffset) ;
         #endregion
 
         #region Building the Cell's transform and name
@@ -140,20 +140,6 @@ public class HexGrid : MonoBehaviour
             }
         }
         #endregion
-    }
-
-    public void TouchCell(Vector3 position)
-    {
-        /*
-         * Currently able to select any cell on the map.
-         * Doesn't do anything to the selected cell.
-         */
-        position = transform.InverseTransformPoint(position);
-        HexCoordinates coordinates = HexCoordinates.FromPosition(position);
-        int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
-        HexCell cell = cells[index];
-        Debug.Log("touched at: " + coordinates);
-        
     }
     
     //Used to update the distance values of each cell
@@ -295,6 +281,8 @@ public class HexGrid : MonoBehaviour
     {
         position = transform.InverseTransformPoint(position);
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
+
+
         int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
         return cells[index];
     }
