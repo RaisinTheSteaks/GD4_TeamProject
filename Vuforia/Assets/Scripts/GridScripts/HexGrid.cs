@@ -217,6 +217,10 @@ public class HexGrid : MonoBehaviour
                 int turn = current.Distance / speed;
                 current.SetLabel(turn.ToString());
                 current.EnableHighlight(pathHexColor);
+                if (turn < 1)
+                {
+                    current.inRange = true;
+                }
                 current = current.PathFrom;
             }
             currentPathFrom.EnableHighlight(startHexColor);
@@ -224,7 +228,7 @@ public class HexGrid : MonoBehaviour
         }
     }
 
-    void ClearPath()
+    public void ClearPath()
     {
         if (currentPathExists)
         {
@@ -256,10 +260,16 @@ public class HexGrid : MonoBehaviour
 
     public void DoMove()
     {
-        if(HasPath)
+        if (HasPath)
         {
-            selectedUnit.Location = currentPathTo;
-            ClearPath();
+            if (currentPathTo.inRange == true)
+            {
+                if (!currentPathTo.unit)
+                {
+                    selectedUnit.Location = currentPathTo;
+                }
+                ClearPath();
+            }
         }
     }
 

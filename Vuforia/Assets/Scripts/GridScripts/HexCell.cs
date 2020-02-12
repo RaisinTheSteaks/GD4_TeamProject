@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class HexCell : MonoBehaviour
 {
-    #region Member Variables
+    #region Variables
     //The current grid-position of this cell
     public HexCoordinates coordinates;
     //The Color this cell should be shaded
@@ -16,6 +16,9 @@ public class HexCell : MonoBehaviour
     //Track all of the cells next to this one
     [SerializeField]
     HexCell[] neighbors;
+
+    //Used to set if this cell is within movement range
+    public bool inRange = false;
 
     //Used to track the path that the player travels along
     public HexCell PathFrom { get; set; }

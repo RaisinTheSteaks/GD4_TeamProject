@@ -76,7 +76,7 @@ public class HexMapController : MonoBehaviour
     void HandleTapInput()
     {
         //If a cell has been selected, show how far away it is
-
+        hexGrid.ClearPath();
         HexCell currentCell = GetCellUnderCursor();
 
         if (currentCell)
