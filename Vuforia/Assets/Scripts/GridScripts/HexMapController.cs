@@ -23,56 +23,54 @@ public class HexMapController : MonoBehaviour
 
     void Update()
     {
-        #region Notes for planning movement
-        /*
-         *  Need to set the Search from cell
-         *      -Do when selecting bot action?
-         *  Check what states are active with the action selection
-         *  1) Get the action selection to set searchFromCell
-         *  2) Get the bot's maximum movement
-         *  3) Search all cells within the bot's movement
-         *  4) Highlight a cell if
-         *      a) Within Movement
-         *      b) Not occupied by another bot
-         *  5) If selecting movement is true 
-         *          If a highlighted hex is selected
-         *              Move bot to there
-         *          else
-         *              set selecting movement to false
-         *      else
-         *          set all highlights to false
-         *  
-         */
-        #endregion
-
-        #region Temporary Bot spawning
-        if (Input.GetKeyDown(KeyCode.Q))
+        if(Input.touchSupported)
         {
-            CreateUnit();
-            return;
+            HandleTouchInput();
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        else
         {
-            DestroyUnit();
-            return;
+            HandleMouseInput();
         }
-        #endregion
+    }
 
+    void HandleTouchInput()
+    {
         //Checking if the player has just tapped the screen
-        if (Input.touchCount > 0 || Input.GetMouseButtonDown(0))
+        if (Input.touchCount > 0)
         {
             if (!EventSystem.current.IsPointerOverGameObject())
             {
+                Touch touch = Input.GetTouch(0);
                 //Named tapInput as we may add in different controlls for dragging movement
+                if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
+                {
+                    HandleTapInput();
+                    return;
+                }
+                else
+                {
+                    hexGrid.DoMove();
+                    return;
+                }
+            }
+        }
+    }
+
+    void HandleMouseInput()
+    {
+        //Checking if the player has just tapped the screen
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
                 HandleTapInput();
                 return;
             }
         }
-        if(Input.GetMouseButtonUp(0))
+        else if(Input.GetMouseButtonUp(0))
         {
             hexGrid.DoMove();
         }
-
     }
 
     void HandleTapInput()
@@ -83,39 +81,45 @@ public class HexMapController : MonoBehaviour
 
         if (currentCell)
         {
-            #region Handle input on hexagon in grid
-
-            if (moveToCell)
+            if (currentCell != previousCell)
             {
-                moveToCell.DisableHighlight();
-                moveToCell = null;
-            }
-            if (isMoving)
-            {
-                isMoving = false;
-                moveToCell = currentCell;
-                currentCell = previousCell;
-                moveToCell.EnableHighlight(selectedColor);
-                startCell = previousCell;
-
-                if (startCell.unit)
+                #region Handle input on hexagon in grid
+                //If the player has just moved, reset the move components
+                if (moveToCell)
                 {
-                    currentUnit = startCell.unit;
+                    moveToCell.DisableHighlight();
+                    moveToCell = null;
                 }
-            }
-            else
-            {
-                currentCell.EnableHighlight(highlightColor);
-                if (previousCell)
-                    previousCell.DisableHighlight();
+                //If the player has selected that they want to move, set the selected cell to be the move target, highlight it, 
+                if (isMoving)
+                {
+                    isMoving = false;
+                    moveToCell = currentCell;
+                    currentCell = previousCell;
+                    moveToCell.EnableHighlight(selectedColor);
+                    startCell = previousCell;
 
-                previousCell = currentCell;
+                    if (startCell.unit)
+                    {
+                        currentUnit = startCell.unit;
+                    }
+                    else
+                    {
+                        currentUnit = null;
+                    }
+                }
+                else
+                {
+                    currentCell.EnableHighlight(highlightColor);
+                    if (previousCell)
+                    {
+                        previousCell.DisableHighlight();
+                    }
+                    previousCell = currentCell;
+                }
+                #endregion
             }
-            Debug.Log("Current Cell: " + currentCell.coordinates);
-           
-            #endregion
         }
-
         if (moveToCell != null)
         {
             if (moveToCell != currentCell)
@@ -171,6 +175,7 @@ public class HexMapController : MonoBehaviour
             unit.Orientation = Random.Range(0f, 360f);
         }
     }
+
     public void DestroyUnit()
     {
         //If the selected cell has a unit in it, destroy the unit

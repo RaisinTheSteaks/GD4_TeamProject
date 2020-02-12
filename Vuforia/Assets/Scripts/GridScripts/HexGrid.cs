@@ -79,8 +79,8 @@ public class HexGrid : MonoBehaviour
     {
         spawnPoints[0] = cells[0];
         spawnPoints[1] = cells[1];
-        spawnPoints[2] = cells[cells.Length - 1];
-        spawnPoints[3] = cells[cells.Length - 2];
+        spawnPoints[2] = cells[2];
+        spawnPoints[3] = cells[3];
         gameManager.spawnPoints = spawnPoints;
     }
 
