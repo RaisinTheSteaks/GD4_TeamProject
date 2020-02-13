@@ -52,9 +52,6 @@ public class BotController : MonoBehaviourPunCallbacks
     private bool updatingHealth;
     private bool once;
 
-    
-    public TextMeshProUGUI SelectedStatus;
-
     public string type="Gamma";
 
 
@@ -93,9 +90,6 @@ public class BotController : MonoBehaviourPunCallbacks
         attackingPhase();
         updateHealth();
         
-
-        //debuging purposes, will delete later
-        if (playerScript.Turn && SelectedStatus.text != "BANG BANG")
             SelectedText();
         if (specialAbility && !specialAbilityUsed)
             ExplosionDamage();
@@ -284,7 +278,7 @@ public class BotController : MonoBehaviourPunCallbacks
         {
             if (hitColliders[i].transform.name == transform.name)
             {
-                hitColliders[i].transform.GetComponent<BotController>().SelectedStatus.text = "BANG BANG";
+                photonView.RPC("startDamage", RpcTarget.All, hitColliders[i].transform.name, 50f);
             }
         }
         specialAbilityUsed = true;
