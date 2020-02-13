@@ -50,35 +50,37 @@ public class ActionPanel : MonoBehaviour
     {
         if(buttonPanel.transform.position.x <= finalPosition.x)
         {
-            buttonPanel.transform.position += new Vector3(1,0,0) * speed;
+            buttonPanel.transform.position += new Vector3(1,0,0) * speed * 3;
         }
 
         if(buttonPanel.transform.position.y <= finalPosition.y)
         {
-            buttonPanel.transform.position += new Vector3(0, 1, 0) * speed;
+            buttonPanel.transform.position += new Vector3(0, 1, 0) * speed * 1.5f;
         }
 
         if (buttonPanel.transform.position.y >= finalPosition.y)
         {
-            buttonPanel.transform.position -= new Vector3(0, 1, 0) * speed;
+            buttonPanel.transform.position -= new Vector3(0, 1, 0) * speed * 1.5f;
         }
 
         if (buttonPanel.transform.localScale.x <= finalSize.x)
         {
             buttonPanel.transform.localScale += new Vector3(1, 0, 0) * speed * 0.01f;
         }
+        
 
         if (buttonPanel.transform.localScale.y <= finalSize.y)
         {
             buttonPanel.transform.localScale += new Vector3(0, 1, 0) * speed * 0.01f;
         }
+        
     }
 
     public void hidePanel(Vector3 actionButton)
     {
         if (buttonPanel.transform.position.x >= actionButton.x)
         {
-            buttonPanel.transform.position -= new Vector3(1, 0, 0) * speed;
+            buttonPanel.transform.position -= new Vector3(1, 0, 0) * speed * 2;
         }
 
         if (buttonPanel.transform.position.y >= actionButton.y)
@@ -93,12 +95,12 @@ public class ActionPanel : MonoBehaviour
 
         if (buttonPanel.transform.localScale.x >= 0)
         {
-            buttonPanel.transform.localScale -= new Vector3(1, 0, 0) * speed * 0.005f;
+            buttonPanel.transform.localScale -= new Vector3(1, 0, 0) * speed * 0.01f;
         }
 
         if (buttonPanel.transform.localScale.y >= 0)
         {
-            buttonPanel.transform.localScale -= new Vector3(0, 1, 0) * speed * 0.005f;
+            buttonPanel.transform.localScale -= new Vector3(0, 1, 0) * speed * 0.01f;
         }
     }
 

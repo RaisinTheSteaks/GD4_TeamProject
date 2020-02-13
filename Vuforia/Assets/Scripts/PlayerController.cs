@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
 
         
-        if(endTurnPressed)
+        if(endTurnPressed && Turn)
         {
             endTurnMessage.text = "End Turn \n" + (3 - (int)timer);
             timer += Time.deltaTime;
@@ -167,9 +167,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public void OnEndTurnButtonPressed()
     {
         //print("pressing down");
-        endTurnMessageImage.SetActive(true);
-        //endTurnMessage.gameObject.SetActive(true);
-        endTurnPressed = true;
+        if(Turn)
+        {
+            endTurnMessageImage.SetActive(true);
+            endTurnPressed = true;
+        }
+        
     }
 
     public void EndTurn()

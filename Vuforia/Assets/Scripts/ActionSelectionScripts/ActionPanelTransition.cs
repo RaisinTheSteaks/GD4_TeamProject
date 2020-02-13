@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Realtime;
+using Photon.Pun;
 
 public class ActionPanelTransition : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class ActionPanelTransition : MonoBehaviour
     public GameObject attackButton;
     public GameObject guardButton;
     public GameObject abilitiesButton;
+    public int speed;
+    public PlayerController player;
 
     public ActionPanel[] panels;
 
@@ -18,18 +22,34 @@ public class ActionPanelTransition : MonoBehaviour
     void Start()
     {
         panels = new ActionPanel[4];
-        panels[0] = new ActionPanel(moveButton, moveButton.transform.position, moveButton.transform.localScale, false, 5);
-        panels[1] = new ActionPanel(attackButton, attackButton.transform.position, attackButton.transform.localScale, false, 5);
-        panels[2] = new ActionPanel(guardButton, guardButton.transform.position, guardButton.transform.localScale, false, 5);
-        panels[3] = new ActionPanel(abilitiesButton, abilitiesButton.transform.position, abilitiesButton.transform.localScale, false, 5);
+        panels[0] = new ActionPanel(moveButton, moveButton.transform.position, moveButton.transform.localScale, false, speed);
+        panels[1] = new ActionPanel(attackButton, attackButton.transform.position, attackButton.transform.localScale, false, speed);
+        panels[2] = new ActionPanel(guardButton, guardButton.transform.position, guardButton.transform.localScale, false, speed);
+        panels[3] = new ActionPanel(abilitiesButton, abilitiesButton.transform.position, abilitiesButton.transform.localScale, false, speed);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         foreach (ActionPanel panel in panels)
         {
             panel.transition(actionButton.transform.position);
+        }
+
+        player = GameManager.instance.GetPlayer(GameObject.Find(PhotonNetwork.NickName));
+
+        if (!player.Turn)
+        {
+            foreach (ActionPanel panel in panels)
+            {
+                panel.show = false;
+                actionButton.GetComponent<Button>().interactable = false;
+            }
+        }
+        else
+        {
+            actionButton.GetComponent<Button>().interactable = true;
+
         }
     }
 
@@ -40,4 +60,6 @@ public class ActionPanelTransition : MonoBehaviour
             panel.show = !panel.show;
         }
     }
+
+
 }
