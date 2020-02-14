@@ -295,10 +295,12 @@ public class BotController : MonoBehaviourPunCallbacks
             {
                 if (Physics.Raycast(ray, out hit))
                 {
-                    tap = hit.point;
-                    popUp.SetActive(true);
+                    if (hit.transform.name == "hexagon")
+                    { 
+                        tap = hit.point;
+                        popUp.SetActive(true);
+                    }
                 }
-                //this will be where the damage is dealt
             }
         }
     }

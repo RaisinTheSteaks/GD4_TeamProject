@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
 
-    //Selects a character by drawingt a raycast to where the mouse is pointing
+    //Selects a character by drawing a raycast to where the mouse is pointing
     //If it is currently the players turn & the object they click on is a child of the player
     //then the child is able to perform its functions in the game like moving, shooting etc.
     //It then foes through a list of all the players children and if these children aren't the selected object then it 
