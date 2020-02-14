@@ -720,7 +720,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.8041112}
   m_AnchorMax: {x: 0.22021876, y: 1}
-  m_AnchoredPosition: {x: 0.56, y: -2.35}
+  m_AnchoredPosition: {x: 0.55999756, y: -2.350006}
   m_SizeDelta: {x: 0.8800049, y: 4.700012}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6059718504475060752
@@ -1093,6 +1093,7 @@ MonoBehaviour:
   guardButton: {fileID: 3351399304404905154}
   abilitiesButton: {fileID: 6918729967934992986}
   speed: 0
+  player: {fileID: 0}
   panels: []
 --- !u!1 &6918729967934992986
 GameObject:
@@ -1432,10 +1433,10 @@ RectTransform:
   m_Father: {fileID: 6760844723160361726}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.80000305, y: 4.199997}
-  m_SizeDelta: {x: -138.5, y: -143.3}
+  m_AnchorMin: {x: 0.35000002, y: 0.38500002}
+  m_AnchorMax: {x: 0.65000004, y: 0.65500003}
+  m_AnchoredPosition: {x: 0.80000305, y: 0.19999695}
+  m_SizeDelta: {x: 1.5, y: 2.699997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3486961057784680776
 CanvasRenderer:
@@ -1509,10 +1510,10 @@ RectTransform:
   m_Father: {fileID: 3673754543701093008}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -156, y: -154.8}
+  m_AnchorMin: {x: 0.39000002, y: 0.39000002}
+  m_AnchorMax: {x: 0.6093832, y: 0.615}
+  m_AnchoredPosition: {x: 0, y: -0.5}
+  m_SizeDelta: {x: 0, y: 0.19999695}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3667502713642136160
 CanvasRenderer:
