@@ -116,6 +116,7 @@ public class Menu : MonoBehaviourPunCallbacks
     {
         //Scene that will be loaded is Duplicate instead of MasterScene
         NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, sceneName);
+
     }
 
 
