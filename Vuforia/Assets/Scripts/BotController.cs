@@ -13,13 +13,28 @@ public class BotController : MonoBehaviourPunCallbacks
 {
     [HideInInspector]
     public int id;
+    //variables created & used for the TankSpecial Ability
+    Vector3 tap = new Vector3();
+    Ray ray;
+    public bool confirm = false;
 
     [Header("Info")]
     public bool isSelected = false;
     public PlayerController playerScript;
+    public TextMeshProUGUI SelectedStatus;
 
     [Header("Component")]
     public Rigidbody rig;
+    public bool specialAbility = false;
+    public bool specialAbilityUsed;
+    public GameObject hexGrid;
+
+    Collider[] hitColliders;
+
+    [Header("PopUp")]
+    public GameObject popUp;
+
+
 
     public TextMeshProUGUI healthNumberIndicator;
     public GameObject healthBar;
@@ -39,9 +54,6 @@ public class BotController : MonoBehaviourPunCallbacks
     public Material symbol;
   
 
-    
-    public TextMeshProUGUI SelectedStatus;
-
     public string type="Gamma";
 
 
@@ -53,6 +65,7 @@ public class BotController : MonoBehaviourPunCallbacks
         if (!photonView.IsMine)
         {
             rig.isKinematic = true;
+            specialAbility = false;
         }
 
     }
@@ -60,6 +73,12 @@ public class BotController : MonoBehaviourPunCallbacks
     private void Start()
     {
         playerScript = transform.parent.GetComponent<PlayerController>();
+        popUp = GetComponent<GameObject>();
+        hexGrid = GetComponent<GameObject>();
+        popUp = GameObject.Find("PopUp");
+        hexGrid = GameObject.Find("HexGrid");
+        popUp.SetActive(false);
+
         maxHealth = health;
         transform.name = playerScript.name + " " + transform.name;
         healthNumberIndicator.text = ((int)health).ToString();
@@ -69,19 +88,16 @@ public class BotController : MonoBehaviourPunCallbacks
    
         audioSource = GetComponent<AudioSource>();
     }
-
     private void Update()
     {
 
         attackingPhase();
         updateHealth();
-        
-
-        //debuging purposes, will delete later
-        if (playerScript.Turn)
-        SelectedText();
-        
-
+            SelectedText();
+        //if (specialAbility && !specialAbilityUsed)
+          //  ExplosionDamage();
+        //if (!popUp.activeSelf && confirm && !specialAbilityUsed)
+          //  loadExplosion();
     }
 
 
@@ -89,7 +105,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public void move()
     {
         //debugging for action windows, replace this with real move method
-        if(isSelected && playerScript.Turn)
+        if(isSelected && playerScript.Turn && !specialAbility)
         {
             print(transform.name + "moving");
         }
@@ -100,8 +116,7 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         //debugging for action windows, replace this with real move method
 
-        //checking if the bot is selected while the player turn
-        if (isSelected && playerScript.Turn)
+        if (isSelected && playerScript.Turn && !specialAbility)
         {
             //enter attacking mode
             attackingMode = true;
@@ -238,7 +253,7 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         //debugging for action windows, replace this with real move method
 
-        if (isSelected && playerScript.Turn)
+        if (isSelected && playerScript.Turn && !specialAbility)
         {
             print(transform.name + "guarding");
         }
@@ -251,9 +266,47 @@ public class BotController : MonoBehaviourPunCallbacks
 
         if (isSelected && playerScript.Turn)
         {
-            print(transform.name + "using abilities");
+            specialAbility = true;
         }
 
+    }
+
+    private void loadExplosion()
+    {
+        HexCell hex = hexGrid.GetComponent<HexGrid>().getCell(tap);
+        //Sphere is for debugging purposes
+        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        sphere.transform.position = hex.transform.position;
+        sphere.transform.localScale = new Vector3(0.6f, 0.1f, 0.6f);
+        hitColliders = Physics.OverlapSphere(hex.transform.position, 0.6f);
+        for (int i = 0; i < hitColliders.Length; i++)
+        {
+            if (hitColliders[i].transform.tag == "Bot")
+            {
+                photonView.RPC("startDamage", RpcTarget.All, hitColliders[i].transform.name, 50f);
+            }
+        }
+        specialAbilityUsed = true;
+    }
+
+    void ExplosionDamage()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if(!popUp.activeSelf && !confirm)
+            {
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.transform.name == "hexagon")
+                    { 
+                        tap = hit.point;
+                        popUp.SetActive(true);
+                    }
+                }
+            }
+        }
     }
 
     private void SelectedText()
