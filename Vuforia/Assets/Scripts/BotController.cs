@@ -91,10 +91,10 @@ public class BotController : MonoBehaviourPunCallbacks
         updateHealth();
         
             SelectedText();
-        if (specialAbility && !specialAbilityUsed)
-            ExplosionDamage();
-        if (!popUp.activeSelf && confirm && !specialAbilityUsed)
-            loadExplosion();
+        //if (specialAbility && !specialAbilityUsed)
+          //  ExplosionDamage();
+        //if (!popUp.activeSelf && confirm && !specialAbilityUsed)
+          //  loadExplosion();
     }
 
 
