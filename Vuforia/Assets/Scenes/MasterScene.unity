@@ -1736,10 +1736,64 @@ PrefabInstance:
     - target: {fileID: 3395206507339100229, guid: f8e604de16356d640a964b4a9baf88d7,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.5000038
+      value: 1.5000153
+      objectReference: {fileID: 0}
+    - target: {fileID: 6350253553445170108, guid: f8e604de16356d640a964b4a9baf88d7,
+        type: 3}
+      propertyPath: endTurnButton
+      value: 
+      objectReference: {fileID: 1522193264}
+    - target: {fileID: 5266241726104164655, guid: f8e604de16356d640a964b4a9baf88d7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.000015258789
+      objectReference: {fileID: 0}
+    - target: {fileID: 5000921776288425671, guid: f8e604de16356d640a964b4a9baf88d7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.000015258789
+      objectReference: {fileID: 0}
+    - target: {fileID: 8621282599755420343, guid: f8e604de16356d640a964b4a9baf88d7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.000015258789
+      objectReference: {fileID: 0}
+    - target: {fileID: 5678819694351984974, guid: f8e604de16356d640a964b4a9baf88d7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4054914626886105042, guid: f8e604de16356d640a964b4a9baf88d7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8e604de16356d640a964b4a9baf88d7, type: 3}
+--- !u!114 &1522193264 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2144769830108670634, guid: f8e604de16356d640a964b4a9baf88d7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1522193263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1522193265 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1706787847471723164, guid: f8e604de16356d640a964b4a9baf88d7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1522193263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1702218084
 GameObject:
   m_ObjectHideFlags: 0
@@ -1797,7 +1851,7 @@ MonoBehaviour:
   imageTarget: {fileID: 1707105037}
   gameEnded: 0
   pingUI: {fileID: 0}
-  playerPrefabLocation: _Player
+  playerPrefabLocation: _Player 1
   spawnPoints:
   - {fileID: 403832304}
   - {fileID: 646482105}
@@ -1842,7 +1896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93f079c69b6c43e4394a8f9404111533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fpsUI: {fileID: 0}
+  fpsUI: {fileID: 1522193265}
 --- !u!1 &1707105037
 GameObject:
   m_ObjectHideFlags: 0
