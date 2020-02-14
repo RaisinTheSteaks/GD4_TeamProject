@@ -51,6 +51,8 @@ public class BotController : MonoBehaviourPunCallbacks
     public bool attackingMode;
     private bool updatingHealth;
     private bool once;
+    public Material symbol;
+  
 
     public string type="Gamma";
 
@@ -82,6 +84,8 @@ public class BotController : MonoBehaviourPunCallbacks
         healthNumberIndicator.text = ((int)health).ToString();
         healthBarRect = healthBar.GetComponent<RectTransform>();
         maxWidth = healthBarRect.rect.width;
+
+   
         audioSource = GetComponent<AudioSource>();
     }
     private void Update()
@@ -89,13 +93,13 @@ public class BotController : MonoBehaviourPunCallbacks
 
         attackingPhase();
         updateHealth();
-        
             SelectedText();
         //if (specialAbility && !specialAbilityUsed)
           //  ExplosionDamage();
         //if (!popUp.activeSelf && confirm && !specialAbilityUsed)
           //  loadExplosion();
     }
+
 
 
     public void move()
@@ -157,7 +161,7 @@ public class BotController : MonoBehaviourPunCallbacks
                             attackingMode = false;
 
                             //end player turn
-                            playerScript.OnEndTurnButton();
+                            playerScript.EndTurn();
                         }
                     }
                 }

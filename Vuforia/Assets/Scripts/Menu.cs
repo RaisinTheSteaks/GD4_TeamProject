@@ -115,8 +115,7 @@ public class Menu : MonoBehaviourPunCallbacks
     public void OnStartGameButton()
     {
         //Scene that will be loaded is Duplicate instead of MasterScene
-        NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, "MasterSceneTankSpecialAbility");
-        //NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, sceneName);
+        NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, sceneName);
     }
 
 
