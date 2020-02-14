@@ -20,7 +20,6 @@ public class PopUpController : MonoBehaviour
         {
             bot.transform.GetComponent<BotController>().specialAbility = false;
             bot.transform.GetComponent<BotController>().confirm = true;
-            bot.transform.GetComponent<BotController>().specialAbilityUsed = true;
         }
     }
     public void NoButton()
@@ -35,7 +34,6 @@ public class PopUpController : MonoBehaviour
         {
             bot.transform.GetComponent<BotController>().specialAbility = false;
             bot.transform.GetComponent<BotController>().confirm = false;
-            bot.transform.GetComponent<BotController>().specialAbilityUsed = false;
         }
 
     }

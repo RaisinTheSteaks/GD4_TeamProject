@@ -93,7 +93,7 @@ public class BotController : MonoBehaviourPunCallbacks
             SelectedText();
         if (specialAbility && !specialAbilityUsed)
             ExplosionDamage();
-        if (!popUp.activeSelf && confirm)
+        if (!popUp.activeSelf && confirm && !specialAbilityUsed)
             loadExplosion();
     }
 
@@ -270,13 +270,14 @@ public class BotController : MonoBehaviourPunCallbacks
     private void loadExplosion()
     {
         HexCell hex = hexGrid.GetComponent<HexGrid>().getCell(tap);
+        //Sphere is for debugging purposes
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         sphere.transform.position = hex.transform.position;
-        sphere.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        hitColliders = Physics.OverlapSphere(hex.transform.position, 0.5f);
+        sphere.transform.localScale = new Vector3(0.6f, 0.1f, 0.6f);
+        hitColliders = Physics.OverlapSphere(hex.transform.position, 0.6f);
         for (int i = 0; i < hitColliders.Length; i++)
         {
-            if (hitColliders[i].transform.name == transform.name)
+            if (hitColliders[i].transform.tag == "Bot")
             {
                 photonView.RPC("startDamage", RpcTarget.All, hitColliders[i].transform.name, 50f);
             }
