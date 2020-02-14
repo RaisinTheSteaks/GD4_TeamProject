@@ -36,6 +36,8 @@ public class BotController : MonoBehaviourPunCallbacks
     public bool attackingMode;
     private bool updatingHealth;
     private bool once;
+    public Material symbol;
+  
 
     
     public TextMeshProUGUI SelectedStatus;
@@ -63,6 +65,8 @@ public class BotController : MonoBehaviourPunCallbacks
         healthNumberIndicator.text = ((int)health).ToString();
         healthBarRect = healthBar.GetComponent<RectTransform>();
         maxWidth = healthBarRect.rect.width;
+
+   
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -76,7 +80,10 @@ public class BotController : MonoBehaviourPunCallbacks
         //debuging purposes, will delete later
         if (playerScript.Turn)
         SelectedText();
+        
+
     }
+
 
 
     public void move()
@@ -139,7 +146,7 @@ public class BotController : MonoBehaviourPunCallbacks
                             attackingMode = false;
 
                             //end player turn
-                            playerScript.OnEndTurnButton();
+                            playerScript.EndTurn();
                         }
                     }
                 }
