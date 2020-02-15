@@ -2335,10 +2335,9 @@ GameObject:
   - component: {fileID: 7326950034815043147}
   - component: {fileID: 5505762049933800047}
   - component: {fileID: 82359548268176138}
+  - component: {fileID: 114775070962791624}
   m_Layer: 0
-
-  m_Name: Bot
-
+  m_Name: Bot(EnemyAttack)
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2402,7 +2401,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7326950034815043144}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2be00b61d7028284da3962e415b83d60, type: 3}
   m_Name: 
@@ -2414,12 +2413,15 @@ MonoBehaviour:
   healthNumberIndicator: {fileID: 0}
   healthBar: {fileID: 0}
   maxWidth: 0
+  attackSound: {fileID: 0}
+  audioSource: {fileID: 0}
+  deathSound: {fileID: 0}
   maxHealth: 0
   health: 0
   attackDamage: 0
-
+  attackingMode: 0
   SelectedStatus: {fileID: 873913149235763201}
-
+  type: Gamma
 --- !u!136 &136020876879983764
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2589,6 +2591,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &114775070962791624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7326950034815043144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b48175d6104f74393635891c8f3258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7326950034815043146
 GameObject:
   m_ObjectHideFlags: 0

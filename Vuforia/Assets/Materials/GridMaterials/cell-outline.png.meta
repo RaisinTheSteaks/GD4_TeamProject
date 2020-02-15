@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a534af408362f55448dcf66fd5a2be94
+guid: 606ff1dac88ee2c41bda7fcc4ac45848
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
@@ -11,8 +11,8 @@ TextureImporter:
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
-    mipMapsPreserveCoverage: 0
-    alphaTestReferenceValue: 0.5
+    mipMapsPreserveCoverage: 1
+    alphaTestReferenceValue: 0
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
@@ -97,7 +97,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 3cd2758beb158dc4a9133432059485d5
+    spriteID: 7f559ec8f1dc02e45947f97f6a206a61
     vertices: []
     indices: 
     edges: []

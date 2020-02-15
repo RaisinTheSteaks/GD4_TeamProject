@@ -23,7 +23,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [PunRPC]
     public void Initialize(Player player)
     {
-        transform.SetParent(GameManager.instance.imageTarget.transform);
+        //transform.SetParent(GameManager.instance.imageTarget.transform);
+        transform.SetParent(GameManager.instance.grid.transform, false);
+
         photonPlayer = player;
         id = player.ActorNumber;
         GameManager.instance.players[id - 1] = this;
@@ -40,6 +42,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
             botScript.InitializeBot();
         }
         EndTurnButton = GetComponent<Button>();
+
+
     }
 
     private void Start()

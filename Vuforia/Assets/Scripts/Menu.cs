@@ -24,8 +24,7 @@ public class Menu : MonoBehaviourPunCallbacks
     public TextMeshProUGUI playerListText;
     public Button startGameButton;
     public TextMeshProUGUI roomNameText;
-
-
+    
     private void Start()
     {
         createRoomButton.interactable = false;
@@ -115,6 +114,7 @@ public class Menu : MonoBehaviourPunCallbacks
     public void OnStartGameButton()
     {
         //Scene that will be loaded is Duplicate instead of MasterScene
+
         NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, sceneName);
     }
 
