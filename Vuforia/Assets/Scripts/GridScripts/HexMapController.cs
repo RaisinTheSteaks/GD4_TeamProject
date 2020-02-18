@@ -23,6 +23,11 @@ public class HexMapController : MonoBehaviour
 
     void Update()
     {
+        ////Stop the player selecting through UI components
+        if(EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
         if(Input.touchSupported)
         {
             HandleTouchInput();
