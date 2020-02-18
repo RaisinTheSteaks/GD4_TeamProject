@@ -93,7 +93,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
         attackingPhase();
         updateHealth();
-            SelectedText();
+        SelectedText();
         //if (specialAbility && !specialAbilityUsed)
           //  ExplosionDamage();
         //if (!popUp.activeSelf && confirm && !specialAbilityUsed)
@@ -102,18 +102,18 @@ public class BotController : MonoBehaviourPunCallbacks
 
 
 
-    public void move()
+    public void Move()
     {
         //debugging for action windows, replace this with real move method
         if(isSelected && playerScript.Turn && !specialAbility)
         {
-            print(transform.name + "moving");
+           // print(transform.name + "moving");
             GameManager.instance.mapController.SetMovementState(true);
         }
         
     }
 
-    public void attack()
+    public void Attack()
     {
         //debugging for action windows, replace this with real move method
 

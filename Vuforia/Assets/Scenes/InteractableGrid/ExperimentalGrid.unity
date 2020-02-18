@@ -960,6 +960,7 @@ MonoBehaviour:
   - {fileID: 0}
   bots: []
   players: []
+  playerSpeed: 5
   selectedTarget: {fileID: 0}
 --- !u!4 &1205519853
 Transform:
@@ -1022,7 +1023,7 @@ MonoBehaviour:
   highlightColor: {r: 0.7313533, g: 0.09019608, b: 1, a: 0.6509804}
   selectedColor: {r: 0.75686276, g: 0, b: 0, a: 0.7607843}
   movementRangeColor: {r: 0.031149892, g: 0.7267371, b: 0.9433962, a: 0.78431374}
-  speed: 3
+  playerController: {fileID: 0}
   unitPrefab: {fileID: 114775070962791624, guid: 70c4a2bd82118004991f262dba0b585d,
     type: 3}
 --- !u!1 &1456233570

@@ -43,8 +43,8 @@ public class AssignButtonEvent : MonoBehaviour
                     foreach (Transform child in player.transform)
                     {
                         BotController botScript = child.GetComponent<BotController>();
-                        moveButton.onClick.AddListener(delegate { botScript.move(); });
-                        attackButton.onClick.AddListener(delegate { botScript.attack(); });
+                        moveButton.onClick.AddListener(delegate { botScript.Move(); });
+                        attackButton.onClick.AddListener(delegate { botScript.Attack(); });
                         guardButton.onClick.AddListener(delegate { botScript.guard(); });
                         specialAbilitiesButton.onClick.AddListener(delegate { botScript.abilities(); });
                         

@@ -10,12 +10,13 @@ public class HexMapController : MonoBehaviour
     HexCell currentCell, previousCell, moveToCell, startCell;
 
     [Header("Movement")]
-    public int speed = 2;
+    public static int speed = 2;
     private bool isMoving = false;
-
+    public PlayerController playerController;
     [Header("Bots")]
     public Unit unitPrefab;
     Unit currentUnit;
+
     void Awake()
     {
 
@@ -55,6 +56,7 @@ public class HexMapController : MonoBehaviour
                 else
                 {
                     hexGrid.DoMove();
+                    isMoving = false;
                     return;
                 }
             }
@@ -140,6 +142,12 @@ public class HexMapController : MonoBehaviour
     public void SetMovementState(bool state)
     {
         isMoving = state;
+    }
+
+    public void SetSpeed(int newSpeed)
+    {
+        speed = newSpeed;
+        hexGrid.speed = newSpeed;
     }
 
     public void CreateUnit()

@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public Text endTurnMessage;
     public GameObject endTurnMessageImage;
     public GameObject botSymbol;
-
+    public HexGrid grid;
 
     [PunRPC]
     public void Initialize(Player player)
@@ -205,8 +205,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         foreach (Transform child in transform)
         {
             BotController botScript = child.GetComponent<BotController>();
-            if(!Turn)
-            botScript.SelectedStatus.SetText(Turn.ToString());
+            if (!Turn)
+            {
+                botScript.SelectedStatus.SetText(Turn.ToString());
+                grid.hexesTravelled = 0;
+            }
         }
     }
 }

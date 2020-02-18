@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public PlayerController[] players;
     private int playersInGame;
     private List<int> pickedSpawnIndex;
-
+    public int playerSpeed=3;
     [Header("Targets")]
     public GameObject selectedTarget;
 
@@ -42,7 +42,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         players = new PlayerController[PhotonNetwork.PlayerList.Length];
         bots = new BotController[players.Length * 2];
         photonView.RPC("ImInGame", RpcTarget.AllBuffered);
-        
+        mapController.SetSpeed(playerSpeed);
+        grid.hexesTravelled = 0;
     }
 
     private void Update()
@@ -99,7 +100,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         ////initialize the player
         PlayerController playerScript = playerObject.GetComponent<PlayerController>();
         playerScript.photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
-
+        playerScript.grid = grid;
     }
     
 
