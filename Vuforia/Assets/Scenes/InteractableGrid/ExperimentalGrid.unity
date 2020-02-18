@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43680978, g: 0.48444068, b: 0.56469655, a: 1}
+  m_IndirectSpecularColor: {r: 0.43681002, g: 0.48444092, b: 0.56469697, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -952,7 +952,7 @@ MonoBehaviour:
   mapController: {fileID: 1404513267}
   gameEnded: 0
   pingUI: {fileID: 0}
-  playerPrefabLocation: _Player
+  playerPrefabLocation: _Player 1
   spawnPoints:
   - {fileID: 0}
   - {fileID: 0}
