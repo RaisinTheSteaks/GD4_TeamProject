@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         ////initialize the player
         PlayerController playerScript = playerObject.GetComponent<PlayerController>();
         playerScript.photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
-        playerScript.grid = grid;
+       // playerScript.grid = grid;
     }
     
 

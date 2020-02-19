@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-C:/Users/Josh/Desktop/Vuforia2018Test_003.apk
+C:/School/Year 4/GD4 Team Project/Vuforia/grid.apk
 SceneListBegin?
 Assets/Scenes/InteractableGrid/ExperimentalMenu.unity
 Assets/Scenes/InteractableGrid/ExperimentalGrid.unity
