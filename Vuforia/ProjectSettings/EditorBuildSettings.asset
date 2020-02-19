@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/InteractableGrid/ExperimentalMenu.unity
-    guid: 41b253b48dfbe61408ed01e8c00208e9
+    path: Assets/Scenes/Menu.unity
+    guid: bf9dec2440379374cb012f956fd991f9
   - enabled: 1
-    path: Assets/Scenes/InteractableGrid/ExperimentalGrid.unity
-    guid: 18d7173cbb24ef54fa0c6f6c12a78785
+    path: Assets/Scenes/MasterScene.unity
+    guid: 9b81f4131ee1ef5498d869143fb17e99
   m_configObjects: {}

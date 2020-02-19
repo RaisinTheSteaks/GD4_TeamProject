@@ -31,7 +31,8 @@ public class HexMapController : MonoBehaviour
         }
         if(Input.touchSupported)
         {
-            HandleTouchInput();
+            // HandleTouchInput();
+            HandleMouseInput();
         }
         else
         {
@@ -46,19 +47,19 @@ public class HexMapController : MonoBehaviour
         {
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                Touch touch = Input.GetTouch(0);
-                //Named tapInput as we may add in different controlls for dragging movement
-                if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
-                {
-                    HandleTapInput();
-                    return;
-                }
-                else
-                {
+                //Touch touch = Input.GetTouch(0);
+                ////Named tapInput as we may add in different controlls for dragging movement
+                //if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
+                //{
+                HandleTapInput();
+                //    return;
+                //}
+                //else
+                //{
                     hexGrid.DoMove();
                     isMoving = false;
                     return;
-                }
+                
             }
         }
     }
