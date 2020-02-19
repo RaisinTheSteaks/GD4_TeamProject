@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public Text endTurnMessage;
     public GameObject endTurnMessageImage;
     public GameObject botSymbol;
+    public GameObject popUp;
 
 
     [PunRPC]
@@ -46,6 +47,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     }
 
+    private void Awake()
+    {
+        popUp = GameObject.Find("PopUp");
+
+    }
+
     private void Start()
     {
         if (photonPlayer == null)
@@ -63,7 +70,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         endTurnMessageImage.SetActive(false);
         endTurnPressed = false;
         botSymbol = GameObject.Find("Symbol");
-       
+        popUp.SetActive(false);
     }
 
     private void Update()

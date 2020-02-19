@@ -18,8 +18,11 @@ public class PopUpController : MonoBehaviour
         var objects = GameObject.FindGameObjectsWithTag("Bot");
         foreach (GameObject bot in objects)
         {
-            bot.transform.GetComponent<BotController>().specialAbility = false;
-            bot.transform.GetComponent<BotController>().confirm = true;
+            if (bot.transform.GetComponent<BotController>().specialAbilityMode == true && bot.transform.GetComponent<BotController>().Type.Equals("Tank"))
+            {
+                bot.transform.GetComponent<BotController>().confirm = true;
+                bot.transform.GetComponent<BotController>().specialAbilityMode = false;
+            }
         }
     }
     public void NoButton()
@@ -32,7 +35,7 @@ public class PopUpController : MonoBehaviour
         var objects = GameObject.FindGameObjectsWithTag("Bot");
         foreach (GameObject bot in objects)
         {
-            bot.transform.GetComponent<BotController>().specialAbility = false;
+            bot.transform.GetComponent<BotController>().specialAbilityMode = false;
             bot.transform.GetComponent<BotController>().confirm = false;
         }
 
