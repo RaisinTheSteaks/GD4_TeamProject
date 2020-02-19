@@ -18,7 +18,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public Text endTurnMessage;
     public GameObject endTurnMessageImage;
     public GameObject botSymbol;
+
     public HexGrid grid;
+
+    public GameObject popUp;
+
 
     [PunRPC]
     public void Initialize(Player player)
@@ -49,6 +53,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
 
+    private void Awake()
+    {
+        popUp = GameObject.Find("PopUp");
+
+    }
+
+
     private void Start()
     {
         transform.name = photonPlayer.NickName;
@@ -60,6 +71,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
         
         endTurnMessageImage.SetActive(false);
         endTurnPressed = false;
+
+        botSymbol = GameObject.Find("Symbol");
+        popUp.SetActive(false);
 
     }
 
