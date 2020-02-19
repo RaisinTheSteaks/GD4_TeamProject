@@ -24,6 +24,7 @@ public class Unit : MonoBehaviour
             location = value;
             value.unit = this;
             transform.localPosition = value.Position;
+            //transform.position = value.Position;
         }
     }
     HexCell location;
