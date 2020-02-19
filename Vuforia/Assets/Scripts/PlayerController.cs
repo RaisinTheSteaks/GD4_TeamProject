@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public Text endTurnMessage;
     public GameObject endTurnMessageImage;
     public GameObject botSymbol;
-
+    public HexGrid grid;
 
     [PunRPC]
     public void Initialize(Player player)
@@ -42,28 +42,25 @@ public class PlayerController : MonoBehaviourPunCallbacks
             botScript.InitializeBot();
         }
         EndTurnButton = GetComponent<Button>();
+        grid = GameManager.instance.grid;
 
+        
 
     }
 
+
     private void Start()
     {
-        if (photonPlayer == null)
-        {
-            Debug.Log("no networking");
-        }
-        else
-        {
-            transform.name = photonPlayer.NickName;
-        }
+        transform.name = photonPlayer.NickName;
 
         EndTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
         endTurnMessageImage = GameObject.Find("EndTurnMessage");
         endTurnMessage = endTurnMessageImage.transform.Find("Text").GetComponent<Text>();
+        botSymbol = GameObject.Find("Symbol");
+        
         endTurnMessageImage.SetActive(false);
         endTurnPressed = false;
-        botSymbol = GameObject.Find("Symbol");
-       
+
     }
 
     private void Update()
@@ -90,13 +87,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         foreach(Transform bot in transform)
         {
-            if(bot.GetComponent<BotController>().isSelected)
+            if(photonPlayer == PhotonNetwork.LocalPlayer)
             {
-                botSymbol.SetActive(true);
-                break;
-            }
+                if (bot.GetComponent<BotController>().isSelected)
+                {
+                    botSymbol.SetActive(true);
+                    break;
+                }
 
-            botSymbol.SetActive(false);
+                botSymbol.SetActive(false);
+            }
+            
 
         }
         
@@ -205,8 +206,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         foreach (Transform child in transform)
         {
             BotController botScript = child.GetComponent<BotController>();
-            if(!Turn)
-            botScript.SelectedStatus.SetText(Turn.ToString());
+            if (!Turn)
+            {
+                botScript.SelectedStatus.SetText(Turn.ToString());
+                grid.hexesTravelled = 0;
+            }
         }
     }
 }

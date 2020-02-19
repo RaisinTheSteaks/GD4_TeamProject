@@ -41,9 +41,12 @@ public class HexGrid : MonoBehaviour
     public HexCell[] spawnPoints;
     #endregion
 
+    //Used for movement
     HexCell currentPathFrom, currentPathTo;
     bool currentPathExists;
     Unit selectedUnit;
+    public int hexesTravelled = 0;
+    public int speed = 0;
     public bool HasPath
     {
         get
@@ -78,9 +81,9 @@ public class HexGrid : MonoBehaviour
     void SetSpawnPoints()
     {
         spawnPoints[0] = cells[0];
-        spawnPoints[1] = cells[1];
+        spawnPoints[1] = cells[4];
         spawnPoints[2] = cells[cells.Length-2];
-        spawnPoints[3] = cells[cells.Length-3];
+        spawnPoints[3] = cells[cells.Length-6];
         gameManager.spawnPoints = spawnPoints;
     }
 
@@ -264,11 +267,17 @@ public class HexGrid : MonoBehaviour
         {
             if (currentPathTo.inRange == true)
             {
-                if (!currentPathTo.unit)
+                if (currentPathTo.Distance < (speed-hexesTravelled))
                 {
-                    selectedUnit.Location = currentPathTo;
+                    if (!currentPathTo.unit)
+                    {
+                        selectedUnit.Location = currentPathTo;
+                        hexesTravelled += currentPathTo.Distance;
+                        //Debug.Log("[TRAVELLED: " + hexesTravelled + " HEXES]");
+
+                    }
+                    ClearPath();
                 }
-                ClearPath();
             }
         }
     }
