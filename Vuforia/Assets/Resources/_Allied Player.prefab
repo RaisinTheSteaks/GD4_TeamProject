@@ -491,16 +491,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7189142358113505278}
     m_Modifications:
-    - target: {fileID: 1159080406932022769, guid: 6d71eeeab328f0c4faa9f5e1476c2881,
-        type: 3}
-      propertyPath: m_Name
-      value: Tank
-      objectReference: {fileID: 0}
-    - target: {fileID: 1159080406932022769, guid: 6d71eeeab328f0c4faa9f5e1476c2881,
-        type: 3}
-      propertyPath: m_TagString
-      value: Bot
-      objectReference: {fileID: 0}
     - target: {fileID: 2815074523692723589, guid: 6d71eeeab328f0c4faa9f5e1476c2881,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -570,6 +560,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1159080406932022769, guid: 6d71eeeab328f0c4faa9f5e1476c2881,
+        type: 3}
+      propertyPath: m_Name
+      value: Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 1159080406932022769, guid: 6d71eeeab328f0c4faa9f5e1476c2881,
+        type: 3}
+      propertyPath: m_TagString
+      value: Bot
       objectReference: {fileID: 0}
     - target: {fileID: 8378290385498811674, guid: 6d71eeeab328f0c4faa9f5e1476c2881,
         type: 3}

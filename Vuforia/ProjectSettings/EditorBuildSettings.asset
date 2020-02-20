@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TextureBot/TBMenu.unity
-    guid: b71ec33d5d57c0049ab7c922e3309c98
+    path: Assets/Scenes/Menu.unity
+    guid: bf9dec2440379374cb012f956fd991f9
   - enabled: 1
-    path: Assets/Scenes/TextureBot/TBGame.unity
-    guid: 1fcb1bc1c64ebcb418bd6ae8664c0794
+    path: Assets/Scenes/MasterScene.unity
+    guid: 9b81f4131ee1ef5498d869143fb17e99
   m_configObjects: {}

@@ -6,7 +6,7 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5838814025005152500}
+  m_GameObject: {fileID: 4688883926755466500}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -126,7 +126,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 907423712394081614}
-  - {fileID: 5838814025005152438}
+  - {fileID: 8509135016544228720}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -491,16 +491,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7189142358113505278}
     m_Modifications:
-    - target: {fileID: 1159080406932022769, guid: b0dde7302f0c62f419e842a8a94adae9,
-        type: 3}
-      propertyPath: m_Name
-      value: Tank
-      objectReference: {fileID: 0}
-    - target: {fileID: 1159080406932022769, guid: b0dde7302f0c62f419e842a8a94adae9,
-        type: 3}
-      propertyPath: m_TagString
-      value: Bot
-      objectReference: {fileID: 0}
     - target: {fileID: 2815074523692723589, guid: b0dde7302f0c62f419e842a8a94adae9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -509,7 +499,7 @@ PrefabInstance:
     - target: {fileID: 2815074523692723589, guid: b0dde7302f0c62f419e842a8a94adae9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.2
+      value: -1.7
       objectReference: {fileID: 0}
     - target: {fileID: 2815074523692723589, guid: b0dde7302f0c62f419e842a8a94adae9,
         type: 3}
@@ -570,6 +560,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1159080406932022769, guid: b0dde7302f0c62f419e842a8a94adae9,
+        type: 3}
+      propertyPath: m_Name
+      value: Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 1159080406932022769, guid: b0dde7302f0c62f419e842a8a94adae9,
+        type: 3}
+      propertyPath: m_TagString
+      value: Bot
       objectReference: {fileID: 0}
     - target: {fileID: 5812863469764650212, guid: b0dde7302f0c62f419e842a8a94adae9,
         type: 3}
@@ -634,12 +634,12 @@ PrefabInstance:
     - target: {fileID: 5448395700279049804, guid: b0dde7302f0c62f419e842a8a94adae9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.06
+      value: 3.6
       objectReference: {fileID: 0}
     - target: {fileID: 880327966519529955, guid: b0dde7302f0c62f419e842a8a94adae9,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 9.35
+      value: 11.03
       objectReference: {fileID: 0}
     - target: {fileID: 8378290385498811674, guid: b0dde7302f0c62f419e842a8a94adae9,
         type: 3}
@@ -668,13 +668,13 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 8a567576ff5a6d244acf46e8b1e50d07, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0dde7302f0c62f419e842a8a94adae9, type: 3}
---- !u!1 &5838814025005152500 stripped
+--- !u!1 &4688883926755466500 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1159080406932022769, guid: b0dde7302f0c62f419e842a8a94adae9,
     type: 3}
   m_PrefabInstance: {fileID: 5838814025005152501}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5838814025005152438 stripped
+--- !u!4 &8509135016544228720 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2815074523692723589, guid: b0dde7302f0c62f419e842a8a94adae9,
     type: 3}
