@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Menu.unity
+- path: Assets/Scenes/TextureBot/TBMenu.unity
   isLoaded: 1
   isActive: 1

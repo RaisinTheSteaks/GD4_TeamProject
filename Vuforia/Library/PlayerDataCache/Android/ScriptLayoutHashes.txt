@@ -1,9 +1,9 @@
 Android
 PlayerPath?
-C:/School/Year 4/GD4 Team Project/Vuforia/TankBuild.apk
+C:/School/Year 4/GD4 Team Project/Vuforia/textureBot.apk
 SceneListBegin?
-Assets/Scenes/Menu.unity
-Assets/Scenes/MasterScene.unity
+Assets/Scenes/TextureBot/TBMenu.unity
+Assets/Scenes/TextureBot/TBGame.unity
 SceneListEnd?
 71bb6a6b6c8f052f948db64c7dd3ca4f PhotonUnityNetworking.Utilities.dll:Photon.Pun.UtilityScripts.PunTeams
 71bb6a6b6c8f052f948db64c7dd3ca4f VuforiaScripts.dll:.BoundingBoxRenderer
@@ -269,7 +269,7 @@ a01997cb72dcc2e9a03badfde4453090 GameAssembly.dll:.ToggleAction
 507174d46dacbc5fe45e28485db5dd1e Unity.Analytics.DataPrivacy.dll:UnityEngine.Analytics.DataPrivacyButton
 5421466ed6291c1ab2d1650a128005b2 PhotonUnityNetworking.Utilities.dll:Photon.Pun.UtilityScripts.PhotonLagSimulationGui
 71bb6a6b6c8f052f948db64c7dd3ca4f PhotonUnityNetworking.Utilities.dll:Photon.Pun.UtilityScripts.EventSystemSpawner
-c3795482b660e7f58907a5961d338fb8 GameAssembly.dll:.GameManager
+12c9f4bcfeb267af3bb059ffd46f520c GameAssembly.dll:.GameManager
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 c5fd97cc10b89deaf7c60af66a6b0d5a PhotonRealtime.dll:Photon.Realtime.SupportLogger
 3f600ad0f750f59238a91f7513b927c1 PhotonUnityNetworking.dll:Photon.Pun.PhotonTransformViewClassic
