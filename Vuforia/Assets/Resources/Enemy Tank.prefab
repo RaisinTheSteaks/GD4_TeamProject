@@ -93,14 +93,16 @@ MonoBehaviour:
   playerScript: {fileID: 0}
   SelectedStatus: {fileID: 6089810130941403458}
   rig: {fileID: 9149166301578972955}
-  specialAbility: 0
+  specialAbilityMode: 0
   specialAbilityUsed: 0
   hexGrid: {fileID: 0}
-  popUp: {fileID: 0}
+  Type: 
+  botPopUp: {fileID: 0}
   healthNumberIndicator: {fileID: 5812863469764650212}
   healthBar: {fileID: 2957970927943044136}
   maxWidth: 0
   attackSound: {fileID: 0}
+  specialAbilitySound: {fileID: 0}
   audioSource: {fileID: 0}
   deathSound: {fileID: 0}
   maxHealth: 0
@@ -108,7 +110,6 @@ MonoBehaviour:
   attackDamage: 50
   attackingMode: 0
   symbol: {fileID: 2100000, guid: 15f4fb3458bbd914fa446212aec78640, type: 2}
-  type: Gamma
 --- !u!136 &5239171323373057367
 CapsuleCollider:
   m_ObjectHideFlags: 0

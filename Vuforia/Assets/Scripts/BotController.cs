@@ -293,8 +293,8 @@ public class BotController : MonoBehaviourPunCallbacks
                                                                                 //Sphere is for debugging purposes                                  
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         sphere.transform.position = hex.transform.position;
-        sphere.transform.localScale = new Vector3(0.6f, 0.1f, 0.6f);
-        hitColliders = Physics.OverlapSphere(hex.transform.position, 0.3f);     // An overlap sphere is then spawned at the center of hex. All objects that are touching or within the overlap sphere 
+        sphere.transform.localScale = new Vector3(0.15f, 0.1f, 0.15f);
+        hitColliders = Physics.OverlapSphere(hex.transform.position, 0.15f);     // An overlap sphere is then spawned at the center of hex. All objects that are touching or within the overlap sphere 
         photonView.RPC("missileAudio", RpcTarget.All, transform.name);
         for (int i = 0; i < hitColliders.Length; i++)                               //are then placed in an array called hitColliders. A for loop then iterates through the hitColliders arrayand if the object 
         {
