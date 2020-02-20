@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public TextMeshProUGUI pingUI;
 
     [Header("Players")]
-    public string playerPrefabLocation;
+    public string playerOnePrefabLocation;
+    public string playerTwoPrefabLocation;
     public HexCell[] spawnPoints;
     public BotController[] bots;
     public PlayerController[] players;
@@ -70,14 +71,17 @@ public class GameManager : MonoBehaviourPunCallbacks
         print("spawning player");
         int spawnPoint1;
         int spawnPoint2;
+        string playerPrefabLocation;
         if (PhotonNetwork.IsMasterClient)
         {
+            playerPrefabLocation = playerOnePrefabLocation;
             spawnPoint1 = 0;
             spawnPoint2 = 1;
             //Hex points is these 2 points
         }
         else
         {
+            playerPrefabLocation = playerTwoPrefabLocation;
             spawnPoint1 = 2;
             spawnPoint2 = 3;
         }
