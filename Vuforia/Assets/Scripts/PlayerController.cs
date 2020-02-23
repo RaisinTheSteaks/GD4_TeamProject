@@ -171,12 +171,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
             
             if (!Turn)
             {
-                EndTurnButton.gameObject.GetComponent<Image>().material = Resources.Load("EndTurnDisabled", typeof(Material)) as Material;
+                EndTurnButton.gameObject.GetComponent<Image>().material = Resources.Load("HUD/EndTurnDisabled", typeof(Material)) as Material;
 
             }
             else
             {
-                EndTurnButton.gameObject.GetComponent<Image>().material = Resources.Load("EndTurn", typeof(Material)) as Material;
+                EndTurnButton.gameObject.GetComponent<Image>().material = Resources.Load("HUD/EndTurn", typeof(Material)) as Material;
             }
 
         }
