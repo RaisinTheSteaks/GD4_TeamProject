@@ -50,6 +50,8 @@ public class BotController : MonoBehaviourPunCallbacks
     private bool updatingHealth;
     private bool once;
     public Material symbol;
+    public float range;
+    public const float gridScale = 0.03f;
 
 
     public void InitializeBot()
@@ -141,22 +143,26 @@ public class BotController : MonoBehaviourPunCallbacks
                         {
                             //checking if its a bot
                             print("its a bot");
+                            print(Vector3.Distance(transform.position, hit.transform.position));
+                            if(Vector3.Distance(transform.position, hit.transform.position) < range * gridScale)
+                            {
+                                //creates random damage
+                                float rng = Random.Range(1, 21);
 
-                            //creates random damage
-                            float rng = Random.Range(1, 21);
+                                //start shooting animation
+                                StartCoroutine(animation("IsShooting"));
 
-                            //start shooting animation
-                            StartCoroutine(animation("IsShooting"));
+                                //start attack audio and calculating damages
+                                photonView.RPC("attackAudio", RpcTarget.All, transform.name);
+                                photonView.RPC("startDamage", RpcTarget.All, hit.transform.name, rng, attackDamage);
 
-                            //start attack audio and calculating damages
-                            photonView.RPC("attackAudio", RpcTarget.All, transform.name);
-                            photonView.RPC("startDamage", RpcTarget.All, hit.transform.name, rng, attackDamage);
+                                //set attacking moded to false
+                                attackingMode = false;
 
-                            //set attacking moded to false
-                            attackingMode = false;
-
-                            //end player turn
-                            playerScript.EndTurn();
+                                //end player turn
+                                playerScript.EndTurn();
+                            }
+                            
                         }
                     }
                 }
@@ -316,7 +322,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public IEnumerator despawnSphere(GameObject sphere)
     {
         yield return new WaitForSeconds(1.0f);
-        sphere.SetActive(false);
+        Destroy(sphere);
     }
 
     [PunRPC]
