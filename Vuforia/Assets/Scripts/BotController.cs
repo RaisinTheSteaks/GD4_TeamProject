@@ -19,6 +19,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public bool isSelected = false;
     public PlayerController playerScript;
     public TextMeshProUGUI SelectedStatus;
+    public TextMeshProUGUI AttackTarget;
 
     [Header("Component")]
     public Rigidbody rig;
@@ -78,7 +79,7 @@ public class BotController : MonoBehaviourPunCallbacks
         hexGrid = GameObject.Find("HexGrid");
         //botPopUp.SetActive(false);
 
-
+        AttackTarget = GameObject.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
         maxHealth = health;
         transform.name = playerScript.name + " " + transform.name;
         healthNumberIndicator.text = ((int)health).ToString();
@@ -149,11 +150,9 @@ public class BotController : MonoBehaviourPunCallbacks
                             //check if target bot is within distancce
                             if(Vector3.Distance(transform.position, hit.transform.position) < range * gridScale)
                             {
-                                //transform.LookAt(hit.transform);
+                                
+                                transform.LookAt(hit.transform);
                                 Vector3 offsetY = new Vector3(0, 0.01f, 0);
-                                //Vector3 origin = transform.position + offsetY;
-                                //Vector3 dir = transform.forward + offsetY;
-                                //Ray attackRay = new Ray(origin , dir);
                                 RaycastHit raycastHit;
                                 //Debug.DrawRay(origin, dir, Color.green, 20, true);
 
@@ -166,6 +165,7 @@ public class BotController : MonoBehaviourPunCallbacks
                                         //check if the bot is not allied
                                         if(raycastHit.transform.gameObject.GetComponent<BotController>().playerScript != playerScript)
                                         {
+                                            AttackTarget.text = "valid target";
                                             //creates random damage
                                             float rng = Random.Range(1, 21);
 
@@ -182,13 +182,25 @@ public class BotController : MonoBehaviourPunCallbacks
                                             //end player turn
                                             playerScript.EndTurn();
                                         }
-                                        
+                                        else
+                                        {
+                                            AttackTarget.text = "own bot";
+                                        }
+
                                     }
-                                    
+                                    else
+                                    {
+                                        AttackTarget.text = "invalid target";
+                                    }
+
                                 }
-                                
+
                             }
-                            
+                            else
+                            {
+                                AttackTarget.text = "target is too far";
+                            }
+
                         }
                     }
                 }
