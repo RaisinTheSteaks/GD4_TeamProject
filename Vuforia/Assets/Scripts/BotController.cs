@@ -24,6 +24,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public Rigidbody rig;
     public bool specialAbilityMode;
     public bool specialAbilityUsed;
+    public bool guardMode;
     public GameObject hexGrid;
     public string Type;
     Collider[] hitColliders;
@@ -90,7 +91,7 @@ public class BotController : MonoBehaviourPunCallbacks
         attackingPhase();
         updateHealth();
         SelectedText();
-
+        guardPhase();
         Explosion(); //first part of tank Special Ability
         if (confirm && !specialAbilityUsed)
             loadExplosion();   //second part of tank special Ability
@@ -173,6 +174,31 @@ public class BotController : MonoBehaviourPunCallbacks
 
     }
 
+    public void guard()
+    {
+        //debugging for action windows, replace this with real move method
+
+        if (isSelected && playerScript.Turn && !specialAbilityMode)
+        {
+            print(transform.name + "guarding");
+            guardMode = true;
+            //end player turn
+            playerScript.EndTurn();
+        }
+
+    }
+
+    public void guardPhase()
+    {
+        if (guardMode)
+        {
+            //set attacking moded to false
+            attackingMode = false;
+            //start guarding animation
+            StartCoroutine(animation("IsGuarding"));
+        }
+    }
+
     [PunRPC]
     public void startDamage(string botName, float bonusDamage, float normalDamage)
     {
@@ -184,10 +210,20 @@ public class BotController : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(0.5f);
         GameObject bot = GameObject.Find(botName);
         BotController target = bot.GetComponent<BotController>();
-        target.health -= bonusDamage + normalDamage;
+        
         target.updatingHealth = true;
 
         //print(target.health);
+
+        //Half damage taken if player has entered guard
+        if (target.guardMode)
+        {
+            target.health -= (bonusDamage + normalDamage) / 2;
+        }
+        else
+        {
+            target.health -= bonusDamage + normalDamage;
+        }
     }
 
     [PunRPC]
@@ -230,6 +266,8 @@ public class BotController : MonoBehaviourPunCallbacks
 
             }
 
+            
+
 
             updatingHealth = false;
         }
@@ -242,17 +280,6 @@ public class BotController : MonoBehaviourPunCallbacks
         transform.gameObject.SetActive(false);
     }
 
-
-    public void guard()
-    {
-        //debugging for action windows, replace this with real move method
-
-        if (isSelected && playerScript.Turn && !specialAbilityMode)
-        {
-            print(transform.name + "guarding");
-        }
-
-    }
 
     public void abilities()
     {
