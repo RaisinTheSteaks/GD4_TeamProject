@@ -51,7 +51,7 @@ public class BotController : MonoBehaviourPunCallbacks
     private bool once;
     public Material symbol;
     public float range;
-    public const float gridScale = 0.03f;
+    public const float gridScale = 0.035f;
 
 
     public void InitializeBot()
@@ -141,26 +141,52 @@ public class BotController : MonoBehaviourPunCallbacks
                         print("not the same player");
                         if (hit.transform.tag == "Bot")
                         {
+                            
                             //checking if its a bot
                             print("its a bot");
                             print(Vector3.Distance(transform.position, hit.transform.position));
+
+                            //check if target bot is within distancce
                             if(Vector3.Distance(transform.position, hit.transform.position) < range * gridScale)
                             {
-                                //creates random damage
-                                float rng = Random.Range(1, 21);
+                                //transform.LookAt(hit.transform);
+                                Vector3 offsetY = new Vector3(0, 0.01f, 0);
+                                //Vector3 origin = transform.position + offsetY;
+                                //Vector3 dir = transform.forward + offsetY;
+                                //Ray attackRay = new Ray(origin , dir);
+                                RaycastHit raycastHit;
+                                //Debug.DrawRay(origin, dir, Color.green, 20, true);
 
-                                //start shooting animation
-                                StartCoroutine(animation("IsShooting"));
+                                //check if the ray cast hit something
+                                if (Physics.Raycast(transform.position + offsetY , ((hit.transform.position + offsetY) - (transform.position + offsetY)), out raycastHit, 100))
+                                {
+                                    //check if the ray cast hit a bot type game object
+                                    if(raycastHit.transform.tag == "Bot")
+                                    {
+                                        //check if the bot is not allied
+                                        if(raycastHit.transform.gameObject.GetComponent<BotController>().playerScript != playerScript)
+                                        {
+                                            //creates random damage
+                                            float rng = Random.Range(1, 21);
 
-                                //start attack audio and calculating damages
-                                photonView.RPC("attackAudio", RpcTarget.All, transform.name);
-                                photonView.RPC("startDamage", RpcTarget.All, hit.transform.name, rng, attackDamage);
+                                            //start shooting animation
+                                            StartCoroutine(animation("IsShooting"));
 
-                                //set attacking moded to false
-                                attackingMode = false;
+                                            //start attack audio and calculating damages
+                                            photonView.RPC("attackAudio", RpcTarget.All, transform.name);
+                                            photonView.RPC("startDamage", RpcTarget.All, hit.transform.name, rng, attackDamage);
 
-                                //end player turn
-                                playerScript.EndTurn();
+                                            //set attacking moded to false
+                                            attackingMode = false;
+
+                                            //end player turn
+                                            playerScript.EndTurn();
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                                
                             }
                             
                         }
