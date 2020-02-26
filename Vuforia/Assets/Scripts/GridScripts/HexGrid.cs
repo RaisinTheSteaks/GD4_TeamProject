@@ -16,8 +16,8 @@ pathfinding in player movement
 
 public class HexGrid : MonoBehaviour
 {
-    public GameManager gameManager;
     #region Inspector Inputs
+    public GameManager gameManager;
     [Header ("Grid Inputs")]
     public int width = 6;
     public int height = 6;
@@ -39,6 +39,7 @@ public class HexGrid : MonoBehaviour
 
     [Header("Spawning")]
     public HexCell[] spawnPoints;
+    public Cover coverPrefab;
     #endregion
 
     //Used for movement
