@@ -13,6 +13,11 @@ pathfinding in player movement
 
 */
 
+struct CoverHex
+{
+    public HexCell cell;
+    public HexDirection direction;
+}
 
 public class HexGrid : MonoBehaviour
 {
@@ -39,7 +44,11 @@ public class HexGrid : MonoBehaviour
 
     [Header("Spawning")]
     public HexCell[] spawnPoints;
+
     public Cover coverPrefab;
+    //If I want to add these cover hexes in the inspector, I would add it here.
+    //public string[] coverHexNames;
+    CoverHex[] coverHexes = new CoverHex[4];
     #endregion
 
     //Used for movement
@@ -75,6 +84,8 @@ public class HexGrid : MonoBehaviour
             }
         }
         SetSpawnPoints();
+        SetCoverHexes();
+        SpawnCover();
     }
 
 
@@ -86,6 +97,41 @@ public class HexGrid : MonoBehaviour
         spawnPoints[2] = cells[cells.Length-2];
         spawnPoints[3] = cells[cells.Length-6];
         gameManager.spawnPoints = spawnPoints;
+    }
+
+    void SetCoverHexes()
+    {
+        CoverHex coverHex = new CoverHex();
+        coverHex.cell = cells[15];
+        coverHex.direction = HexDirection.W;
+        coverHexes[0] = coverHex;
+
+        coverHex.cell = cells[17];
+        coverHex.direction = HexDirection.NE;
+        coverHexes[1] = coverHex;
+
+        coverHex.cell = cells[19];
+        coverHex.direction = HexDirection.SW;
+        coverHexes[2] = coverHex;
+
+        coverHex.cell = cells[21];
+        coverHex.direction = HexDirection.E;
+        coverHexes[3] = coverHex;
+    }
+
+    void SpawnCover()
+    {
+        foreach(CoverHex coverHex in coverHexes)
+        {
+            Cover cover = Instantiate<Cover>(coverPrefab);
+            cover.parentCell = coverHex.cell;
+            cover.direction = coverHex.direction;
+            cover.transform.position = coverHex.cell.transform.position;
+            cover.transform.parent = cover.parentCell.transform;
+            cover.transform.localScale = new Vector3(2, 20, 2);
+            cover.name = cover.parentCell.name + "_Cover";
+
+        }
     }
 
     //Build each given cell at these coordinates

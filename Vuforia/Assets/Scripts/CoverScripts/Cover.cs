@@ -32,10 +32,11 @@ public class Cover : MonoBehaviour
         }
     }
 
+    public HexDirection direction;
+
 
 
     CoverType coverType;
     string id;
-    int cellFace;
     HexCell cellPosition;
 }
