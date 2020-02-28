@@ -14,6 +14,7 @@ public class BotController : MonoBehaviourPunCallbacks
     Vector3 tap = new Vector3();
     Ray ray;
     public bool confirm;
+   
 
     [Header("Info")]
     public bool isSelected = false;
@@ -47,12 +48,13 @@ public class BotController : MonoBehaviourPunCallbacks
     public float maxHealth;
     public float health;
     public float attackDamage;
-    public bool attackingMode;
+    public bool attackingMode = false;
     private bool updatingHealth;
     private bool once;
     public Material symbol;
     public float range;
     public const float gridScale = 0.035f;
+    private GameObject attackRangeIndicator;
 
 
     public void InitializeBot()
@@ -73,6 +75,7 @@ public class BotController : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
+        
         playerScript = transform.parent.GetComponent<PlayerController>();
 
         hexGrid = GetComponent<GameObject>();
@@ -93,7 +96,7 @@ public class BotController : MonoBehaviourPunCallbacks
         attackingPhase();
         updateHealth();
         SelectedText();
-
+        despawnAttackRange();
         Explosion(); //first part of tank Special Ability
         if (confirm && !specialAbilityUsed)
             loadExplosion();   //second part of tank special Ability
@@ -105,7 +108,8 @@ public class BotController : MonoBehaviourPunCallbacks
         //debugging for action windows, replace this with real move method
         if (isSelected && playerScript.Turn && !specialAbilityMode)
         {
-           // print(transform.name + "moving");
+            ResetAllMode();
+            // print(transform.name + "moving");
             GameManager.instance.mapController.SetMovementState(true);
         }
 
@@ -116,11 +120,38 @@ public class BotController : MonoBehaviourPunCallbacks
         //debugging for action windows, replace this with real move method
         if (isSelected && playerScript.Turn)
         {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                StartCoroutine(animation("IsShooting"));
+            }
+            ResetAllMode();
             //enter attacking mode
-            attackingMode = true;
-            print("attacking...");
+            float offset = 0.07f;
+
+            
+            attackingMode = !attackingMode;
+            print("attacking mode: " + attackingMode);
+
+            if(!attackRangeIndicator)
+            {
+                attackRangeIndicator = Instantiate(Resources.Load("VisualFeedback/AttackRange"), transform.position, Quaternion.identity) as GameObject;
+                attackRangeIndicator.transform.localScale = new Vector3(range * offset, 0.01f, range * offset);
+                attackRangeIndicator.transform.SetParent(GameManager.instance.imageTarget.transform);
+
+            }
+
         }
 
+    }
+    private void despawnAttackRange()
+    {
+        if(!attackingMode)
+        {
+            if(attackRangeIndicator)
+            {
+                Destroy(attackRangeIndicator);
+            }
+        }
     }
 
     public void attackingPhase()
@@ -154,7 +185,6 @@ public class BotController : MonoBehaviourPunCallbacks
                                 transform.LookAt(hit.transform);
                                 Vector3 offsetY = new Vector3(0, 0.01f, 0);
                                 RaycastHit raycastHit;
-                                //Debug.DrawRay(origin, dir, Color.green, 20, true);
 
                                 //check if the ray cast hit something
                                 if (Physics.Raycast(transform.position + offsetY , ((hit.transform.position + offsetY) - (transform.position + offsetY)), out raycastHit, 100))
@@ -186,21 +216,17 @@ public class BotController : MonoBehaviourPunCallbacks
                                         {
                                             AttackTarget.text = "own bot";
                                         }
-
                                     }
                                     else
                                     {
                                         AttackTarget.text = "invalid target";
                                     }
-
                                 }
-
                             }
                             else
                             {
                                 AttackTarget.text = "target is too far";
                             }
-
                         }
                     }
                 }
@@ -210,9 +236,15 @@ public class BotController : MonoBehaviourPunCallbacks
 
     public IEnumerator animation(string boolName)
     {
-        GetComponent<Animator>().SetBool(boolName, true);
+        Animator animator = GetComponent<Animator>();
+        if(Type == "Tank")
+        {
+            animator = transform.Find("Body").GetComponent<Animator>();
+        }
+
+        animator.SetBool(boolName, true);
         yield return new WaitForSeconds(1.12f);
-        GetComponent<Animator>().SetBool(boolName, false);
+        animator.SetBool(boolName, false);
 
 
     }
@@ -293,6 +325,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
         if (isSelected && playerScript.Turn && !specialAbilityMode)
         {
+            ResetAllMode();
             print(transform.name + "guarding");
         }
 
@@ -303,12 +336,13 @@ public class BotController : MonoBehaviourPunCallbacks
         //debugging for action windows, replace this with real move method
         if (isSelected && playerScript.Turn && !specialAbilityUsed)
         {
+            ResetAllMode();
             specialAbilityMode = true;
         }
 
     }
 
-    void Explosion()
+    private void Explosion()
     {
         if (specialAbilityMode && Type.Equals("Tank")) //checks if the player has hit the special ability button and that they haven't used this bots special ability before
         {
@@ -371,6 +405,13 @@ public class BotController : MonoBehaviourPunCallbacks
         target.audioSource.PlayOneShot(target.specialAbilitySound);
     }
 
+    public void ResetAllMode()
+    {
+        attackingMode = false;
+        specialAbilityMode = false;
+        GameManager.instance.mapController.SetMovementState(false);
+
+    }
 
     private void SelectedText()
     {

@@ -13,6 +13,7 @@ public class AssignButtonEvent : MonoBehaviour
     public Button guardButton;
     public Button specialAbilitiesButton;
     public Button endTurnButton;
+    
     public bool allAssigned;
     private int frame;
 

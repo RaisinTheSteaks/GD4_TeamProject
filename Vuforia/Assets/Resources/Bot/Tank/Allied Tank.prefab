@@ -93,6 +93,7 @@ MonoBehaviour:
   isSelected: 0
   playerScript: {fileID: 0}
   SelectedStatus: {fileID: 6089810130941403458}
+  AttackTarget: {fileID: 0}
   rig: {fileID: 9149166301578972955}
   specialAbilityMode: 0
   specialAbilityUsed: 0
@@ -111,6 +112,7 @@ MonoBehaviour:
   attackDamage: 50
   attackingMode: 0
   symbol: {fileID: 2100000, guid: 15f4fb3458bbd914fa446212aec78640, type: 2}
+  range: 0
 --- !u!136 &5239171323373057367
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -189,8 +191,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
-  m_SynchronizeParameters: []
-  m_SynchronizeLayers: []
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsShooting
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsSelected
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!82 &7900003321563058182
 AudioSource:
   m_ObjectHideFlags: 0
@@ -746,7 +756,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 840f9f43631646f418f2961cefd1cfba, type: 2}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
