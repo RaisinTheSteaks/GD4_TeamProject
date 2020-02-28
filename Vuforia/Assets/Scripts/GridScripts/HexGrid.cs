@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,7 +49,8 @@ public class HexGrid : MonoBehaviour
     public Cover coverPrefab;
     //If I want to add these cover hexes in the inspector, I would add it here.
     //public string[] coverHexNames;
-    CoverHex[] coverHexes = new CoverHex[4];
+    public static int coverObjectCount=6;
+    CoverHex[] coverHexes = new CoverHex[coverObjectCount];
     #endregion
 
     //Used for movement
@@ -117,6 +119,15 @@ public class HexGrid : MonoBehaviour
         coverHex.cell = cells[21];
         coverHex.direction = HexDirection.E;
         coverHexes[3] = coverHex;
+
+        coverHex.cell = cells[23];
+        coverHex.direction = HexDirection.NW;
+        coverHexes[4] = coverHex;
+
+        coverHex.cell = cells[25];
+        coverHex.direction = HexDirection.SE;
+        coverHexes[5] = coverHex;
+        
     }
 
     void SpawnCover()
@@ -127,12 +138,47 @@ public class HexGrid : MonoBehaviour
             cover.parentCell = coverHex.cell;
             cover.direction = coverHex.direction;
             cover.transform.position = coverHex.cell.transform.position;
+            float rotationAngle = (int)(cover.direction) * 55.0f;
+            
+            cover.transform.Rotate(new Vector3(0, 1, 0), rotationAngle);
+
+            cover.transform.position += (cover.transform.forward * 0.015f);
+            Vector3 offset = new Vector3(0, 0, 0);
+            float offsetScale = 0.013f;
+            switch (cover.direction)
+            {
+                
+                case (HexDirection.E):
+                    //increase x decrease z
+                    offset.z = -0.5f * offsetScale;
+                    offset.x = 0.25f * offsetScale;
+                    break;
+                case (HexDirection.NE):
+
+                    break;
+                case (HexDirection.NW):
+
+                    break;
+                case (HexDirection.SE):
+
+                    break;
+                case (HexDirection.SW):
+                    offset.x = -0.75f * offsetScale;
+                    break;
+                case (HexDirection.W):
+                    offset.z = 1 * offsetScale;
+                    offset.x = -0.5f * offsetScale;
+                    break;
+            }
+            cover.transform.position += offset;
             cover.transform.parent = cover.parentCell.transform;
             cover.transform.localScale = new Vector3(2, 20, 2);
             cover.name = cover.parentCell.name + "_Cover";
 
+            //Debug.Log(cover.name + " ROTATION: {" + rotationAngle + "}");
         }
     }
+    
 
     //Build each given cell at these coordinates
     void CreateCell(int x, int z, int i)
