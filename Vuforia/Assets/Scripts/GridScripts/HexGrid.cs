@@ -49,7 +49,7 @@ public class HexGrid : MonoBehaviour
     public Cover coverPrefab;
     //If I want to add these cover hexes in the inspector, I would add it here.
     //public string[] coverHexNames;
-    public static int coverObjectCount=6;
+    public static int coverObjectCount=12;
     CoverHex[] coverHexes = new CoverHex[coverObjectCount];
     #endregion
 
@@ -75,7 +75,7 @@ public class HexGrid : MonoBehaviour
         /*
          [TODO]
          Replace this construction with our own map
-         -Josh 11-01
+         -Josh 01-11
 
          */
         for (int z = 0, i = 0; z < height; z++)
@@ -90,8 +90,6 @@ public class HexGrid : MonoBehaviour
         SpawnCover();
     }
 
-
-
     void SetSpawnPoints()
     {
         spawnPoints[0] = cells[0];
@@ -103,6 +101,8 @@ public class HexGrid : MonoBehaviour
 
     void SetCoverHexes()
     {
+        //Currently not a great approach, too many magic numbers, should be refactored to allow for easier inspector modification
+
         CoverHex coverHex = new CoverHex();
         coverHex.cell = cells[15];
         coverHex.direction = HexDirection.W;
@@ -127,7 +127,30 @@ public class HexGrid : MonoBehaviour
         coverHex.cell = cells[25];
         coverHex.direction = HexDirection.SE;
         coverHexes[5] = coverHex;
-        
+
+        coverHex.cell = cells[27];
+        coverHex.direction = HexDirection.W;
+        coverHexes[6] = coverHex;
+
+        coverHex.cell = cells[29];
+        coverHex.direction = HexDirection.NE;
+        coverHexes[7] = coverHex;
+
+        coverHex.cell = cells[31];
+        coverHex.direction = HexDirection.SW;
+        coverHexes[8] = coverHex;
+
+        coverHex.cell = cells[33];
+        coverHex.direction = HexDirection.E;
+        coverHexes[9] = coverHex;
+
+        coverHex.cell = cells[35];
+        coverHex.direction = HexDirection.NW;
+        coverHexes[10] = coverHex;
+
+        coverHex.cell = cells[37];
+        coverHex.direction = HexDirection.SE;
+        coverHexes[11] = coverHex;
     }
 
     void SpawnCover()
@@ -137,30 +160,43 @@ public class HexGrid : MonoBehaviour
             Cover cover = Instantiate<Cover>(coverPrefab);
             cover.parentCell = coverHex.cell;
             cover.direction = coverHex.direction;
-            cover.transform.position = coverHex.cell.transform.position;
+
+            //Set the scale of the object and it's parent to be it's host cell
+            cover.transform.parent = cover.parentCell.transform;
+            cover.transform.localScale = new Vector3(2, 40, 2);
+            cover.name = cover.parentCell.name + "_Cover";
+
+            //Rotate the hex to face the set direction 
             float rotationAngle = (int)(cover.direction) * 55.0f;
-            
             cover.transform.Rotate(new Vector3(0, 1, 0), rotationAngle);
 
+            //Spawn the cover on it's parent cell
+            cover.transform.position = coverHex.cell.transform.position;
+
+            //Set it's position to be off from the centre of the hex to the edge it is facing
             cover.transform.position += (cover.transform.forward * 0.015f);
+
+            //Adjust spawn position
             Vector3 offset = new Vector3(0, 0, 0);
             float offsetScale = 0.013f;
             switch (cover.direction)
             {
-                
+                //Used to adjust where it spawns as the current system leaves each object slightly out of position
                 case (HexDirection.E):
                     //increase x decrease z
                     offset.z = -0.5f * offsetScale;
                     offset.x = 0.25f * offsetScale;
                     break;
                 case (HexDirection.NE):
-
+                    offset.x = 0.6f * offsetScale;
                     break;
                 case (HexDirection.NW):
-
+                    offset.z = 0.7f * offsetScale;
+                    offset.x = 0.6f * offsetScale;
                     break;
                 case (HexDirection.SE):
-
+                    offset.x = -0.6f * offsetScale;
+                    offset.z = -0.25f * offsetScale;
                     break;
                 case (HexDirection.SW):
                     offset.x = -0.75f * offsetScale;
@@ -171,15 +207,11 @@ public class HexGrid : MonoBehaviour
                     break;
             }
             cover.transform.position += offset;
-            cover.transform.parent = cover.parentCell.transform;
-            cover.transform.localScale = new Vector3(2, 20, 2);
-            cover.name = cover.parentCell.name + "_Cover";
 
-            //Debug.Log(cover.name + " ROTATION: {" + rotationAngle + "}");
+            
         }
     }
     
-
     //Build each given cell at these coordinates
     void CreateCell(int x, int z, int i)
     {
@@ -405,13 +437,4 @@ public class HexGrid : MonoBehaviour
         return cells[x + z * width];
     }
 
-    //below function works the same as the 
-    public HexCell getCell(Vector3 position)
-    {
-        position = transform.InverseTransformPoint(position);
-        HexCoordinates coordinates = HexCoordinates.FromPosition(position);
-        int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
-        HexCell cell = cells[index];
-        return cell;
-    }
 }

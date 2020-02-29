@@ -44,5 +44,9 @@ MonoBehaviour:
   - deathAudio
   - startDamage
   - missileAudio
+  - AttackAudio
+  - DeathAudio
+  - MissileAudio
+  - StartDamage
   DisableAutoOpenWizard: 1
   ShowSettings: 1
