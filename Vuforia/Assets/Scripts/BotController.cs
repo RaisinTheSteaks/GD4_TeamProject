@@ -92,7 +92,10 @@ public class BotController : MonoBehaviourPunCallbacks
     }
     private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine(animation("IsShooting"));
+        }
         attackingPhase();
         updateHealth();
         SelectedText();
@@ -120,10 +123,7 @@ public class BotController : MonoBehaviourPunCallbacks
         //debugging for action windows, replace this with real move method
         if (isSelected && playerScript.Turn)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                StartCoroutine(animation("IsShooting"));
-            }
+            
             ResetAllMode();
             //enter attacking mode
             float offset = 0.07f;
@@ -237,10 +237,10 @@ public class BotController : MonoBehaviourPunCallbacks
     public IEnumerator animation(string boolName)
     {
         Animator animator = GetComponent<Animator>();
-        if(Type == "Tank")
-        {
-            animator = transform.Find("Body").GetComponent<Animator>();
-        }
+        //if(Type == "Tank")
+        //{
+        //    animator = transform.Find("Body").GetComponent<Animator>();
+        //}
 
         animator.SetBool(boolName, true);
         yield return new WaitForSeconds(1.12f);
