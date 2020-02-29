@@ -103,11 +103,13 @@ public class HexGrid : MonoBehaviour
     {
         //Currently not a great approach, too many magic numbers, should be refactored to allow for easier inspector modification
 
-        CoverHex coverHex = new CoverHex();
-        coverHex.cell = cells[15];
-        coverHex.direction = HexDirection.W;
+        CoverHex coverHex = new CoverHex
+        {
+            cell = cells[1],
+            direction = HexDirection.E
+        };
         coverHexes[0] = coverHex;
-
+        
         coverHex.cell = cells[17];
         coverHex.direction = HexDirection.NE;
         coverHexes[1] = coverHex;
@@ -208,7 +210,8 @@ public class HexGrid : MonoBehaviour
             }
             cover.transform.position += offset;
 
-            
+            cover.parentCell.UnSetNeighbor(cover.direction);
+            Debug.Log("Removing " + cover.parentCell.name + "'s neighbor: " + cover.parentCell.GetNeighbor(cover.direction) + " in direction: " + cover.direction);
         }
     }
     
