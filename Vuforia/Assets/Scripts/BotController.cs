@@ -91,7 +91,7 @@ public class BotController : MonoBehaviourPunCallbacks
         attackingPhase();
         updateHealth();
         SelectedText();
-        guardPhase();
+        //guardPhase();
         Explosion(); //first part of tank Special Ability
         if (confirm && !specialAbilityUsed)
             loadExplosion();   //second part of tank special Ability
@@ -116,6 +116,7 @@ public class BotController : MonoBehaviourPunCallbacks
         {
             //enter attacking mode
             attackingMode = true;
+            guardMode = false;
             print("attacking...");
         }
 
@@ -152,6 +153,7 @@ public class BotController : MonoBehaviourPunCallbacks
                             //start attack audio and calculating damages
                             photonView.RPC("attackAudio", RpcTarget.All, transform.name);
                             photonView.RPC("startDamage", RpcTarget.All, hit.transform.name, rng, attackDamage);
+                            photonView.RPC("guardPhase", RpcTarget.All, transform.name);
 
                             //set attacking moded to false
                             attackingMode = false;
@@ -180,23 +182,27 @@ public class BotController : MonoBehaviourPunCallbacks
 
         if (isSelected && playerScript.Turn && !specialAbilityMode)
         {
-            print(transform.name + "guarding");
+            Debug.Log(transform.name + "guarding");
             guardMode = true;
             //end player turn
-            playerScript.EndTurn();
+           // playerScript.EndTurn();
         }
 
     }
 
-    public void guardPhase()
+    [PunRPC]
+    public void guardPhase(string botName)
     {
-        if (guardMode)
-        {
-            //set attacking moded to false
-            attackingMode = false;
-            //start guarding animation
-            StartCoroutine(animation("IsGuarding"));
-        }
+        //if (guardMode)
+        //{
+        //    //set attacking mode to false
+        //    attackingMode = false;
+        //    //start guarding animation
+        //   // StartCoroutine(animation("IsGuarding"));
+        //}
+        GameObject bot = GameObject.Find(botName);
+        BotController target = bot.GetComponent<BotController>();
+        target.guardMode = true;
     }
 
     [PunRPC]
