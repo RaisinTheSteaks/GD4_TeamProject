@@ -153,7 +153,7 @@ public class BotController : MonoBehaviourPunCallbacks
                             //start attack audio and calculating damages
                             photonView.RPC("attackAudio", RpcTarget.All, transform.name);
                             photonView.RPC("startDamage", RpcTarget.All, hit.transform.name, rng, attackDamage);
-                            photonView.RPC("guardPhase", RpcTarget.All, transform.name);
+                            
 
                             //set attacking moded to false
                             attackingMode = false;
@@ -165,6 +165,10 @@ public class BotController : MonoBehaviourPunCallbacks
                 }
             }
         }
+        if (guardMode)
+        {
+            photonView.RPC("guardPhase", RpcTarget.All, transform.name);
+        }
     }
 
     public IEnumerator animation(string boolName)
@@ -175,7 +179,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
 
     }
-
+    [PunRPC]
     public void guard()
     {
         //debugging for action windows, replace this with real move method
@@ -183,7 +187,7 @@ public class BotController : MonoBehaviourPunCallbacks
         if (isSelected && playerScript.Turn && !specialAbilityMode)
         {
             Debug.Log(transform.name + "guarding");
-            guardMode = true;
+            guardPhase(transform.name);
             //end player turn
            // playerScript.EndTurn();
         }
