@@ -22,8 +22,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public HexGrid grid;
 
     public GameObject popUp;
+    public GameObject pauseScreen;
 
-
+    //pause screen
+    public bool pause;
     [PunRPC]
     public void Initialize(Player player)
     {
@@ -56,6 +58,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private void Awake()
     {
         popUp = GameObject.Find("PopUp");
+        pauseScreen = GameObject.Find("PauseMenu");
 
     }
 
@@ -74,19 +77,20 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         botSymbol = GameObject.Find("Symbol");
         popUp.SetActive(false);
+        pauseScreen.SetActive(false);
 
     }
 
     private void Update()
     {
         checkTurn();
-        if (Turn)
+        if (Turn && !pause)
         {
             SelectCharacter();
         }
 
         
-        if(endTurnPressed && Turn)
+        if(endTurnPressed && Turn && !pause)
         {
             endTurnMessage.text = "End Turn \n" + (3 - (int)timer);
             timer += Time.deltaTime;
@@ -225,6 +229,28 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 botScript.SelectedStatus.SetText(Turn.ToString());
                 grid.hexesTravelled = 0;
             }
+        }
+    }
+
+
+    public void Pause()
+    {
+        pause = true;
+        pauseScreen.SetActive(true);
+        foreach (Transform child in transform)
+        {
+            BotController botScript = child.GetComponent<BotController>();
+            botScript.pause = true;
+        }
+    }
+    public void Resume()
+    {
+        pause = false;
+        pauseScreen.SetActive(false);
+        foreach (Transform child in transform)
+        {
+            BotController botScript = child.GetComponent<BotController>();
+            botScript.pause = false;
         }
     }
 }

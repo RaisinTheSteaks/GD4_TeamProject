@@ -51,7 +51,8 @@ public class BotController : MonoBehaviourPunCallbacks
     private bool once;
     public Material symbol;
 
-
+    //Pause Screen
+    public bool pause;
     public void InitializeBot()
     {
         //photonPlayer = player;
@@ -66,6 +67,7 @@ public class BotController : MonoBehaviourPunCallbacks
     private void Awake()
     {
         botPopUp = transform.parent.GetComponent<PlayerController>().popUp;
+        pause = transform.parent.GetComponent<PlayerController>().pause;
 
     }
     private void Start()
@@ -92,7 +94,7 @@ public class BotController : MonoBehaviourPunCallbacks
         SelectedText();
 
         Explosion(); //first part of tank Special Ability
-        if (confirm && !specialAbilityUsed)
+        if (confirm && !specialAbilityUsed && !pause)
             loadExplosion();   //second part of tank special Ability
     }
 
@@ -100,7 +102,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public void Move()
     {
         //debugging for action windows, replace this with real move method
-        if (isSelected && playerScript.Turn && !specialAbilityMode)
+        if (isSelected && playerScript.Turn && !specialAbilityMode && !pause)
         {
            // print(transform.name + "moving");
             GameManager.instance.mapController.SetMovementState(true);
@@ -111,7 +113,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public void Attack()
     {
         //debugging for action windows, replace this with real move method
-        if (isSelected && playerScript.Turn)
+        if (isSelected && playerScript.Turn && !pause)
         {
             //enter attacking mode
             attackingMode = true;
@@ -122,7 +124,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
     public void attackingPhase()
     {
-        if (attackingMode)
+        if (attackingMode && !pause)
         {
             //if attacking mode, pressing down mouse button will do something different
             if (Input.GetMouseButtonDown(0))
@@ -247,7 +249,7 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         //debugging for action windows, replace this with real move method
 
-        if (isSelected && playerScript.Turn && !specialAbilityMode)
+        if (isSelected && playerScript.Turn && !specialAbilityMode && !pause)
         {
             print(transform.name + "guarding");
         }
@@ -257,7 +259,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public void abilities()
     {
         //debugging for action windows, replace this with real move method
-        if (isSelected && playerScript.Turn && !specialAbilityUsed)
+        if (isSelected && playerScript.Turn && !specialAbilityUsed && !pause)
         {
             specialAbilityMode = true;
         }
@@ -266,7 +268,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
     void Explosion()
     {
-        if (specialAbilityMode && Type.Equals("Tank")) //checks if the player has hit the special ability button and that they haven't used this bots special ability before
+        if (specialAbilityMode && Type.Equals("Tank") && !pause) //checks if the player has hit the special ability button and that they haven't used this bots special ability before
         {
             if (Input.GetMouseButtonDown(0)) //this if statement creates a raycast that checks if the player has touched a hexagon.
             {
