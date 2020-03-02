@@ -185,8 +185,8 @@ public class HexMapController : MonoBehaviour
         if (!cell.unit)
         {
             //unit.transform.SetParent(hexGrid.transform, false);
-            unit.Location = cell;
-            unit.Orientation = Random.Range(0f, 360f);
+            unit.Location = cell ;
+            //unit.Orientation = Random.Range(0f, 360f);
         }
     }
 

@@ -64,7 +64,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
         if (!photonView.IsMine)
         {
-            rig.isKinematic = true;
+            rig.isKinematic = false;
         }
 
     }
