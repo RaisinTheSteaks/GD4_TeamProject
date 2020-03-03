@@ -23,8 +23,13 @@ public class Unit : MonoBehaviour
             }
             location = value;
             value.unit = this;
-            transform.localPosition = value.Position;
-            //transform.position = value.Position;
+            int multiplier = 1;
+            if(transform.rotation.y < 0)
+            {
+                multiplier = -1;
+            }
+            transform.localPosition = value.Position +  new Vector3(0,0,3) * multiplier;
+            //transform.position = transform.localPosition;
         }
     }
     HexCell location;

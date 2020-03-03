@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
-    guid: bf9dec2440379374cb012f956fd991f9
+    path: Assets/Scenes/AttackImprove/AttackMenu.unity
+    guid: a5f10cb13ba79d0468cf2ddd1f32c104
   - enabled: 1
-    path: Assets/Scenes/MasterScene.unity
-    guid: 9b81f4131ee1ef5498d869143fb17e99
+    path: Assets/Scenes/AttackImprove/AttackGame.unity
+    guid: ff7a68f08b9cc7c4f8414e818bb48d6f
   m_configObjects: {}

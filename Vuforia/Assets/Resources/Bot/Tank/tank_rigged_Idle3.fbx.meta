@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 563949e1ccb3d264580a8591728975e0
+guid: c021c9d16e7a218438a5d6856a57fa7f
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -418,12 +418,7 @@ ModelImporter:
     7400360: X_com_Rifle.001|X_com_RifleAction.001
     9500000: //RootNode
     10800000: Light
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: No Name
-    second: {fileID: 2100000, guid: 8983bb8a16f22284eba6d324b64777ec, type: 2}
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
@@ -455,7 +450,7 @@ ModelImporter:
       name: Armature.001|ArmatureAction.000
       takeName: Armature.001|ArmatureAction.000
       firstFrame: 0
-      lastFrame: 260
+      lastFrame: 160
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -539,7 +534,7 @@ ModelImporter:
       name: Armature.001|Box074|Take 001|BaseLayer.001
       takeName: Armature.001|Box074|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -595,7 +590,7 @@ ModelImporter:
       name: Armature.001|Box078|Take 001|BaseLayer.001
       takeName: Armature.001|Box078|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -623,7 +618,7 @@ ModelImporter:
       name: Armature.001|Chest_missile1.001Action
       takeName: Armature.001|Chest_missile1.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -679,7 +674,7 @@ ModelImporter:
       name: Armature.001|Chest_missile2.001Action
       takeName: Armature.001|Chest_missile2.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -959,7 +954,7 @@ ModelImporter:
       name: Box001.001|Box074|Take 001|BaseLayer.001
       takeName: Box001.001|Box074|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1015,7 +1010,7 @@ ModelImporter:
       name: Box001.001|Box078|Take 001|BaseLayer.001
       takeName: Box001.001|Box078|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1043,7 +1038,7 @@ ModelImporter:
       name: Box001.001|Chest_missile1.001Action
       takeName: Box001.001|Chest_missile1.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1099,7 +1094,7 @@ ModelImporter:
       name: Box001.001|Chest_missile2.001Action
       takeName: Box001.001|Chest_missile2.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1379,7 +1374,7 @@ ModelImporter:
       name: Box074.001|Box074|Take 001|BaseLayer.001
       takeName: Box074.001|Box074|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1435,7 +1430,7 @@ ModelImporter:
       name: Box074.001|Box078|Take 001|BaseLayer.001
       takeName: Box074.001|Box078|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1463,7 +1458,7 @@ ModelImporter:
       name: Box074.001|Chest_missile1.001Action
       takeName: Box074.001|Chest_missile1.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1519,7 +1514,7 @@ ModelImporter:
       name: Box074.001|Chest_missile2.001Action
       takeName: Box074.001|Chest_missile2.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1799,7 +1794,7 @@ ModelImporter:
       name: Box078.001|Box074|Take 001|BaseLayer.001
       takeName: Box078.001|Box074|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1855,7 +1850,7 @@ ModelImporter:
       name: Box078.001|Box078|Take 001|BaseLayer.001
       takeName: Box078.001|Box078|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1883,7 +1878,7 @@ ModelImporter:
       name: Box078.001|Chest_missile1.001Action
       takeName: Box078.001|Chest_missile1.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1939,7 +1934,7 @@ ModelImporter:
       name: Box078.001|Chest_missile2.001Action
       takeName: Box078.001|Chest_missile2.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2219,7 +2214,7 @@ ModelImporter:
       name: Chest_missile1.001|Box074|Take 001|BaseLayer.001
       takeName: Chest_missile1.001|Box074|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2275,7 +2270,7 @@ ModelImporter:
       name: Chest_missile1.001|Box078|Take 001|BaseLayer.001
       takeName: Chest_missile1.001|Box078|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2303,7 +2298,7 @@ ModelImporter:
       name: Chest_missile1.001|Chest_missile1.001Action
       takeName: Chest_missile1.001|Chest_missile1.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2359,7 +2354,7 @@ ModelImporter:
       name: Chest_missile1.001|Chest_missile2.001Action
       takeName: Chest_missile1.001|Chest_missile2.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2639,7 +2634,7 @@ ModelImporter:
       name: Chest_missile2.001|Box074|Take 001|BaseLayer.001
       takeName: Chest_missile2.001|Box074|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2695,7 +2690,7 @@ ModelImporter:
       name: Chest_missile2.001|Box078|Take 001|BaseLayer.001
       takeName: Chest_missile2.001|Box078|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2723,7 +2718,7 @@ ModelImporter:
       name: Chest_missile2.001|Chest_missile1.001Action
       takeName: Chest_missile2.001|Chest_missile1.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2779,7 +2774,7 @@ ModelImporter:
       name: Chest_missile2.001|Chest_missile2.001Action
       takeName: Chest_missile2.001|Chest_missile2.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -3059,7 +3054,7 @@ ModelImporter:
       name: Head.001|Box074|Take 001|BaseLayer.001
       takeName: Head.001|Box074|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -3115,7 +3110,7 @@ ModelImporter:
       name: Head.001|Box078|Take 001|BaseLayer.001
       takeName: Head.001|Box078|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -3143,7 +3138,7 @@ ModelImporter:
       name: Head.001|Chest_missile1.001Action
       takeName: Head.001|Chest_missile1.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -3199,7 +3194,7 @@ ModelImporter:
       name: Head.001|Chest_missile2.001Action
       takeName: Head.001|Chest_missile2.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -3479,7 +3474,7 @@ ModelImporter:
       name: Left_forearm.001|Box074|Take 001|BaseLayer.001
       takeName: Left_forearm.001|Box074|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -3535,7 +3530,7 @@ ModelImporter:
       name: Left_forearm.001|Box078|Take 001|BaseLayer.001
       takeName: Left_forearm.001|Box078|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -3563,7 +3558,7 @@ ModelImporter:
       name: Left_forearm.001|Chest_missile1.001Action
       takeName: Left_forearm.001|Chest_missile1.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -3619,7 +3614,7 @@ ModelImporter:
       name: Left_forearm.001|Chest_missile2.001Action
       takeName: Left_forearm.001|Chest_missile2.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -3899,7 +3894,7 @@ ModelImporter:
       name: Pelvis.001|Box074|Take 001|BaseLayer.001
       takeName: Pelvis.001|Box074|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -3955,7 +3950,7 @@ ModelImporter:
       name: Pelvis.001|Box078|Take 001|BaseLayer.001
       takeName: Pelvis.001|Box078|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -3983,7 +3978,7 @@ ModelImporter:
       name: Pelvis.001|Chest_missile1.001Action
       takeName: Pelvis.001|Chest_missile1.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -4039,7 +4034,7 @@ ModelImporter:
       name: Pelvis.001|Chest_missile2.001Action
       takeName: Pelvis.001|Chest_missile2.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -4319,7 +4314,7 @@ ModelImporter:
       name: RLeg_upper.001|Box074|Take 001|BaseLayer.001
       takeName: RLeg_upper.001|Box074|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -4375,7 +4370,7 @@ ModelImporter:
       name: RLeg_upper.001|Box078|Take 001|BaseLayer.001
       takeName: RLeg_upper.001|Box078|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -4403,7 +4398,7 @@ ModelImporter:
       name: RLeg_upper.001|Chest_missile1.001Action
       takeName: RLeg_upper.001|Chest_missile1.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -4459,7 +4454,7 @@ ModelImporter:
       name: RLeg_upper.001|Chest_missile2.001Action
       takeName: RLeg_upper.001|Chest_missile2.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -4739,7 +4734,7 @@ ModelImporter:
       name: Rpelvis.001|Box074|Take 001|BaseLayer.001
       takeName: Rpelvis.001|Box074|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -4795,7 +4790,7 @@ ModelImporter:
       name: Rpelvis.001|Box078|Take 001|BaseLayer.001
       takeName: Rpelvis.001|Box078|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -4823,7 +4818,7 @@ ModelImporter:
       name: Rpelvis.001|Chest_missile1.001Action
       takeName: Rpelvis.001|Chest_missile1.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -4879,7 +4874,7 @@ ModelImporter:
       name: Rpelvis.001|Chest_missile2.001Action
       takeName: Rpelvis.001|Chest_missile2.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -5159,7 +5154,7 @@ ModelImporter:
       name: X_com_Rifle.001|Box074|Take 001|BaseLayer.001
       takeName: X_com_Rifle.001|Box074|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -5215,7 +5210,7 @@ ModelImporter:
       name: X_com_Rifle.001|Box078|Take 001|BaseLayer.001
       takeName: X_com_Rifle.001|Box078|Take 001|BaseLayer.001
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -5243,7 +5238,7 @@ ModelImporter:
       name: X_com_Rifle.001|Chest_missile1.001Action
       takeName: X_com_Rifle.001|Chest_missile1.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -5299,7 +5294,7 @@ ModelImporter:
       name: X_com_Rifle.001|Chest_missile2.001Action
       takeName: X_com_Rifle.001|Chest_missile2.001Action
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
