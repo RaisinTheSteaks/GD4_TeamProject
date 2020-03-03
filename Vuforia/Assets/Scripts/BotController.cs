@@ -431,6 +431,7 @@ public class BotController : MonoBehaviourPunCallbacks
         {
             SelectedStatus.text = "Not Selected";
             once = true;
+            ResetAllMode();
         }
 
 
