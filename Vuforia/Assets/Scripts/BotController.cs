@@ -168,6 +168,8 @@ public class BotController : MonoBehaviourPunCallbacks
         if (guardMode)
         {
             photonView.RPC("guardPhase", RpcTarget.All, transform.name);
+            //start shooting animation
+            StartCoroutine(animation("IsGuarding"));
         }
     }
 
