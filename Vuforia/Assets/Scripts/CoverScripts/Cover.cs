@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public enum CoverType
 {
     FullCover,
@@ -19,7 +20,7 @@ public class Cover : MonoBehaviour
         }
     }
 
-    public HexCell parentCell
+    public HexCell ParentCell
     {
         get
         {

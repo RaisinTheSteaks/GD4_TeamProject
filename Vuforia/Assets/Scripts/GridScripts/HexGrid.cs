@@ -46,6 +46,7 @@ public class HexGrid : MonoBehaviour
     [Header("Spawning")]
     public HexCell[] spawnPoints;
 
+    public float directionRotationFraction = 55.0f;
     public Cover coverPrefab;
     //If I want to add these cover hexes in the inspector, I would add it here.
     //public string[] coverHexNames;
@@ -160,16 +161,16 @@ public class HexGrid : MonoBehaviour
         foreach(CoverHex coverHex in coverHexes)
         {
             Cover cover = Instantiate<Cover>(coverPrefab);
-            cover.parentCell = coverHex.cell;
+            cover.ParentCell = coverHex.cell;
             cover.direction = coverHex.direction;
 
             //Set the scale of the object and it's parent to be it's host cell
-            cover.transform.parent = cover.parentCell.transform;
-            cover.transform.localScale = new Vector3(2, 40, 2);
-            cover.name = cover.parentCell.name + "_Cover";
+            cover.transform.parent = cover.ParentCell.transform;
+            cover.transform.localScale = new Vector3(2, 20, 2);
+            cover.name = cover.ParentCell.name + "_Cover";
 
             //Rotate the hex to face the set direction 
-            float rotationAngle = (int)(cover.direction) * 55.0f;
+            float rotationAngle = (int)(cover.direction) * directionRotationFraction;
             cover.transform.Rotate(new Vector3(0, 1, 0), rotationAngle);
 
             //Spawn the cover on it's parent cell
@@ -179,13 +180,12 @@ public class HexGrid : MonoBehaviour
             cover.transform.position += (cover.transform.forward * 0.015f);
 
             //Adjust spawn position
-            Vector3 offset = new Vector3(0, 0, 0);
+            Vector3 offset = Vector3.zero; 
             float offsetScale = 0.013f;
             switch (cover.direction)
             {
                 //Used to adjust where it spawns as the current system leaves each object slightly out of position
                 case (HexDirection.E):
-                    //increase x decrease z
                     offset.z = -0.5f * offsetScale;
                     offset.x = 0.25f * offsetScale;
                     break;
@@ -210,8 +210,8 @@ public class HexGrid : MonoBehaviour
             }
             cover.transform.position += offset;
 
-            cover.parentCell.UnSetNeighbor(cover.direction);
-            Debug.Log("Removing " + cover.parentCell.name + "'s neighbor: " + cover.parentCell.GetNeighbor(cover.direction) + " in direction: " + cover.direction);
+            cover.ParentCell.UnSetNeighbor(cover.direction);
+            Debug.Log("Removing " + cover.ParentCell.name + "'s neighbor: " + cover.ParentCell.GetNeighbor(cover.direction) + " in direction: " + cover.direction);
         }
     }
     
