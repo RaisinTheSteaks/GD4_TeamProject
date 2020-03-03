@@ -51,6 +51,8 @@ public class BotController : MonoBehaviourPunCallbacks
     public bool attackingMode = false;
     private bool updatingHealth;
     private bool once;
+    private const int minRng = 1, maxRng = 21;
+    private const int maxRayDistance = 100;
     public Material symbol;
     public float range;
     public const float gridScale = 0.035f;
@@ -96,10 +98,10 @@ public class BotController : MonoBehaviourPunCallbacks
         {
             StartCoroutine(animation("IsShooting"));
         }
-        attackingPhase();
+        AttackingPhase();
         updateHealth();
         SelectedText();
-        despawnAttackRange();
+        DespawnAttackRange();
         Explosion(); //first part of tank Special Ability
         if (confirm && !specialAbilityUsed)
             loadExplosion();   //second part of tank special Ability
@@ -143,7 +145,7 @@ public class BotController : MonoBehaviourPunCallbacks
         }
 
     }
-    private void despawnAttackRange()
+    private void DespawnAttackRange()
     {
         if(!attackingMode)
         {
@@ -154,7 +156,7 @@ public class BotController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void attackingPhase()
+    public void AttackingPhase()
     {
         if (attackingMode)
         {
@@ -163,19 +165,19 @@ public class BotController : MonoBehaviourPunCallbacks
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, 100))
+                if (Physics.Raycast(ray, out hit, maxRayDistance))
                 {
                     //casting ray
-                    print("bot detected..");
+                    Debug.Log("bot detected..");
                     if (hit.transform.parent != playerScript.transform)
                     {
                         //check if the bot detected is the opponents bot
-                        print("not the same player");
+                        Debug.Log("not the same player");
                         if (hit.transform.tag == "Bot")
                         {
                             
                             //checking if its a bot
-                            print("its a bot");
+                            Debug.Log("its a bot");
                             print(Vector3.Distance(transform.position, hit.transform.position));
 
                             //check if target bot is within distancce
@@ -187,7 +189,7 @@ public class BotController : MonoBehaviourPunCallbacks
                                 RaycastHit raycastHit;
 
                                 //check if the ray cast hit something
-                                if (Physics.Raycast(transform.position + offsetY , ((hit.transform.position + offsetY) - (transform.position + offsetY)), out raycastHit, 100))
+                                if (Physics.Raycast(transform.position + offsetY , ((hit.transform.position + offsetY) - (transform.position + offsetY)), out raycastHit, maxRayDistance))
                                 {
                                     //check if the ray cast hit a bot type game object
                                     if(raycastHit.transform.tag == "Bot")
@@ -197,7 +199,7 @@ public class BotController : MonoBehaviourPunCallbacks
                                         {
                                             AttackTarget.text = "valid target";
                                             //creates random damage
-                                            float rng = Random.Range(1, 21);
+                                            float rng = Random.Range(minRng, maxRng);
 
                                             //start shooting animation
                                             StartCoroutine(animation("IsShooting"));
