@@ -202,7 +202,7 @@ public class BotController : MonoBehaviourPunCallbacks
                                             float rng = Random.Range(minRng, maxRng);
 
                                             //start shooting animation
-                                            //StartCoroutine(animation("IsShooting"));
+                                            StartCoroutine(Animation("IsShooting"));
 
                                             //start attack audio and calculating damages
                                             photonView.RPC("attackAudio", RpcTarget.All, transform.name);
