@@ -136,7 +136,9 @@ public class GameManager : MonoBehaviourPunCallbacks
           {
                 child.GetComponent<BotController>().isSelected = false;
                 child.GetComponent<BotController>().attackingMode = false;
-          }
+                child.GetComponent<BotController>().guardMode = false;
+
+            }
 
         }
     }

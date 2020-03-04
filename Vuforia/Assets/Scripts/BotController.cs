@@ -165,12 +165,7 @@ public class BotController : MonoBehaviourPunCallbacks
                 }
             }
         }
-        if (guardMode)
-        {
-            photonView.RPC("guardPhase", RpcTarget.All, transform.name);
-            //start shooting animation
-            StartCoroutine(animation("IsGuarding"));
-        }
+        
     }
 
     public IEnumerator animation(string boolName)
@@ -181,7 +176,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
 
     }
-    [PunRPC]
+    
     public void guard()
     {
         //debugging for action windows, replace this with real move method
@@ -189,9 +184,14 @@ public class BotController : MonoBehaviourPunCallbacks
         if (isSelected && playerScript.Turn && !specialAbilityMode)
         {
             Debug.Log(transform.name + "guarding");
-            guardPhase(transform.name);
+            
+            photonView.RPC("guardPhase", RpcTarget.All, transform.name);
+                //start shooting animation
+            StartCoroutine(animation("IsGuarding"));
+            
+            //guardPhase(transform.name);
             //end player turn
-           // playerScript.EndTurn();
+            // playerScript.EndTurn();
         }
 
     }
@@ -231,6 +231,7 @@ public class BotController : MonoBehaviourPunCallbacks
         if (target.guardMode)
         {
             target.health -= (bonusDamage + normalDamage) / 2;
+            target.guardMode = false;
         }
         else
         {
