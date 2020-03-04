@@ -411,7 +411,7 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         attackingMode = false;
         specialAbilityMode = false;
-        GameManager.instance.mapController.SetMovementState(false);
+        //GameManager.instance.mapController.SetMovementState(false);
 
     }
 
