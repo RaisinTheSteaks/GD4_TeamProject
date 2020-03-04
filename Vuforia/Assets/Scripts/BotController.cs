@@ -96,7 +96,7 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(animation("IsShooting"));
+            //StartCoroutine(animation("IsShooting"));
         }
         AttackingPhase();
         UpdateHealth();
@@ -202,7 +202,7 @@ public class BotController : MonoBehaviourPunCallbacks
                                             float rng = Random.Range(minRng, maxRng);
 
                                             //start shooting animation
-                                            StartCoroutine(animation("IsShooting"));
+                                            //StartCoroutine(animation("IsShooting"));
 
                                             //start attack audio and calculating damages
                                             photonView.RPC("attackAudio", RpcTarget.All, transform.name);

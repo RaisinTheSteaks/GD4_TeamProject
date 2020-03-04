@@ -88,7 +88,7 @@ public class HexGrid : MonoBehaviour
         }
         SetSpawnPoints();
         SetCoverHexes();
-        SpawnCover();
+        //SpawnCover();
     }
 
     void SetSpawnPoints()
