@@ -50,7 +50,7 @@ public class HexGrid : MonoBehaviour
     public Cover coverPrefab;
     //If I want to add these cover hexes in the inspector, I would add it here.
     //public string[] coverHexNames;
-    public static int coverObjectCount=12;
+    public static int coverObjectCount=14;
     CoverHex[] coverHexes = new CoverHex[coverObjectCount];
     #endregion
 
@@ -88,7 +88,7 @@ public class HexGrid : MonoBehaviour
         }
         SetSpawnPoints();
         SetCoverHexes();
-        //SpawnCover();
+        SpawnCover();
     }
 
     void SetSpawnPoints()
@@ -107,53 +107,61 @@ public class HexGrid : MonoBehaviour
         CoverHex coverHex = new CoverHex
         {
             cell = cells[1],
-            direction = HexDirection.E
+            direction = HexDirection.NE
         };
         coverHexes[0] = coverHex;
         
-        coverHex.cell = cells[17];
+        coverHex.cell = cells[8];
         coverHex.direction = HexDirection.NE;
         coverHexes[1] = coverHex;
 
-        coverHex.cell = cells[19];
-        coverHex.direction = HexDirection.SW;
+        coverHex.cell = cells[11];
+        coverHex.direction = HexDirection.NW;
         coverHexes[2] = coverHex;
 
-        coverHex.cell = cells[21];
+        coverHex.cell = cells[13];
         coverHex.direction = HexDirection.E;
         coverHexes[3] = coverHex;
 
-        coverHex.cell = cells[23];
-        coverHex.direction = HexDirection.NW;
+        coverHex.cell = cells[20];
+        coverHex.direction = HexDirection.SW;
         coverHexes[4] = coverHex;
 
         coverHex.cell = cells[25];
-        coverHex.direction = HexDirection.SE;
+        coverHex.direction = HexDirection.NE;
         coverHexes[5] = coverHex;
 
-        coverHex.cell = cells[27];
-        coverHex.direction = HexDirection.W;
-        coverHexes[6] = coverHex;
-
         coverHex.cell = cells[29];
-        coverHex.direction = HexDirection.NE;
-        coverHexes[7] = coverHex;
-
-        coverHex.cell = cells[31];
-        coverHex.direction = HexDirection.SW;
-        coverHexes[8] = coverHex;
+        coverHex.direction = HexDirection.E;
+        coverHexes[6] = coverHex;
 
         coverHex.cell = cells[33];
         coverHex.direction = HexDirection.E;
+        coverHexes[7] = coverHex;
+
+        coverHex.cell = cells[38];
+        coverHex.direction = HexDirection.SW;
+        coverHexes[8] = coverHex;
+
+        coverHex.cell = cells[43];
+        coverHex.direction = HexDirection.NW;
         coverHexes[9] = coverHex;
 
-        coverHex.cell = cells[35];
-        coverHex.direction = HexDirection.NW;
+        coverHex.cell = cells[46];
+        coverHex.direction = HexDirection.NE;
         coverHexes[10] = coverHex;
 
-        coverHex.cell = cells[37];
-        coverHex.direction = HexDirection.SE;
+        coverHex.cell = cells[49];
+        coverHex.direction = HexDirection.E;
         coverHexes[11] = coverHex;
+
+        coverHex.cell = cells[52];
+        coverHex.direction = HexDirection.SW;
+        coverHexes[12] = coverHex;
+
+        coverHex.cell = cells[54];
+        coverHex.direction = HexDirection.NE;
+        coverHexes[13] = coverHex;
     }
 
     void SpawnCover()
