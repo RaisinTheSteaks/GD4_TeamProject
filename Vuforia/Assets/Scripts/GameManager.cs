@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [Header("Stats")]
     public bool gameEnded = false;
     public TextMeshProUGUI pingUI;
+    public GameObject PlayerHUD;
 
     [Header("Players")]
     public string playerOnePrefabLocation;
@@ -40,9 +41,21 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         pickedSpawnIndex = new List<int>();
-        players = new PlayerController[PhotonNetwork.PlayerList.Length];
+        players = new PlayerController[PhotonNetwork.PlayerList.Length - NetworkManager.instance.spectator.Count];
         bots = new BotController[players.Length * 2];
-        photonView.RPC("ImInGame", RpcTarget.AllBuffered);
+        foreach(string name in NetworkManager.instance.spectator)
+        {
+            Debug.Log(name);
+        }
+        Debug.Log(players.Length);
+        if(!NetworkManager.instance.spectator.Contains(PhotonNetwork.NickName))
+        {
+           photonView.RPC("ImInGame", RpcTarget.AllBuffered);
+        }
+        else
+        {
+            PlayerHUD.SetActive(false);
+        }
         mapController.SetSpeed(playerSpeed);
       //  grid.hexesTravelled = 0;
     }
@@ -60,8 +73,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         playersInGame++;
         
-        if (playersInGame == PhotonNetwork.PlayerList.Length)
-            SpawnPlayer();
+        if (playersInGame == PhotonNetwork.PlayerList.Length - NetworkManager.instance.spectator.Count)
+        {
+            if (!NetworkManager.instance.spectator.Contains(PhotonNetwork.NickName))
+                SpawnPlayer();
+        }
     }
 
     void SpawnPlayer()

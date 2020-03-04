@@ -24,6 +24,8 @@ public class Menu : MonoBehaviourPunCallbacks
     public TextMeshProUGUI playerListText;
     public Button startGameButton;
     public TextMeshProUGUI roomNameText;
+
+    private bool joinAsSpectator = false;
     
     private void Start()
     {
@@ -62,6 +64,19 @@ public class Menu : MonoBehaviourPunCallbacks
         roomNameText.text = roomNameInput.text;
     }
 
+    public void OnJoinRoomAsSpectatorButton (TMP_InputField roomNameInput)
+    {
+        NetworkManager.instance.JoinRoom(roomNameInput.text);
+        roomNameText.text = roomNameInput.text;
+        joinAsSpectator = true;
+    }
+
+    [PunRPC]
+    public void AddSpectator(string nickname)
+    {
+        NetworkManager.instance.spectator.Add(nickname);
+    }
+
     public void OnPlayerNameUpdate (TMP_InputField playerNameInput)
     {
         PhotonNetwork.NickName = playerNameInput.text;
@@ -72,6 +87,11 @@ public class Menu : MonoBehaviourPunCallbacks
         SetScreen(lobbyScreen);
 
         //tell all players to update the lobby screen
+        if(joinAsSpectator)
+        {        
+            photonView.RPC("AddSpectator", RpcTarget.All, PhotonNetwork.NickName);
+        }
+
         photonView.RPC("UpdateLobbyUI", RpcTarget.All);
     }
 
@@ -92,6 +112,8 @@ public class Menu : MonoBehaviourPunCallbacks
         {
             if (player.IsMasterClient)
                 playerListText.text += player.NickName + " (Host) \n";
+            else if (NetworkManager.instance.spectator.Contains(player.NickName))
+                playerListText.text += player.NickName + " (Spectator)\n";
             else
                 playerListText.text += player.NickName + "\n";
         }
@@ -102,7 +124,8 @@ public class Menu : MonoBehaviourPunCallbacks
         else
             startGameButton.interactable = false;
 
-        roomListText.text = PhotonNetwork.CloudRegion;
+        //roomListText.text = PhotonNetwork.CloudRegion;
+        
     }
 
     public void OnLeaveLobbyButton()

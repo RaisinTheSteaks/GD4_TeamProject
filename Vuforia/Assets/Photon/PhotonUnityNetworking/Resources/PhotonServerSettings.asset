@@ -44,5 +44,6 @@ MonoBehaviour:
   - deathAudio
   - startDamage
   - missileAudio
+  - AddSpectator
   DisableAutoOpenWizard: 1
   ShowSettings: 1
