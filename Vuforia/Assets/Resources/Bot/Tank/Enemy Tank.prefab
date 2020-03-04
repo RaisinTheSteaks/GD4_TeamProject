@@ -50,7 +50,7 @@ Animator:
   m_GameObject: {fileID: 1159080406932022769}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f9761dad9ff7e3445b5034fa547d3454, type: 3}
-  m_Controller: {fileID: 9100000, guid: d758fa22c261e7349baa6b70ee09d73c, type: 2}
+  m_Controller: {fileID: 9100000, guid: dbb19b669288f434e88d5d9fb639f6ba, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -95,6 +95,7 @@ MonoBehaviour:
   rig: {fileID: 9149166301578972955}
   specialAbilityMode: 0
   specialAbilityUsed: 0
+  guardMode: 0
   hexGrid: {fileID: 0}
   Type: 
   botPopUp: {fileID: 0}
@@ -180,6 +181,9 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: IsShooting
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsGuarding
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
@@ -654,7 +658,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 840f9f43631646f418f2961cefd1cfba, type: 2}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
