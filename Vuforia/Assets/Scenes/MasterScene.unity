@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43681002, g: 0.48444092, b: 0.56469697, a: 1}
+  m_IndirectSpecularColor: {r: 0.43680978, g: 0.48444068, b: 0.56469655, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -217,13 +217,13 @@ AudioSource:
     type: 3}
   m_PrefabInstance: {fileID: 31440}
   m_PrefabAsset: {fileID: 0}
---- !u!43 &345339604
+--- !u!43 &271040872
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ImageTargetMesh17562
+  m_Name: ImageTargetMesh26706
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -366,7 +366,7 @@ Mesh:
     m_UVInfo: 0
   m_LocalAABB:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.5, y: 0, z: 0.5}
+    m_Extent: {x: 0.5, y: 0, z: 0.23801999}
   m_MeshUsageFlags: 0
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
@@ -749,7 +749,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 635789815}
-  m_Mesh: {fileID: 345339604}
+  m_Mesh: {fileID: 271040872}
 --- !u!23 &635789817
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -767,7 +767,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1755414659}
+  - {fileID: 1376591586}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1240,6 +1240,7 @@ GameObject:
   - component: {fileID: 1122367360}
   - component: {fileID: 1122367363}
   - component: {fileID: 1122367362}
+  - component: {fileID: 1122367361}
   m_Layer: 0
   m_Name: _GameManager
   m_TagString: Untagged
@@ -1275,6 +1276,18 @@ MonoBehaviour:
   players: []
   playerSpeed: 5
   selectedTarget: {fileID: 0}
+--- !u!114 &1122367361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122367359}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 909fceb46ea11d144a381977f8d68364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1122367362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1336,6 +1349,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb7ab789864b8dd4ba2f0dc830347aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!21 &1376591586
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'hakob-minasian-spacestationv2Material
+
+    26718'
+  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 7b19c787c6da4ba7a1279a0a9aa49b80, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats: []
+    m_Colors:
+    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
 --- !u!1001 &1663011664
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1636,31 +1677,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerUI
       objectReference: {fileID: 0}
-    - target: {fileID: 1706787847471723164, guid: f8e604de16356d640a964b4a9baf88d7,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1706787847471723164, guid: f8e604de16356d640a964b4a9baf88d7,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1706787847471723164, guid: f8e604de16356d640a964b4a9baf88d7,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1706787847471723164, guid: f8e604de16356d640a964b4a9baf88d7,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1706787847471723164, guid: f8e604de16356d640a964b4a9baf88d7,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6350253553445170109, guid: f8e604de16356d640a964b4a9baf88d7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1766,66 +1782,13 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3395206507339100229, guid: f8e604de16356d640a964b4a9baf88d7,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 1.5000038
-      objectReference: {fileID: 0}
-    - target: {fileID: 1339296385389349818, guid: f8e604de16356d640a964b4a9baf88d7,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -3.1543884
-      objectReference: {fileID: 0}
-    - target: {fileID: 1339296385389349818, guid: f8e604de16356d640a964b4a9baf88d7,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 8.270996
-      objectReference: {fileID: 0}
     - target: {fileID: 1360058569889402702, guid: f8e604de16356d640a964b4a9baf88d7,
         type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 4.700012
-      objectReference: {fileID: 0}
-    - target: {fileID: 5640825376946743537, guid: f8e604de16356d640a964b4a9baf88d7,
-        type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.59999084
-      objectReference: {fileID: 0}
-    - target: {fileID: 5640825376946743537, guid: f8e604de16356d640a964b4a9baf88d7,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 1.2000122
+      value: 1.6700134
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8e604de16356d640a964b4a9baf88d7, type: 3}
---- !u!21 &1755414659
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'hakob-minasian-spacestationv2Material
-
-    17574'
-  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 7b19c787c6da4ba7a1279a0a9aa49b80, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats: []
-    m_Colors:
-    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
 --- !u!1 &1829278094
 GameObject:
   m_ObjectHideFlags: 0
