@@ -1240,7 +1240,6 @@ GameObject:
   - component: {fileID: 1122367360}
   - component: {fileID: 1122367363}
   - component: {fileID: 1122367362}
-  - component: {fileID: 1122367361}
   m_Layer: 0
   m_Name: _GameManager
   m_TagString: Untagged
@@ -1276,18 +1275,6 @@ MonoBehaviour:
   players: []
   playerSpeed: 5
   selectedTarget: {fileID: 0}
---- !u!114 &1122367361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1122367359}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 909fceb46ea11d144a381977f8d68364, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1122367362
 MonoBehaviour:
   m_ObjectHideFlags: 0

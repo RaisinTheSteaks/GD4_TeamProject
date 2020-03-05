@@ -64,10 +64,10 @@ public class BotController : MonoBehaviourPunCallbacks
         //photonPlayer = player;
         //id = player.ActorNumber;
 
-        if (!photonView.IsMine)
-        {
-            rig.isKinematic = false;
-        }
+        //if (!photonView.IsMine)
+        //{
+        //    rig.isKinematic = false;
+        //}
 
     }
     private void Awake()
