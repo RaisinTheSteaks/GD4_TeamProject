@@ -44,7 +44,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         bots = new BotController[players.Length * 2];
         photonView.RPC("ImInGame", RpcTarget.AllBuffered);
         mapController.SetSpeed(playerSpeed);
-      //  grid.hexesTravelled = 0;
+        //  grid.hexesTravelled = 0;
+
+
+        //PAUSE SCREEN CODE
     }
 
     private void Update()
