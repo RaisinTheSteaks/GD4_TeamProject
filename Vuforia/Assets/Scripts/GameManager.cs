@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         mapController.SetSpeed(playerSpeed);
         clocks.GetComponent<ChessClockController>().startClock = true;
         //  grid.hexesTravelled = 0;
+
+
     }
 
     private void Update()

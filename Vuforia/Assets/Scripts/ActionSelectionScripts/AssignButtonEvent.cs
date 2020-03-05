@@ -13,7 +13,12 @@ public class AssignButtonEvent : MonoBehaviour
     public Button guardButton;
     public Button specialAbilitiesButton;
     public Button endTurnButton;
-    
+
+
+    //Pause Menu
+    public Button resumeButton;
+    public Button pauseButton;
+
     public bool allAssigned;
     private int frame;
 
@@ -40,6 +45,9 @@ public class AssignButtonEvent : MonoBehaviour
                 PlayerController player = GameManager.instance.GetPlayer(PhotonNetwork.NickName);
                 if (player)
                 {
+                    resumeButton.onClick.AddListener(delegate { player.Resume(); });
+                    pauseButton.onClick.AddListener(delegate { player.Pause(); });
+
                     // assign all action buttons after the player exist in the game
                     foreach (Transform child in player.transform)
                     {
