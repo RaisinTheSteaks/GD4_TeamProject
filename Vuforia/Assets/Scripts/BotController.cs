@@ -91,7 +91,6 @@ public class BotController : MonoBehaviourPunCallbacks
         attackingPhase();
         updateHealth();
         SelectedText();
-        //guardPhase();
         Explosion(); //first part of tank Special Ability
         if (confirm && !specialAbilityUsed)
             loadExplosion();   //second part of tank special Ability
@@ -116,7 +115,7 @@ public class BotController : MonoBehaviourPunCallbacks
         {
             //enter attacking mode
             attackingMode = true;
-            guardMode = false;
+           // guardMode = false;
             print("attacking...");
         }
 
@@ -187,7 +186,7 @@ public class BotController : MonoBehaviourPunCallbacks
             
             photonView.RPC("guardPhase", RpcTarget.All, transform.name);
                 //start shooting animation
-            StartCoroutine(animation("IsGuarding"));
+           // StartCoroutine(animation("IsGuarding"));
             
             //guardPhase(transform.name);
             //end player turn

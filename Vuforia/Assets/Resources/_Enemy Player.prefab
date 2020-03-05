@@ -496,6 +496,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7189142358113505278}
     m_Modifications:
+    - target: {fileID: 8139926764360423493, guid: b0dde7302f0c62f419e842a8a94adae9,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1159080406932022769, guid: b0dde7302f0c62f419e842a8a94adae9,
         type: 3}
       propertyPath: m_Name
@@ -650,11 +655,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Height
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8139926764360423493, guid: b0dde7302f0c62f419e842a8a94adae9,
-        type: 3}
-      propertyPath: m_SynchronizeParameters.Array.size
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8378290385498811674, guid: b0dde7302f0c62f419e842a8a94adae9,
         type: 3}
