@@ -135,8 +135,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         }
 
-        if (playerClock <= 0)
+        if (playerClock <= 1)
         {
+            winner = false;
             GameManager.instance.photonView.RPC("EndGame", RpcTarget.AllBuffered);
         }
         if (endGame)
