@@ -28,6 +28,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     [Header("Targets")]
     public GameObject selectedTarget;
 
+    //Clock
+    public GameObject clocks;
+
+
 
     //instance
     public static GameManager instance;
@@ -42,9 +46,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         pickedSpawnIndex = new List<int>();
         players = new PlayerController[PhotonNetwork.PlayerList.Length];
         bots = new BotController[players.Length * 2];
+        clocks = GameObject.Find("Timer");
         photonView.RPC("ImInGame", RpcTarget.AllBuffered);
         mapController.SetSpeed(playerSpeed);
-      //  grid.hexesTravelled = 0;
+        clocks.GetComponent<ChessClockController>().startClock = true;
+        //  grid.hexesTravelled = 0;
+
+
     }
 
     private void Update()
@@ -54,6 +62,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             Application.Quit();
         }
     }
+
 
     [PunRPC]
     void ImInGame()
@@ -128,6 +137,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void ChangeActivePlayer()
     {
+        clocks.GetComponent<ChessClockController>().SwapClock();
         foreach (PlayerController player in players)
         {
           player.Turn = !player.Turn;
@@ -136,10 +146,12 @@ public class GameManager : MonoBehaviourPunCallbacks
           {
                 child.GetComponent<BotController>().isSelected = false;
                 child.GetComponent<BotController>().attackingMode = false;
-               // child.GetComponent<BotController>().guardMode = false;
+               
 
-            }
+          }
+                child.GetComponent<BotController>().ResetAllMode();
+          }
 
         }
     }
-}
+
