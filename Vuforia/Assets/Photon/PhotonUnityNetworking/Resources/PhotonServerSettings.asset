@@ -45,5 +45,7 @@ MonoBehaviour:
   - startDamage
   - missileAudio
   - AddSpectator
+  - StartClock
+  - Clock
   DisableAutoOpenWizard: 1
   ShowSettings: 1
