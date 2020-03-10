@@ -69,12 +69,14 @@ public class BotController : MonoBehaviourPunCallbacks
         //{
         //    rig.isKinematic = false;
         //}
-
+        print("initialized");
     }
     private void Awake()
     {
         botPopUp = transform.parent.GetComponent<PlayerController>().popUp;
         pause = transform.parent.GetComponent<PlayerController>().pause;
+        
+        print("awake");
 
     }
     private void Start()
@@ -86,19 +88,25 @@ public class BotController : MonoBehaviourPunCallbacks
         hexGrid = GameObject.Find("HexGrid");
         //botPopUp.SetActive(false);
 
-        AttackTarget = GameObject.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        
         maxHealth = health;
         transform.name = playerScript.name + " " + transform.name;
         healthNumberIndicator.text = ((int)health).ToString();
         healthBarRect = healthBar.GetComponent<RectTransform>();
         maxWidth = healthBarRect.rect.width;
         audioSource = GetComponent<AudioSource>();
+        AttackTarget = GameObject.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(animation("IsShooting"));
+            //StartCoroutine(animation("IsShooting"));
+            healthNumberIndicator.text = ((int)health).ToString();
+            
+        }else if(Input.GetKeyDown(KeyCode.C))
+        {
+            photonView.RPC("startDamage", RpcTarget.All, this.playerScript.name + " " + "Troop" , 10.0f, 10.0f);
         }
         AttackingPhase();
         updateHealth();
