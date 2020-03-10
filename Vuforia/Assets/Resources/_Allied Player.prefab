@@ -60,6 +60,7 @@ MonoBehaviour:
   hasChildren: 1
   winner: 1
   endGame: 0
+  playerClock: 0
 --- !u!114 &6905610791209320864
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -34,8 +34,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private GameObject winningScreen;
     private GameObject losingScreen;
     public bool endGame = false;
+    public float playerClock;
 
-    [PunRPC]
+[PunRPC]
     public void Initialize(Player player)
     {
         //transform.SetParent(GameManager.instance.imageTarget.transform);
@@ -60,9 +61,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
         grid = GameManager.instance.grid;
 
 
+        //GameOver
+        AssignClock(player);
 
     }
-
 
     private void Awake()
     {
@@ -96,6 +98,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        AssignClock(photonPlayer);
         CheckTurn();
         if (Turn && !pause)
         {
@@ -131,6 +134,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
 
         }
+
+        if (playerClock <= 0)
+        {
+            GameManager.instance.photonView.RPC("EndGame", RpcTarget.AllBuffered);
+        }
         if (endGame)
         {
             WinScreens();
@@ -138,6 +146,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     }
 
+    private void AssignClock(Player player)
+    {
+        if (player.IsMasterClient)
+            playerClock = GameObject.Find("Timer").GetComponent<ChessClockController>().player1Time; 
+        else
+            playerClock = GameObject.Find("Timer").GetComponent<ChessClockController>().player2Time;
+    }
     private void SelectCharacter()                                                   //Selects a character by drawing a raycast to where the mouse is pointing
     {                                                                                //If it is currently the players turn & the object they click on is a child of the player
         if (Input.GetMouseButtonDown(0))                                             //then the child is able to perform its functions in the game like moving, shooting etc.
