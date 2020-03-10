@@ -6,6 +6,7 @@ using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public bool winner = true;
     private GameObject winningScreen;
     private GameObject losingScreen;
+    public bool endGame = false;
 
     [PunRPC]
     public void Initialize(Player player)
@@ -94,7 +96,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        checkTurn();
+        CheckTurn();
         if (Turn && !pause)
         {
             SelectCharacter();
@@ -128,6 +130,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
 
 
+        }
+        if (endGame)
+        {
+            WinScreens();
         }
 
     }
@@ -168,7 +174,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
 
-    public void checkTurn()
+    public void CheckTurn()
     {
         if (photonPlayer == PhotonNetwork.LocalPlayer)
         //EndTurnButton.interactable = Turn;
@@ -278,15 +284,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 Debug.Log("I HAVE CHILDREN");
             }
-            else if (!hasChildren){
+            else if (!hasChildren) {
                 Debug.Log("No children");
                 winner = false;
-                photonView.RPC("Endgame",RpcTarget.All);
+                GameManager.instance.photonView.RPC("EndGame", RpcTarget.AllBuffered);
             }
         }
     }
-    [PunRPC]
-    public void Endgame()
+
+    public void WinScreens()
     {
         if (winner)
         {
@@ -296,15 +302,25 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             DisplayLoseScreen();
         }
+        StartCoroutine(WaitForSceneLoad());
     }
 
     private void DisplayWinScreen()
     {
         winningScreen.SetActive(true);
+        losingScreen.SetActive(false);
     }
 
     public void DisplayLoseScreen()
     {
+        winningScreen.SetActive(false);
         losingScreen.SetActive(true);
+    }
+
+    private IEnumerator WaitForSceneLoad()
+    {
+      yield return new WaitForSeconds(3);
+      SceneManager.LoadScene("MainMenu");
+
     }
 }

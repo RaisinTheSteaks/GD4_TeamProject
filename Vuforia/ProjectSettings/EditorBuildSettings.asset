@@ -12,15 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/MasterScene.unity
     guid: 9b81f4131ee1ef5498d869143fb17e99
   - enabled: 0
-    path: Assets/Scenes/GameOver.unity
-    guid: 5d104f37e27e9d147bade47c129b2f11
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/GameOver/GameOverMenu.unity
     guid: c60b65ce4015781408fc64d81e1aa13f
   - enabled: 1
     path: Assets/Scenes/GameOver/GameOverMaster.unity
     guid: bc9ccf58c60c09a44b219383914ddc2d
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/GameOver/MainMenu.unity
     guid: f3e4bc52e7eb3df4aa2adc69039dcefe
   m_configObjects: {}
