@@ -46,5 +46,7 @@ MonoBehaviour:
   - missileAudio
   - StartClock
   - Clock
+  - DisplayEndScreen
+  - Endgame
   DisableAutoOpenWizard: 1
   ShowSettings: 1

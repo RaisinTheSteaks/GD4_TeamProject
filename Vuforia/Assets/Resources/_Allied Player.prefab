@@ -57,6 +57,8 @@ MonoBehaviour:
   popUp: {fileID: 0}
   pauseScreen: {fileID: 0}
   pause: 0
+  hasChildren: 1
+  winner: 1
 --- !u!114 &6905610791209320864
 MonoBehaviour:
   m_ObjectHideFlags: 0

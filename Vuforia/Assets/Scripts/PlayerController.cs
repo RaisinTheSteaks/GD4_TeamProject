@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
@@ -23,9 +24,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public GameObject popUp;
     public GameObject pauseScreen;
-
-    //pause screen
     public bool pause;
+
+
+    //GameOver
+    public bool hasChildren = true;
+    public bool winner = true;
+    private GameObject winningScreen;
+    private GameObject losingScreen;
+
     [PunRPC]
     public void Initialize(Player player)
     {
@@ -40,7 +47,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (player.IsMasterClient)
             setTurn(true); //if the player is the first in the list, then the game starts with them being the active player
         else
-             setTurn(false);
+            setTurn(false);
 
         foreach (Transform child in transform)
         {
@@ -50,7 +57,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         EndTurnButton = GetComponent<Button>();
         grid = GameManager.instance.grid;
 
-        
+
 
     }
 
@@ -67,17 +74,21 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         transform.name = photonPlayer.NickName;
 
+        winningScreen = GameObject.Find("WinScreen");
+        losingScreen = GameObject.Find("LoseScreen");
         EndTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
         endTurnMessageImage = GameObject.Find("EndTurnMessage");
         endTurnMessage = endTurnMessageImage.transform.Find("Text").GetComponent<Text>();
         botSymbol = GameObject.Find("Symbol");
-        
+
         endTurnMessageImage.SetActive(false);
         endTurnPressed = false;
 
         botSymbol = GameObject.Find("Symbol");
         popUp.SetActive(false);
         pauseScreen.SetActive(false);
+        winningScreen.SetActive(false);
+        losingScreen.SetActive(false);
 
     }
 
@@ -89,23 +100,23 @@ public class PlayerController : MonoBehaviourPunCallbacks
             SelectCharacter();
         }
 
-        
-        if(endTurnPressed && Turn && !pause)
+
+        if (endTurnPressed && Turn && !pause)
         {
             endTurnMessage.text = "End Turn \n" + (3 - (int)timer);
             timer += Time.deltaTime;
-            
+
             if (timer >= 3)
             {
-                
+
                 EndTurn();
                 ResetEndTurnButton();
             }
         }
 
-        foreach(Transform bot in transform)
+        foreach (Transform bot in transform)
         {
-            if(photonPlayer == PhotonNetwork.LocalPlayer)
+            if (photonPlayer == PhotonNetwork.LocalPlayer)
             {
                 if (bot.GetComponent<BotController>().isSelected)
                 {
@@ -115,22 +126,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
                 botSymbol.SetActive(false);
             }
-            
+
 
         }
-        
+
     }
 
-
-    //Selects a character by drawing a raycast to where the mouse is pointing
-    //If it is currently the players turn & the object they click on is a child of the player
-    //then the child is able to perform its functions in the game like moving, shooting etc.
-    //It then foes through a list of all the players children and if these children aren't the selected object then it 
-    //sets them as unselected.
-    private void SelectCharacter()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
+    private void SelectCharacter()                                                   //Selects a character by drawing a raycast to where the mouse is pointing
+    {                                                                                //If it is currently the players turn & the object they click on is a child of the player
+        if (Input.GetMouseButtonDown(0))                                             //then the child is able to perform its functions in the game like moving, shooting etc.
+        {                                                                            //It then foes through a list of all the players children and if these children aren't the selected object then it 
+                                                                                     //sets them as unselected.
             if (photonPlayer == PhotonNetwork.LocalPlayer)
             {
                 if (Turn)
@@ -157,7 +163,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     }
                 }
             }
-            
+
         }
     }
 
@@ -167,12 +173,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (photonPlayer == PhotonNetwork.LocalPlayer)
         //EndTurnButton.interactable = Turn;
         {
-            foreach(Transform text in EndTurnButton.transform)
+            foreach (Transform text in EndTurnButton.transform)
             {
                 text.gameObject.SetActive(Turn);
             }
             EndTurnButton.enabled = Turn;
-            
+
             if (!Turn)
             {
                 EndTurnButton.gameObject.GetComponent<Image>().material = Resources.Load("HUD/EndTurnDisabled", typeof(Material)) as Material;
@@ -184,18 +190,18 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
 
         }
-           
+
     }
 
     public void OnEndTurnButtonPressed()
     {
         //print("pressing down");
-        if(Turn)
+        if (Turn)
         {
             endTurnMessageImage.SetActive(true);
             endTurnPressed = true;
         }
-        
+
     }
 
     public void EndTurn()
@@ -252,5 +258,53 @@ public class PlayerController : MonoBehaviourPunCallbacks
             BotController botScript = child.GetComponent<BotController>();
             botScript.pause = false;
         }
+    }
+
+    public void CheckChildren()
+    {
+        foreach (Transform bot in transform)
+        {
+            if (bot.GetComponent<BotController>().health <= 0)
+            {
+                hasChildren = false;
+            }
+            else
+            {
+                hasChildren = true;
+                break;
+            }
+
+            if (hasChildren)
+            {
+                Debug.Log("I HAVE CHILDREN");
+            }
+            else if (!hasChildren){
+                Debug.Log("No children");
+                winner = false;
+                photonView.RPC("Endgame",RpcTarget.All);
+            }
+        }
+    }
+    [PunRPC]
+    public void Endgame()
+    {
+        if (winner)
+        {
+            DisplayWinScreen();
+        }
+        else if (!winner)
+        {
+            DisplayLoseScreen();
+        }
+    }
+
+    private void DisplayWinScreen()
+    {
+        winningScreen.SetActive(true);
+    }
+
+    public void DisplayLoseScreen()
+    {
+        losingScreen.SetActive(true);
     }
 }

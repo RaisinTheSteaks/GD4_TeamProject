@@ -319,6 +319,7 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         photonView.RPC("deathAudio", RpcTarget.All, transform.name);
         yield return new WaitForSeconds(0.3f);
+        playerScript.CheckChildren();
         transform.gameObject.SetActive(false);
     }
 
@@ -376,7 +377,7 @@ public class BotController : MonoBehaviourPunCallbacks
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         sphere.transform.position = hex.transform.position;
         sphere.transform.localScale = new Vector3(0.15f, 0.1f, 0.15f);
-        hitColliders = Physics.OverlapSphere(hex.transform.position, 0.15f);     // An overlap sphere is then spawned at the center of hex. All objects that are touching or within the overlap sphere 
+        hitColliders = Physics.OverlapSphere(hex.transform.position, 0.35f);     // An overlap sphere is then spawned at the center of hex. All objects that are touching or within the overlap sphere 
         photonView.RPC("missileAudio", RpcTarget.All, transform.name);
         for (int i = 0; i < hitColliders.Length; i++)                               //are then placed in an array called hitColliders. A for loop then iterates through the hitColliders arrayand if the object 
         {
@@ -384,7 +385,7 @@ public class BotController : MonoBehaviourPunCallbacks
             {                                                                       // is a Bot then the "Start Damage function is called." Once the loop is completed the "specialAbilityUsed" boolean is turned true
                 if (hitColliders[i].transform.tag == "Bot")                         //stopping this bot from using their special ability again.
                 {
-                    photonView.RPC("startDamage", RpcTarget.All, hitColliders[i].transform.name, 30.0f, 0.0f);
+                    photonView.RPC("startDamage", RpcTarget.All, hitColliders[i].transform.name, 3000.0f, 0.0f);
                 }
             }
         }
