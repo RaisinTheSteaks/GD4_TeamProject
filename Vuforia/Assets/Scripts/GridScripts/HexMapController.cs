@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 public class HexMapController : MonoBehaviour
 {
     public HexGrid hexGrid;
+    private int fingerID = -1;
 
     [Header("Highlights")]
     public Color highlightColor, selectedColor, movementRangeColor;
@@ -19,7 +20,9 @@ public class HexMapController : MonoBehaviour
 
     void Awake()
     {
-
+        #if !UNITY_EDITOR
+            fingerID =0;
+        #endif
     }
 
     void Update()
@@ -69,7 +72,7 @@ public class HexMapController : MonoBehaviour
         //Checking if the player has just tapped the screen
         if (Input.GetMouseButtonDown(0))
         {
-            if (!EventSystem.current.IsPointerOverGameObject())
+            if (!EventSystem.current.IsPointerOverGameObject(fingerID))
             {
                 HandleTapInput();
                 return;
@@ -91,7 +94,7 @@ public class HexMapController : MonoBehaviour
         {
             if (currentCell != previousCell)
             {
-                #region Handle input on hexagon in grid
+#region Handle input on hexagon in grid
                 //If the player has just moved, reset the move components
                 if (moveToCell)
                 {
@@ -125,7 +128,7 @@ public class HexMapController : MonoBehaviour
                     }
                     previousCell = currentCell;
                 }
-                #endregion
+#endregion
             }
         }
         if (moveToCell != null)
