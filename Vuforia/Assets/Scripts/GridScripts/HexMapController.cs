@@ -24,43 +24,32 @@ public class HexMapController : MonoBehaviour
 
     void Update()
     {
-        ////Stop the player selecting through UI components
-        if(EventSystem.current.IsPointerOverGameObject())
+        if (Input.touchCount > 0 || Input.GetMouseButtonDown(0))
         {
-            return;
-        }
-        if(Input.touchSupported)
-        {
-            // HandleTouchInput();
-            HandleMouseInput();
-        }
-        else
-        {
-            HandleMouseInput();
+            ////Stop the player selecting through UI components
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
+                if (Input.touchSupported)
+                {
+                    HandleTouchInput();
+                    //HandleMouseInput();
+                }
+                else
+                {
+                    HandleMouseInput();
+                }
+            }
         }
     }
-
     void HandleTouchInput()
     {
         //Checking if the player has just tapped the screen
         if (Input.touchCount > 0)
         {
-            if (!EventSystem.current.IsPointerOverGameObject())
-            {
-                //Touch touch = Input.GetTouch(0);
-                ////Named tapInput as we may add in different controlls for dragging movement
-                //if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
-                //{
-                HandleTapInput();
-                //    return;
-                //}
-                //else
-                //{
-                    hexGrid.DoMove();
-                    isMoving = false;
-                    return;
-                
-            }
+            HandleTapInput();
+            hexGrid.DoMove();
+            isMoving = false;
+            return;
         }
     }
 
@@ -69,11 +58,8 @@ public class HexMapController : MonoBehaviour
         //Checking if the player has just tapped the screen
         if (Input.GetMouseButtonDown(0))
         {
-            if (!EventSystem.current.IsPointerOverGameObject())
-            {
-                HandleTapInput();
-                return;
-            }
+            HandleTapInput();
+            return;
         }
         else if(Input.GetMouseButtonUp(0))
         {
