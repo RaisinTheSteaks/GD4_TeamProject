@@ -269,7 +269,7 @@ public class BotController : MonoBehaviourPunCallbacks
             
             photonView.RPC("guardPhase", RpcTarget.All, transform.name);
                 //start shooting animation
-           // StartCoroutine(animation("IsGuarding"));
+            StartCoroutine(animation("IsGuarding"));
             
             //guardPhase(transform.name);
             //end player turn
@@ -376,17 +376,6 @@ public class BotController : MonoBehaviourPunCallbacks
     }
 
 
-    public void guard()
-    {
-        //debugging for action windows, replace this with real move method
-
-        if (isSelected && playerScript.Turn && !specialAbilityMode && !pause)
-        {
-            ResetAllMode();
-            print(transform.name + "guarding");
-        }
-
-    }
 
     public void abilities()
     {
