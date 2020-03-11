@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public GameObject botSymbol;
 
     public HexGrid grid;
+    public bool timeStop;
+    public bool timeStopUsed = false;
+    public float timeStopTimer = 0.0f;
 
     public GameObject popUp;
     public GameObject pauseScreen;
@@ -74,6 +77,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         
         endTurnMessageImage.SetActive(false);
         endTurnPressed = false;
+        timeStop = false;
 
         botSymbol = GameObject.Find("Symbol");
         popUp.SetActive(false);
@@ -84,6 +88,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private void Update()
     {
         checkTurn();
+        StartTimeStop();
         if (Turn && !pause)
         {
             SelectCharacter();
@@ -161,6 +166,51 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
+    public void DoubleDamage()
+    {
+        if(Turn)
+        {
+            foreach (Transform child in transform)
+            {
+                child.GetComponent<BotController>().DoubleDamage();
+            }
+        }
+        
+    }
+
+    public void StopTime()
+    {
+        if(Turn && !timeStopUsed)
+        {
+            timeStop = true;
+            photonView.RPC("SetClockState", RpcTarget.All, false);
+            timeStopUsed = true;
+
+        }
+    }
+
+
+    public void StartTimeStop()
+    {
+        if(timeStop)
+        {
+            timeStopTimer += Time.deltaTime;
+
+            if (timeStopTimer >= 10)
+            {
+                photonView.RPC("SetClockState", RpcTarget.All, true);
+                timeStop = false;
+                timeStopTimer = 0;
+            }
+        }
+
+    }
+
+    [PunRPC]
+    public void SetClockState(bool state)
+    {
+        GameManager.instance.clocks.GetComponent<ChessClockController>().startClock = state;
+    }
 
     public void checkTurn()
     {
@@ -194,6 +244,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             endTurnMessageImage.SetActive(true);
             endTurnPressed = true;
+           
         }
         
     }
@@ -201,7 +252,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public void EndTurn()
     {
         GameManager.instance.photonView.RPC("ChangeActivePlayer", RpcTarget.AllBuffered);
+        if (timeStop)
+        {
+            photonView.RPC("SetClockState", RpcTarget.All, true);
 
+        }
     }
 
     public void OnEndTurnRelease()

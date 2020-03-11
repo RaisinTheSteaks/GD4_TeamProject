@@ -46,5 +46,6 @@ MonoBehaviour:
   - missileAudio
   - StartClock
   - Clock
+  - SetClockState
   DisableAutoOpenWizard: 1
   ShowSettings: 1

@@ -57,6 +57,8 @@ public class BotController : MonoBehaviourPunCallbacks
     public float range;
     public const float gridScale = 0.035f;
     private GameObject attackRangeIndicator;
+    public bool doubleDamageUsed = false;
+    public bool doubleDamage = false;
 
     //Pause Screen
     public bool pause;
@@ -158,6 +160,16 @@ public class BotController : MonoBehaviourPunCallbacks
         }
     }
 
+    public void DoubleDamage()
+    {
+        if(!doubleDamageUsed)
+        {
+            doubleDamage = true;
+            doubleDamageUsed = true;
+        }
+
+    }
+
     public void AttackingPhase()
     {
         if (attackingMode && !pause)
@@ -208,7 +220,15 @@ public class BotController : MonoBehaviourPunCallbacks
 
                                             //start attack audio and calculating damages
                                             photonView.RPC("attackAudio", RpcTarget.All, transform.name);
-                                            photonView.RPC("startDamage", RpcTarget.All, hit.transform.name, rng, attackDamage);
+
+                                            float damage = attackDamage;
+                                            if (doubleDamage)
+                                            {
+                                                damage *= 2;
+                                                doubleDamage = false;
+                                            }
+
+                                            photonView.RPC("startDamage", RpcTarget.All, hit.transform.name, rng, damage);
 
                                             //set attacking moded to false
                                             attackingMode = false;

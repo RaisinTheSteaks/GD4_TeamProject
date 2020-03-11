@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
-    <ImageTarget name="gears" size="0.300000 0.300000" />
+    <ImageTarget name="queen" size="0.100000 0.153846" />
+    <ImageTarget name="king-of-hearts" size="0.100000 0.153797" />
+    <ImageTarget name="king" size="0.100000 0.149945" />
     <ImageTarget name="hakob-minasian-spacestationv2" size="0.150000 0.071406" />
   </Tracking>
 </QCARConfig>
