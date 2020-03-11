@@ -24,7 +24,7 @@ public class HexMapController : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount > 0 || Input.GetMouseButtonDown(0))
+        if (Input.touchCount > 0 || Input.GetMouseButtonDown(0) || Input.GetMouseButtonUp(0))
         {
             ////Stop the player selecting through UI components
             if (!EventSystem.current.IsPointerOverGameObject())
