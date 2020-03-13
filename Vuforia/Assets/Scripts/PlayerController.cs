@@ -31,10 +31,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
     //GameOver
     public bool hasChildren = true;
     public bool winner = true;
-    private GameObject winningScreen;
-    private GameObject losingScreen;
+    private GameObject endScreen;
     public bool endGame = false;
     public float playerClock;
+    public Text endText;
 
 [PunRPC]
     public void Initialize(Player player)
@@ -78,8 +78,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         transform.name = photonPlayer.NickName;
 
-        winningScreen = GameObject.Find("WinScreen");
-        losingScreen = GameObject.Find("LoseScreen");
+        endScreen = GameObject.Find("EndScreen");
+        endText = endScreen.transform.Find("Text").GetComponent<Text>();
         EndTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
         endTurnMessageImage = GameObject.Find("EndTurnMessage");
         endTurnMessage = endTurnMessageImage.transform.Find("Text").GetComponent<Text>();
@@ -91,8 +91,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         botSymbol = GameObject.Find("Symbol");
         popUp.SetActive(false);
         pauseScreen.SetActive(false);
-        winningScreen.SetActive(false);
-        losingScreen.SetActive(false);
+        endScreen.SetActive(false);
 
     }
 
@@ -323,14 +322,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     private void DisplayWinScreen()
     {
-        winningScreen.SetActive(true);
-        losingScreen.SetActive(false);
+        endScreen.SetActive(true);
+        endText.text = "You Win";
     }
 
     public void DisplayLoseScreen()
     {
-        winningScreen.SetActive(false);
-        losingScreen.SetActive(true);
+        endScreen.SetActive(true);
+        endText.text = "You Lose";
     }
 
     private IEnumerator WaitForSceneLoad()
