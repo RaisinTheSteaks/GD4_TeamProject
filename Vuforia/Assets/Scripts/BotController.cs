@@ -26,6 +26,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public Rigidbody rig;
     public bool specialAbilityMode;
     public bool specialAbilityUsed;
+    public bool guardMode;
     public GameObject hexGrid;
     public string Type;
     Collider[] hitColliders;
@@ -103,6 +104,7 @@ public class BotController : MonoBehaviourPunCallbacks
         AttackingPhase();
         updateHealth();
         SelectedText();
+
         DespawnAttackRange();
         Explosion(); //first part of tank Special Ability
         if (confirm && !specialAbilityUsed && !pause)
@@ -130,6 +132,8 @@ public class BotController : MonoBehaviourPunCallbacks
             
             ResetAllMode();
             //enter attacking mode
+            
+            print("attacking...");
             float offset = 0.07f;
 
             
@@ -179,6 +183,7 @@ public class BotController : MonoBehaviourPunCallbacks
                         {
                             
                             //checking if its a bot
+
                             Debug.Log("its a bot");
                             print(Vector3.Distance(transform.position, hit.transform.position));
 
@@ -236,6 +241,7 @@ public class BotController : MonoBehaviourPunCallbacks
                 }
             }
         }
+        
     }
 
     public IEnumerator animation(string boolName)
@@ -252,6 +258,40 @@ public class BotController : MonoBehaviourPunCallbacks
 
 
     }
+    
+    public void guard()
+    {
+        //debugging for action windows, replace this with real move method
+
+        if (isSelected && playerScript.Turn && !specialAbilityMode)
+        {
+            Debug.Log(transform.name + "guarding");
+            
+            photonView.RPC("guardPhase", RpcTarget.All, transform.name);
+                //start shooting animation
+            StartCoroutine(animation("IsGuarding"));
+            
+            //guardPhase(transform.name);
+            //end player turn
+            // playerScript.EndTurn();
+        }
+
+    }
+
+    [PunRPC]
+    public void guardPhase(string botName)
+    {
+        //if (guardMode)
+        //{
+        //    //set attacking mode to false
+        //    attackingMode = false;
+        //    //start guarding animation
+        //   // StartCoroutine(animation("IsGuarding"));
+        //}
+        GameObject bot = GameObject.Find(botName);
+        BotController target = bot.GetComponent<BotController>();
+        target.guardMode = true;
+    }
 
     [PunRPC]
     public void startDamage(string botName, float bonusDamage, float normalDamage)
@@ -264,10 +304,21 @@ public class BotController : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(0.5f);
         GameObject bot = GameObject.Find(botName);
         BotController target = bot.GetComponent<BotController>();
-        target.health -= bonusDamage + normalDamage;
+        
         target.updatingHealth = true;
 
         //print(target.health);
+
+        //Half damage taken if player has entered guard
+        if (target.guardMode)
+        {
+            target.health -= (bonusDamage + normalDamage) / 2;
+            target.guardMode = false;
+        }
+        else
+        {
+            target.health -= bonusDamage + normalDamage;
+        }
     }
 
     [PunRPC]
@@ -310,6 +361,8 @@ public class BotController : MonoBehaviourPunCallbacks
 
             }
 
+            
+
 
             updatingHealth = false;
         }
@@ -323,17 +376,6 @@ public class BotController : MonoBehaviourPunCallbacks
     }
 
 
-    public void guard()
-    {
-        //debugging for action windows, replace this with real move method
-
-        if (isSelected && playerScript.Turn && !specialAbilityMode && !pause)
-        {
-            ResetAllMode();
-            print(transform.name + "guarding");
-        }
-
-    }
 
     public void abilities()
     {

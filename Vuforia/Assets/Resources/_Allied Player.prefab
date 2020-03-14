@@ -130,6 +130,36 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Bot
       objectReference: {fileID: 0}
+    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_SynchronizeLayers.Array.data[0].SynchronizeType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[0].SynchronizeType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[1].SynchronizeType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[1].Type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[1].Name
+      value: IsGuarding
+      objectReference: {fileID: 0}
     - target: {fileID: 7345049439230632933, guid: d425422358808b540bf5593f26332cf3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -304,16 +334,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: -0.88500005
-      objectReference: {fileID: 0}
-    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
-        type: 3}
-      propertyPath: m_SynchronizeLayers.Array.data[0].SynchronizeType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
-        type: 3}
-      propertyPath: m_SynchronizeParameters.Array.data[0].SynchronizeType
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2203084645548401852, guid: d425422358808b540bf5593f26332cf3,
         type: 3}
@@ -517,6 +537,26 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Bot
       objectReference: {fileID: 0}
+    - target: {fileID: 7267562832532574014, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7267562832532574014, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7267562832532574014, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7267562832532574014, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7326950034814556776, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -587,16 +627,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 7326950034824410576, guid: 70c4a2bd82118004991f262dba0b585d,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: d758fa22c261e7349baa6b70ee09d73c, type: 2}
     - target: {fileID: 4007836377123196219, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7326950034824410576, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d758fa22c261e7349baa6b70ee09d73c, type: 2}
     - target: {fileID: 6956144906709237833, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
       propertyPath: AttackTarget
@@ -836,26 +876,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.40811482
-      objectReference: {fileID: 0}
-    - target: {fileID: 7267562832532574014, guid: 70c4a2bd82118004991f262dba0b585d,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7267562832532574014, guid: 70c4a2bd82118004991f262dba0b585d,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7267562832532574014, guid: 70c4a2bd82118004991f262dba0b585d,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7267562832532574014, guid: 70c4a2bd82118004991f262dba0b585d,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70c4a2bd82118004991f262dba0b585d, type: 3}
