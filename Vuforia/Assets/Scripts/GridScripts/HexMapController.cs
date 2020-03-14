@@ -1,3 +1,5 @@
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,16 +9,17 @@ public class HexMapController : MonoBehaviour
 
     [Header("Highlights")]
     public Color highlightColor, selectedColor, movementRangeColor;
-    HexCell currentCell, previousCell, moveToCell, startCell;
+    HexCell currentCell, previousCell, endCell, startCell;
 
     [Header("Movement")]
     public static int speed = 2;
     private bool isMoving = false;
     public PlayerController playerController;
+
     [Header("Bots")]
     public Unit unitPrefab;
     Unit currentUnit;
-
+    BotController selectedBot;
     void Awake()
     {
 
@@ -32,7 +35,6 @@ public class HexMapController : MonoBehaviour
                 if (Input.touchSupported)
                 {
                     HandleTouchInput();
-                    //HandleMouseInput();
                 }
                 else
                 {
@@ -41,15 +43,83 @@ public class HexMapController : MonoBehaviour
             }
         }
     }
+
     void HandleTouchInput()
     {
         //Checking if the player has just tapped the screen
         if (Input.touchCount > 0)
         {
-            HandleTapInput();
-            hexGrid.DoMove();
-            isMoving = false;
+            string debugString = "SelectedBot with a touch";
+            Touch touch = Input.GetTouch(0);
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    debugString = "[TOUCH PHASE BEGAN]";
+
+                    ClearStartingCells();
+                    hexGrid.ClearPath();
+
+                    //Select Cell
+                    HexCell cell = GetCellUnderCursor();
+                    if (cell)
+                    {
+                        cell.EnableHighlight(hexGrid.startHexColor);
+                        if (cell.unit)
+                        {
+                            startCell = cell;
+                            currentCell = startCell;
+                        }
+                    }
+                    break;
+
+                case TouchPhase.Moved:
+                    debugString = "[TOUCH PHASE MOVED]";
+                    previousCell = currentCell;
+                    currentCell = GetCellUnderCursor();
+                    isMoving = true;
+                    hexGrid.FindPath(startCell, currentCell, speed);
+                    break;
+
+                case TouchPhase.Ended:
+                    debugString = "[TOUCH PHASE ENDED]";
+                    previousCell = currentCell;
+                    currentCell = null;
+                    hexGrid.DoMove();
+                    isMoving = false;
+                    break;
+            }
+            if (selectedBot)
+            {
+                debugString = "Selected Bot";
+            }
+            selectedBot.AttackTarget.text = debugString;
+            //HandleTapInput();
+            //hexGrid.DoMove();
+            //isMoving = false;
             return;
+        }
+    }
+
+    void ClearStartingCells()
+    {
+        if(currentCell)
+        {
+            currentCell.DisableHighlight();
+            currentCell = null;
+        }
+        if (startCell)
+        {
+            startCell.DisableHighlight();
+            startCell = null;
+        }
+        if (endCell)
+        {
+            endCell.DisableHighlight();
+            endCell = null;
+        }
+        if (previousCell)
+        {
+            previousCell.DisableHighlight();
         }
     }
 
@@ -58,7 +128,18 @@ public class HexMapController : MonoBehaviour
         //Checking if the player has just tapped the screen
         if (Input.GetMouseButtonDown(0))
         {
+            string debugString = "SelectedBot with a click";
             HandleTapInput();
+
+            if (selectedBot)
+            {
+                selectedBot.AttackTarget.text = debugString;
+            }
+            else
+            {
+                TextMeshProUGUI textbox = GameObject.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
+                textbox.text = "No Bots Here";
+            }
             return;
         }
         else if(Input.GetMouseButtonUp(0))
@@ -71,7 +152,7 @@ public class HexMapController : MonoBehaviour
     {
         //If a cell has been selected, show how far away it is
         hexGrid.ClearPath();
-        HexCell currentCell = GetCellUnderCursor();
+        currentCell = GetCellUnderCursor();
 
         if (currentCell)
         {
@@ -79,18 +160,18 @@ public class HexMapController : MonoBehaviour
             {
                 #region Handle input on hexagon in grid
                 //If the player has just moved, reset the move components
-                if (moveToCell)
+                if (endCell)
                 {
-                    moveToCell.DisableHighlight();
-                    moveToCell = null;
+                    endCell.DisableHighlight();
+                    endCell = null;
                 }
                 //If the player has selected that they want to move, set the selected cell to be the move target, highlight it, 
                 if (isMoving)
                 {
                     isMoving = false;
-                    moveToCell = currentCell;
+                    endCell = currentCell;
                     currentCell = previousCell;
-                    moveToCell.EnableHighlight(selectedColor);
+                    endCell.EnableHighlight(selectedColor);
                     startCell = previousCell;
 
                     if (startCell.unit)
@@ -114,13 +195,13 @@ public class HexMapController : MonoBehaviour
                 #endregion
             }
         }
-        if (moveToCell != null)
+        if (endCell != null)
         {
-            if (moveToCell != currentCell)
+            if (endCell != currentCell)
             {
                 if (currentUnit)
                 {
-                    hexGrid.FindPath(currentUnit.Location, moveToCell, speed);
+                    hexGrid.FindPath(currentUnit.Location, endCell, speed);
                 }
             }
         }
@@ -148,7 +229,7 @@ public class HexMapController : MonoBehaviour
                 Unit unit = Instantiate(unitPrefab);
                 unit.transform.SetParent(hexGrid.transform, false);
                 unit.Location = cell;
-                unit.Orientation = Random.Range(0f, 360f);
+                unit.Orientation = UnityEngine.Random.Range(0f, 360f);
             }
         }
     }
@@ -161,7 +242,7 @@ public class HexMapController : MonoBehaviour
             Unit unit = Instantiate(unitPrefab);
             unit.transform.SetParent(hexGrid.transform, false);
             unit.Location = cell;
-            unit.Orientation = Random.Range(0f, 360f);
+            unit.Orientation = UnityEngine.Random.Range(0f, 360f);
         }
     }
 
@@ -170,9 +251,7 @@ public class HexMapController : MonoBehaviour
         //If the selected cell doesn't have a unit on it
         if (!cell.unit)
         {
-            //unit.transform.SetParent(hexGrid.transform, false);
-            unit.Location = cell ;
-            //unit.Orientation = Random.Range(0f, 360f);
+            unit.Location = cell;
         }
     }
 
@@ -188,7 +267,20 @@ public class HexMapController : MonoBehaviour
 
     HexCell GetCellUnderCursor()
     {
-        return hexGrid.GetCell(Camera.main.ScreenPointToRay(Input.mousePosition));
+        HexCell cell = hexGrid.GetCell(Camera.main.ScreenPointToRay(Input.mousePosition));
+
+        BotController[] bots = FindObjectsOfType<BotController>();
+        foreach (BotController bot in bots)
+        {
+            bot.isSelected = false;
+            selectedBot = null;
+        }
+
+        if (cell.unit)
+        {
+            selectedBot = cell.unit.GetComponentInParent<BotController>();
+            selectedBot.isSelected = true;
+        }
+        return cell;
     }
-    
 }

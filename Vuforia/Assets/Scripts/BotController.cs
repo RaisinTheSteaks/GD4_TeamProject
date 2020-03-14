@@ -106,9 +106,14 @@ public class BotController : MonoBehaviourPunCallbacks
         DespawnAttackRange();
         Explosion(); //first part of tank Special Ability
         if (confirm && !specialAbilityUsed)
+        {
             LoadExplosion();   //second part of tank special Ability
+        }
+        if (isSelected)
+        {
+            playerScript.botSymbol.GetComponent<RawImage>().material = symbol;
+        }
     }
-
 
     public void Move()
     {
@@ -199,7 +204,7 @@ public class BotController : MonoBehaviourPunCallbacks
                                         //check if the bot is not allied
                                         if(raycastHit.transform.gameObject.GetComponent<BotController>().playerScript != playerScript)
                                         {
-                                            AttackTarget.text = "valid target";
+                                           // AttackTarget.text = "valid target";
                                             //creates random damage
                                             float rng = Random.Range(minRng, maxRng);
 
@@ -218,18 +223,18 @@ public class BotController : MonoBehaviourPunCallbacks
                                         }
                                         else
                                         {
-                                            AttackTarget.text = "own bot";
+                                           // AttackTarget.text = "own bot";
                                         }
                                     }
                                     else
                                     {
-                                        AttackTarget.text = "invalid target";
+                                       // AttackTarget.text = "invalid target";
                                     }
                                 }
                             }
                             else
                             {
-                                AttackTarget.text = "target is too far";
+                              //  AttackTarget.text = "target is too far";
                             }
                         }
                     }

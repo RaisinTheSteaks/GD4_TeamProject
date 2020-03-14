@@ -152,7 +152,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
                                     child.transform.GetComponent<BotController>().isSelected = false;
                             }
                             hit.transform.GetComponent<BotController>().isSelected = true;
-                            botSymbol.GetComponent<RawImage>().material = hit.transform.GetComponent<BotController>().symbol;
                         }
                     }
                 }
