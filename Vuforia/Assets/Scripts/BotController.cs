@@ -70,12 +70,14 @@ public class BotController : MonoBehaviourPunCallbacks
         //{
         //    rig.isKinematic = false;
         //}
-
+        
     }
     private void Awake()
     {
         botPopUp = transform.parent.GetComponent<PlayerController>().popUp;
         pause = transform.parent.GetComponent<PlayerController>().pause;
+        
+        
 
     }
     private void Start()
@@ -87,19 +89,25 @@ public class BotController : MonoBehaviourPunCallbacks
         hexGrid = GameObject.Find("HexGrid");
         //botPopUp.SetActive(false);
 
-        AttackTarget = GameObject.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        
         maxHealth = health;
         transform.name = playerScript.name + " " + transform.name;
         healthNumberIndicator.text = ((int)health).ToString();
         healthBarRect = healthBar.GetComponent<RectTransform>();
         maxWidth = healthBarRect.rect.width;
         audioSource = GetComponent<AudioSource>();
+        AttackTarget = GameObject.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(animation("IsShooting"));
+            //StartCoroutine(animation("IsShooting"));
+            healthNumberIndicator.text = ((int)health).ToString();
+            
+        }else if(Input.GetKeyDown(KeyCode.C))
+        {
+            photonView.RPC("startDamage", RpcTarget.All, this.playerScript.name + " " + "Troop" , 10.0f, 10.0f);
         }
         AttackingPhase();
         updateHealth();
@@ -133,12 +141,12 @@ public class BotController : MonoBehaviourPunCallbacks
             ResetAllMode();
             //enter attacking mode
             
-            print("attacking...");
+            
             float offset = 0.07f;
 
             
             attackingMode = !attackingMode;
-            print("attacking mode: " + attackingMode);
+            
 
             if(!attackRangeIndicator)
             {
