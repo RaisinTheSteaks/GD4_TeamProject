@@ -342,6 +342,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
     public void Abilities()
     {
+        Debug.Log("Activating: "+name+"'s ability\nIsSelected: "+isSelected+", Turn?: "+playerScript.Turn+"\nSpecAbil Used?: "+", Paused?: "+pause);
         //debugging for action windows, replace this with real move method
         if (isSelected && playerScript.Turn && !specialAbilityUsed && !pause)
         {

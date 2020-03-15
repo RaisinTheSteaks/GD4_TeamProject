@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 if (Turn)
                 {
-                    Debug.Log("Selecting");
+                    //Debug.Log("Selecting");
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     RaycastHit hit;
                     if (Physics.Raycast(ray, out hit))
