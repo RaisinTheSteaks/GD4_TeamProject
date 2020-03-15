@@ -263,25 +263,25 @@ public class BotController : MonoBehaviourPunCallbacks
 
 
     }
-    
-    public void guard()
-    {
-        //debugging for action windows, replace this with real move method
 
-        if (isSelected && playerScript.Turn && !specialAbilityMode)
-        {
-            Debug.Log(transform.name + "guarding");
-            
-            photonView.RPC("guardPhase", RpcTarget.All, transform.name);
-                //start shooting animation
-            StartCoroutine(animation("IsGuarding"));
-            
-            //guardPhase(transform.name);
-            //end player turn
-            // playerScript.EndTurn();
-        }
+    //public void guard()
+    //{
+    //    //debugging for action windows, replace this with real move method
 
-    }
+    //    if (isSelected && playerScript.Turn && !specialAbilityMode)
+    //    {
+    //        Debug.Log(transform.name + "guarding");
+            
+    //        photonView.RPC("guardPhase", RpcTarget.All, transform.name);
+    //            //start shooting animation
+    //        StartCoroutine(animation("IsGuarding"));
+            
+    //        //guardPhase(transform.name);
+    //        //end player turn
+    //        // playerScript.EndTurn();
+    //    }
+
+    //}
 
     [PunRPC]
     public void guardPhase(string botName)
