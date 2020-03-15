@@ -283,6 +283,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public void CheckChildren()
     {
+        
         foreach (Transform bot in transform)
         {
             if (bot.GetComponent<BotController>().health <= 0)
@@ -294,16 +295,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 hasChildren = true;
                 break;
             }
-
-            if (hasChildren)
-            {
-                Debug.Log("I HAVE CHILDREN");
-            }
-            else if (!hasChildren) {
-                Debug.Log("No children");
-                winner = false;
-                GameManager.instance.photonView.RPC("EndGame", RpcTarget.AllBuffered);
-            }
+        }
+        if (hasChildren)
+        {
+            Debug.Log("I HAVE CHILDREN");
+        }
+        else if (!hasChildren)
+        {
+            Debug.Log("No children");
+            winner = false;
+            GameManager.instance.photonView.RPC("EndGame", RpcTarget.AllBuffered);
         }
     }
 
