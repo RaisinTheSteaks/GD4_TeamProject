@@ -6,6 +6,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Linq;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -57,6 +58,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -77,7 +82,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         //Debug.Log("[***(Players in game: " + playersInGame + ")***]");
         //Debug.Log("[***(Player list length: " + PhotonNetwork.PlayerList.Length + ")***]");
-        print("spawning player");
+        //print("spawning player");
         int spawnPoint1;
         int spawnPoint2;
         string playerPrefabLocation;

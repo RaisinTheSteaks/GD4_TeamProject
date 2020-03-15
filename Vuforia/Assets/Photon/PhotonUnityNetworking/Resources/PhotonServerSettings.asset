@@ -40,13 +40,14 @@ MonoBehaviour:
   - ChangeActivePlayer
   - onEndTurnButton
   - damage
-  - attackAudio
-  - deathAudio
-  - startDamage
   - missileAudio
   - StartClock
   - Clock
   - SetClockState
   - guardPhase
+  - AttackAudio
+  - DeathAudio
+  - MissileAudio
+  - StartDamage
   DisableAutoOpenWizard: 1
   ShowSettings: 1
