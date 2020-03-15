@@ -380,6 +380,7 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         photonView.RPC("deathAudio", RpcTarget.All, transform.name);
         yield return new WaitForSeconds(0.3f);
+        playerScript.CheckChildren();
         transform.gameObject.SetActive(false);
     }
 
@@ -434,7 +435,7 @@ public class BotController : MonoBehaviourPunCallbacks
             {                                                                       // is a Bot then the "Start Damage function is called." Once the loop is completed the "specialAbilityUsed" boolean is turned true
                 if (hitColliders[i].transform.tag == "Bot")                         //stopping this bot from using their special ability again.
                 {
-                    photonView.RPC("startDamage", RpcTarget.All, hitColliders[i].transform.name, 30.0f, 0.0f);
+                    photonView.RPC("startDamage", RpcTarget.All, hitColliders[i].transform.name, 3000.0f, 0.0f);
                 }
             }
         }

@@ -44,18 +44,24 @@ public class ChessClockController : MonoBehaviour
 
     private void UpdatePlayer2Clock()
     {
-        player2Time -= Time.deltaTime * 1;
-        player2Minutes = Mathf.Floor((player2Time % 3600) / 60).ToString("00"); //60^2 = 3600
-        player2Seconds = (player2Time % 60).ToString("00");
-        player2Clock.text = player2Minutes + ":" + player2Seconds;
+        if(player2Time > 0)
+        {
+            player2Time -= Time.deltaTime * 1;
+            player2Minutes = Mathf.Floor((player2Time % 3600) / 60).ToString("00"); //60^2 = 3600
+            player2Seconds = (player2Time % 60).ToString("00");
+            player2Clock.text = player2Minutes + ":" + player2Seconds;
+        }
     }
 
     private void UpdatePlayer1Clock()
     {
-        player1Time -= Time.deltaTime * 1;
-        player1Minutes = Mathf.Floor((player1Time % 3600) / 60).ToString("00"); //60^2 = 3600
-        player1Seconds = (player1Time % 60).ToString("00");
-        player1Clock.text = player1Minutes + ":" + player1Seconds;
+        if(player1Time > 1)
+        {
+            player1Time -= Time.deltaTime * 1;
+            player1Minutes = Mathf.Floor((player1Time % 3600) / 60).ToString("00"); //60^2 = 3600
+            player1Seconds = (player1Time % 60).ToString("00");
+            player1Clock.text = player1Minutes + ":" + player1Seconds;
+        }
     }
     public void SwapClock()
     {

@@ -168,5 +168,13 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         }
     }
+    [PunRPC]
+    public void EndGame()
+    {
+        foreach (PlayerController player in players)
+        {
+            player.endGame = true;
+        }
+    }
 }
 
