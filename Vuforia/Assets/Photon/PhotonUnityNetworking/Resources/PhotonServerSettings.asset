@@ -49,5 +49,6 @@ MonoBehaviour:
   - Clock
   - SetClockState
   - guardPhase
+  - EndGame
   DisableAutoOpenWizard: 1
   ShowSettings: 1
