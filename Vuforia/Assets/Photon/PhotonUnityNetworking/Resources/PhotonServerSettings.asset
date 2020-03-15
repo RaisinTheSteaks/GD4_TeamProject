@@ -44,6 +44,7 @@ MonoBehaviour:
   - deathAudio
   - startDamage
   - missileAudio
+  - AddSpectator
   - StartClock
   - Clock
   - SetClockState

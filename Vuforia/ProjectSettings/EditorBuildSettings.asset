@@ -5,16 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Menu.unity
+  - enabled: 1
+    path: Assets/Scenes/Spectator/SpecMenu.unity
     guid: bf9dec2440379374cb012f956fd991f9
-  - enabled: 0
-    path: Assets/Scenes/MasterScene.unity
-    guid: 9b81f4131ee1ef5498d869143fb17e99
   - enabled: 1
-    path: Assets/Scenes/Guard/DuplicateMenu.unity
-    guid: d07a36a863fc2e04aba3fe1a413b5900
-  - enabled: 1
-    path: Assets/Scenes/Guard/GuardScene.unity
-    guid: f887e4a4b8c1df1408d31cd4ee4d9e9c
+    path: Assets/Scenes/Spectator/SpecGame.unity
+    guid: ab7f216af75fc6b40b633f1fc6297c8b
   m_configObjects: {}

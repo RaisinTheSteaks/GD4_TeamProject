@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
+public enum PlayerType {Player, Spectator }
+
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     //instance
     public static NetworkManager instance;
+    public List<string> spectator;
 
     private void Awake()
     {
@@ -24,6 +27,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
+        spectator = new List<string>();
     }
 
     public void CreateRoom(string roomName)
@@ -41,9 +45,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //limiting player count into 2 players per room
         //if(PhotonNetwork.PlayerList.Length <= 2)
         //{
-            PhotonNetwork.JoinRoom(roomName);
+        PhotonNetwork.JoinRoom(roomName);
         //}
     }
+
 
     [PunRPC]
     public void ChangeScene (string sceneName)

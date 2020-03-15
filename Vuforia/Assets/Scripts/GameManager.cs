@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [Header("Stats")]
     public bool gameEnded = false;
     public TextMeshProUGUI pingUI;
+    public GameObject PlayerHUD;
 
     [Header("Players")]
     public string playerOnePrefabLocation;
@@ -44,13 +45,26 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         pickedSpawnIndex = new List<int>();
-        players = new PlayerController[PhotonNetwork.PlayerList.Length];
+        players = new PlayerController[PhotonNetwork.PlayerList.Length - NetworkManager.instance.spectator.Count];
         bots = new BotController[players.Length * 2];
-        clocks = GameObject.Find("Timer");
-        photonView.RPC("ImInGame", RpcTarget.AllBuffered);
+        foreach(string name in NetworkManager.instance.spectator)
+        {
+            Debug.Log(name);
+        }
+        Debug.Log(players.Length);
+        if(!NetworkManager.instance.spectator.Contains(PhotonNetwork.NickName))
+        {
+            clocks = GameObject.Find("Timer");
+            photonView.RPC("ImInGame", RpcTarget.AllBuffered);
+            clocks.GetComponent<ChessClockController>().startClock = true;
+        }
+        else
+        {
+            PlayerHUD.SetActive(false);
+        }
+        
         mapController.SetSpeed(playerSpeed);
-        clocks.GetComponent<ChessClockController>().startClock = true;
-        //  grid.hexesTravelled = 0;
+        grid.hexesTravelled = 0;
 
 
     }
@@ -68,9 +82,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     void ImInGame()
     {
         playersInGame++;
-
-        if (playersInGame == PhotonNetwork.PlayerList.Length)
-            SpawnPlayer();
+        
+        if (playersInGame == PhotonNetwork.PlayerList.Length - NetworkManager.instance.spectator.Count)
+        {
+            if (!NetworkManager.instance.spectator.Contains(PhotonNetwork.NickName))
+                SpawnPlayer();
+        }
     }
 
     void SpawnPlayer()
