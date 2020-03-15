@@ -26,6 +26,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public Rigidbody rig;
     public bool specialAbilityMode;
     public bool specialAbilityUsed;
+    public bool guardMode;
     public GameObject hexGrid;
     public string Type;
     Collider[] hitColliders;
@@ -69,12 +70,14 @@ public class BotController : MonoBehaviourPunCallbacks
         //{
         //    rig.isKinematic = false;
         //}
-
+        
     }
     private void Awake()
     {
         botPopUp = transform.parent.GetComponent<PlayerController>().popUp;
         pause = transform.parent.GetComponent<PlayerController>().pause;
+        
+        
 
     }
     private void Start()
@@ -86,23 +89,30 @@ public class BotController : MonoBehaviourPunCallbacks
         hexGrid = GameObject.Find("HexGrid");
         //botPopUp.SetActive(false);
 
-        AttackTarget = GameObject.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        
         maxHealth = health;
         transform.name = playerScript.name + " " + transform.name;
         healthNumberIndicator.text = ((int)health).ToString();
         healthBarRect = healthBar.GetComponent<RectTransform>();
         maxWidth = healthBarRect.rect.width;
         audioSource = GetComponent<AudioSource>();
+        AttackTarget = GameObject.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(animation("IsShooting"));
+            //StartCoroutine(animation("IsShooting"));
+            healthNumberIndicator.text = ((int)health).ToString();
+            
+        }else if(Input.GetKeyDown(KeyCode.C))
+        {
+            photonView.RPC("startDamage", RpcTarget.All, this.playerScript.name + " " + "Troop" , 10.0f, 10.0f);
         }
         AttackingPhase();
         updateHealth();
         SelectedText();
+
         DespawnAttackRange();
         Explosion(); //first part of tank Special Ability
         if (confirm && !specialAbilityUsed && !pause)
@@ -130,11 +140,13 @@ public class BotController : MonoBehaviourPunCallbacks
             
             ResetAllMode();
             //enter attacking mode
+            
+            
             float offset = 0.07f;
 
             
             attackingMode = !attackingMode;
-            print("attacking mode: " + attackingMode);
+            
 
             if(!attackRangeIndicator)
             {
@@ -179,6 +191,7 @@ public class BotController : MonoBehaviourPunCallbacks
                         {
                             
                             //checking if its a bot
+
                             Debug.Log("its a bot");
                             print(Vector3.Distance(transform.position, hit.transform.position));
 
@@ -236,6 +249,7 @@ public class BotController : MonoBehaviourPunCallbacks
                 }
             }
         }
+        
     }
 
     public IEnumerator animation(string boolName)
@@ -252,6 +266,40 @@ public class BotController : MonoBehaviourPunCallbacks
 
 
     }
+    
+    public void guard()
+    {
+        //debugging for action windows, replace this with real move method
+
+        if (isSelected && playerScript.Turn && !specialAbilityMode)
+        {
+            Debug.Log(transform.name + "guarding");
+            
+            photonView.RPC("guardPhase", RpcTarget.All, transform.name);
+                //start shooting animation
+            StartCoroutine(animation("IsGuarding"));
+            
+            //guardPhase(transform.name);
+            //end player turn
+            // playerScript.EndTurn();
+        }
+
+    }
+
+    [PunRPC]
+    public void guardPhase(string botName)
+    {
+        //if (guardMode)
+        //{
+        //    //set attacking mode to false
+        //    attackingMode = false;
+        //    //start guarding animation
+        //   // StartCoroutine(animation("IsGuarding"));
+        //}
+        GameObject bot = GameObject.Find(botName);
+        BotController target = bot.GetComponent<BotController>();
+        target.guardMode = true;
+    }
 
     [PunRPC]
     public void startDamage(string botName, float bonusDamage, float normalDamage)
@@ -264,10 +312,21 @@ public class BotController : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(0.5f);
         GameObject bot = GameObject.Find(botName);
         BotController target = bot.GetComponent<BotController>();
-        target.health -= bonusDamage + normalDamage;
+        
         target.updatingHealth = true;
 
         //print(target.health);
+
+        //Half damage taken if player has entered guard
+        if (target.guardMode)
+        {
+            target.health -= (bonusDamage + normalDamage) / 2;
+            target.guardMode = false;
+        }
+        else
+        {
+            target.health -= bonusDamage + normalDamage;
+        }
     }
 
     [PunRPC]
@@ -310,6 +369,8 @@ public class BotController : MonoBehaviourPunCallbacks
 
             }
 
+            
+
 
             updatingHealth = false;
         }
@@ -324,17 +385,6 @@ public class BotController : MonoBehaviourPunCallbacks
     }
 
 
-    public void guard()
-    {
-        //debugging for action windows, replace this with real move method
-
-        if (isSelected && playerScript.Turn && !specialAbilityMode && !pause)
-        {
-            ResetAllMode();
-            print(transform.name + "guarding");
-        }
-
-    }
 
     public void abilities()
     {

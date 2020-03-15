@@ -6,15 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
+    path: Assets/Scenes/Spectator/SpecMenu.unity
     guid: bf9dec2440379374cb012f956fd991f9
   - enabled: 1
-    path: Assets/Scenes/MasterScene.unity
-    guid: 9b81f4131ee1ef5498d869143fb17e99
-  - enabled: 0
-    path: Assets/Scenes/HowToPlay/HowToPlayMenu.unity
-    guid: c065545406653a24eb3a72eb8d7d0960
-  - enabled: 0
-    path: Assets/Scenes/HowToPlay/HowToPlayMasterScene.unity
-    guid: 1e15acda568fa084794e490c4a4c0432
+    path: Assets/Scenes/Spectator/SpecGame.unity
+    guid: ab7f216af75fc6b40b633f1fc6297c8b
   m_configObjects: {}

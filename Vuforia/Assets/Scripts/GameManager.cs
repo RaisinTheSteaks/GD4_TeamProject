@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [Header("Stats")]
     public bool gameEnded = false;
     public TextMeshProUGUI pingUI;
+    public GameObject PlayerHUD;
 
     [Header("Players")]
     public string playerOnePrefabLocation;
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public PlayerController[] players;
     private int playersInGame;
     private List<int> pickedSpawnIndex;
-    public int playerSpeed=3;
+    public int playerSpeed = 3;
     [Header("Targets")]
     public GameObject selectedTarget;
 
@@ -44,20 +45,33 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         pickedSpawnIndex = new List<int>();
-        players = new PlayerController[PhotonNetwork.PlayerList.Length];
+        players = new PlayerController[PhotonNetwork.PlayerList.Length - NetworkManager.instance.spectator.Count];
         bots = new BotController[players.Length * 2];
-        clocks = GameObject.Find("Timer");
-        photonView.RPC("ImInGame", RpcTarget.AllBuffered);
+        foreach(string name in NetworkManager.instance.spectator)
+        {
+            Debug.Log(name);
+        }
+        Debug.Log(players.Length);
+        if(!NetworkManager.instance.spectator.Contains(PhotonNetwork.NickName))
+        {
+            clocks = GameObject.Find("Timer");
+            photonView.RPC("ImInGame", RpcTarget.AllBuffered);
+            clocks.GetComponent<ChessClockController>().startClock = true;
+        }
+        else
+        {
+            PlayerHUD.SetActive(false);
+        }
+        
         mapController.SetSpeed(playerSpeed);
-        clocks.GetComponent<ChessClockController>().startClock = true;
-        //  grid.hexesTravelled = 0;
+        grid.hexesTravelled = 0;
 
 
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
@@ -69,8 +83,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         playersInGame++;
         
-        if (playersInGame == PhotonNetwork.PlayerList.Length)
-            SpawnPlayer();
+        if (playersInGame == PhotonNetwork.PlayerList.Length - NetworkManager.instance.spectator.Count)
+        {
+            if (!NetworkManager.instance.spectator.Contains(PhotonNetwork.NickName))
+                SpawnPlayer();
+        }
     }
 
     void SpawnPlayer()
@@ -95,7 +112,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             spawnPoint2 = 3;
         }
 
-        
+
         GameObject playerObject = PhotonNetwork.Instantiate(playerPrefabLocation, spawnPoints[0].Position, Quaternion.identity);
 
         Transform bot1 = playerObject.transform.Find("Tank");
@@ -107,7 +124,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         Transform bot2 = playerObject.transform.Find("Troop");
         Unit bot2Unit = bot2.GetComponent<Unit>();
-        if(bot2Unit)
+        if (bot2Unit)
         {
             mapController.CreateUnit(spawnPoints[spawnPoint2], bot2Unit);
         }
@@ -115,11 +132,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         ////initialize the player
         PlayerController playerScript = playerObject.GetComponent<PlayerController>();
         playerScript.photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
-       // playerScript.grid = grid;
+        // playerScript.grid = grid;
     }
-    
 
-    public PlayerController GetPlayer (int playerID)
+
+    public PlayerController GetPlayer(int playerID)
     {
         return players.First(x => x.id == playerID);
     }
@@ -140,13 +157,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         clocks.GetComponent<ChessClockController>().SwapClock();
         foreach (PlayerController player in players)
         {
-          player.Turn = !player.Turn;
-          player.setTurn(player.Turn);
-          foreach(Transform child in player.gameObject.transform)
-          {
+            player.Turn = !player.Turn;
+            player.setTurn(player.Turn);
+            foreach (Transform child in player.gameObject.transform)
+            {
                 child.GetComponent<BotController>().isSelected = false;
+                child.GetComponent<BotController>().attackingMode = false;
                 child.GetComponent<BotController>().ResetAllMode();
-          }
+            }
 
         }
     }
@@ -159,3 +177,4 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 }
+
