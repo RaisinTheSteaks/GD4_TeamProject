@@ -1,6 +1,6 @@
 public enum HexDirection
 {
-	NE,E,SE,SW,W,NW
+	NE,E,SE,SW,W,NW,HexDirectionCount
 }
 
 public static class HexDirectionExtensions

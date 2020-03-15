@@ -24,6 +24,15 @@ public class HexGrid : MonoBehaviour
 {
     #region Inspector Inputs
     public GameManager gameManager;
+    [Header("Rotation")]
+    [SerializeField]
+    private Transform startPoint;
+    [SerializeField]
+    private Transform endPoint;
+    [SerializeField]
+    [Range(0f,1f)]
+    private float lerpPct = 0.5f;
+
     [Header ("Grid Inputs")]
     public int width = 6;
     public int height = 6;
@@ -43,7 +52,7 @@ public class HexGrid : MonoBehaviour
     [Header("Spawning")]
     public HexCell[] spawnPoints;
 
-    public float directionRotationFraction = 55.0f;
+    public float directionRotationFraction = (360f/(int)HexDirection.HexDirectionCount);
     public Cover coverPrefab;
     //If I want to add these cover hexes in the inspector, I would add it here.
     //public string[] coverHexNames;
@@ -88,6 +97,11 @@ public class HexGrid : MonoBehaviour
         SpawnCover();
     }
 
+    void Update()
+    {
+        //LerpRotPos();
+    }
+    
     void SetSpawnPoints()
     {
         spawnPoints[0] = cells[0];
@@ -175,27 +189,27 @@ public class HexGrid : MonoBehaviour
             cover.name = cover.ParentCell.name + "_Cover";
 
             //Rotate the hex to face the set direction 
-            float rotationAngle = (int)(cover.direction) * directionRotationFraction;
+            float rotationAngle = ((int)(cover.direction) * directionRotationFraction);
             cover.transform.Rotate(new Vector3(0, 1, 0), rotationAngle);
 
             //Spawn the cover on it's parent cell
             cover.transform.position = coverHex.cell.transform.position;
 
             //Set it's position to be off from the centre of the hex to the edge it is facing
-            cover.transform.position += (cover.transform.forward * 0.015f);
+            cover.transform.position += (cover.transform.forward * 0.007f);
 
             //Adjust spawn position
             Vector3 offset = Vector3.zero; 
-            float offsetScale = 0.013f;
+            float offsetScale = 0.004f;
             switch (cover.direction)
             {
                 //Used to adjust where it spawns as the current system leaves each object slightly out of position
                 case (HexDirection.E):
-                    offset.z = -0.5f * offsetScale;
-                    offset.x = 0.25f * offsetScale;
+                    offset.z = -0.8f * offsetScale;
                     break;
                 case (HexDirection.NE):
                     offset.x = 0.6f * offsetScale;
+                    offset.z = -0.7f * offsetScale;
                     break;
                 case (HexDirection.NW):
                     offset.z = 0.7f * offsetScale;
@@ -206,7 +220,8 @@ public class HexGrid : MonoBehaviour
                     offset.z = -0.25f * offsetScale;
                     break;
                 case (HexDirection.SW):
-                    offset.x = -0.75f * offsetScale;
+                    offset.x = -1f * offsetScale;
+                    offset.z = 0.5f * offsetScale;
                     break;
                 case (HexDirection.W):
                     offset.z = 1 * offsetScale;
