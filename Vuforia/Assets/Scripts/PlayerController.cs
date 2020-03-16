@@ -336,7 +336,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private IEnumerator WaitForSceneLoad()
     {
       yield return new WaitForSeconds(3);
-      SceneManager.LoadScene("MainMenu");
+      SceneManager.LoadScene("Menu");
 
     }
 }
