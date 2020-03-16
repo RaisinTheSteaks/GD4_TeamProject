@@ -20,4 +20,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MasterScene.unity
     guid: 9b81f4131ee1ef5498d869143fb17e99
+    path: Assets/Scenes/Guard/GuardScene.unity
+    guid: f887e4a4b8c1df1408d31cd4ee4d9e9c
+    path: Assets/Scenes/Cover/ExperimentalMenu.unity
+    guid: a3c9f3ee908112f4192c79f1922f6690
+  - enabled: 1
+    path: Assets/Scenes/Cover/ExperimentalCover.unity
+    guid: d94f6a6b79f3c1b469b7dd3458a7f347
   m_configObjects: {}

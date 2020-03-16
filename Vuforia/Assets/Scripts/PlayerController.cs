@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 if (Turn)
                 {
-                    Debug.Log("Selecting");
+                    //Debug.Log("Selecting");
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     RaycastHit hit;
                     if (Physics.Raycast(ray, out hit))
@@ -179,7 +179,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
                                     child.transform.GetComponent<BotController>().isSelected = false;
                             }
                             hit.transform.GetComponent<BotController>().isSelected = true;
-                            botSymbol.GetComponent<RawImage>().material = hit.transform.GetComponent<BotController>().symbol;
                         }
                     }
                 }

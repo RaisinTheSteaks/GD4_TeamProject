@@ -40,9 +40,6 @@ MonoBehaviour:
   - ChangeActivePlayer
   - onEndTurnButton
   - damage
-  - attackAudio
-  - deathAudio
-  - startDamage
   - missileAudio
   - AddSpectator
   - StartClock
@@ -50,5 +47,9 @@ MonoBehaviour:
   - SetClockState
   - guardPhase
   - EndGame
+  - AttackAudio
+  - DeathAudio
+  - MissileAudio
+  - StartDamage
   DisableAutoOpenWizard: 1
   ShowSettings: 1
