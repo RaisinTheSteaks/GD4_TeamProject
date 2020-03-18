@@ -129,4 +129,8 @@ public class Menu : MonoBehaviourPunCallbacks
         Application.Quit();
     }
 
+    public void ReturnToMenu()
+    {
+        SetScreen(mainScreen);
+    }
 }
