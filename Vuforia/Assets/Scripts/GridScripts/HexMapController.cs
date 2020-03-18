@@ -37,6 +37,7 @@ public class HexMapController : MonoBehaviour
         if(!playerController)
         {
             playerController = FindObjectOfType<PlayerController>();
+            return;
         }
         if (!playerController.pause)
         {
