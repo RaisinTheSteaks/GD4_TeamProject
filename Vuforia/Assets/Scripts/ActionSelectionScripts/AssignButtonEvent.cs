@@ -54,8 +54,8 @@ public class AssignButtonEvent : MonoBehaviour
                         BotController botScript = child.GetComponent<BotController>();
                         moveButton.onClick.AddListener(delegate { botScript.Move(); });
                         attackButton.onClick.AddListener(delegate { botScript.Attack(); });
-                        guardButton.onClick.AddListener(delegate { botScript.guard(); });
-                        specialAbilitiesButton.onClick.AddListener(delegate { botScript.abilities(); });
+                        guardButton.onClick.AddListener(delegate { botScript.Guard(); });
+                        specialAbilitiesButton.onClick.AddListener(delegate { botScript.Abilities(); });
                         
                     }
                     assignEventTrigger(player);

@@ -1,0 +1,485 @@
+fileFormatVersion: 2
+guid: 8f26eb9de3ad763418ca3e90c71b32b1
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Box001
+    100004: Box002
+    100006: Box074
+    100008: Box077
+    100010: Box078
+    100012: CalfBone.l
+    100014: CalfBone.r
+    100016: Camera
+    100018: Chest
+    100020: Chest_missile1
+    100022: Chest_missile2
+    100024: ChestBone
+    100026: ElbowBone.l
+    100028: ElbowBone.l_end
+    100030: ElbowBone.r
+    100032: ElbowBone.r.001
+    100034: ElbowBone.r.001_end
+    100036: FootBone.l
+    100038: FootBone.l_end
+    100040: FootBone.r
+    100042: FootBone.r_end
+    100044: Head
+    100046: HeadBone
+    100048: HeadBone_end
+    100050: l_elbow
+    100052: l_hand
+    100054: l_shoulder_joint
+    100056: Lankle
+    100058: Left_arm
+    100060: Left_foot
+    100062: Left_forearm
+    100064: Light
+    100066: Lknee
+    100068: Lleg_lower
+    100070: Lleg_Upper
+    100072: Lpelvis
+    100074: Neck
+    100076: neck_cyl002
+    100078: neck_cyl1
+    100080: NeckBone
+    100082: Pelvis
+    100084: PelvisBone
+    100086: r_elbow
+    100088: r_hand
+    100090: r_shoulder_joint
+    100092: Rankle
+    100094: right_arm
+    100096: Right_foot
+    100098: right_forearm
+    100100: Rknee
+    100102: Rleg_lower
+    100104: RLeg_upper
+    100106: root
+    100108: Rpelvis
+    100110: ShoulderBone.l
+    100112: ShoulderBone.r
+    100114: //RootNode
+    100116: ThighBone.l
+    100118: ThighBone.r
+    100120: X_com_Rifle
+    400000: Armature
+    400002: Box001
+    400004: Box002
+    400006: Box074
+    400008: Box077
+    400010: Box078
+    400012: CalfBone.l
+    400014: CalfBone.r
+    400016: Camera
+    400018: Chest
+    400020: Chest_missile1
+    400022: Chest_missile2
+    400024: ChestBone
+    400026: ElbowBone.l
+    400028: ElbowBone.l_end
+    400030: ElbowBone.r
+    400032: ElbowBone.r.001
+    400034: ElbowBone.r.001_end
+    400036: FootBone.l
+    400038: FootBone.l_end
+    400040: FootBone.r
+    400042: FootBone.r_end
+    400044: Head
+    400046: HeadBone
+    400048: HeadBone_end
+    400050: l_elbow
+    400052: l_hand
+    400054: l_shoulder_joint
+    400056: Lankle
+    400058: Left_arm
+    400060: Left_foot
+    400062: Left_forearm
+    400064: Light
+    400066: Lknee
+    400068: Lleg_lower
+    400070: Lleg_Upper
+    400072: Lpelvis
+    400074: Neck
+    400076: neck_cyl002
+    400078: neck_cyl1
+    400080: NeckBone
+    400082: Pelvis
+    400084: PelvisBone
+    400086: r_elbow
+    400088: r_hand
+    400090: r_shoulder_joint
+    400092: Rankle
+    400094: right_arm
+    400096: Right_foot
+    400098: right_forearm
+    400100: Rknee
+    400102: Rleg_lower
+    400104: RLeg_upper
+    400106: root
+    400108: Rpelvis
+    400110: ShoulderBone.l
+    400112: ShoulderBone.r
+    400114: //RootNode
+    400116: ThighBone.l
+    400118: ThighBone.r
+    400120: X_com_Rifle
+    2000000: Camera
+    2100000: No Name
+    2100002: standard material
+    2100004: 03 - Default
+    2100006: 01 - Default
+    2300000: Box001
+    2300002: Box002
+    2300004: Box074
+    2300006: Box077
+    2300008: Box078
+    2300010: Chest
+    2300012: Chest_missile1
+    2300014: Chest_missile2
+    2300016: Head
+    2300018: l_elbow
+    2300020: l_hand
+    2300022: l_shoulder_joint
+    2300024: Lankle
+    2300026: Left_arm
+    2300028: Left_foot
+    2300030: Left_forearm
+    2300032: Lknee
+    2300034: Lleg_lower
+    2300036: Lleg_Upper
+    2300038: Lpelvis
+    2300040: Neck
+    2300042: neck_cyl002
+    2300044: neck_cyl1
+    2300046: Pelvis
+    2300048: r_elbow
+    2300050: r_hand
+    2300052: r_shoulder_joint
+    2300054: Rankle
+    2300056: right_arm
+    2300058: Right_foot
+    2300060: right_forearm
+    2300062: Rknee
+    2300064: Rleg_lower
+    2300066: RLeg_upper
+    2300068: Rpelvis
+    2300070: X_com_Rifle
+    3300000: Box001
+    3300002: Box002
+    3300004: Box074
+    3300006: Box077
+    3300008: Box078
+    3300010: Chest
+    3300012: Chest_missile1
+    3300014: Chest_missile2
+    3300016: Head
+    3300018: l_elbow
+    3300020: l_hand
+    3300022: l_shoulder_joint
+    3300024: Lankle
+    3300026: Left_arm
+    3300028: Left_foot
+    3300030: Left_forearm
+    3300032: Lknee
+    3300034: Lleg_lower
+    3300036: Lleg_Upper
+    3300038: Lpelvis
+    3300040: Neck
+    3300042: neck_cyl002
+    3300044: neck_cyl1
+    3300046: Pelvis
+    3300048: r_elbow
+    3300050: r_hand
+    3300052: r_shoulder_joint
+    3300054: Rankle
+    3300056: right_arm
+    3300058: Right_foot
+    3300060: right_forearm
+    3300062: Rknee
+    3300064: Rleg_lower
+    3300066: RLeg_upper
+    3300068: Rpelvis
+    3300070: X_com_Rifle
+    4300000: Pelvis
+    4300002: Box001
+    4300004: Box002
+    4300006: Chest
+    4300008: Chest_missile2
+    4300010: Chest_missile1
+    4300012: Box074
+    4300014: Box077
+    4300016: Box078
+    4300018: l_shoulder_joint
+    4300020: Left_arm
+    4300022: l_elbow
+    4300024: l_hand
+    4300026: Left_forearm
+    4300028: r_shoulder_joint
+    4300030: right_arm
+    4300032: r_hand
+    4300034: r_elbow
+    4300036: right_forearm
+    4300038: X_com_Rifle
+    4300040: Neck
+    4300042: neck_cyl1
+    4300044: neck_cyl002
+    4300046: Head
+    4300048: Lpelvis
+    4300050: Lleg_Upper
+    4300052: Lknee
+    4300054: Lankle
+    4300056: Lleg_lower
+    4300058: Left_foot
+    4300060: Rpelvis
+    4300062: RLeg_upper
+    4300064: Rknee
+    4300066: Rankle
+    4300068: Rleg_lower
+    4300070: Right_foot
+    7400000: Box001|Box001Action
+    7400002: Box001|Box074|Take 001|BaseLayer
+    7400004: Box001|Box078|Take 001|BaseLayer
+    7400006: Box001|Chest_missile1|Take 001|BaseLayer
+    7400008: Box001|Chest_missile2Action
+    7400010: Box001|Chest_missile2|Take 001|BaseLayer
+    7400012: Box001|HeadAction
+    7400014: Box001|PelvisAction
+    7400016: Box001|Rleg_lowerAction
+    7400018: Box001|RLeg_upperAction
+    7400020: Box001|RpelvisAction
+    7400022: Box001|X_com_RifleAction
+    7400024: Rpelvis|Box001Action
+    7400026: Rpelvis|Box074|Take 001|BaseLayer
+    7400028: Rpelvis|Box078|Take 001|BaseLayer
+    7400030: Rpelvis|Chest_missile1|Take 001|BaseLayer
+    7400032: Rpelvis|Chest_missile2Action
+    7400034: Rpelvis|Chest_missile2|Take 001|BaseLayer
+    7400036: Rpelvis|HeadAction
+    7400038: Rpelvis|PelvisAction
+    7400040: Rpelvis|Rleg_lowerAction
+    7400042: Rpelvis|RLeg_upperAction
+    7400044: Rpelvis|RpelvisAction
+    7400046: Rpelvis|X_com_RifleAction
+    7400048: Head|Box001Action
+    7400050: Head|Box074|Take 001|BaseLayer
+    7400052: Head|Box078|Take 001|BaseLayer
+    7400054: Head|Chest_missile1|Take 001|BaseLayer
+    7400056: Head|Chest_missile2Action
+    7400058: Head|Chest_missile2|Take 001|BaseLayer
+    7400060: Head|HeadAction
+    7400062: Head|PelvisAction
+    7400064: Head|Rleg_lowerAction
+    7400066: Head|RLeg_upperAction
+    7400068: Head|RpelvisAction
+    7400070: Head|X_com_RifleAction
+    7400072: RLeg_upper|Box001Action
+    7400074: RLeg_upper|Box074|Take 001|BaseLayer
+    7400076: RLeg_upper|Box078|Take 001|BaseLayer
+    7400078: RLeg_upper|Chest_missile1|Take 001|BaseLayer
+    7400080: RLeg_upper|Chest_missile2Action
+    7400082: RLeg_upper|Chest_missile2|Take 001|BaseLayer
+    7400084: RLeg_upper|HeadAction
+    7400086: RLeg_upper|PelvisAction
+    7400088: RLeg_upper|Rleg_lowerAction
+    7400090: RLeg_upper|RLeg_upperAction
+    7400092: RLeg_upper|RpelvisAction
+    7400094: RLeg_upper|X_com_RifleAction
+    7400096: Pelvis|Box001Action
+    7400098: Pelvis|Box074|Take 001|BaseLayer
+    7400100: Pelvis|Box078|Take 001|BaseLayer
+    7400102: Pelvis|Chest_missile1|Take 001|BaseLayer
+    7400104: Pelvis|Chest_missile2Action
+    7400106: Pelvis|Chest_missile2|Take 001|BaseLayer
+    7400108: Pelvis|HeadAction
+    7400110: Pelvis|PelvisAction
+    7400112: Pelvis|Rleg_lowerAction
+    7400114: Pelvis|RLeg_upperAction
+    7400116: Pelvis|RpelvisAction
+    7400118: Pelvis|X_com_RifleAction
+    7400120: Rleg_lower|Box001Action
+    7400122: Rleg_lower|Box074|Take 001|BaseLayer
+    7400124: Rleg_lower|Box078|Take 001|BaseLayer
+    7400126: Rleg_lower|Chest_missile1|Take 001|BaseLayer
+    7400128: Rleg_lower|Chest_missile2Action
+    7400130: Rleg_lower|Chest_missile2|Take 001|BaseLayer
+    7400132: Rleg_lower|HeadAction
+    7400134: Rleg_lower|PelvisAction
+    7400136: Rleg_lower|Rleg_lowerAction
+    7400138: Rleg_lower|RLeg_upperAction
+    7400140: Rleg_lower|RpelvisAction
+    7400142: Rleg_lower|X_com_RifleAction
+    7400144: Chest_missile2|Box001Action
+    7400146: Chest_missile2|Box074|Take 001|BaseLayer
+    7400148: Chest_missile2|Box078|Take 001|BaseLayer
+    7400150: Chest_missile2|Chest_missile1|Take 001|BaseLayer
+    7400152: Chest_missile2|Chest_missile2Action
+    7400154: Chest_missile2|Chest_missile2|Take 001|BaseLayer
+    7400156: Chest_missile2|HeadAction
+    7400158: Chest_missile2|PelvisAction
+    7400160: Chest_missile2|Rleg_lowerAction
+    7400162: Chest_missile2|RLeg_upperAction
+    7400164: Chest_missile2|RpelvisAction
+    7400166: Chest_missile2|X_com_RifleAction
+    7400168: Chest_missile1|Box001Action
+    7400170: Chest_missile1|Box074|Take 001|BaseLayer
+    7400172: Chest_missile1|Box078|Take 001|BaseLayer
+    7400174: Chest_missile1|Chest_missile1|Take 001|BaseLayer
+    7400176: Chest_missile1|Chest_missile2Action
+    7400178: Chest_missile1|Chest_missile2|Take 001|BaseLayer
+    7400180: Chest_missile1|HeadAction
+    7400182: Chest_missile1|PelvisAction
+    7400184: Chest_missile1|Rleg_lowerAction
+    7400186: Chest_missile1|RLeg_upperAction
+    7400188: Chest_missile1|RpelvisAction
+    7400190: Chest_missile1|X_com_RifleAction
+    7400192: Left_forearm|Box001Action
+    7400194: Left_forearm|Box074|Take 001|BaseLayer
+    7400196: Left_forearm|Box078|Take 001|BaseLayer
+    7400198: Left_forearm|Chest_missile1|Take 001|BaseLayer
+    7400200: Left_forearm|Chest_missile2Action
+    7400202: Left_forearm|Chest_missile2|Take 001|BaseLayer
+    7400204: Left_forearm|HeadAction
+    7400206: Left_forearm|PelvisAction
+    7400208: Left_forearm|Rleg_lowerAction
+    7400210: Left_forearm|RLeg_upperAction
+    7400212: Left_forearm|RpelvisAction
+    7400214: Left_forearm|X_com_RifleAction
+    7400216: Box074|Box001Action
+    7400218: Box074|Box074|Take 001|BaseLayer
+    7400220: Box074|Box078|Take 001|BaseLayer
+    7400222: Box074|Chest_missile1|Take 001|BaseLayer
+    7400224: Box074|Chest_missile2Action
+    7400226: Box074|Chest_missile2|Take 001|BaseLayer
+    7400228: Box074|HeadAction
+    7400230: Box074|PelvisAction
+    7400232: Box074|Rleg_lowerAction
+    7400234: Box074|RLeg_upperAction
+    7400236: Box074|RpelvisAction
+    7400238: Box074|X_com_RifleAction
+    7400240: Box078|Box001Action
+    7400242: Box078|Box074|Take 001|BaseLayer
+    7400244: Box078|Box078|Take 001|BaseLayer
+    7400246: Box078|Chest_missile1|Take 001|BaseLayer
+    7400248: Box078|Chest_missile2Action
+    7400250: Box078|Chest_missile2|Take 001|BaseLayer
+    7400252: Box078|HeadAction
+    7400254: Box078|PelvisAction
+    7400256: Box078|Rleg_lowerAction
+    7400258: Box078|RLeg_upperAction
+    7400260: Box078|RpelvisAction
+    7400262: Box078|X_com_RifleAction
+    7400264: Armature|ArmatureAction.002
+    7400266: Armature|Box001Action
+    7400268: Armature|Box074|Take 001|BaseLayer
+    7400270: Armature|Box078|Take 001|BaseLayer
+    7400272: Armature|Chest_missile1|Take 001|BaseLayer
+    7400274: Armature|Chest_missile2Action
+    7400276: Armature|Chest_missile2|Take 001|BaseLayer
+    7400278: Armature|HeadAction
+    7400280: Armature|PelvisAction
+    7400282: Armature|Rleg_lowerAction
+    7400284: Armature|RLeg_upperAction
+    7400286: Armature|RpelvisAction
+    7400288: Armature|X_com_RifleAction
+    7400290: X_com_Rifle|Box001Action
+    7400292: X_com_Rifle|Box074|Take 001|BaseLayer
+    7400294: X_com_Rifle|Box078|Take 001|BaseLayer
+    7400296: X_com_Rifle|Chest_missile1|Take 001|BaseLayer
+    7400298: X_com_Rifle|Chest_missile2Action
+    7400300: X_com_Rifle|Chest_missile2|Take 001|BaseLayer
+    7400302: X_com_Rifle|HeadAction
+    7400304: X_com_Rifle|PelvisAction
+    7400306: X_com_Rifle|Rleg_lowerAction
+    7400308: X_com_Rifle|RLeg_upperAction
+    7400310: X_com_Rifle|RpelvisAction
+    7400312: X_com_Rifle|X_com_RifleAction
+    9500000: //RootNode
+    10800000: Light
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
