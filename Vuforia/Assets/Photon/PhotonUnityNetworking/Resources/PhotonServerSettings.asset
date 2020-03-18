@@ -51,5 +51,6 @@ MonoBehaviour:
   - DeathAudio
   - MissileAudio
   - StartDamage
+  - GuardPhase
   DisableAutoOpenWizard: 1
   ShowSettings: 1

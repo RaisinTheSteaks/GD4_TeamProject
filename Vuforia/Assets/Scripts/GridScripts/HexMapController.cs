@@ -15,7 +15,7 @@ public class HexMapController : MonoBehaviour
     [Header("Movement")]
     public static int speed = 2;
     private bool isMoving = false;
-    public PlayerController playerController = FindObjectOfType<PlayerController>();
+    public PlayerController playerController;
     private bool previousClick = false;
 
     [Header("Bots")]
@@ -28,6 +28,8 @@ public class HexMapController : MonoBehaviour
 #if !UNITY_EDITOR
             fingerID =0;
 #endif
+        playerController = FindObjectOfType<PlayerController>();
+
     }
 
     void Update()

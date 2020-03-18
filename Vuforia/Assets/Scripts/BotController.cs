@@ -27,7 +27,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public bool specialAbilityMode;
     public bool specialAbilityUsed;
     public bool guardMode;
-    public GameObject hexGrid;
+    public HexGrid hexGrid;
     public string Type;
     Collider[] hitColliders;
 
@@ -56,7 +56,7 @@ public class BotController : MonoBehaviourPunCallbacks
     private const int maxRayDistance = 100;
     public Material symbol;
     public float range;
-    public const float gridScale = 0.035f;
+    public float gridScale;
     private GameObject attackRangeIndicator;
 
     //Pause Screen
@@ -84,14 +84,15 @@ public class BotController : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
-        
+           
         playerScript = transform.parent.GetComponent<PlayerController>();
-
-        hexGrid = GetComponent<GameObject>();
-        hexGrid = GameObject.Find("HexGrid");
-        //botPopUp.SetActive(false);
-
         
+       
+        hexGrid = GameManager.instance.grid;
+        //botPopUp.SetActive(false);
+        Debug.Log(hexGrid.transform.localScale.x);
+        gridScale = hexGrid.transform.localScale.x;
+
         maxHealth = health;
         transform.name = playerScript.name + " " + transform.name;
         healthNumberIndicator.text = ((int)health).ToString();
@@ -149,7 +150,7 @@ public class BotController : MonoBehaviourPunCallbacks
             //enter attacking mode
             
             
-            float offset = 0.07f;
+            float offset = gridScale*10.0f;
 
             
             attackingMode = !attackingMode;
@@ -203,11 +204,11 @@ public class BotController : MonoBehaviourPunCallbacks
                             print(Vector3.Distance(transform.position, hit.transform.position));
 
                             //check if target bot is within distancce
-                            if(Vector3.Distance(transform.position, hit.transform.position) < range * gridScale)
+                            if(Vector3.Distance(transform.position, hit.transform.position) < range * gridScale * 2)
                             {
                                 
                                 transform.LookAt(hit.transform);
-                                Vector3 offsetY = new Vector3(0, 0.01f, 0);
+                                Vector3 offsetY = new Vector3(0, 0.001f, 0);
                                 RaycastHit raycastHit;
 
                                 //check if the ray cast hit something
@@ -227,8 +228,8 @@ public class BotController : MonoBehaviourPunCallbacks
                                             StartCoroutine(Animation("IsShooting"));
 
                                             //start attack audio and calculating damages
-                                            photonView.RPC("attackAudio", RpcTarget.All, transform.name);
-                                            photonView.RPC("startDamage", RpcTarget.All, hit.transform.name, rng, attackDamage);
+                                            photonView.RPC("AttackAudio", RpcTarget.All, transform.name);
+                                            photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, rng, attackDamage);
 
                                             //set attacking moded to false
                                             attackingMode = false;
@@ -238,18 +239,18 @@ public class BotController : MonoBehaviourPunCallbacks
                                         }
                                         else
                                         {
-                                           // AttackTarget.text = "own bot";
+                                            AttackTarget.text = "own bot";
                                         }
                                     }
                                     else
                                     {
-                                       // AttackTarget.text = "invalid target";
+                                        AttackTarget.text = "invalid target";
                                     }
                                 }
                             }
                             else
                             {
-                              //  AttackTarget.text = "target is too far";
+                                AttackTarget.text = "target is too far";
                             }
                         }
                     }
@@ -274,27 +275,27 @@ public class BotController : MonoBehaviourPunCallbacks
 
     }
 
-    //public void guard()
-    //{
-    //    //debugging for action windows, replace this with real move method
+    public void guard()
+    {
+        //debugging for action windows, replace this with real move method
 
-    //    if (isSelected && playerScript.Turn && !specialAbilityMode)
-    //    {
-    //        Debug.Log(transform.name + "guarding");
-            
-    //        photonView.RPC("guardPhase", RpcTarget.All, transform.name);
-    //            //start shooting animation
-    //        StartCoroutine(animation("IsGuarding"));
-            
-    //        //guardPhase(transform.name);
-    //        //end player turn
-    //        // playerScript.EndTurn();
-    //    }
+        if (isSelected && playerScript.Turn && !specialAbilityMode)
+        {
+            Debug.Log(transform.name + "guarding");
 
-    //}
+            photonView.RPC("GuardPhase", RpcTarget.All, transform.name);
+            //start shooting animation
+            StartCoroutine(Animation("IsGuarding"));
+
+            //guardPhase(transform.name);
+            //end player turn
+            // playerScript.EndTurn();
+        }
+
+    }
 
     [PunRPC]
-    public void guardPhase(string botName)
+    public void GuardPhase(string botName)
     {
         //if (guardMode)
         //{
@@ -441,7 +442,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
     private void LoadExplosion()
     {
-        HexCell hex = hexGrid.GetComponent<HexGrid>().GetCell(tap);             //if the player has confirmed the area they want to attack then a hex is created with the tap location.
+        HexCell hex = hexGrid.GetCell(tap);             //if the player has confirmed the area they want to attack then a hex is created with the tap location.
                                                                                 //Sphere is for debugging purposes                                  
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         sphere.transform.position = hex.transform.position;
