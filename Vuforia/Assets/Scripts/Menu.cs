@@ -18,6 +18,7 @@ public class Menu : MonoBehaviourPunCallbacks
     public Button createRoomButton;
     public Button joinRoomButton;
     public TextMeshProUGUI roomListText;
+    
  
 
     [Header("Lobby Screen")]
@@ -40,6 +41,8 @@ public class Menu : MonoBehaviourPunCallbacks
     {
         createRoomButton.interactable = true;
         joinRoomButton.interactable = true;
+
+        PhotonNetwork.JoinLobby();
     }
 
     void SetScreen (GameObject screen)
@@ -58,14 +61,16 @@ public class Menu : MonoBehaviourPunCallbacks
         roomNameText.text = roomNameInput.text; 
     }
 
-    public void OnJoinRoomButton (TMP_InputField roomNameInput)
+    public void OnJoinRoomButton (Text roomNameInput)
     {
+        
         NetworkManager.instance.JoinRoom(roomNameInput.text);
         roomNameText.text = roomNameInput.text;
     }
 
-    public void OnJoinRoomAsSpectatorButton (TMP_InputField roomNameInput)
+    public void OnJoinRoomAsSpectatorButton (Text roomNameInput)
     {
+
         NetworkManager.instance.JoinRoom(roomNameInput.text);
         roomNameText.text = roomNameInput.text;
         joinAsSpectator = true;
@@ -84,6 +89,16 @@ public class Menu : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        foreach(Player player in PhotonNetwork.PlayerListOthers)
+        {
+            if(player.NickName == PhotonNetwork.NickName)
+            {
+                OnLeaveLobbyButton();
+                return;
+            }
+        }
+
+
         SetScreen(lobbyScreen);
 
         //tell all players to update the lobby screen
@@ -141,7 +156,9 @@ public class Menu : MonoBehaviourPunCallbacks
         NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, sceneName);
     }
 
+   
 
+    
 
 
 }

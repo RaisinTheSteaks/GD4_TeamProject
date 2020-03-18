@@ -45,6 +45,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //limiting player count into 2 players per room
         //if(PhotonNetwork.PlayerList.Length <= 2)
         //{
+        if (PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.LeaveLobby();
+        }
+        
         PhotonNetwork.JoinRoom(roomName);
         //}
     }
