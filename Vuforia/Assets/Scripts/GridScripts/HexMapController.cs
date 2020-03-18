@@ -15,7 +15,7 @@ public class HexMapController : MonoBehaviour
     [Header("Movement")]
     public static int speed = 2;
     private bool isMoving = false;
-    public PlayerController playerController;
+    public PlayerController playerController = FindObjectOfType<PlayerController>();
     private bool previousClick = false;
 
     [Header("Bots")]
@@ -25,17 +25,23 @@ public class HexMapController : MonoBehaviour
 
     void Awake()
     {
-        #if !UNITY_EDITOR
+#if !UNITY_EDITOR
             fingerID =0;
-        #endif
+#endif
     }
 
     void Update()
     {
-        if (Input.touchCount > 0 || Input.GetMouseButtonDown(0) || Input.GetMouseButtonUp(0))
+        if(!playerController)
         {
-            ////Stop the player selecting through UI components
-            
+            playerController = FindObjectOfType<PlayerController>();
+        }
+        if (!playerController.pause)
+        {
+            if (Input.touchCount > 0 || Input.GetMouseButtonDown(0) || Input.GetMouseButtonUp(0))
+            {
+                //Stop the player selecting through UI components
+
                 if (Input.touchSupported)
                 {
                     HandleTouchInput();
@@ -44,7 +50,8 @@ public class HexMapController : MonoBehaviour
                 {
                     HandleMouseInput();
                 }
-            
+
+            }
         }
     }
 

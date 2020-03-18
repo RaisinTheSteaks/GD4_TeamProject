@@ -61,6 +61,8 @@ public class BotController : MonoBehaviourPunCallbacks
 
     //Pause Screen
     public bool pause;
+
+
     public void InitializeBot()
     {
         //photonPlayer = player;
@@ -156,7 +158,7 @@ public class BotController : MonoBehaviourPunCallbacks
             if(!attackRangeIndicator)
             {
                 attackRangeIndicator = Instantiate(Resources.Load("VisualFeedback/AttackRange"), transform.position, Quaternion.identity) as GameObject;
-                attackRangeIndicator.transform.localScale = new Vector3(range * offset, 0.01f, range * offset);
+                attackRangeIndicator.transform.localScale = new Vector3(range * offset, 0.01f, range * offset) * 0.5f;
                 attackRangeIndicator.transform.SetParent(GameManager.instance.imageTarget.transform);
 
             }

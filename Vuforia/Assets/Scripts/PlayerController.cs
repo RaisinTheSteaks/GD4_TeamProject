@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public GameObject popUp;
     public GameObject pauseScreen;
-    public bool pause;
+    public bool pause = false;
 
 
     //GameOver
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         popUp = GameObject.Find("PopUp");
         pauseScreen = GameObject.Find("PauseMenu");
-
+        
     }
 
 
