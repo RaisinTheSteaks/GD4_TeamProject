@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Menu.unity
     guid: bf9dec2440379374cb012f956fd991f9
-  - enabled: 0
+  - enabled: 1
+    path: Assets/Scenes/MainMenu/MainMenu.unity
+    guid: 26a170e03754ee04fa924617535de520
+  - enabled: 1
     path: Assets/Scenes/MasterScene.unity
     guid: 9b81f4131ee1ef5498d869143fb17e99
   - enabled: 0
@@ -17,13 +20,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/HowToPlay/HowToPlayMasterScene.unity
     guid: 1e15acda568fa084794e490c4a4c0432
-  - enabled: 1
-    path: Assets/Scenes/MainMenu/MainMenu.unity
-    guid: 26a170e03754ee04fa924617535de520
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu/MainMenuCreateLobby.unity
     guid: a2fa03c74c6fd3048be2cc806ebf693f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu/MainMenuJoinLobby.unity
     guid: dcdd96f950ed0fb42bd6dde6e914cafa
   m_configObjects: {}

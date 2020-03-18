@@ -11,6 +11,7 @@ public class Menu : MonoBehaviourPunCallbacks
 {
     [Header("Screens")]
     public GameObject mainScreen;
+    public GameObject createLobbyScreen;
     public GameObject lobbyScreen;
     public string sceneName;
 
@@ -44,6 +45,7 @@ public class Menu : MonoBehaviourPunCallbacks
     {
         //deactivate all screen
         mainScreen.SetActive(false);
+        createLobbyScreen.SetActive(false);
         lobbyScreen.SetActive(false);
 
         //enable requested scene
@@ -74,7 +76,10 @@ public class Menu : MonoBehaviourPunCallbacks
         //tell all players to update the lobby screen
         photonView.RPC("UpdateLobbyUI", RpcTarget.All);
     }
-
+    public void CreateGame()
+    {
+        SetScreen(createLobbyScreen);
+    }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         //we dont use RPC like when we join the lobby
@@ -119,6 +124,9 @@ public class Menu : MonoBehaviourPunCallbacks
     }
 
 
-
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 
 }

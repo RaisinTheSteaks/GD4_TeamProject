@@ -16,19 +16,4 @@ public class MainMenuController : MonoBehaviour
         
     }
 
-    public void ExitGame()
-    {
-        Debug.Log("END GAME");
-        Application.Quit();
-    }
-
-    public void LoadJoinLobbyScene()
-    {
-        SceneManager.LoadScene("MainMenuJoinLobby");
-    }
-    public void LoadCreateLobbyScene()
-    {
-        SceneManager.LoadScene("MainMenuCreateLobby");
-
-    }
 }
