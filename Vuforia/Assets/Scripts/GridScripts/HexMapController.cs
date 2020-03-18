@@ -261,23 +261,25 @@ public class HexMapController : MonoBehaviour
         BotController[] bots = FindObjectsOfType<BotController>();
         int i = 0;
 
-        if (cell.unit)
+        if (cell != null)
         {
-            foreach (BotController bot in bots)
+            if (cell.unit != null)
             {
-                Debug.Log("Disabling bot selection: " + bot.name + " " + i + "");
-                i++;
-                bot.isSelected = false;
-                selectedBot = null;
+                foreach (BotController bot in bots)
+                {
+                    Debug.Log("Disabling bot selection: " + bot.name + " " + i + "");
+                    i++;
+                    bot.isSelected = false;
+                    selectedBot = null;
+                }
+                selectedBot = cell.unit.GetComponentInParent<BotController>();
+                selectedBot.isSelected = true;
+                Debug.Log("Selecting bot: " + selectedBot.name);
             }
-            selectedBot = cell.unit.GetComponentInParent<BotController>();
-            selectedBot.isSelected = true;
-            Debug.Log("Selecting bot: "+selectedBot.name);
         }
         i = 0;
         return cell;
     }
-
     void ClearStartingCells()
     {
         if (currentCell)
