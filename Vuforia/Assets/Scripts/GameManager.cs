@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public int playerSpeed = 3;
     [Header("Targets")]
     public GameObject selectedTarget;
-
+    
     //Clock
     public GameObject clocks;
 
@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void Awake()
     {
         instance = this;
+
+
     }
 
     private void Start()
@@ -72,10 +74,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
