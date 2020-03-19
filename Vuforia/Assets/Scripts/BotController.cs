@@ -27,7 +27,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public bool specialAbilityMode;
     public bool specialAbilityUsed;
     public bool guardMode;
-    public GameObject hexGrid;
+    public HexGrid hexGrid;
     public string Type;
     Collider[] hitColliders;
 
@@ -56,11 +56,13 @@ public class BotController : MonoBehaviourPunCallbacks
     private const int maxRayDistance = 100;
     public Material symbol;
     public float range;
-    public const float gridScale = 0.035f;
+    public float gridScale;
     private GameObject attackRangeIndicator;
 
     //Pause Screen
     public bool pause;
+
+
     public void InitializeBot()
     {
         //photonPlayer = player;
@@ -82,14 +84,15 @@ public class BotController : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
-        
+           
         playerScript = transform.parent.GetComponent<PlayerController>();
-
-        hexGrid = GetComponent<GameObject>();
-        hexGrid = GameObject.Find("HexGrid");
-        //botPopUp.SetActive(false);
-
         
+       
+        hexGrid = GameManager.instance.grid;
+        //botPopUp.SetActive(false);
+        Debug.Log(hexGrid.transform.localScale.x);
+        gridScale = hexGrid.transform.localScale.x;
+
         maxHealth = health;
         transform.name = playerScript.name + " " + transform.name;
         healthNumberIndicator.text = ((int)health).ToString();
@@ -110,15 +113,20 @@ public class BotController : MonoBehaviourPunCallbacks
             photonView.RPC("startDamage", RpcTarget.All, this.playerScript.name + " " + "Troop" , 10.0f, 10.0f);
         }
         AttackingPhase();
-        updateHealth();
+        UpdateHealth();
         SelectedText();
 
         DespawnAttackRange();
         Explosion(); //first part of tank Special Ability
-        if (confirm && !specialAbilityUsed && !pause)
-            loadExplosion();   //second part of tank special Ability
+        if (confirm && !specialAbilityUsed)
+        {
+            LoadExplosion();   //second part of tank special Ability
+        }
+        if (isSelected)
+        {
+            playerScript.botSymbol.GetComponent<RawImage>().material = symbol;
+        }
     }
-
 
     public void Move()
     {
@@ -142,7 +150,7 @@ public class BotController : MonoBehaviourPunCallbacks
             //enter attacking mode
             
             
-            float offset = 0.07f;
+            float offset = gridScale*10.0f;
 
             
             attackingMode = !attackingMode;
@@ -151,7 +159,7 @@ public class BotController : MonoBehaviourPunCallbacks
             if(!attackRangeIndicator)
             {
                 attackRangeIndicator = Instantiate(Resources.Load("VisualFeedback/AttackRange"), transform.position, Quaternion.identity) as GameObject;
-                attackRangeIndicator.transform.localScale = new Vector3(range * offset, 0.01f, range * offset);
+                attackRangeIndicator.transform.localScale = new Vector3(range * offset, 0.01f, range * offset) * 0.5f;
                 attackRangeIndicator.transform.SetParent(GameManager.instance.imageTarget.transform);
 
             }
@@ -196,11 +204,11 @@ public class BotController : MonoBehaviourPunCallbacks
                             print(Vector3.Distance(transform.position, hit.transform.position));
 
                             //check if target bot is within distancce
-                            if(Vector3.Distance(transform.position, hit.transform.position) < range * gridScale)
+                            if(Vector3.Distance(transform.position, hit.transform.position) < range * gridScale * 2)
                             {
                                 
                                 transform.LookAt(hit.transform);
-                                Vector3 offsetY = new Vector3(0, 0.01f, 0);
+                                Vector3 offsetY = new Vector3(0, 0.001f, 0);
                                 RaycastHit raycastHit;
 
                                 //check if the ray cast hit something
@@ -212,16 +220,16 @@ public class BotController : MonoBehaviourPunCallbacks
                                         //check if the bot is not allied
                                         if(raycastHit.transform.gameObject.GetComponent<BotController>().playerScript != playerScript)
                                         {
-                                            AttackTarget.text = "valid target";
+                                           // AttackTarget.text = "valid target";
                                             //creates random damage
                                             float rng = Random.Range(minRng, maxRng);
 
                                             //start shooting animation
-                                            StartCoroutine(animation("IsShooting"));
+                                            StartCoroutine(Animation("IsShooting"));
 
                                             //start attack audio and calculating damages
-                                            photonView.RPC("attackAudio", RpcTarget.All, transform.name);
-                                            photonView.RPC("startDamage", RpcTarget.All, hit.transform.name, rng, attackDamage);
+                                            photonView.RPC("AttackAudio", RpcTarget.All, transform.name);
+                                            photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, rng, attackDamage);
 
                                             //set attacking moded to false
                                             attackingMode = false;
@@ -252,7 +260,7 @@ public class BotController : MonoBehaviourPunCallbacks
         
     }
 
-    public IEnumerator animation(string boolName)
+    public IEnumerator Animation(string boolName)
     {
         Animator animator = GetComponent<Animator>();
         //if(Type == "Tank")
@@ -266,7 +274,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
 
     }
-    
+
     public void guard()
     {
         //debugging for action windows, replace this with real move method
@@ -274,11 +282,11 @@ public class BotController : MonoBehaviourPunCallbacks
         if (isSelected && playerScript.Turn && !specialAbilityMode)
         {
             Debug.Log(transform.name + "guarding");
-            
-            photonView.RPC("guardPhase", RpcTarget.All, transform.name);
-                //start shooting animation
-            StartCoroutine(animation("IsGuarding"));
-            
+
+            photonView.RPC("GuardPhase", RpcTarget.All, transform.name);
+            //start shooting animation
+            StartCoroutine(Animation("IsGuarding"));
+
             //guardPhase(transform.name);
             //end player turn
             // playerScript.EndTurn();
@@ -287,7 +295,7 @@ public class BotController : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void guardPhase(string botName)
+    public void GuardPhase(string botName)
     {
         //if (guardMode)
         //{
@@ -302,12 +310,12 @@ public class BotController : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void startDamage(string botName, float bonusDamage, float normalDamage)
+    public void StartDamage(string botName, float bonusDamage, float normalDamage)
     {
-        StartCoroutine(damage(botName, bonusDamage, normalDamage));
+        StartCoroutine(Damage(botName, bonusDamage, normalDamage));
     }
 
-    public IEnumerator damage(string botName, float bonusDamage, float normalDamage)
+    public IEnumerator Damage(string botName, float bonusDamage, float normalDamage)
     {
         yield return new WaitForSeconds(0.5f);
         GameObject bot = GameObject.Find(botName);
@@ -330,7 +338,7 @@ public class BotController : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void attackAudio(string botName)
+    public void AttackAudio(string botName)
     {
         GameObject bot = GameObject.Find(botName);
         BotController target = bot.GetComponent<BotController>();
@@ -338,7 +346,7 @@ public class BotController : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void deathAudio(string botName)
+    public void DeathAudio(string botName)
     {
         GameObject bot = GameObject.Find(botName);
         BotController target = bot.GetComponent<BotController>();
@@ -346,7 +354,7 @@ public class BotController : MonoBehaviourPunCallbacks
     }
 
 
-    public void updateHealth()
+    public void UpdateHealth()
     {
         if (updatingHealth)
 
@@ -365,7 +373,7 @@ public class BotController : MonoBehaviourPunCallbacks
             if (health <= 0)
             {
                 health = 0;
-                StartCoroutine(destroyBot());
+                StartCoroutine(DestroyBot());
 
             }
 
@@ -376,17 +384,30 @@ public class BotController : MonoBehaviourPunCallbacks
         }
     }
 
-    public IEnumerator destroyBot()
+    public IEnumerator DestroyBot()
     {
         photonView.RPC("deathAudio", RpcTarget.All, transform.name);
         yield return new WaitForSeconds(0.3f);
+        playerScript.CheckChildren();
         transform.gameObject.SetActive(false);
     }
 
-
-
-    public void abilities()
+    
+    public void Guard()
     {
+        //debugging for action windows, replace this with real move method
+
+        if (isSelected && playerScript.Turn && !specialAbilityMode && !pause)
+        {
+            ResetAllMode();
+            print(transform.name + "guarding");
+        }
+
+    }
+
+    public void Abilities()
+    {
+        Debug.Log("Activating: "+name+"'s ability\nIsSelected: "+isSelected+", Turn?: "+playerScript.Turn+"\nSpecAbil Used?: "+", Paused?: "+pause);
         //debugging for action windows, replace this with real move method
         if (isSelected && playerScript.Turn && !specialAbilityUsed && !pause)
         {
@@ -419,13 +440,13 @@ public class BotController : MonoBehaviourPunCallbacks
         }
     }
 
-    private void loadExplosion()
+    private void LoadExplosion()
     {
-        HexCell hex = hexGrid.GetComponent<HexGrid>().getCell(tap);             //if the player has confirmed the area they want to attack then a hex is created with the tap location.
+        HexCell hex = hexGrid.GetCell(tap);             //if the player has confirmed the area they want to attack then a hex is created with the tap location.
                                                                                 //Sphere is for debugging purposes                                  
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         sphere.transform.position = hex.transform.position;
-        sphere.transform.localScale = new Vector3(0.15f, 0.1f, 0.15f);
+        sphere.transform.localScale = new Vector3(0.035f, 0.02f, 0.035f);
         hitColliders = Physics.OverlapSphere(hex.transform.position, 0.15f);     // An overlap sphere is then spawned at the center of hex. All objects that are touching or within the overlap sphere 
         photonView.RPC("missileAudio", RpcTarget.All, transform.name);
         for (int i = 0; i < hitColliders.Length; i++)                               //are then placed in an array called hitColliders. A for loop then iterates through the hitColliders arrayand if the object 
@@ -434,25 +455,25 @@ public class BotController : MonoBehaviourPunCallbacks
             {                                                                       // is a Bot then the "Start Damage function is called." Once the loop is completed the "specialAbilityUsed" boolean is turned true
                 if (hitColliders[i].transform.tag == "Bot")                         //stopping this bot from using their special ability again.
                 {
-                    photonView.RPC("startDamage", RpcTarget.All, hitColliders[i].transform.name, 30.0f, 0.0f);
+                    photonView.RPC("startDamage", RpcTarget.All, hitColliders[i].transform.name, 3000.0f, 0.0f);
                 }
             }
         }
 
-        StartCoroutine(despawnSphere(sphere));
+        StartCoroutine(DespawnSphere(sphere));
         specialAbilityUsed = true;
         playerScript.EndTurn();
 
     }
 
-    public IEnumerator despawnSphere(GameObject sphere)
+    public IEnumerator DespawnSphere(GameObject sphere)
     {
         yield return new WaitForSeconds(1.0f);
         Destroy(sphere);
     }
 
     [PunRPC]
-    public void missileAudio(string botName)
+    public void MissileAudio(string botName)
     {
         GameObject bot = GameObject.Find(botName);
         BotController target = bot.GetComponent<BotController>();
@@ -474,7 +495,7 @@ public class BotController : MonoBehaviourPunCallbacks
             SelectedStatus.text = "Selected";
             if (once)
             {
-                StartCoroutine(animation("IsSelected"));
+                StartCoroutine(Animation("IsSelected"));
                 once = false;
             }
 

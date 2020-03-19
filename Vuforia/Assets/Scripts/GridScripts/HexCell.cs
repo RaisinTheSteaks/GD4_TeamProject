@@ -71,7 +71,13 @@ public class HexCell : MonoBehaviour
         neighbors[(int)direction] = cell;
         cell.neighbors[(int)direction.Opposite()] = this;
     }
-    
+
+    public void UnSetNeighbor(HexDirection direction)
+    {
+        HexCell cell = neighbors[(int)direction];
+        neighbors[(int)direction] = null;
+        cell.neighbors[(int)direction.Opposite()] = null;
+    }
 
     /*
      Disable higlight and Enable Highlight are used in selecting cells
