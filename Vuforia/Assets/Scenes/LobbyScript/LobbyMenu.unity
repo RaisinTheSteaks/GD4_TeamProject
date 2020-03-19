@@ -2514,7 +2514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainScreen: {fileID: 510931619}
   lobbyScreen: {fileID: 762779896}
-  sceneName: MasterScene
+  sceneName: LobbyGame
   createRoomButton: {fileID: 1861304945}
   joinRoomButton: {fileID: 552415958}
   roomListText: {fileID: 0}
