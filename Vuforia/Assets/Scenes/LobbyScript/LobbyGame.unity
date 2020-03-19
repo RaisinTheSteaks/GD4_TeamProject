@@ -1699,7 +1699,8 @@ MonoBehaviour:
   mapController: {fileID: 1829278095}
   gameEnded: 0
   pingUI: {fileID: 0}
-  PlayerHUD: {fileID: 0}
+  PlayerHUD: {fileID: 6350253553445170105, guid: f8e604de16356d640a964b4a9baf88d7,
+    type: 3}
   playerOnePrefabLocation: _Allied Player
   playerTwoPrefabLocation: _Enemy Player
   spawnPoints:
