@@ -57,8 +57,12 @@ public class Menu : MonoBehaviourPunCallbacks
 
     public void OnCreateRoomButton(TMP_InputField roomNameInput)
     {
-        NetworkManager.instance.CreateRoom(roomNameInput.text);
-        roomNameText.text = roomNameInput.text; 
+        if(roomNameInput.text!= "")
+        {
+            NetworkManager.instance.CreateRoom(roomNameInput.text);
+            roomNameText.text = roomNameInput.text;
+        }
+        
     }
 
     public void OnJoinRoomButton (Text roomNameInput)
