@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public int playerSpeed = 3;
     [Header("Targets")]
     public GameObject selectedTarget;
-
+    
     //Clock
     public GameObject clocks;
 
@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void Awake()
     {
         instance = this;
+
+
     }
 
     private void Start()
@@ -55,14 +57,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         Debug.Log(players.Length);
         if(!NetworkManager.instance.spectator.Contains(PhotonNetwork.NickName))
         {
+            PlayerHUD.SetActive(true);
             clocks = GameObject.Find("Timer");
             photonView.RPC("ImInGame", RpcTarget.AllBuffered);
             clocks.GetComponent<ChessClockController>().startClock = true;
+
         }
-        else
-        {
-            PlayerHUD.SetActive(false);
-        }
+        
         
         mapController.SetSpeed(playerSpeed);
         grid.hexesTravelled = 0;
@@ -72,10 +73,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
