@@ -57,14 +57,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         Debug.Log(players.Length);
         if(!NetworkManager.instance.spectator.Contains(PhotonNetwork.NickName))
         {
+            PlayerHUD.SetActive(true);
             clocks = GameObject.Find("Timer");
             photonView.RPC("ImInGame", RpcTarget.AllBuffered);
             clocks.GetComponent<ChessClockController>().startClock = true;
+
         }
-        else
-        {
-            PlayerHUD.SetActive(false);
-        }
+        
         
         mapController.SetSpeed(playerSpeed);
         grid.hexesTravelled = 0;
