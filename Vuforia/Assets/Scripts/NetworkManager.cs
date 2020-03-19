@@ -32,7 +32,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public void CreateRoom(string roomName)
     {
-        PhotonNetwork.CreateRoom(roomName);
+        if(PhotonNetwork.NickName != "")
+            PhotonNetwork.CreateRoom(roomName);
     }
 
     public override void OnCreatedRoom()
@@ -45,7 +46,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //limiting player count into 2 players per room
         //if(PhotonNetwork.PlayerList.Length <= 2)
         //{
-        PhotonNetwork.JoinRoom(roomName);
+        if (PhotonNetwork.NickName != "")
+        {
+            if (PhotonNetwork.InLobby)
+            {
+                PhotonNetwork.LeaveLobby();
+            }
+
+            PhotonNetwork.JoinRoom(roomName);
+        }
+            
         //}
     }
 

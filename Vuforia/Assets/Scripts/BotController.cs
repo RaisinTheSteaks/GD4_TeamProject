@@ -103,15 +103,7 @@ public class BotController : MonoBehaviourPunCallbacks
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //StartCoroutine(animation("IsShooting"));
-            healthNumberIndicator.text = ((int)health).ToString();
-            
-        }else if(Input.GetKeyDown(KeyCode.C))
-        {
-            photonView.RPC("startDamage", RpcTarget.All, this.playerScript.name + " " + "Troop" , 10.0f, 10.0f);
-        }
+        
         AttackingPhase();
         UpdateHealth();
         SelectedText();
@@ -275,7 +267,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
     }
 
-    public void guard()
+    public void Guard()
     {
         //debugging for action windows, replace this with real move method
 
@@ -386,24 +378,12 @@ public class BotController : MonoBehaviourPunCallbacks
 
     public IEnumerator DestroyBot()
     {
-        photonView.RPC("deathAudio", RpcTarget.All, transform.name);
+        photonView.RPC("DeathAudio", RpcTarget.All, transform.name);
         yield return new WaitForSeconds(0.3f);
         playerScript.CheckChildren();
         transform.gameObject.SetActive(false);
     }
 
-    
-    public void Guard()
-    {
-        //debugging for action windows, replace this with real move method
-
-        if (isSelected && playerScript.Turn && !specialAbilityMode && !pause)
-        {
-            ResetAllMode();
-            print(transform.name + "guarding");
-        }
-
-    }
 
     public void Abilities()
     {
@@ -455,7 +435,7 @@ public class BotController : MonoBehaviourPunCallbacks
             {                                                                       // is a Bot then the "Start Damage function is called." Once the loop is completed the "specialAbilityUsed" boolean is turned true
                 if (hitColliders[i].transform.tag == "Bot")                         //stopping this bot from using their special ability again.
                 {
-                    photonView.RPC("startDamage", RpcTarget.All, hitColliders[i].transform.name, 3000.0f, 0.0f);
+                    photonView.RPC("StartDamage", RpcTarget.All, hitColliders[i].transform.name, 3000.0f, 0.0f);
                 }
             }
         }

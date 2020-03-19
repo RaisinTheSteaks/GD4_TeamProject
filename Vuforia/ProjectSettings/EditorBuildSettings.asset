@@ -5,16 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Cover/ExperimentalMenu.unity
-    guid: a3c9f3ee908112f4192c79f1922f6690
-  - enabled: 0
-    path: Assets/Scenes/Cover/ExperimentalCover.unity
-    guid: d94f6a6b79f3c1b469b7dd3458a7f347
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
-    guid: 598a075301c27f149b5bceccde8b0a78
+    path: Assets/Scenes/LobbyScript/LobbyMenu.unity
+    guid: 40c5f42d87e242d4b91a6ec48302991b
   - enabled: 1
-    path: Assets/Scenes/MasterScene.unity
-    guid: 9b81f4131ee1ef5498d869143fb17e99
+    path: Assets/Scenes/LobbyScript/LobbyGame.unity
+    guid: b698ecbf79416b64698713fb044313df
   m_configObjects: {}
