@@ -6,12 +6,12 @@ using UnityEngine.EventSystems;
 public class HexMapController : MonoBehaviour
 {
     public HexGrid hexGrid;
-    private int fingerID = -1;
+    
 
     [Header("Highlights")]
     public Color highlightColor, selectedColor, movementRangeColor;
     HexCell currentCell, previousCell, endCell, startCell;
-
+    private int fingerID = -1;
     [Header("Movement")]
     public static int speed = 2;
     private bool isMoving = false;
@@ -34,7 +34,8 @@ public class HexMapController : MonoBehaviour
 
     void Update()
     {
-        if(!playerController)
+        
+        if (!playerController)
         {
             playerController = FindObjectOfType<PlayerController>();
             return;
@@ -44,14 +45,16 @@ public class HexMapController : MonoBehaviour
             if (Input.touchCount > 0 || Input.GetMouseButtonDown(0) || Input.GetMouseButtonUp(0))
             {
                 //Stop the player selecting through UI components
-
-                if (Input.touchSupported)
+                if (!EventSystem.current.IsPointerOverGameObject(fingerID))
                 {
-                    HandleTouchInput();
-                }
-                else
-                {
-                    HandleMouseInput();
+                    if (Input.touchSupported)
+                    {
+                        HandleTouchInput();
+                    }
+                    else
+                    {
+                        HandleMouseInput();
+                    }
                 }
 
             }

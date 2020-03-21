@@ -1699,7 +1699,8 @@ MonoBehaviour:
   mapController: {fileID: 1829278095}
   gameEnded: 0
   pingUI: {fileID: 0}
-  PlayerHUD: {fileID: 1670567264}
+  PlayerHUD: {fileID: 6350253553445170105, guid: f8e604de16356d640a964b4a9baf88d7,
+    type: 3}
   playerOnePrefabLocation: _Allied Player
   playerTwoPrefabLocation: _Enemy Player
   spawnPoints:
@@ -1796,6 +1797,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6350253553445170105, guid: f8e604de16356d640a964b4a9baf88d7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6350253553445170109, guid: f8e604de16356d640a964b4a9baf88d7,
         type: 3}
@@ -1917,12 +1923,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8e604de16356d640a964b4a9baf88d7, type: 3}
---- !u!1 &1670567264 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6350253553445170105, guid: f8e604de16356d640a964b4a9baf88d7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1670567263}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1829278094
 GameObject:
   m_ObjectHideFlags: 0
