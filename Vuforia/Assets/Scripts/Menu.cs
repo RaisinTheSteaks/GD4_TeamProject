@@ -12,6 +12,7 @@ public class Menu : MonoBehaviourPunCallbacks
     [Header("Screens")]
     public GameObject mainScreen;
     public GameObject createLobbyScreen;
+    public GameObject joinLobbyScreen;
     public GameObject lobbyScreen;
     public string sceneName;
 
@@ -51,6 +52,7 @@ public class Menu : MonoBehaviourPunCallbacks
         //deactivate all screen
         mainScreen.SetActive(false);
         createLobbyScreen.SetActive(false);
+        joinLobbyScreen.SetActive(false);
         lobbyScreen.SetActive(false);
 
         //enable requested scene
@@ -104,7 +106,6 @@ public class Menu : MonoBehaviourPunCallbacks
             }
         }
 
-
         SetScreen(lobbyScreen);
 
         //tell all players to update the lobby screen
@@ -118,6 +119,11 @@ public class Menu : MonoBehaviourPunCallbacks
     public void CreateGame()
     {
         SetScreen(createLobbyScreen);
+    }
+
+    public void JoinGame()
+    {
+        SetScreen(joinLobbyScreen);
     }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
@@ -170,7 +176,7 @@ public class Menu : MonoBehaviourPunCallbacks
     public void QuitGame()
     {
         Application.Quit();
-    }s
+    }
 
     public void ReturnToMenu()
     {
