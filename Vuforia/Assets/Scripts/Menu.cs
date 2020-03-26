@@ -35,7 +35,10 @@ public class Menu : MonoBehaviourPunCallbacks
         joinRoomButton.interactable = false;
 
     }
-
+    private void Awake()
+    {
+        listingScreen.GetComponent<CanvasScaler>().scaleFactor = 0.001f;
+    }
 
 
     public override void OnConnectedToMaster()
@@ -48,14 +51,23 @@ public class Menu : MonoBehaviourPunCallbacks
 
     void SetScreen(GameObject screen)
     {
-        //deactivate all screen
-        mainScreen.SetActive(false);
-        lobbyScreen.SetActive(false);
-        createLobbyScreen.SetActive(false);
-        listingScreen.SetActive(false);
-
-        //enable requested scene
-        screen.SetActive(true);
+        if (screen.Equals(listingScreen))
+        {
+            mainScreen.SetActive(false);
+            listingScreen.GetComponent<CanvasScaler>().scaleFactor = 1;
+        }
+        else
+        {
+            //deactivate all screen
+            mainScreen.SetActive(false);
+            lobbyScreen.SetActive(false);
+            createLobbyScreen.SetActive(false);
+            listingScreen.GetComponent<CanvasScaler>().scaleFactor = 0.01f;
+            Debug.Log(listingScreen.GetComponent<CanvasScaler>().scaleFactor);
+            Debug.Log("FUCKIUNG UNITY");
+            //enable requested scene
+            screen.SetActive(true);
+        }
     }
 
     public void OnCreateRoomButton(TMP_InputField roomNameInput)
