@@ -5,10 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Menu.unity
     guid: ad2bb4ce56f048b4bbffa60018e03240
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MasterScene.unity
     guid: 9b81f4131ee1ef5498d869143fb17e99
+  - enabled: 1
+    path: Assets/Scenes/VoiceLineFix/VoiceMenu.unity
+    guid: c82e253df456fee42a15aac3119b5402
+  - enabled: 1
+    path: Assets/Scenes/VoiceLineFix/VoiceMaster.unity
+    guid: 7fd78a28bbf77e24b9ef934ef780b7fe
   m_configObjects: {}
