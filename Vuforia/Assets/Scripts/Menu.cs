@@ -64,7 +64,6 @@ public class Menu : MonoBehaviourPunCallbacks
             createLobbyScreen.SetActive(false);
             listingScreen.GetComponent<CanvasScaler>().scaleFactor = 0.01f;
             Debug.Log(listingScreen.GetComponent<CanvasScaler>().scaleFactor);
-            Debug.Log("FUCKIUNG UNITY");
             //enable requested scene
             screen.SetActive(true);
         }
