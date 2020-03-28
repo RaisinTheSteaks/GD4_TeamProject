@@ -53,6 +53,7 @@ MonoBehaviour:
   endTurnMessage: {fileID: 0}
   endTurnMessageImage: {fileID: 0}
   botSymbol: {fileID: 0}
+  actionCount: 0
   grid: {fileID: 0}
   popUp: {fileID: 0}
   pauseScreen: {fileID: 0}
