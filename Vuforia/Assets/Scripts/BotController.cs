@@ -58,6 +58,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public float range;
     public float gridScale;
     private GameObject attackRangeIndicator;
+    public int ActionCount;
 
     //Pause Screen
     public bool pause;
@@ -78,13 +79,10 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         botPopUp = transform.parent.GetComponent<PlayerController>().popUp;
         pause = transform.parent.GetComponent<PlayerController>().pause;
-        
-        
 
     }
     private void Start()
     {
-           
         playerScript = transform.parent.GetComponent<PlayerController>();
         
        
@@ -226,6 +224,9 @@ public class BotController : MonoBehaviourPunCallbacks
                                             //set attacking moded to false
                                             attackingMode = false;
 
+                                            //Increase player action count
+                                            transform.parent.GetComponent<PlayerController>().actionCount++;
+
                                             //end player turn
                                             playerScript.EndTurn();
                                         }
@@ -299,6 +300,7 @@ public class BotController : MonoBehaviourPunCallbacks
         GameObject bot = GameObject.Find(botName);
         BotController target = bot.GetComponent<BotController>();
         target.guardMode = true;
+        transform.parent.GetComponent<PlayerController>().actionCount++;
     }
 
     [PunRPC]
@@ -442,7 +444,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
         StartCoroutine(DespawnSphere(sphere));
         specialAbilityUsed = true;
-        playerScript.EndTurn();
+        transform.parent.GetComponent<PlayerController>().actionCount++;
 
     }
 

@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public Text endTurnMessage;
     public GameObject endTurnMessageImage;
     public GameObject botSymbol;
+    public int actionCount = 0;
 
     public HexGrid grid;
 
@@ -227,6 +228,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public void EndTurn()
     {
         GameManager.instance.photonView.RPC("ChangeActivePlayer", RpcTarget.AllBuffered);
+        actionCount = 0;
 
     }
 
