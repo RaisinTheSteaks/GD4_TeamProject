@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public GameObject pauseScreen;
     public bool pause = false;
 
+    public GameObject action1;
+    public GameObject action2;
 
     //GameOver
     public bool hasChildren = true;
@@ -86,6 +88,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         endTurnMessage = endTurnMessageImage.transform.Find("Text").GetComponent<Text>();
         botSymbol = GameObject.Find("Symbol");
 
+        action1 = GameObject.Find("ActionCount1");
+        action2 = GameObject.Find("ActionCount2");
         endTurnMessageImage.SetActive(false);
         endTurnPressed = false;
 
@@ -93,13 +97,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
         popUp.SetActive(false);
         pauseScreen.SetActive(false);
         endScreen.SetActive(false);
-
     }
 
     private void Update()
     {
         AssignClock(photonPlayer);
-        CheckTurn();
+        CheckTurn(); 
+        UpdateActionCount();
         if (Turn && !pause)
         {
             SelectCharacter();
@@ -145,6 +149,24 @@ public class PlayerController : MonoBehaviourPunCallbacks
             WinScreens();
         }
 
+    }
+
+    private void UpdateActionCount()
+    {
+        if (actionCount == 0)
+        {
+            action1.GetComponent<Image>().color = Color.white;
+            action2.GetComponent<Image>().color = Color.white;
+        }
+        if (actionCount == 1)
+        {
+            action1.GetComponent<Image>().color = Color.grey;
+
+        }
+        else if(actionCount == 2)
+        {
+            action2.GetComponent<Image>().color = Color.grey;
+        }
     }
 
     private void AssignClock(Player player)
