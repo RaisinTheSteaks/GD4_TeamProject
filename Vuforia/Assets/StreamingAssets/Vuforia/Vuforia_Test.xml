@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
+    <ImageTarget name="joker" size="0.100000 0.141794" />
     <ImageTarget name="qoh" size="0.100000 0.138710" />
     <ImageTarget name="koh" size="0.100000 0.138968" />
     <ImageTarget name="hakob-minasian-spacestationv2" size="0.150000 0.071406" />

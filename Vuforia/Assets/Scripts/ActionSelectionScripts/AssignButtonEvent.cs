@@ -62,9 +62,32 @@ public class AssignButtonEvent : MonoBehaviour
                         
                         
                     }
-                    doubleDamage.onClick.AddListener(delegate { player.DoubleDamage(); });
-                    timeStop.onClick.AddListener(delegate { player.StopTime(); });
-                    randomPowerup.onClick.AddListener(delegate { player.RandomPowerups(); });
+
+                    doubleDamage.onClick.AddListener(delegate {
+                        if (player.Turn && !player.doubleDamageUsed)
+                        {
+                            player.DoubleDamage();
+                            player.doubleDamageUsed = true;
+                        }
+                    });
+
+                    timeStop.onClick.AddListener(delegate {
+                        if (player.Turn && !player.timeStopUsed)
+                        {
+                            player.StopTime();
+                            player.timeStopUsed = true;
+                        }
+                           
+
+                    });
+
+                    randomPowerup.onClick.AddListener(delegate {
+                        if (player.Turn && !player.randomUsed)
+                        {
+                            player.RandomPowerups();
+                            player.randomUsed = true;
+                        }
+                    });
                     assignEventTrigger(player);
                     
                     allAssigned = true;

@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public HexGrid grid;
     public bool timeStop;
     public bool timeStopUsed = false;
+    public bool doubleDamageUsed = false;
+    public bool randomUsed = false;
     public float timeStopTimer = 0.0f;
 
     public GameObject popUp;
@@ -179,46 +181,45 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
     public void RandomPowerups()
-    {
-        int powerUpCount = (int)PowerUp.Random;
-        int rng = Random.Range(0, powerUpCount);
-        PowerUp choice = (PowerUp)rng;
-        switch(choice)
-        {
+    {        
+       int powerUpCount = (int)PowerUp.Random;
+       int rng = Random.Range(0, powerUpCount);
+       PowerUp choice = (PowerUp)rng;
+       switch (choice)
+       {
             case PowerUp.DoubleDamage:
-                DoubleDamage();
-                break;
-            case PowerUp.StopTime:
-                StopTime();
-                break;
-            case PowerUp.SwapPosition:
-                SwapBotPos();
-                break;
+                 if(doubleDamageUsed)                   
+                   doubleDamageUsed = false;
+                 DoubleDamage();
+            break;
 
-        }
+            case PowerUp.StopTime:
+                 if (timeStopUsed)
+                    timeStopUsed = false;
+                 StopTime();
+                 break;
+            case PowerUp.SwapPosition:
+                 SwapBotPos();
+                 break;
+
+       }
+
+
     }
 
     public void DoubleDamage()
     {
-        if(Turn)
+        foreach (Transform child in transform)
         {
-            foreach (Transform child in transform)
-            {
-                child.GetComponent<BotController>().DoubleDamage();
-            }
+            child.GetComponent<BotController>().DoubleDamage();
         }
-        
+
     }
 
     public void StopTime()
     {
-        if(Turn && !timeStopUsed)
-        {
-            timeStop = true;
-            photonView.RPC("SetClockState", RpcTarget.All, false);
-            timeStopUsed = true;
-
-        }
+        timeStop = true;
+        photonView.RPC("SetClockState", RpcTarget.All, false);
     }
 
     public void SwapBotPos()

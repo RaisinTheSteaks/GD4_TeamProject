@@ -57,7 +57,6 @@ public class BotController : MonoBehaviourPunCallbacks
     public float range;
     public const float gridScale = 0.035f;
     private GameObject attackRangeIndicator;
-    public bool doubleDamageUsed = false;
     public bool doubleDamage = false;
 
     //Pause Screen
@@ -160,12 +159,9 @@ public class BotController : MonoBehaviourPunCallbacks
 
     public void DoubleDamage()
     {
-        if(!doubleDamageUsed)
-        {
-            doubleDamage = true;
-            doubleDamageUsed = true;
-        }
-
+        
+       doubleDamage = true;
+    
     }
 
     public void AttackingPhase()
