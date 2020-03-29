@@ -98,10 +98,7 @@ public class BotController : MonoBehaviourPunCallbacks
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(animation("IsShooting"));
-        }
+        
         AttackingPhase();
         updateHealth();
         SelectedText();
@@ -159,6 +156,7 @@ public class BotController : MonoBehaviourPunCallbacks
             }
         }
     }
+
 
     public void DoubleDamage()
     {

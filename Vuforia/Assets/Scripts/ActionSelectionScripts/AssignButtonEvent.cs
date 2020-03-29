@@ -15,6 +15,7 @@ public class AssignButtonEvent : MonoBehaviour
     public Button endTurnButton;
     public Button doubleDamage;
     public Button timeStop;
+    public Button randomPowerup;
 
 
     //Pause Menu
@@ -63,6 +64,7 @@ public class AssignButtonEvent : MonoBehaviour
                     }
                     doubleDamage.onClick.AddListener(delegate { player.DoubleDamage(); });
                     timeStop.onClick.AddListener(delegate { player.StopTime(); });
+                    randomPowerup.onClick.AddListener(delegate { player.RandomPowerups(); });
                     assignEventTrigger(player);
                     
                     allAssigned = true;

@@ -6,6 +6,14 @@ using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
 
+enum PowerUp
+{
+    DoubleDamage,
+    StopTime,
+    SwapPosition,
+    Random
+}
+
 public class PlayerController : MonoBehaviourPunCallbacks
 {
     [HideInInspector]
@@ -87,6 +95,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SwapBotPos();
+        }
         checkTurn();
         StartTimeStop();
         if (Turn && !pause)
@@ -166,6 +178,26 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
+    public void RandomPowerups()
+    {
+        int powerUpCount = (int)PowerUp.Random;
+        int rng = Random.Range(0, powerUpCount);
+        PowerUp choice = (PowerUp)rng;
+        switch(choice)
+        {
+            case PowerUp.DoubleDamage:
+                DoubleDamage();
+                break;
+            case PowerUp.StopTime:
+                StopTime();
+                break;
+            case PowerUp.SwapPosition:
+                SwapBotPos();
+                break;
+
+        }
+    }
+
     public void DoubleDamage()
     {
         if(Turn)
@@ -189,6 +221,21 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
+    public void SwapBotPos()
+    {
+        List<Unit> childs = new List<Unit>();
+        foreach (Transform child in transform)
+        {
+            childs.Add(child.gameObject.GetComponent<Unit>());
+        }
+
+        HexCell temp = childs[0].Location;
+        childs[0].Location = childs[1].Location;
+        childs[1].Location = temp;
+
+        childs[0].Location.unit = childs[0];
+        childs[1].Location.unit = childs[1];
+    }
 
     public void StartTimeStop()
     {
