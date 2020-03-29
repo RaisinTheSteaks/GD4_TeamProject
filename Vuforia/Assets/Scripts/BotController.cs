@@ -58,6 +58,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public float range;
     public float gridScale;
     private GameObject attackRangeIndicator;
+    public bool troopAbility;
 
     //Pause Screen
     public bool pause;
@@ -110,6 +111,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
         DespawnAttackRange();
         Explosion(); //first part of tank Special Ability
+        Heal();
         if (confirm && !specialAbilityUsed)
         {
             LoadExplosion();   //second part of tank special Ability
@@ -318,7 +320,8 @@ public class BotController : MonoBehaviourPunCallbacks
         //print(target.health);
 
         //Half damage taken if player has entered guard
-        if (target.guardMode)
+
+        if (target.guardMode && normalDamage > 0)
         {
             target.health -= (bonusDamage + normalDamage) / 2;
             target.guardMode = false;
@@ -326,6 +329,8 @@ public class BotController : MonoBehaviourPunCallbacks
         else
         {
             target.health -= bonusDamage + normalDamage;
+            if (target.health > target.maxHealth)
+                target.health = target.maxHealth;
         }
     }
 
@@ -392,9 +397,36 @@ public class BotController : MonoBehaviourPunCallbacks
         if (isSelected && playerScript.Turn && !specialAbilityUsed && !pause)
         {
             ResetAllMode();
-            specialAbilityMode = true;
+            if (Type.Equals("Tank"))
+                specialAbilityMode = true;
+            else
+                troopAbility = true;
         }
 
+    }
+
+    private void Heal()
+    {
+        if (troopAbility && !specialAbilityUsed && !pause)
+        {
+            if (Input.GetMouseButtonDown(0)) //this if statement creates a raycast that checks if the player has touched a hexagon.
+            {
+                print("troop ability");
+                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+             
+                if (Physics.Raycast(ray, out hit, maxRayDistance))
+                {
+                   if (hit.transform.tag == "Bot") 
+                   {
+                        if (hit.transform.parent == playerScript.transform)
+                            photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, 0.0f, -30.0f);
+                        specialAbilityUsed = true;
+                        playerScript.EndTurn();
+                   }                                    
+                }
+            }
+        }
     }
 
     private void Explosion()
@@ -428,7 +460,7 @@ public class BotController : MonoBehaviourPunCallbacks
         sphere.transform.position = hex.transform.position;
         sphere.transform.localScale = new Vector3(0.035f, 0.02f, 0.035f);
         hitColliders = Physics.OverlapSphere(hex.transform.position, 0.15f);     // An overlap sphere is then spawned at the center of hex. All objects that are touching or within the overlap sphere 
-        photonView.RPC("missileAudio", RpcTarget.All, transform.name);
+        photonView.RPC("MissileAudio", RpcTarget.All, transform.name);
         for (int i = 0; i < hitColliders.Length; i++)                               //are then placed in an array called hitColliders. A for loop then iterates through the hitColliders arrayand if the object 
         {
             if (hitColliders[i].transform.parent != playerScript.transform)
