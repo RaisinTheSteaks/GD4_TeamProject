@@ -2946,6 +2946,8 @@ MonoBehaviour:
   guardButton: {fileID: 6113236460349773880}
   specialAbilitiesButton: {fileID: 6342550935314064183}
   endTurnButton: {fileID: 2144769830108670634}
+  doubleDamage: {fileID: 0}
+  timeStop: {fileID: 0}
   resumeButton: {fileID: 990338511}
   pauseButton: {fileID: 500228874}
   allAssigned: 0

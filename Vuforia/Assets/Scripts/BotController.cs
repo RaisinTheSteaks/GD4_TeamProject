@@ -58,6 +58,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public float range;
     public float gridScale;
     private GameObject attackRangeIndicator;
+    public bool doubleDamage = false;
 
     //Pause Screen
     public bool pause;
@@ -170,6 +171,14 @@ public class BotController : MonoBehaviourPunCallbacks
         }
     }
 
+
+    public void DoubleDamage()
+    {
+        
+       doubleDamage = true;
+    
+    }
+
     public void AttackingPhase()
     {
         if (attackingMode && !pause)
@@ -220,8 +229,18 @@ public class BotController : MonoBehaviourPunCallbacks
                                             StartCoroutine(Animation("IsShooting"));
 
                                             //start attack audio and calculating damages
+
                                             photonView.RPC("AttackAudio", RpcTarget.All, transform.name);
-                                            photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, rng, attackDamage);
+
+
+                                            float damage = attackDamage;
+                                            if (doubleDamage)
+                                            {
+                                                damage *= 2;
+                                                doubleDamage = false;
+                                            }
+
+                                            photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, rng, damage);
 
                                             //set attacking moded to false
                                             attackingMode = false;
@@ -428,7 +447,7 @@ public class BotController : MonoBehaviourPunCallbacks
         sphere.transform.position = hex.transform.position;
         sphere.transform.localScale = new Vector3(0.035f, 0.02f, 0.035f);
         hitColliders = Physics.OverlapSphere(hex.transform.position, 0.15f);     // An overlap sphere is then spawned at the center of hex. All objects that are touching or within the overlap sphere 
-        photonView.RPC("missileAudio", RpcTarget.All, transform.name);
+        photonView.RPC("MissileAudio", RpcTarget.All, transform.name);
         for (int i = 0; i < hitColliders.Length; i++)                               //are then placed in an array called hitColliders. A for loop then iterates through the hitColliders arrayand if the object 
         {
             if (hitColliders[i].transform.parent != playerScript.transform)

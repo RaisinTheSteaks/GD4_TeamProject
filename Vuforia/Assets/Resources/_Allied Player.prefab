@@ -54,6 +54,11 @@ MonoBehaviour:
   endTurnMessageImage: {fileID: 0}
   botSymbol: {fileID: 0}
   grid: {fileID: 0}
+  timeStop: 0
+  timeStopUsed: 0
+  doubleDamageUsed: 0
+  randomUsed: 0
+  timeStopTimer: 0
   popUp: {fileID: 0}
   pauseScreen: {fileID: 0}
   pause: 0
