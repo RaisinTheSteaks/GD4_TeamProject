@@ -6,12 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
-    guid: ad2bb4ce56f048b4bbffa60018e03240
-  - enabled: 0
-    path: Assets/Scenes/MainMenu/MainMenu.unity
-    guid: 26a170e03754ee04fa924617535de520
+    path: Assets/Scenes/TroopAbility/TroopMenu.unity
+    guid: 8e71f55cf465ece41a8cc60ccef9b121
   - enabled: 1
-    path: Assets/Scenes/MasterScene.unity
-    guid: 9b81f4131ee1ef5498d869143fb17e99
+    path: Assets/Scenes/TroopAbility/TroopGame.unity
+    guid: 0938c1be7e6c2f84882edb7a1bd8d918
   m_configObjects: {}
