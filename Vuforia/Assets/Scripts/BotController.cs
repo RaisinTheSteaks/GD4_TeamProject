@@ -281,7 +281,7 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         //debugging for action windows, replace this with real move method
 
-        if (isSelected && playerScript.Turn && !specialAbilityMode && CheckActionCount())
+        if (isSelected && playerScript.Turn && !specialAbilityMode &&  !guardMode && CheckActionCount())
         {
             Debug.Log(transform.name + "guarding");
 

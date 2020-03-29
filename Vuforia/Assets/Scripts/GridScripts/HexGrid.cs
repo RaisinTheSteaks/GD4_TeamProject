@@ -435,11 +435,11 @@ public class HexGrid : MonoBehaviour
                         selectedUnit.Location = currentPathTo;
                         hexesTravelled += currentPathTo.Distance;
                     }
+                    selectedBot.transform.parent.GetComponent<PlayerController>().actionCount++;
                 }
             }
             DisableAllHighlights();
             ClearPath();
-            selectedBot.transform.parent.GetComponent<PlayerController>().actionCount++;
         }
     }
 
