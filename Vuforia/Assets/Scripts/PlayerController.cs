@@ -207,7 +207,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public void RandomPowerups()
     {        
        int powerUpCount = (int)PowerUp.Random;
-       int rng = Random.Range(0, powerUpCount);
+       int rng = UnityEngine.Random.Range(0, powerUpCount);
        PowerUp choice = (PowerUp)rng;
        switch (choice)
        {
