@@ -26,6 +26,7 @@ public class Menu : MonoBehaviourPunCallbacks
     public TextMeshProUGUI playerListText;
     public Button startGameButton;
     public TextMeshProUGUI roomNameText;
+    public GameObject howToPlay;
 
     private bool joinAsSpectator = false;
 
@@ -121,7 +122,6 @@ public class Menu : MonoBehaviourPunCallbacks
             }
         }
 
-
         SetScreen(lobbyScreen);
 
         //tell all players to update the lobby screen
@@ -133,6 +133,10 @@ public class Menu : MonoBehaviourPunCallbacks
         photonView.RPC("UpdateLobbyUI", RpcTarget.All);
     }
 
+    public void CloseHowToPlay()
+    {
+        howToPlay.SetActive(false);
+    }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         //we dont use RPC like when we join the lobby
