@@ -83,6 +83,7 @@ public class HexMapController : MonoBehaviour
                     {
                         startCell = cell;
                         currentCell = startCell;
+
                     }
                 }
                 break;
@@ -277,6 +278,7 @@ public class HexMapController : MonoBehaviour
                 }
                 selectedBot = cell.unit.GetComponentInParent<BotController>();
                 selectedBot.isSelected = true;
+                FindObjectOfType<VoiceLineManager>().SetBotName(selectedBot.botName);
                 Debug.Log("Selecting bot: " + selectedBot.name);
             }
         }
