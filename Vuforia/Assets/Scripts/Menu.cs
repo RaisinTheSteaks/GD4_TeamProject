@@ -13,6 +13,7 @@ public class Menu : MonoBehaviourPunCallbacks
     public GameObject lobbyScreen;
     public GameObject createLobbyScreen;
     public GameObject listingScreen;
+    public GameObject settingsScreen;
     public string sceneName;
 
     [Header("Main Screen")]
@@ -175,6 +176,11 @@ public class Menu : MonoBehaviourPunCallbacks
     public void CreateGame()
     {
         SetScreen(createLobbyScreen);
+    }
+
+    public void Settings()
+    {
+        SetScreen(settingsScreen);
     }
 
     public void ReturnToMenu()
