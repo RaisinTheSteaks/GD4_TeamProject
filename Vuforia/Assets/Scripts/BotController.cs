@@ -454,7 +454,7 @@ public class BotController : MonoBehaviourPunCallbacks
             {                                                                       // is a Bot then the "Start Damage function is called." Once the loop is completed the "specialAbilityUsed" boolean is turned true
                 if (hitColliders[i].transform.tag == "Bot")                         //stopping this bot from using their special ability again.
                 {
-                    photonView.RPC("StartDamage", RpcTarget.All, hitColliders[i].transform.name, 3000.0f, 0.0f);
+                    photonView.RPC("StartDamage", RpcTarget.All, hitColliders[i].transform.name, 30.0f, 0.0f);
                 }
             }
         }

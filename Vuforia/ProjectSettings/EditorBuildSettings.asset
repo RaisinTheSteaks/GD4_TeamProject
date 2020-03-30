@@ -7,7 +7,7 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/ImageTargetDemo/ImgMenu.unity
-    guid: e73ea9e594e4825489de0801acd53544
+    guid: ca1aa43a27dd5ee42b172ed7e2158d7b
   - enabled: 1
     path: Assets/Scenes/ImageTargetDemo/ImgGame.unity
     guid: 3b904d5bb1411334fa5a701b44e04aad

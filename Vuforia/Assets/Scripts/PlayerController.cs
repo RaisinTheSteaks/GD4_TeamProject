@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         transform.name = photonPlayer.NickName;
 
         endScreen = GameObject.Find("EndScreen");
-        endText = endScreen.transform.Find("Text").GetComponent<Text>();
+        endText = endScreen.transform.Find("EndText").GetComponent<Text>();
         EndTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
         endTurnMessageImage = GameObject.Find("EndTurnMessage");
         endTurnMessage = endTurnMessageImage.transform.Find("Text").GetComponent<Text>();
@@ -209,6 +209,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
        int powerUpCount = (int)PowerUp.Random;
        int rng = UnityEngine.Random.Range(0, powerUpCount);
        PowerUp choice = (PowerUp)rng;
+        choice = PowerUp.SwapPosition;
        switch (choice)
        {
             case PowerUp.DoubleDamage:
