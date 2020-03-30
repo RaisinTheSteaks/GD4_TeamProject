@@ -14,7 +14,7 @@ public class BotController : MonoBehaviourPunCallbacks
     Vector3 tap = new Vector3();
     Ray ray;
     public bool confirm;
-   
+    public string botName;
 
     [Header("Info")]
     public bool isSelected = false;
@@ -94,6 +94,7 @@ public class BotController : MonoBehaviourPunCallbacks
         gridScale = hexGrid.transform.localScale.x;
 
         maxHealth = health;
+        botName = transform.name;
         transform.name = playerScript.name + " " + transform.name;
         healthNumberIndicator.text = ((int)health).ToString();
         healthBarRect = healthBar.GetComponent<RectTransform>();
