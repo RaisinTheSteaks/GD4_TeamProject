@@ -5,10 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MasterScene.unity
     guid: 9b81f4131ee1ef5498d869143fb17e99
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Menu.unity
     guid: ad2bb4ce56f048b4bbffa60018e03240
+  - enabled: 1
+    path: Assets/Scenes/SettingsPage/DupliateMenu.unity
+    guid: 34279904e5030c24780d67c8c3df15ba
+  - enabled: 1
+    path: Assets/Scenes/SettingsPage/DuplicateGame.unity
+    guid: d426afa011992074b91c2b75fa7edb18
   m_configObjects: {}

@@ -179,11 +179,15 @@ public class Menu : MonoBehaviourPunCallbacks
         SetScreen(createLobbyScreen);
     }
 
-    public void Settings()
+    public void OpenSettings()
     {
-        SetScreen(settingsScreen);
+        settingsScreen.SetActive(true);
     }
 
+    public void CloseSettings()
+    {
+        settingsScreen.SetActive(false);
+    }
     public void ReturnToMenu()
     {
         SetScreen(mainScreen);
