@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
 
 public class Menu : MonoBehaviourPunCallbacks
 {
+    public AudioMixer theMixer;
+    public Slider mastSlider, musicSlider, sfxSlider;
+    public Text mastLabel, musicLabel, sfxLabel;
+
     [Header("Screens")]
     public GameObject mainScreen;
     public GameObject lobbyScreen;
@@ -199,9 +204,24 @@ public class Menu : MonoBehaviourPunCallbacks
         NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, sceneName);
     }
 
+    public void SetMasterVol()
+    {
+        mastLabel.text = (mastSlider.value + 80).ToString();
+        theMixer.SetFloat("MasterVol", mastSlider.value);
+        PlayerPrefs.SetFloat("MasterVol", mastSlider.value);
+    }
 
+    public void SetMusicVol()
+    {
+        musicLabel.text = (musicSlider.value + 80).ToString();
+        theMixer.SetFloat("MusicVol", musicSlider.value);
+        PlayerPrefs.SetFloat("MusicVol", musicSlider.value);
+    }
 
-
-
-
+    public void SetSFXVol()
+    {
+        sfxLabel.text = (sfxSlider.value + 80).ToString();
+        theMixer.SetFloat("SFXVol", sfxSlider.value);
+        PlayerPrefs.SetFloat("SFXVol", sfxSlider.value);
+    }
 }
