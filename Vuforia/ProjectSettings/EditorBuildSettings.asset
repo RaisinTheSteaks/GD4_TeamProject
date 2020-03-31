@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MasterScene.unity
-    guid: 9b81f4131ee1ef5498d869143fb17e99
+    path: Assets/Scenes/GalleryMode/GalleryMenu.unity
+    guid: 666b604bb5a0ae6448469760913941ff
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
-    guid: ad2bb4ce56f048b4bbffa60018e03240
+    path: Assets/Scenes/GalleryMode/GalleryGame.unity
+    guid: 42291cb2f4e0a9541a5c80f4ed4b9892
+  - enabled: 1
+    path: Assets/Scenes/GalleryMode/GalleryScene.unity
+    guid: 5f3b04a44342b8242a875709f48cd123
   m_configObjects: {}
