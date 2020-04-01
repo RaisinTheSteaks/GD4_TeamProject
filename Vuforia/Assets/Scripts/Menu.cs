@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
@@ -14,6 +15,7 @@ public class Menu : MonoBehaviourPunCallbacks
     public GameObject createLobbyScreen;
     public GameObject listingScreen;
     public string sceneName;
+    public string galleryScene;
 
     [Header("Main Screen")]
     public Button createRoomButton;
@@ -186,6 +188,11 @@ public class Menu : MonoBehaviourPunCallbacks
         //Scene that will be loaded is Duplicate instead of MasterScene
 
         NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, sceneName);
+    }
+
+    public void OnGalleryModeButton()
+    {
+        SceneManager.LoadScene(galleryScene, LoadSceneMode.Single);
     }
 
 
