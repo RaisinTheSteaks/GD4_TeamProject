@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public bool endGame = false;
     public float playerClock;
     public Text endText;
+    public bool troopAbility;
 
 [PunRPC]
     public void Initialize(Player player)
@@ -92,7 +93,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         popUp.SetActive(false);
         pauseScreen.SetActive(false);
         endScreen.SetActive(false);
-
+        troopAbility = false;
     }
 
     private void Update()
