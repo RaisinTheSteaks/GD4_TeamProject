@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -755,7 +755,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 885958712}
   m_HandleRect: {fileID: 885958711}
   m_Direction: 0
-  m_Value: 0.00000057916566
+  m_Value: 0.0000005791656
   m_Size: 0.12738852
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4763,6 +4763,7 @@ MonoBehaviour:
   createLobbyScreen: {fileID: 510931619}
   listingScreen: {fileID: 1479502468}
   sceneName: MasterScene
+  galleryScene: Gallery
   createRoomButton: {fileID: 1861304945}
   joinRoomButton: {fileID: 552415958}
   roomListText: {fileID: 0}
@@ -6831,7 +6832,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 964598306}
-        m_MethodName: JoinGame
+        m_MethodName: OnGalleryModeButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
