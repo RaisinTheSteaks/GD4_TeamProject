@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
 
 public class Menu : MonoBehaviourPunCallbacks
 {
+    public AudioMixer theMixer;
+    public Slider mastSlider, musicSlider, sfxSlider;
+    public Text mastLabel, musicLabel, sfxLabel;
+
     [Header("Screens")]
     public GameObject mainScreen;
     public GameObject lobbyScreen;
     public GameObject createLobbyScreen;
     public GameObject listingScreen;
+    public GameObject settingsScreen;
     public string sceneName;
     public string galleryScene;
 
@@ -64,6 +70,7 @@ public class Menu : MonoBehaviourPunCallbacks
             mainScreen.SetActive(false);
             lobbyScreen.SetActive(false);
             createLobbyScreen.SetActive(false);
+            settingsScreen.SetActive(false);
             listingScreen.GetComponent<CanvasScaler>().scaleFactor = 0.01f;
             Debug.Log(listingScreen.GetComponent<CanvasScaler>().scaleFactor);
             //enable requested scene
@@ -179,6 +186,15 @@ public class Menu : MonoBehaviourPunCallbacks
         SetScreen(createLobbyScreen);
     }
 
+    public void OpenSettings()
+    {
+        settingsScreen.SetActive(true);
+    }
+
+    public void CloseSettings()
+    {
+        settingsScreen.SetActive(false);
+    }
     public void ReturnToMenu()
     {
         SetScreen(mainScreen);
@@ -195,9 +211,24 @@ public class Menu : MonoBehaviourPunCallbacks
         SceneManager.LoadScene(galleryScene, LoadSceneMode.Single);
     }
 
+    public void SetMasterVol()
+    {
+        mastLabel.text = (mastSlider.value + 80).ToString();
+        theMixer.SetFloat("MasterVol", mastSlider.value);
+        PlayerPrefs.SetFloat("MasterVol", mastSlider.value);
+    }
 
+    public void SetMusicVol()
+    {
+        musicLabel.text = (musicSlider.value + 80).ToString();
+        theMixer.SetFloat("MusicVol", musicSlider.value);
+        PlayerPrefs.SetFloat("MusicVol", musicSlider.value);
+    }
 
-
-
-
+    public void SetSFXVol()
+    {
+        sfxLabel.text = (sfxSlider.value + 80).ToString();
+        theMixer.SetFloat("SFXVol", sfxSlider.value);
+        PlayerPrefs.SetFloat("SFXVol", sfxSlider.value);
+    }
 }
