@@ -59,6 +59,8 @@ public class BotController : MonoBehaviourPunCallbacks
     public float gridScale;
     private GameObject attackRangeIndicator;
     public bool troopAbility;
+    public bool doubleDamage = false;
+
 
     //Pause Screen
     public bool pause;
@@ -173,6 +175,14 @@ public class BotController : MonoBehaviourPunCallbacks
         }
     }
 
+
+    public void DoubleDamage()
+    {
+        
+       doubleDamage = true;
+    
+    }
+
     public void AttackingPhase()
     {
         if (attackingMode && !pause)
@@ -223,8 +233,18 @@ public class BotController : MonoBehaviourPunCallbacks
                                             StartCoroutine(Animation("IsShooting"));
 
                                             //start attack audio and calculating damages
+
                                             photonView.RPC("AttackAudio", RpcTarget.All, transform.name);
-                                            photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, rng, attackDamage);
+
+
+                                            float damage = attackDamage;
+                                            if (doubleDamage)
+                                            {
+                                                damage *= 2;
+                                                doubleDamage = false;
+                                            }
+
+                                            photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, rng, damage);
 
                                             //set attacking moded to false
                                             attackingMode = false;
@@ -468,7 +488,7 @@ public class BotController : MonoBehaviourPunCallbacks
             {                                                                       // is a Bot then the "Start Damage function is called." Once the loop is completed the "specialAbilityUsed" boolean is turned true
                 if (hitColliders[i].transform.tag == "Bot")                         //stopping this bot from using their special ability again.
                 {
-                    photonView.RPC("StartDamage", RpcTarget.All, hitColliders[i].transform.name, 3000.0f, 0.0f);
+                    photonView.RPC("StartDamage", RpcTarget.All, hitColliders[i].transform.name, 30.0f, 0.0f);
                 }
             }
         }
