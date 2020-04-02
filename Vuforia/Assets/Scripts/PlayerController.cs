@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         transform.name = photonPlayer.NickName;
 
         endScreen = GameObject.Find("EndScreen");
-        endText = endScreen.transform.Find("EndText").GetComponent<Text>();
+        endText = endScreen.transform.Find("Text").GetComponent<Text>();
         EndTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
         endTurnMessageImage = GameObject.Find("EndTurnMessage");
         endTurnMessage = endTurnMessageImage.transform.Find("Text").GetComponent<Text>();
