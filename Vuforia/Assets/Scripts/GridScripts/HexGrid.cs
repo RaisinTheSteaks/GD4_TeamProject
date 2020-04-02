@@ -422,19 +422,20 @@ public class HexGrid : MonoBehaviour
         }
     }
 
-    public void DoMove()
+    public void DoMove(BotController selectedBot)
     {
         if (HasPath)
         {
             if (currentPathTo.inRange == true)
             {
-                if (currentPathTo.Distance < (speed-hexesTravelled))
+                if (currentPathTo.Distance < (speed - hexesTravelled))
                 {
                     if (!currentPathTo.unit)
                     {
                         selectedUnit.Location = currentPathTo;
                         hexesTravelled += currentPathTo.Distance;
                     }
+                    selectedBot.transform.parent.GetComponent<PlayerController>().actionCount++;
                 }
             }
             DisableAllHighlights();
