@@ -14,7 +14,7 @@ public class BotController : MonoBehaviourPunCallbacks
     Vector3 tap = new Vector3();
     Ray ray;
     public bool confirm;
-
+    public string botName;
 
     [Header("Info")]
     public bool isSelected = false;
@@ -58,6 +58,9 @@ public class BotController : MonoBehaviourPunCallbacks
     public float range;
     public float gridScale;
     private GameObject attackRangeIndicator;
+    public bool troopAbility;
+    public bool doubleDamage = false;
+
 
     //Pause Screen
     public bool pause;
@@ -91,6 +94,7 @@ public class BotController : MonoBehaviourPunCallbacks
         gridScale = hexGrid.transform.localScale.x;
 
         maxHealth = health;
+        botName = transform.name;
         transform.name = playerScript.name + " " + transform.name;
         healthNumberIndicator.text = ((int)health).ToString();
         healthBarRect = healthBar.GetComponent<RectTransform>();
@@ -107,6 +111,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
         DespawnAttackRange();
         Explosion(); //first part of tank Special Ability
+        Heal();
         if (confirm && !specialAbilityUsed)
         {
             LoadExplosion();   //second part of tank special Ability
@@ -177,6 +182,14 @@ public class BotController : MonoBehaviourPunCallbacks
         }
     }
 
+
+    public void DoubleDamage()
+    {
+        
+       doubleDamage = true;
+    
+    }
+
     public void AttackingPhase()
     {
         if (attackingMode && !pause)
@@ -227,8 +240,18 @@ public class BotController : MonoBehaviourPunCallbacks
                                             StartCoroutine(Animation("IsShooting"));
 
                                             //start attack audio and calculating damages
+
                                             photonView.RPC("AttackAudio", RpcTarget.All, transform.name);
-                                            photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, rng, attackDamage);
+
+
+                                            float damage = attackDamage;
+                                            if (doubleDamage)
+                                            {
+                                                damage *= 2;
+                                                doubleDamage = false;
+                                            }
+
+                                            photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, rng, damage);
 
                                             //set attacking moded to false
                                             attackingMode = false;
@@ -329,7 +352,8 @@ public class BotController : MonoBehaviourPunCallbacks
         //print(target.health);
 
         //Half damage taken if player has entered guard
-        if (target.guardMode)
+
+        if (target.guardMode && normalDamage > 0)
         {
             target.health -= (bonusDamage + normalDamage) / 2;
             target.guardMode = false;
@@ -337,6 +361,8 @@ public class BotController : MonoBehaviourPunCallbacks
         else
         {
             target.health -= bonusDamage + normalDamage;
+            if (target.health > target.maxHealth)
+                target.health = target.maxHealth;
         }
     }
 
@@ -403,9 +429,36 @@ public class BotController : MonoBehaviourPunCallbacks
         if (isSelected && playerScript.Turn && !specialAbilityUsed && !pause && CheckActionCount())
         {
             ResetAllMode();
-            specialAbilityMode = true;
+            if (Type.Equals("Tank"))
+                specialAbilityMode = true;
+            else
+                troopAbility = true;
         }
 
+    }
+
+    private void Heal()
+    {
+        if (troopAbility && !specialAbilityUsed && !pause)
+        {
+            if (Input.GetMouseButtonDown(0)) //this if statement creates a raycast that checks if the player has touched a hexagon.
+            {
+                print("troop ability");
+                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+             
+                if (Physics.Raycast(ray, out hit, maxRayDistance))
+                {
+                   if (hit.transform.tag == "Bot") 
+                   {
+                        if (hit.transform.parent == playerScript.transform)
+                            photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, 0.0f, -30.0f);
+                        specialAbilityUsed = true;
+                        playerScript.EndTurn();
+                   }                                    
+                }
+            }
+        }
     }
 
     private void Explosion()
@@ -439,14 +492,14 @@ public class BotController : MonoBehaviourPunCallbacks
         sphere.transform.position = hex.transform.position;
         sphere.transform.localScale = new Vector3(0.035f, 0.02f, 0.035f);
         hitColliders = Physics.OverlapSphere(hex.transform.position, 0.15f);     // An overlap sphere is then spawned at the center of hex. All objects that are touching or within the overlap sphere 
-        photonView.RPC("missileAudio", RpcTarget.All, transform.name);
+        photonView.RPC("MissileAudio", RpcTarget.All, transform.name);
         for (int i = 0; i < hitColliders.Length; i++)                               //are then placed in an array called hitColliders. A for loop then iterates through the hitColliders arrayand if the object 
         {
             if (hitColliders[i].transform.parent != playerScript.transform)
             {                                                                       // is a Bot then the "Start Damage function is called." Once the loop is completed the "specialAbilityUsed" boolean is turned true
                 if (hitColliders[i].transform.tag == "Bot")                         //stopping this bot from using their special ability again.
                 {
-                    photonView.RPC("StartDamage", RpcTarget.All, hitColliders[i].transform.name, 3000.0f, 0.0f);
+                    photonView.RPC("StartDamage", RpcTarget.All, hitColliders[i].transform.name, 30.0f, 0.0f);
                 }
             }
         }

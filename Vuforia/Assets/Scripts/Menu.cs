@@ -2,18 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
 
 public class Menu : MonoBehaviourPunCallbacks
 {
+
+
     [Header("Screens")]
     public GameObject mainScreen;
     public GameObject lobbyScreen;
     public GameObject createLobbyScreen;
     public GameObject listingScreen;
     public string sceneName;
+    public string galleryScene;
 
     [Header("Main Screen")]
     public Button createRoomButton;
@@ -188,9 +193,9 @@ public class Menu : MonoBehaviourPunCallbacks
         NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, sceneName);
     }
 
-
-
-
-
+    public void OnGalleryModeButton()
+    {
+        SceneManager.LoadScene(galleryScene, LoadSceneMode.Single);
+    }
 
 }

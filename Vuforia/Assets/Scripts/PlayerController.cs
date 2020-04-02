@@ -8,6 +8,14 @@ using Photon.Realtime;
 using System;
 using UnityEngine.SceneManagement;
 
+enum PowerUp
+{
+    DoubleDamage,
+    StopTime,
+    SwapPosition,
+    Random
+}
+
 public class PlayerController : MonoBehaviourPunCallbacks
 {
     [HideInInspector]
@@ -23,6 +31,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public int actionCount = 0;
 
     public HexGrid grid;
+    public bool timeStop;
+    public bool timeStopUsed = false;
+    public bool doubleDamageUsed = false;
+    public bool randomUsed = false;
+    public float timeStopTimer = 0.0f;
 
     public GameObject popUp;
     public GameObject pauseScreen;
@@ -38,6 +51,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public bool endGame = false;
     public float playerClock;
     public Text endText;
+    public bool troopAbility;
 
 [PunRPC]
     public void Initialize(Player player)
@@ -92,18 +106,23 @@ public class PlayerController : MonoBehaviourPunCallbacks
         action2 = GameObject.Find("ActionCount2");
         endTurnMessageImage.SetActive(false);
         endTurnPressed = false;
+        timeStop = false;
 
         botSymbol = GameObject.Find("Symbol");
         popUp.SetActive(false);
         pauseScreen.SetActive(false);
         endScreen.SetActive(false);
+        troopAbility = false;
     }
 
     private void Update()
     {
+
         AssignClock(photonPlayer);
         CheckTurn(); 
         UpdateActionCount();
+        StartTimeStop();
+
         if (Turn && !pause)
         {
             SelectCharacter();
@@ -210,6 +229,86 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
+    public void RandomPowerups()
+    {        
+       int powerUpCount = (int)PowerUp.Random;
+       int rng = UnityEngine.Random.Range(0, powerUpCount);
+       PowerUp choice = (PowerUp)rng;
+        choice = PowerUp.SwapPosition;
+       switch (choice)
+       {
+            case PowerUp.DoubleDamage:
+                 if(doubleDamageUsed)                   
+                   doubleDamageUsed = false;
+                 DoubleDamage();
+            break;
+
+            case PowerUp.StopTime:
+                 if (timeStopUsed)
+                    timeStopUsed = false;
+                 StopTime();
+                 break;
+            case PowerUp.SwapPosition:
+                 SwapBotPos();
+                 break;
+
+       }
+
+
+    }
+
+    public void DoubleDamage()
+    {
+        foreach (Transform child in transform)
+        {
+            child.GetComponent<BotController>().DoubleDamage();
+        }
+
+    }
+
+    public void StopTime()
+    {
+        timeStop = true;
+        photonView.RPC("SetClockState", RpcTarget.All, false);
+    }
+
+    public void SwapBotPos()
+    {
+        List<Unit> childs = new List<Unit>();
+        foreach (Transform child in transform)
+        {
+            childs.Add(child.gameObject.GetComponent<Unit>());
+        }
+
+        HexCell temp = childs[0].Location;
+        childs[0].Location = childs[1].Location;
+        childs[1].Location = temp;
+
+        childs[0].Location.unit = childs[0];
+        childs[1].Location.unit = childs[1];
+    }
+
+    public void StartTimeStop()
+    {
+        if(timeStop)
+        {
+            timeStopTimer += Time.deltaTime;
+
+            if (timeStopTimer >= 10)
+            {
+                photonView.RPC("SetClockState", RpcTarget.All, true);
+                timeStop = false;
+                timeStopTimer = 0;
+            }
+        }
+
+    }
+
+    [PunRPC]
+    public void SetClockState(bool state)
+    {
+        GameManager.instance.clocks.GetComponent<ChessClockController>().startClock = state;
+    }
 
     public void CheckTurn()
     {
@@ -243,6 +342,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             endTurnMessageImage.SetActive(true);
             endTurnPressed = true;
+           
         }
 
     }
@@ -251,7 +351,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         GameManager.instance.photonView.RPC("ChangeActivePlayer", RpcTarget.AllBuffered);
         actionCount = 0;
+        if (timeStop)
+        {
+            photonView.RPC("SetClockState", RpcTarget.All, true);
 
+        }
     }
 
     public void OnEndTurnRelease()

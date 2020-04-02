@@ -67,5 +67,8 @@ public class ChessClockController : MonoBehaviour
     {
         player1Turn = !player1Turn;
     }
+
+
+    
 }
 

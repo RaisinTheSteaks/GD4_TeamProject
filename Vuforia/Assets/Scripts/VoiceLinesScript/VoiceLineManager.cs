@@ -22,10 +22,12 @@ public class VoiceLineManager : MonoBehaviour
 
     public void PlayVoiceLine()
     {
-        string debug = "ERROR Not able to find line: [" + botName + ", " + "" + "]";
+        string debug = "ERROR Not able to find line: [" + botName + ", " + action + "]";
         AudioSource audio = new AudioSource();
         for (int i = 0; i < voiceLines.Length; i++)
         {
+            Debug.Log("Checking Voice line: [" + voiceLines[i].botName + ", " + voiceLines[i].action + "]");
+
             if (voiceLines[i].botName == botName)
             {
                 if (voiceLines[i].action == action)
