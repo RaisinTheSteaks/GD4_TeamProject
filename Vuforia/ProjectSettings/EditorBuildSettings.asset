@@ -5,12 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/TroopAbility/TroopMenu.unity
-    guid: 5900975079002e94f89444567bf66ea6
-  - enabled: 0
-    path: Assets/Scenes/TroopAbility/TroopGame.unity
-    guid: 0938c1be7e6c2f84882edb7a1bd8d918
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: ad2bb4ce56f048b4bbffa60018e03240
