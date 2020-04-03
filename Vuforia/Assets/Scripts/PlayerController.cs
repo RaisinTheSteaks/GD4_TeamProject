@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public Text endTurnMessage;
     public GameObject endTurnMessageImage;
     public GameObject botSymbol;
+    public int actionCount = 0;
 
     public HexGrid grid;
     public bool timeStop;
@@ -40,6 +41,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public GameObject pauseScreen;
     public bool pause = false;
 
+    public GameObject action1;
+    public GameObject action2;
 
     //GameOver
     public bool hasChildren = true;
@@ -99,6 +102,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         endTurnMessage = endTurnMessageImage.transform.Find("Text").GetComponent<Text>();
         botSymbol = GameObject.Find("Symbol");
 
+        action1 = GameObject.Find("ActionCount1");
+        action2 = GameObject.Find("ActionCount2");
         endTurnMessageImage.SetActive(false);
         endTurnPressed = false;
         timeStop = false;
@@ -114,7 +119,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
 
         AssignClock(photonPlayer);
-        CheckTurn();
+        CheckTurn(); 
+        UpdateActionCount();
         StartTimeStop();
 
         if (Turn && !pause)
@@ -162,6 +168,24 @@ public class PlayerController : MonoBehaviourPunCallbacks
             WinScreens();
         }
 
+    }
+
+    private void UpdateActionCount()
+    {
+        if (actionCount == 0)
+        {
+            action1.GetComponent<Image>().color = Color.white;
+            action2.GetComponent<Image>().color = Color.white;
+        }
+        if (actionCount == 1)
+        {
+            action1.GetComponent<Image>().color = Color.grey;
+
+        }
+        else if(actionCount == 2)
+        {
+            action2.GetComponent<Image>().color = Color.grey;
+        }
     }
 
     private void AssignClock(Player player)
@@ -326,6 +350,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public void EndTurn()
     {
         GameManager.instance.photonView.RPC("ChangeActivePlayer", RpcTarget.AllBuffered);
+        actionCount = 0;
         if (timeStop)
         {
             photonView.RPC("SetClockState", RpcTarget.All, true);

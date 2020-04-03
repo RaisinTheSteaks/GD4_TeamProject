@@ -11,6 +11,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MasterScene.unity
     guid: 9b81f4131ee1ef5498d869143fb17e99
+  - enabled: 0
+    path: Assets/Scenes/ActionCount/ActionCountMenu.unity
+    guid: 25f285c2c93956e4ab326cdf7140e9e7
+  - enabled: 0
+    path: Assets/Scenes/ActionCount/ActionCountMasterScene.unity
+    guid: 5cdef5ba054003b4aa0e3209d3c8623b
+  - enabled: 0
+    path: Assets/Scenes/TroopAbility/TroopMenu.unity
+    guid: 5900975079002e94f89444567bf66ea6
+  - enabled: 0
+    path: Assets/Scenes/TroopAbility/TroopGame.unity
+    guid: 0938c1be7e6c2f84882edb7a1bd8d918
   - enabled: 1
     path: Assets/Scenes/Gallery.unity
     guid: 5f3b04a44342b8242a875709f48cd123
