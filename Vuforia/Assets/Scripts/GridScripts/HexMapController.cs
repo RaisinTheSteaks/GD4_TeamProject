@@ -108,7 +108,7 @@ public class HexMapController : MonoBehaviour
         {
             debugString = "Selected Bot";
         }
-        selectedBot.AttackTarget.text = debugString;
+        //selectedBot.AttackTarget.text = debugString;
         return;
         
     }
@@ -129,7 +129,7 @@ public class HexMapController : MonoBehaviour
             else
             {
                 TextMeshProUGUI textbox = GameObject.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
-                textbox.text = "No Bots Here";
+                //textbox.text = "No Bots Here";
             }
             return;
         }

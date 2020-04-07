@@ -60,6 +60,7 @@ public class BotController : MonoBehaviourPunCallbacks
     private GameObject attackRangeIndicator;
     public bool troopAbility;
     public bool doubleDamage = false;
+    public bool showBubble;
 
 
     //Pause Screen
@@ -100,11 +101,17 @@ public class BotController : MonoBehaviourPunCallbacks
         healthBarRect = healthBar.GetComponent<RectTransform>();
         maxWidth = healthBarRect.rect.width;
         audioSource = GetComponent<AudioSource>();
-        AttackTarget = GameObject.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        AttackTarget = GameObject.Find("Notification").transform.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        
+        showBubble = false;
+
     }
     private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            showBubble = !showBubble;
+        }
         AttackingPhase();
         UpdateHealth();
         SelectedText();
@@ -120,6 +127,7 @@ public class BotController : MonoBehaviourPunCallbacks
         {
             playerScript.botSymbol.GetComponent<RawImage>().material = symbol;
         }
+        
     }
     public bool CheckActionCount()
     {
@@ -197,6 +205,7 @@ public class BotController : MonoBehaviourPunCallbacks
             //if attacking mode, pressing down mouse button will do something different
             if (Input.GetMouseButtonDown(0))
             {
+               // showBubble = true;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, maxRayDistance))
@@ -264,25 +273,40 @@ public class BotController : MonoBehaviourPunCallbacks
                                         }
                                         else
                                         {
-                                            AttackTarget.text = "own bot";
+                                            AttackTarget.text = "Sire, allied bot is in the way!";
+                                            showBubble = true;
                                         }
                                     }
                                     else
                                     {
-                                        AttackTarget.text = "invalid target";
+                                        AttackTarget.text = "According to my calculation, there is a foreign object in the way!";
+                                        showBubble = true;
                                     }
                                 }
                             }
                             else
                             {
-                                AttackTarget.text = "target is too far";
+                                AttackTarget.text = "Sire, the enemy target is too far!";
+                                showBubble = true;
                             }
+
+                            
                         }
                     }
                 }
             }
         }
+        StartCoroutine(HideBubble());
+    }
 
+    public IEnumerator HideBubble()
+    {
+        if(showBubble)
+        {
+            yield return new WaitForSeconds(3.0f);
+            showBubble = false;
+        }
+        
     }
 
     public IEnumerator Animation(string boolName)

@@ -53,7 +53,12 @@ public class ActionPanel : MonoBehaviour
             buttonPanel.transform.position += new Vector3(1,0,0) * speed * 3;
         }
 
-        if(buttonPanel.transform.position.y <= finalPosition.y)
+        if (buttonPanel.transform.position.x >= finalPosition.x)
+        {
+            buttonPanel.transform.position -= new Vector3(1, 0, 0) * speed * 3;
+        }
+
+        if (buttonPanel.transform.position.y <= finalPosition.y)
         {
             buttonPanel.transform.position += new Vector3(0, 1, 0) * speed * 1.5f;
         }
