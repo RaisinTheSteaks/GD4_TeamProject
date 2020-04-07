@@ -100,7 +100,7 @@ public class HexMapController : MonoBehaviour
                 debugString = "[TOUCH PHASE ENDED]";
                 previousCell = currentCell;
                 currentCell = null;
-                hexGrid.DoMove();
+                hexGrid.DoMove(selectedBot);
                 isMoving = false;
                 break;
         }
@@ -136,7 +136,7 @@ public class HexMapController : MonoBehaviour
         else if(Input.GetMouseButtonUp(0))
         {
             previousClick = false;
-            hexGrid.DoMove();
+            hexGrid.DoMove(selectedBot);
         }
     }
 

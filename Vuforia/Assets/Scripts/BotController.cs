@@ -58,6 +58,9 @@ public class BotController : MonoBehaviourPunCallbacks
     public float range;
     public float gridScale;
     private GameObject attackRangeIndicator;
+    public bool troopAbility;
+    public bool doubleDamage = false;
+
 
     //Pause Screen
     public bool pause;
@@ -72,22 +75,19 @@ public class BotController : MonoBehaviourPunCallbacks
         //{
         //    rig.isKinematic = false;
         //}
-        
+
     }
     private void Awake()
     {
         botPopUp = transform.parent.GetComponent<PlayerController>().popUp;
         pause = transform.parent.GetComponent<PlayerController>().pause;
-        
-        
 
     }
     private void Start()
     {
-           
         playerScript = transform.parent.GetComponent<PlayerController>();
-        
-       
+
+
         hexGrid = GameManager.instance.grid;
         //botPopUp.SetActive(false);
         Debug.Log(hexGrid.transform.localScale.x);
@@ -104,13 +104,14 @@ public class BotController : MonoBehaviourPunCallbacks
     }
     private void Update()
     {
-        
+
         AttackingPhase();
         UpdateHealth();
         SelectedText();
 
         DespawnAttackRange();
         Explosion(); //first part of tank Special Ability
+        Heal();
         if (confirm && !specialAbilityUsed)
         {
             LoadExplosion();   //second part of tank special Ability
@@ -120,11 +121,21 @@ public class BotController : MonoBehaviourPunCallbacks
             playerScript.botSymbol.GetComponent<RawImage>().material = symbol;
         }
     }
-
+    public bool CheckActionCount()
+    {
+        if (transform.parent.GetComponent<PlayerController>().actionCount > 1)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
     public void Move()
     {
         //debugging for action windows, replace this with real move method
-        if (isSelected && playerScript.Turn && !specialAbilityMode && !pause)
+        if (isSelected && playerScript.Turn && !specialAbilityMode && !pause && CheckActionCount())
         {
             ResetAllMode();
             // print(transform.name + "moving");
@@ -136,20 +147,20 @@ public class BotController : MonoBehaviourPunCallbacks
     public void Attack()
     {
         //debugging for action windows, replace this with real move method
-        if (isSelected && playerScript.Turn && !pause)
+        if (isSelected && playerScript.Turn && !pause && CheckActionCount())
         {
-            
+
             ResetAllMode();
             //enter attacking mode
-            
-            
-            float offset = gridScale*10.0f;
 
-            
+
+            float offset = gridScale * 10.0f;
+
+
             attackingMode = !attackingMode;
-            
 
-            if(!attackRangeIndicator)
+
+            if (!attackRangeIndicator)
             {
                 attackRangeIndicator = Instantiate(Resources.Load("VisualFeedback/AttackRange"), transform.position, Quaternion.identity) as GameObject;
                 attackRangeIndicator.transform.localScale = new Vector3(range * offset, 0.01f, range * offset) * 0.5f;
@@ -162,13 +173,21 @@ public class BotController : MonoBehaviourPunCallbacks
     }
     private void DespawnAttackRange()
     {
-        if(!attackingMode)
+        if (!attackingMode)
         {
-            if(attackRangeIndicator)
+            if (attackRangeIndicator)
             {
                 Destroy(attackRangeIndicator);
             }
         }
+    }
+
+
+    public void DoubleDamage()
+    {
+        
+       doubleDamage = true;
+    
     }
 
     public void AttackingPhase()
@@ -190,30 +209,30 @@ public class BotController : MonoBehaviourPunCallbacks
                         Debug.Log("not the same player");
                         if (hit.transform.tag == "Bot")
                         {
-                            
+
                             //checking if its a bot
 
                             Debug.Log("its a bot");
                             print(Vector3.Distance(transform.position, hit.transform.position));
 
                             //check if target bot is within distancce
-                            if(Vector3.Distance(transform.position, hit.transform.position) < range * gridScale * 2)
+                            if (Vector3.Distance(transform.position, hit.transform.position) < range * gridScale * 2)
                             {
-                                
+
                                 transform.LookAt(hit.transform);
                                 Vector3 offsetY = new Vector3(0, 0.001f, 0);
                                 RaycastHit raycastHit;
 
                                 //check if the ray cast hit something
-                                if (Physics.Raycast(transform.position + offsetY , ((hit.transform.position + offsetY) - (transform.position + offsetY)), out raycastHit, maxRayDistance))
+                                if (Physics.Raycast(transform.position + offsetY, ((hit.transform.position + offsetY) - (transform.position + offsetY)), out raycastHit, maxRayDistance))
                                 {
                                     //check if the ray cast hit a bot type game object
-                                    if(raycastHit.transform.tag == "Bot")
+                                    if (raycastHit.transform.tag == "Bot")
                                     {
                                         //check if the bot is not allied
-                                        if(raycastHit.transform.gameObject.GetComponent<BotController>().playerScript != playerScript)
+                                        if (raycastHit.transform.gameObject.GetComponent<BotController>().playerScript != playerScript)
                                         {
-                                           // AttackTarget.text = "valid target";
+                                            // AttackTarget.text = "valid target";
                                             //creates random damage
                                             float rng = Random.Range(minRng, maxRng);
 
@@ -221,11 +240,24 @@ public class BotController : MonoBehaviourPunCallbacks
                                             StartCoroutine(Animation("IsShooting"));
 
                                             //start attack audio and calculating damages
+
                                             photonView.RPC("AttackAudio", RpcTarget.All, transform.name);
-                                            photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, rng, attackDamage);
+
+
+                                            float damage = attackDamage;
+                                            if (doubleDamage)
+                                            {
+                                                damage *= 2;
+                                                doubleDamage = false;
+                                            }
+
+                                            photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, rng, damage);
 
                                             //set attacking moded to false
                                             attackingMode = false;
+
+                                            //Increase player action count
+                                            transform.parent.GetComponent<PlayerController>().actionCount++;
 
                                             //end player turn
                                             playerScript.EndTurn();
@@ -250,7 +282,7 @@ public class BotController : MonoBehaviourPunCallbacks
                 }
             }
         }
-        
+
     }
 
     public IEnumerator Animation(string boolName)
@@ -272,7 +304,7 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         //debugging for action windows, replace this with real move method
 
-        if (isSelected && playerScript.Turn && !specialAbilityMode)
+        if (isSelected && playerScript.Turn && !specialAbilityMode &&  !guardMode && CheckActionCount())
         {
             Debug.Log(transform.name + "guarding");
 
@@ -300,6 +332,7 @@ public class BotController : MonoBehaviourPunCallbacks
         GameObject bot = GameObject.Find(botName);
         BotController target = bot.GetComponent<BotController>();
         target.guardMode = true;
+        transform.parent.GetComponent<PlayerController>().actionCount++;
     }
 
     [PunRPC]
@@ -313,13 +346,14 @@ public class BotController : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(0.5f);
         GameObject bot = GameObject.Find(botName);
         BotController target = bot.GetComponent<BotController>();
-        
+
         target.updatingHealth = true;
 
         //print(target.health);
 
         //Half damage taken if player has entered guard
-        if (target.guardMode)
+
+        if (target.guardMode && normalDamage > 0)
         {
             target.health -= (bonusDamage + normalDamage) / 2;
             target.guardMode = false;
@@ -327,6 +361,8 @@ public class BotController : MonoBehaviourPunCallbacks
         else
         {
             target.health -= bonusDamage + normalDamage;
+            if (target.health > target.maxHealth)
+                target.health = target.maxHealth;
         }
     }
 
@@ -370,7 +406,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
             }
 
-            
+
 
 
             updatingHealth = false;
@@ -388,14 +424,41 @@ public class BotController : MonoBehaviourPunCallbacks
 
     public void Abilities()
     {
-        Debug.Log("Activating: "+name+"'s ability\nIsSelected: "+isSelected+", Turn?: "+playerScript.Turn+"\nSpecAbil Used?: "+", Paused?: "+pause);
+        Debug.Log("Activating: " + name + "'s ability\nIsSelected: " + isSelected + ", Turn?: " + playerScript.Turn + "\nSpecAbil Used?: " + ", Paused?: " + pause);
         //debugging for action windows, replace this with real move method
-        if (isSelected && playerScript.Turn && !specialAbilityUsed && !pause)
+        if (isSelected && playerScript.Turn && !specialAbilityUsed && !pause && CheckActionCount())
         {
             ResetAllMode();
-            specialAbilityMode = true;
+            if (Type.Equals("Tank"))
+                specialAbilityMode = true;
+            else
+                troopAbility = true;
         }
 
+    }
+
+    private void Heal()
+    {
+        if (troopAbility && !specialAbilityUsed && !pause)
+        {
+            if (Input.GetMouseButtonDown(0)) //this if statement creates a raycast that checks if the player has touched a hexagon.
+            {
+                print("troop ability");
+                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+             
+                if (Physics.Raycast(ray, out hit, maxRayDistance))
+                {
+                   if (hit.transform.tag == "Bot") 
+                   {
+                        if (hit.transform.parent == playerScript.transform)
+                            photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, 0.0f, -30.0f);
+                        specialAbilityUsed = true;
+                        playerScript.EndTurn();
+                   }                                    
+                }
+            }
+        }
     }
 
     private void Explosion()
@@ -424,11 +487,11 @@ public class BotController : MonoBehaviourPunCallbacks
     private void LoadExplosion()
     {
         HexCell hex = hexGrid.GetCell(tap);             //if the player has confirmed the area they want to attack then a hex is created with the tap location.
-                                                                                //Sphere is for debugging purposes                                  
+                                                        //Sphere is for debugging purposes                                  
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         sphere.transform.position = hex.transform.position;
         sphere.transform.localScale = new Vector3(0.035f, 0.02f, 0.035f);
-        hitColliders = Physics.OverlapSphere(hex.transform.position, 0.035f);     // An overlap sphere is then spawned at the center of hex. All objects that are touching or within the overlap sphere 
+        hitColliders = Physics.OverlapSphere(hex.transform.position, 0.035f);
         photonView.RPC("MissileAudio", RpcTarget.All, transform.name);
         for (int i = 0; i < hitColliders.Length; i++)                               //are then placed in an array called hitColliders. A for loop then iterates through the hitColliders arrayand if the object 
         {
@@ -436,14 +499,14 @@ public class BotController : MonoBehaviourPunCallbacks
             {                                                                       // is a Bot then the "Start Damage function is called." Once the loop is completed the "specialAbilityUsed" boolean is turned true
                 if (hitColliders[i].transform.tag == "Bot")                         //stopping this bot from using their special ability again.
                 {
-                    photonView.RPC("StartDamage", RpcTarget.All, hitColliders[i].transform.name, 3000.0f, 0.0f);
+                    photonView.RPC("StartDamage", RpcTarget.All, hitColliders[i].transform.name, 30.0f, 0.0f);
                 }
             }
         }
 
         StartCoroutine(DespawnSphere(sphere));
         specialAbilityUsed = true;
-        playerScript.EndTurn();
+        transform.parent.GetComponent<PlayerController>().actionCount++;
 
     }
 

@@ -13,6 +13,9 @@ public class AssignButtonEvent : MonoBehaviour
     public Button guardButton;
     public Button specialAbilitiesButton;
     public Button endTurnButton;
+    public Button doubleDamage;
+    public Button timeStop;
+    public Button randomPowerup;
 
 
     //Pause Menu
@@ -57,7 +60,34 @@ public class AssignButtonEvent : MonoBehaviour
                         guardButton.onClick.AddListener(delegate { botScript.Guard(); });
                         specialAbilitiesButton.onClick.AddListener(delegate { botScript.Abilities(); });
                         
+                        
                     }
+
+                    doubleDamage.onClick.AddListener(delegate {
+                        if (player.Turn && !player.doubleDamageUsed)
+                        {
+                            player.DoubleDamage();
+                            player.doubleDamageUsed = true;
+                        }
+                    });
+
+                    timeStop.onClick.AddListener(delegate {
+                        if (player.Turn && !player.timeStopUsed)
+                        {
+                            player.StopTime();
+                            player.timeStopUsed = true;
+                        }
+                           
+
+                    });
+
+                    randomPowerup.onClick.AddListener(delegate {
+                        if (player.Turn && !player.randomUsed)
+                        {
+                            player.RandomPowerups();
+                            player.randomUsed = true;
+                        }
+                    });
                     assignEventTrigger(player);
                     
                     allAssigned = true;
