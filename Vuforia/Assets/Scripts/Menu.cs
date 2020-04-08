@@ -31,6 +31,7 @@ public class Menu : MonoBehaviourPunCallbacks
     public TextMeshProUGUI playerListText;
     public Button startGameButton;
     public TextMeshProUGUI roomNameText;
+    public GameObject howToPlay;
 
     private bool joinAsSpectator = false;
 
@@ -53,6 +54,10 @@ public class Menu : MonoBehaviourPunCallbacks
 
         PhotonNetwork.JoinLobby();
     }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 
     void SetScreen(GameObject screen)
     {
@@ -66,6 +71,7 @@ public class Menu : MonoBehaviourPunCallbacks
             //deactivate all screen
             mainScreen.SetActive(false);
             lobbyScreen.SetActive(false);
+            howToPlay.SetActive(false);
             createLobbyScreen.SetActive(false);
             listingScreen.GetComponent<CanvasScaler>().scaleFactor = 0.01f;
             Debug.Log(listingScreen.GetComponent<CanvasScaler>().scaleFactor);
@@ -126,7 +132,6 @@ public class Menu : MonoBehaviourPunCallbacks
             }
         }
 
-
         SetScreen(lobbyScreen);
 
         //tell all players to update the lobby screen
@@ -138,6 +143,14 @@ public class Menu : MonoBehaviourPunCallbacks
         photonView.RPC("UpdateLobbyUI", RpcTarget.All);
     }
 
+    public void CloseHowToPlay()
+    {
+        howToPlay.SetActive(false);
+    }
+    public void OpenHowToPlay()
+    {
+        howToPlay.SetActive(true);
+    }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         //we dont use RPC like when we join the lobby
