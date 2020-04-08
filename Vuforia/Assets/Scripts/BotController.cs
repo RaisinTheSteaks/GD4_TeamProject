@@ -60,6 +60,12 @@ public class BotController : MonoBehaviourPunCallbacks
     private GameObject attackRangeIndicator;
     public bool troopAbility;
     public bool doubleDamage = false;
+    public bool showBubble;
+    public ParticleSystem attackedSparks;
+    public ParticleSystem muzzleEffect;
+    public string tooFarResponse = "Sire, the enemy target is too far!";
+    public string coverOnTheWay = "According to my calculation, there is a foreign object in the way!";
+    public string alliedBotOnTheWay = "Sire, allied bot is in the way!";
 
 
     //Pause Screen
@@ -101,10 +107,17 @@ public class BotController : MonoBehaviourPunCallbacks
         maxWidth = healthBarRect.rect.width;
         audioSource = GetComponent<AudioSource>();
         AttackTarget = GameObject.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        
+        showBubble = false;
+
     }
     private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            showBubble = true;
+            StartCoroutine(HideBubble());
+        }
         AttackingPhase();
         UpdateHealth();
         SelectedText();
@@ -120,6 +133,7 @@ public class BotController : MonoBehaviourPunCallbacks
         {
             playerScript.botSymbol.GetComponent<RawImage>().material = symbol;
         }
+        
     }
     public bool CheckActionCount()
     {
@@ -197,6 +211,7 @@ public class BotController : MonoBehaviourPunCallbacks
             //if attacking mode, pressing down mouse button will do something different
             if (Input.GetMouseButtonDown(0))
             {
+               // showBubble = true;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, maxRayDistance))
@@ -264,37 +279,72 @@ public class BotController : MonoBehaviourPunCallbacks
                                         }
                                         else
                                         {
-                                            AttackTarget.text = "own bot";
+                                            AttackTarget.text = alliedBotOnTheWay;
+                                            showBubble = true;
+                                            StartCoroutine(HideBubble());
                                         }
                                     }
                                     else
                                     {
-                                        AttackTarget.text = "invalid target";
+                                        AttackTarget.text = coverOnTheWay;
+                                        showBubble = true;
+                                        StartCoroutine(HideBubble());
                                     }
                                 }
                             }
                             else
                             {
-                                AttackTarget.text = "target is too far";
+                                AttackTarget.text = tooFarResponse;
+                                showBubble = true;
+                                StartCoroutine(HideBubble());
                             }
+
+                            
                         }
                     }
                 }
             }
+            
         }
+        
+    }
 
+    public IEnumerator HideBubble()
+    {
+      
+            yield return new WaitForSeconds(3.0f);
+            showBubble = false;
+        
+    }
+
+    [PunRPC]
+    public void PlayMuzzleEffect(string botName)
+    {
+        GameObject bot = GameObject.Find(botName);
+        BotController target = bot.GetComponent<BotController>();
+        target.muzzleEffect.Play();
     }
 
     public IEnumerator Animation(string boolName)
     {
         Animator animator = GetComponent<Animator>();
+        float waitTime = 1.12f;
         //if(Type == "Tank")
         //{
         //    animator = transform.Find("Body").GetComponent<Animator>();
         //}
 
         animator.SetBool(boolName, true);
-        yield return new WaitForSeconds(1.12f);
+
+        //play muzzle effect if isShooting
+        if(boolName == "IsShooting")
+        {
+            waitTime = 0.32f;
+            yield return new WaitForSeconds(0.8f);
+            photonView.RPC("PlayMuzzleEffect", RpcTarget.All, transform.name);
+        }
+
+        yield return new WaitForSeconds(waitTime);
         animator.SetBool(boolName, false);
 
 
@@ -343,20 +393,24 @@ public class BotController : MonoBehaviourPunCallbacks
 
     public IEnumerator Damage(string botName, float bonusDamage, float normalDamage)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.12f);
         GameObject bot = GameObject.Find(botName);
         BotController target = bot.GetComponent<BotController>();
 
         target.updatingHealth = true;
 
+  
+        if (normalDamage > 0)
+            target.attackedSparks.Play();
+
         //print(target.health);
 
         //Half damage taken if player has entered guard
-
         if (target.guardMode && normalDamage > 0)
         {
             target.health -= (bonusDamage + normalDamage) / 2;
             target.guardMode = false;
+            
         }
         else
         {
@@ -364,6 +418,8 @@ public class BotController : MonoBehaviourPunCallbacks
             if (target.health > target.maxHealth)
                 target.health = target.maxHealth;
         }
+
+        
     }
 
     [PunRPC]

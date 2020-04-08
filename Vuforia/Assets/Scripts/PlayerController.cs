@@ -52,8 +52,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public float playerClock;
     public Text endText;
     public bool troopAbility;
+    private ActionPanel attackBubbleChat;
+    private GameObject operatorObject;
 
-[PunRPC]
+
+    [PunRPC]
     public void Initialize(Player player)
     {
         //transform.SetParent(GameManager.instance.imageTarget.transform);
@@ -102,8 +105,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         endTurnMessage = endTurnMessageImage.transform.Find("Text").GetComponent<Text>();
         botSymbol = GameObject.Find("Symbol");
 
-        action1 = GameObject.Find("ActionCount1");
-        action2 = GameObject.Find("ActionCount2");
+        action1 = GameObject.Find("ActionCount").transform.Find("ActionCount1").gameObject;
+        action2 = GameObject.Find("ActionCount").transform.Find("ActionCount2").gameObject;
         endTurnMessageImage.SetActive(false);
         endTurnPressed = false;
         timeStop = false;
@@ -113,14 +116,25 @@ public class PlayerController : MonoBehaviourPunCallbacks
         pauseScreen.SetActive(false);
         endScreen.SetActive(false);
         troopAbility = false;
+        //It's the little cute robot on the right
+        operatorObject = GameObject.Find("Operator").gameObject;
+        GameObject attackDebug = GameObject.Find("AttackDebug").gameObject;
+        attackBubbleChat = new ActionPanel(attackDebug, attackDebug.transform.position, attackDebug.transform.localScale, false, 5);
     }
 
     private void Update()
     {
+        //if(attackBubbleChat != null)
+        //{
+            ShowAttackBubble();
 
+        //}
+        if(operatorObject)
+            attackBubbleChat.transition(operatorObject.transform.position);
         AssignClock(photonPlayer);
         CheckTurn(); 
-        UpdateActionCount();
+        if(action1 && action2)
+            UpdateActionCount();
         StartTimeStop();
 
         if (Turn && !pause)
@@ -168,6 +182,25 @@ public class PlayerController : MonoBehaviourPunCallbacks
             WinScreens();
         }
 
+    }
+
+    public void ShowAttackBubble()
+    {
+        int count = 0;
+        foreach (Transform child in transform)
+        {
+            if(child.transform.GetComponent<BotController>().showBubble)
+            {
+                this.attackBubbleChat.show = true;
+                count++;
+            }
+        }
+
+        if(count == 0 && photonPlayer.IsLocal)
+        {
+            this.attackBubbleChat.show = false;
+        }
+        
     }
 
     private void UpdateActionCount()
