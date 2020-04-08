@@ -4763,6 +4763,7 @@ MonoBehaviour:
   createLobbyScreen: {fileID: 510931619}
   listingScreen: {fileID: 1479502468}
   sceneName: MasterScene
+  galleryScene: 
   createRoomButton: {fileID: 1861304945}
   joinRoomButton: {fileID: 552415958}
   roomListText: {fileID: 0}
