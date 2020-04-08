@@ -61,6 +61,8 @@ public class BotController : MonoBehaviourPunCallbacks
     public bool troopAbility;
     public bool doubleDamage = false;
     public bool showBubble;
+    public ParticleSystem attackedSparks;
+    public ParticleSystem muzzleEffect;
 
 
     //Pause Screen
@@ -110,7 +112,7 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            showBubble = !showBubble;
+            StartCoroutine(Animation("IsShooting"));
         }
         AttackingPhase();
         UpdateHealth();
@@ -312,13 +314,23 @@ public class BotController : MonoBehaviourPunCallbacks
     public IEnumerator Animation(string boolName)
     {
         Animator animator = GetComponent<Animator>();
+        float waitTime = 1.12f;
         //if(Type == "Tank")
         //{
         //    animator = transform.Find("Body").GetComponent<Animator>();
         //}
 
         animator.SetBool(boolName, true);
-        yield return new WaitForSeconds(1.12f);
+
+        //play muzzle effect if isShooting
+        if(boolName == "IsShooting")
+        {
+            waitTime = 0.32f;
+            yield return new WaitForSeconds(0.8f);
+            muzzleEffect.Play();
+        }
+
+        yield return new WaitForSeconds(waitTime);
         animator.SetBool(boolName, false);
 
 
@@ -373,14 +385,18 @@ public class BotController : MonoBehaviourPunCallbacks
 
         target.updatingHealth = true;
 
+  
+        if (normalDamage > 0)
+            target.attackedSparks.Play();
+
         //print(target.health);
 
         //Half damage taken if player has entered guard
-
         if (target.guardMode && normalDamage > 0)
         {
             target.health -= (bonusDamage + normalDamage) / 2;
             target.guardMode = false;
+            
         }
         else
         {
@@ -388,6 +404,8 @@ public class BotController : MonoBehaviourPunCallbacks
             if (target.health > target.maxHealth)
                 target.health = target.maxHealth;
         }
+
+        
     }
 
     [PunRPC]
