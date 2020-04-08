@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Menu.unity
     guid: ad2bb4ce56f048b4bbffa60018e03240
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MasterScene.unity
     guid: 9b81f4131ee1ef5498d869143fb17e99
   - enabled: 0
@@ -23,7 +23,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/TroopAbility/TroopGame.unity
     guid: 0938c1be7e6c2f84882edb7a1bd8d918
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Gallery.unity
     guid: 5f3b04a44342b8242a875709f48cd123
+  - enabled: 1
+    path: Assets/Scenes/AuraEffect/AuraEffectMenu.unity
+    guid: b83902b34dd329d4981723b75ba0edaf
+  - enabled: 1
+    path: Assets/Scenes/AuraEffect/AuraEffectMaster.unity
+    guid: 45f3680f0fe3a5049b0648722b044f93
   m_configObjects: {}
