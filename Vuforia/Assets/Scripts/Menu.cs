@@ -54,6 +54,10 @@ public class Menu : MonoBehaviourPunCallbacks
 
         PhotonNetwork.JoinLobby();
     }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 
     void SetScreen(GameObject screen)
     {
@@ -67,6 +71,7 @@ public class Menu : MonoBehaviourPunCallbacks
             //deactivate all screen
             mainScreen.SetActive(false);
             lobbyScreen.SetActive(false);
+            howToPlay.SetActive(false);
             createLobbyScreen.SetActive(false);
             listingScreen.GetComponent<CanvasScaler>().scaleFactor = 0.01f;
             Debug.Log(listingScreen.GetComponent<CanvasScaler>().scaleFactor);
@@ -141,6 +146,10 @@ public class Menu : MonoBehaviourPunCallbacks
     public void CloseHowToPlay()
     {
         howToPlay.SetActive(false);
+    }
+    public void OpenHowToPlay()
+    {
+        howToPlay.SetActive(true);
     }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
