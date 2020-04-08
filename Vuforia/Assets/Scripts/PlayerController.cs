@@ -116,8 +116,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         pauseScreen.SetActive(false);
         endScreen.SetActive(false);
         troopAbility = false;
-        operatorObject = GameObject.Find("Notification").transform.Find("Operator").gameObject;
-        GameObject attackDebug = GameObject.Find("Notification").transform.Find("AttackDebug").gameObject;
+        operatorObject = GameObject.Find("Operator").gameObject;
+        GameObject attackDebug = GameObject.Find("AttackDebug").gameObject;
         attackBubbleChat = new ActionPanel(attackDebug, attackDebug.transform.position, attackDebug.transform.localScale, false, 5);
     }
 

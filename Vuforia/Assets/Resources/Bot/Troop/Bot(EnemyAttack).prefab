@@ -312,6 +312,7 @@ Transform:
   - {fileID: 7326950034814557170}
   - {fileID: 7326950034814557172}
   - {fileID: 7326950034814557176}
+  - {fileID: 1129819473467240908}
   m_Father: {fileID: 7326950034814556776}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -514,12 +515,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6581861681793603844}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.82, y: 4.57, z: 1.83}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.8200005, y: 4.57, z: 1.8300006}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
-  m_Father: {fileID: 7326950034814556776}
-  m_RootOrder: 3
+  m_Father: {fileID: 7551631671056414466}
+  m_RootOrder: 57
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &6386108072794319196
 ParticleSystem:
@@ -7113,7 +7114,6 @@ Transform:
   - {fileID: 7551631671056414466}
   - {fileID: 2609184220829781539}
   - {fileID: 8523987035782363695}
-  - {fileID: 1129819473467240908}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -7196,6 +7196,7 @@ MonoBehaviour:
   doubleDamage: 0
   showBubble: 0
   attackedSparks: {fileID: 0}
+  muzzleEffect: {fileID: 0}
   pause: 0
 --- !u!136 &136020876879983764
 CapsuleCollider:

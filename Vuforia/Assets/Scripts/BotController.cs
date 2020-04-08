@@ -103,7 +103,7 @@ public class BotController : MonoBehaviourPunCallbacks
         healthBarRect = healthBar.GetComponent<RectTransform>();
         maxWidth = healthBarRect.rect.width;
         audioSource = GetComponent<AudioSource>();
-        AttackTarget = GameObject.Find("Notification").transform.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        AttackTarget = GameObject.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
         
         showBubble = false;
 
@@ -290,6 +290,7 @@ public class BotController : MonoBehaviourPunCallbacks
                             {
                                 AttackTarget.text = "Sire, the enemy target is too far!";
                                 showBubble = true;
+                                
                             }
 
                             
@@ -297,8 +298,9 @@ public class BotController : MonoBehaviourPunCallbacks
                     }
                 }
             }
+            StartCoroutine(HideBubble());
         }
-        StartCoroutine(HideBubble());
+        
     }
 
     public IEnumerator HideBubble()
@@ -309,6 +311,14 @@ public class BotController : MonoBehaviourPunCallbacks
             showBubble = false;
         }
         
+    }
+
+    [PunRPC]
+    public void PlayMuzzleEffect(string botName)
+    {
+        GameObject bot = GameObject.Find(botName);
+        BotController target = bot.GetComponent<BotController>();
+        target.muzzleEffect.Play();
     }
 
     public IEnumerator Animation(string boolName)
@@ -327,7 +337,7 @@ public class BotController : MonoBehaviourPunCallbacks
         {
             waitTime = 0.32f;
             yield return new WaitForSeconds(0.8f);
-            muzzleEffect.Play();
+            photonView.RPC("PlayMuzzleEffect", RpcTarget.All, transform.name);
         }
 
         yield return new WaitForSeconds(waitTime);
