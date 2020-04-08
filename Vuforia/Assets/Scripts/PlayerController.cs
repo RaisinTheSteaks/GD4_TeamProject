@@ -116,6 +116,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         pauseScreen.SetActive(false);
         endScreen.SetActive(false);
         troopAbility = false;
+        //It's the little cute robot on the right
         operatorObject = GameObject.Find("Operator").gameObject;
         GameObject attackDebug = GameObject.Find("AttackDebug").gameObject;
         attackBubbleChat = new ActionPanel(attackDebug, attackDebug.transform.position, attackDebug.transform.localScale, false, 5);
@@ -195,10 +196,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
         }
 
-        if(count == 0 && attackBubbleChat)
+        if(count == 0 && photonPlayer.IsLocal)
         {
             this.attackBubbleChat.show = false;
         }
+        
     }
 
     private void UpdateActionCount()

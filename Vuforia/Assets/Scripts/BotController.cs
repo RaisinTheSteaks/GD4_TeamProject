@@ -112,7 +112,8 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(Animation("IsShooting"));
+            showBubble = true;
+            StartCoroutine(HideBubble());
         }
         AttackingPhase();
         UpdateHealth();
@@ -277,12 +278,14 @@ public class BotController : MonoBehaviourPunCallbacks
                                         {
                                             AttackTarget.text = "Sire, allied bot is in the way!";
                                             showBubble = true;
+                                            StartCoroutine(HideBubble());
                                         }
                                     }
                                     else
                                     {
                                         AttackTarget.text = "According to my calculation, there is a foreign object in the way!";
                                         showBubble = true;
+                                        StartCoroutine(HideBubble());
                                     }
                                 }
                             }
@@ -290,7 +293,7 @@ public class BotController : MonoBehaviourPunCallbacks
                             {
                                 AttackTarget.text = "Sire, the enemy target is too far!";
                                 showBubble = true;
-                                
+                                StartCoroutine(HideBubble());
                             }
 
                             
@@ -298,18 +301,16 @@ public class BotController : MonoBehaviourPunCallbacks
                     }
                 }
             }
-            StartCoroutine(HideBubble());
+            
         }
         
     }
 
     public IEnumerator HideBubble()
     {
-        if(showBubble)
-        {
+      
             yield return new WaitForSeconds(3.0f);
             showBubble = false;
-        }
         
     }
 
