@@ -63,6 +63,9 @@ public class BotController : MonoBehaviourPunCallbacks
     public bool showBubble;
     public ParticleSystem attackedSparks;
     public ParticleSystem muzzleEffect;
+    public string tooFarResponse = "Sire, the enemy target is too far!";
+    public string coverOnTheWay = "According to my calculation, there is a foreign object in the way!";
+    public string alliedBotOnTheWay = "Sire, allied bot is in the way!";
 
 
     //Pause Screen
@@ -276,14 +279,14 @@ public class BotController : MonoBehaviourPunCallbacks
                                         }
                                         else
                                         {
-                                            AttackTarget.text = "Sire, allied bot is in the way!";
+                                            AttackTarget.text = alliedBotOnTheWay;
                                             showBubble = true;
                                             StartCoroutine(HideBubble());
                                         }
                                     }
                                     else
                                     {
-                                        AttackTarget.text = "According to my calculation, there is a foreign object in the way!";
+                                        AttackTarget.text = coverOnTheWay;
                                         showBubble = true;
                                         StartCoroutine(HideBubble());
                                     }
@@ -291,7 +294,7 @@ public class BotController : MonoBehaviourPunCallbacks
                             }
                             else
                             {
-                                AttackTarget.text = "Sire, the enemy target is too far!";
+                                AttackTarget.text = tooFarResponse;
                                 showBubble = true;
                                 StartCoroutine(HideBubble());
                             }
@@ -390,7 +393,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
     public IEnumerator Damage(string botName, float bonusDamage, float normalDamage)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.12f);
         GameObject bot = GameObject.Find(botName);
         BotController target = bot.GetComponent<BotController>();
 
