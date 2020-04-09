@@ -66,7 +66,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public string tooFarResponse = "Sire, the enemy target is too far!";
     public string coverOnTheWay = "According to my calculation, there is a foreign object in the way!";
     public string alliedBotOnTheWay = "Sire, allied bot is in the way!";
-
+    private Animator animator;
 
     //Pause Screen
     public bool pause;
@@ -92,7 +92,7 @@ public class BotController : MonoBehaviourPunCallbacks
     private void Start()
     {
         playerScript = transform.parent.GetComponent<PlayerController>();
-
+        animator = GetComponent<Animator>();
 
         hexGrid = GameManager.instance.grid;
         //botPopUp.SetActive(false);
@@ -118,6 +118,7 @@ public class BotController : MonoBehaviourPunCallbacks
             showBubble = true;
             StartCoroutine(HideBubble());
         }
+
         AttackingPhase();
         UpdateHealth();
         SelectedText();
@@ -327,7 +328,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
     public IEnumerator Animation(string boolName)
     {
-        Animator animator = GetComponent<Animator>();
+        
         float waitTime = 1.12f;
         //if(Type == "Tank")
         //{
@@ -342,6 +343,12 @@ public class BotController : MonoBehaviourPunCallbacks
             waitTime = 0.32f;
             yield return new WaitForSeconds(0.8f);
             photonView.RPC("PlayMuzzleEffect", RpcTarget.All, transform.name);
+        }else if(boolName == "IsGuarding")
+        {
+            if (guardMode)
+                yield break;
+            else
+                waitTime = 0;
         }
 
         yield return new WaitForSeconds(waitTime);
@@ -382,6 +389,7 @@ public class BotController : MonoBehaviourPunCallbacks
         GameObject bot = GameObject.Find(botName);
         BotController target = bot.GetComponent<BotController>();
         target.guardMode = true;
+        
         transform.parent.GetComponent<PlayerController>().actionCount++;
     }
 
@@ -410,7 +418,7 @@ public class BotController : MonoBehaviourPunCallbacks
         {
             target.health -= (bonusDamage + normalDamage) / 2;
             target.guardMode = false;
-            
+            StartCoroutine(target.Animation("IsGuarding"));
         }
         else
         {
