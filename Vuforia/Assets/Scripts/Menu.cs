@@ -70,10 +70,11 @@ public class Menu : MonoBehaviourPunCallbacks
             mainScreen.SetActive(false);
             playGameScreen.SetActive(false);
             listingScreen.GetComponent<CanvasScaler>().scaleFactor = 1;
+            listingScreen.GetComponent<Canvas>().enabled = true;
         }
         else
         {
-            //deactivate all screen
+            //deactivate all screens
             foreach (GameObject sc in screens)
             {
                 if(sc != listingScreen)
@@ -81,9 +82,9 @@ public class Menu : MonoBehaviourPunCallbacks
                     sc.SetActive(false);
                 }
             }
-            
-            listingScreen.GetComponent<CanvasScaler>().scaleFactor = 0.01f;
-            //Debug.Log(listingScreen.GetComponent<CanvasScaler>().scaleFactor);
+            //The Listing Screen needs to stay active throughout runtime, so it's canvas gets enabled/disabled
+
+            listingScreen.GetComponent<Canvas>().enabled = false;
             screen.SetActive(true);
         }
     }
