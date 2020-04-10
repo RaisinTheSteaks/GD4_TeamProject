@@ -34,7 +34,6 @@ public class BotController : MonoBehaviourPunCallbacks
     public GameObject botPopUp;
 
 
-
     public TextMeshProUGUI healthNumberIndicator;
     public GameObject healthBar;
     private RectTransform healthBarRect;
@@ -97,13 +96,13 @@ public class BotController : MonoBehaviourPunCallbacks
         transform.name = playerScript.name + " " + transform.name;
         healthNumberIndicator.text = ((int)health).ToString();
         healthBarRect = healthBar.GetComponent<RectTransform>();
-        maxWidth = healthBarRect.position.y - healthBarRect.rect.width;
+        maxWidth = healthBarRect.position.y;
         audioSource = GetComponent<AudioSource>();
         AttackTarget = GameObject.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
     }
     private void Update()
     {
-
+        
         AttackingPhase();
         UpdateHealth();
         SelectedText();
