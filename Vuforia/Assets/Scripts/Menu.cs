@@ -13,6 +13,8 @@ public class Menu : MonoBehaviourPunCallbacks
 
 
     [Header("Screens")]
+    public static int screenCount = 5;
+    public GameObject[] screens = new GameObject[screenCount];
     public GameObject mainScreen;
     public GameObject lobbyScreen;
     public GameObject createLobbyScreen;
@@ -61,6 +63,7 @@ public class Menu : MonoBehaviourPunCallbacks
 
     void SetScreen(GameObject screen)
     {
+        Debug.Log("Setting Active Screen");
         if (screen.Equals(listingScreen))
         {
             mainScreen.SetActive(false);
@@ -69,13 +72,13 @@ public class Menu : MonoBehaviourPunCallbacks
         else
         {
             //deactivate all screen
-            mainScreen.SetActive(false);
-            lobbyScreen.SetActive(false);
-            howToPlay.SetActive(false);
-            createLobbyScreen.SetActive(false);
+            foreach(GameObject sc in screens)
+            {
+                sc.SetActive(false);
+            }
+            
             listingScreen.GetComponent<CanvasScaler>().scaleFactor = 0.01f;
-            Debug.Log(listingScreen.GetComponent<CanvasScaler>().scaleFactor);
-            //enable requested scene
+            //Debug.Log(listingScreen.GetComponent<CanvasScaler>().scaleFactor);
             screen.SetActive(true);
         }
     }
@@ -105,17 +108,17 @@ public class Menu : MonoBehaviourPunCallbacks
 
     }
 
-    public void CreateGame()
-    {
-        SetScreen(createLobbyScreen);
-    }
-
     public void ReturnToMenu()
     {
         SetScreen(mainScreen);
     }
 
     #region Buttons
+
+    public void OnCreateGameButton()
+    {
+        SetScreen(createLobbyScreen);
+    }
 
     public void OnCreateRoomButton(TMP_InputField roomNameInput)
     {
