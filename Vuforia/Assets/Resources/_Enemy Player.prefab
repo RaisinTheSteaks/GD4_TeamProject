@@ -39,7 +39,7 @@ CapsuleCollider:
   m_Radius: 1
   m_Height: 3
   m_Direction: 1
-  m_Center: {x: 0, y: 0.8, z: -1}
+  m_Center: {x: -0.8, y: 0.8, z: -1}
 --- !u!1 &8674419738524106988
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,17 +208,17 @@ PrefabInstance:
     - target: {fileID: 7326950034814556776, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 4.4
       objectReference: {fileID: 0}
     - target: {fileID: 7326950034814556776, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 4.4
       objectReference: {fileID: 0}
     - target: {fileID: 7326950034814556776, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 4.4
       objectReference: {fileID: 0}
     - target: {fileID: 7326950034824410576, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
@@ -472,6 +472,11 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8033501844292782493, guid: 70c4a2bd82118004991f262dba0b585d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.03
+      objectReference: {fileID: 0}
     - target: {fileID: 7551631671056414466, guid: 70c4a2bd82118004991f262dba0b585d,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -703,17 +708,17 @@ PrefabInstance:
     - target: {fileID: 2893824366969147189, guid: 2de66523797ad474cb232778e4ca5289,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 10.5
       objectReference: {fileID: 0}
     - target: {fileID: 2893824366969147189, guid: 2de66523797ad474cb232778e4ca5289,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 10.5
       objectReference: {fileID: 0}
     - target: {fileID: 2893824366969147189, guid: 2de66523797ad474cb232778e4ca5289,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 10.5
       objectReference: {fileID: 0}
     - target: {fileID: 5268640864227478122, guid: 2de66523797ad474cb232778e4ca5289,
         type: 3}
