@@ -98,7 +98,7 @@ public class BotController : MonoBehaviourPunCallbacks
         transform.name = playerScript.name + " " + transform.name;
         healthNumberIndicator.text = ((int)health).ToString();
         healthBarRect = healthBar.GetComponent<RectTransform>();
-        maxWidth = healthBarRect.rect.width;
+        maxWidth = healthBarRect.position.y - healthBarRect.rect.width;
         audioSource = GetComponent<AudioSource>();
         AttackTarget = GameObject.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
     }
