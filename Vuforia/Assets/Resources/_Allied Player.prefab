@@ -113,11 +113,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 991890632966908990}
     m_Modifications:
-    - target: {fileID: 2986439370628931211, guid: 1e07172c0a8c8734d8810751ec728977,
-        type: 3}
-      propertyPath: m_Name
-      value: Troop
-      objectReference: {fileID: 0}
     - target: {fileID: 2986439370628891307, guid: 1e07172c0a8c8734d8810751ec728977,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -173,10 +168,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2986439370628931211, guid: 1e07172c0a8c8734d8810751ec728977,
+        type: 3}
+      propertyPath: m_Name
+      value: Troop
+      objectReference: {fileID: 0}
     - target: {fileID: 5557778150290821698, guid: 1e07172c0a8c8734d8810751ec728977,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -2.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5565400961616981079, guid: 1e07172c0a8c8734d8810751ec728977,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e07172c0a8c8734d8810751ec728977, type: 3}
@@ -222,6 +227,57 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Bot
+      objectReference: {fileID: 0}
+    - target: {fileID: 3756958227071221501, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 243802090497023772, guid: b63268997c4d44943b368a3796bb55b8,
+        type: 2}
+    - target: {fileID: 3756958227071221501, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_SynchronizeLayers.Array.data[0].SynchronizeType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[0].SynchronizeType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[1].SynchronizeType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[1].Type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[1].Name
+      value: IsGuarding
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[0].Type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[0].Name
+      value: IsShooting
       objectReference: {fileID: 0}
     - target: {fileID: 7345049439230632933, guid: d425422358808b540bf5593f26332cf3,
         type: 3}
@@ -318,46 +374,6 @@ PrefabInstance:
       propertyPath: ObservedComponents.Array.data[1]
       value: 
       objectReference: {fileID: 5715256106487194865}
-    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
-        type: 3}
-      propertyPath: m_SynchronizeParameters.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
-        type: 3}
-      propertyPath: m_SynchronizeLayers.Array.data[0].SynchronizeType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
-        type: 3}
-      propertyPath: m_SynchronizeParameters.Array.data[0].SynchronizeType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
-        type: 3}
-      propertyPath: m_SynchronizeParameters.Array.data[1].SynchronizeType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
-        type: 3}
-      propertyPath: m_SynchronizeParameters.Array.data[1].Type
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
-        type: 3}
-      propertyPath: m_SynchronizeParameters.Array.data[1].Name
-      value: IsGuarding
-      objectReference: {fileID: 0}
-    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
-        type: 3}
-      propertyPath: m_SynchronizeParameters.Array.data[0].Type
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3384939598609277977, guid: d425422358808b540bf5593f26332cf3,
-        type: 3}
-      propertyPath: m_SynchronizeParameters.Array.data[0].Name
-      value: IsShooting
-      objectReference: {fileID: 0}
     - target: {fileID: 5757401930452283942, guid: d425422358808b540bf5593f26332cf3,
         type: 3}
       propertyPath: m_IsKinematic
@@ -367,7 +383,7 @@ PrefabInstance:
         type: 3}
       propertyPath: SelectedStatus
       value: 
-      objectReference: {fileID: 3348803523272418400}
+      objectReference: {fileID: 0}
     - target: {fileID: 2203084645548401852, guid: d425422358808b540bf5593f26332cf3,
         type: 3}
       propertyPath: rig
@@ -436,17 +452,6 @@ PrefabInstance:
     - target: {fileID: 2203084645548401852, guid: d425422358808b540bf5593f26332cf3,
         type: 3}
       propertyPath: specialAbilityMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756958227071221501, guid: d425422358808b540bf5593f26332cf3,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 243802090497023772, guid: b63268997c4d44943b368a3796bb55b8,
-        type: 2}
-    - target: {fileID: 3756958227071221501, guid: d425422358808b540bf5593f26332cf3,
-        type: 3}
-      propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7345049439230632855, guid: d425422358808b540bf5593f26332cf3,
@@ -559,6 +564,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 5110869324966503831, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d425422358808b540bf5593f26332cf3, type: 3}
 --- !u!4 &5920658917450400159 stripped
@@ -609,18 +619,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4018543913825952378}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3348803523272418400 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1854897461154137626, guid: d425422358808b540bf5593f26332cf3,
-    type: 3}
-  m_PrefabInstance: {fileID: 4018543913825952378}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2133825064272917665 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3051297535460677339, guid: d425422358808b540bf5593f26332cf3,

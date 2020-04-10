@@ -19,7 +19,6 @@ public class BotController : MonoBehaviourPunCallbacks
     [Header("Info")]
     public bool isSelected = false;
     public PlayerController playerScript;
-    public TextMeshProUGUI SelectedStatus;
     public TextMeshProUGUI AttackTarget;
 
     [Header("Component")]
@@ -536,7 +535,6 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         if (isSelected)
         {
-            SelectedStatus.text = "Selected";
             if (once)
             {
                 StartCoroutine(Animation("IsSelected"));
@@ -546,7 +544,6 @@ public class BotController : MonoBehaviourPunCallbacks
         }
         else if (isSelected == false)
         {
-            SelectedStatus.text = "Not Selected";
             once = true;
             ResetAllMode();
         }
