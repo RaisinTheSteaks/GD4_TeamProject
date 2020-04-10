@@ -92,8 +92,11 @@ public class HexMapController : MonoBehaviour
                 debugString = "[TOUCH PHASE MOVED]";
                 previousCell = currentCell;
                 currentCell = GetCellUnderCursor();
-                isMoving = true;
-                hexGrid.FindPath(startCell, currentCell, speed - hexGrid.hexesTravelled);
+                if(currentCell)
+                {
+                    isMoving = true;
+                    hexGrid.FindPath(startCell, currentCell, speed - hexGrid.hexesTravelled);
+                }
                 break;
 
             case TouchPhase.Ended:
@@ -265,9 +268,9 @@ public class HexMapController : MonoBehaviour
         BotController[] bots = FindObjectsOfType<BotController>();
         int i = 0;
 
-        if (cell != null)
+        if (cell)
         {
-            if (cell.unit != null)
+            if (cell.unit)
             {
                 foreach (BotController bot in bots)
                 {

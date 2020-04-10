@@ -15,6 +15,7 @@ public class Menu : MonoBehaviourPunCallbacks
     [Header("Screens")]
     public static int screenCount = 5;
     public GameObject[] screens = new GameObject[screenCount];
+
     public GameObject mainScreen;
     public GameObject lobbyScreen;
     public GameObject createLobbyScreen;
@@ -67,14 +68,18 @@ public class Menu : MonoBehaviourPunCallbacks
         if (screen.Equals(listingScreen))
         {
             mainScreen.SetActive(false);
+            playGameScreen.SetActive(false);
             listingScreen.GetComponent<CanvasScaler>().scaleFactor = 1;
         }
         else
         {
             //deactivate all screen
-            foreach(GameObject sc in screens)
+            foreach (GameObject sc in screens)
             {
-                sc.SetActive(false);
+                if(sc != listingScreen)
+                { 
+                    sc.SetActive(false);
+                }
             }
             
             listingScreen.GetComponent<CanvasScaler>().scaleFactor = 0.01f;
