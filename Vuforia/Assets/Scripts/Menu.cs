@@ -17,6 +17,7 @@ public class Menu : MonoBehaviourPunCallbacks
     public GameObject lobbyScreen;
     public GameObject createLobbyScreen;
     public GameObject listingScreen;
+    public GameObject playGameScreen;
     public string sceneName;
     public string galleryScene;
 
@@ -24,9 +25,7 @@ public class Menu : MonoBehaviourPunCallbacks
     public Button createRoomButton;
     public Button joinRoomButton;
     public TextMeshProUGUI roomListText;
-
-
-
+    
     [Header("Lobby Screen")]
     public TextMeshProUGUI playerListText;
     public Button startGameButton;
@@ -41,12 +40,12 @@ public class Menu : MonoBehaviourPunCallbacks
         joinRoomButton.interactable = false;
 
     }
+
     private void Awake()
     {
         listingScreen.GetComponent<CanvasScaler>().scaleFactor = 0.001f;
     }
-
-
+    
     public override void OnConnectedToMaster()
     {
         createRoomButton.interactable = true;
@@ -54,6 +53,7 @@ public class Menu : MonoBehaviourPunCallbacks
 
         PhotonNetwork.JoinLobby();
     }
+
     public void QuitGame()
     {
         Application.Quit();
@@ -80,6 +80,43 @@ public class Menu : MonoBehaviourPunCallbacks
         }
     }
 
+    [PunRPC]
+    public void UpdateLobbyUI()
+    {
+        playerListText.text = "";
+
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            if (player.IsMasterClient)
+                playerListText.text += player.NickName + " (Host) \n";
+            else if (NetworkManager.instance.spectator.Contains(player.NickName))
+                playerListText.text += player.NickName + " (Spectator)\n";
+            else
+                playerListText.text += player.NickName + "\n";
+        }
+
+        //only host can start the game
+        if (PhotonNetwork.IsMasterClient)
+            startGameButton.interactable = true;
+        else
+            startGameButton.interactable = false;
+
+        //roomListText.text = PhotonNetwork.CloudRegion;
+
+    }
+
+    public void CreateGame()
+    {
+        SetScreen(createLobbyScreen);
+    }
+
+    public void ReturnToMenu()
+    {
+        SetScreen(mainScreen);
+    }
+
+    #region Buttons
+
     public void OnCreateRoomButton(TMP_InputField roomNameInput)
     {
         if (roomNameInput.text != "")
@@ -87,7 +124,6 @@ public class Menu : MonoBehaviourPunCallbacks
             NetworkManager.instance.CreateRoom(roomNameInput.text);
             roomNameText.text = roomNameInput.text;
         }
-
     }
 
     public void OnJoinGameButton()
@@ -110,6 +146,32 @@ public class Menu : MonoBehaviourPunCallbacks
         joinAsSpectator = true;
     }
 
+    public void OnGalleryModeButton()
+    {
+        SceneManager.LoadScene(galleryScene, LoadSceneMode.Single);
+    }
+    
+    public void OnLeaveLobbyButton()
+    {
+        PhotonNetwork.LeaveRoom();
+        SetScreen(mainScreen);
+    }
+    
+    public void OnStartGameButton()
+    {
+        //Scene that will be loaded is Duplicate instead of MasterScene
+
+        NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, sceneName);
+    }
+    
+    public void OnPlayGameButton()
+    {
+        SetScreen(playGameScreen);
+    }
+
+    #endregion
+
+    #region Player Joining & Leaving Room
     [PunRPC]
     public void AddSpectator(string nickname)
     {
@@ -143,14 +205,6 @@ public class Menu : MonoBehaviourPunCallbacks
         photonView.RPC("UpdateLobbyUI", RpcTarget.All);
     }
 
-    public void CloseHowToPlay()
-    {
-        howToPlay.SetActive(false);
-    }
-    public void OpenHowToPlay()
-    {
-        howToPlay.SetActive(true);
-    }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         //we dont use RPC like when we join the lobby
@@ -158,57 +212,22 @@ public class Menu : MonoBehaviourPunCallbacks
         //OnPlayerLeftRoom gets called for all clients in the room, so we don't need RPC
         UpdateLobbyUI();
     }
-
-    [PunRPC]
-    public void UpdateLobbyUI()
+    
+    #endregion
+    
+    #region How To play
+    public void CloseHowToPlay()
     {
-        playerListText.text = "";
-
-        foreach (Player player in PhotonNetwork.PlayerList)
-        {
-            if (player.IsMasterClient)
-                playerListText.text += player.NickName + " (Host) \n";
-            else if (NetworkManager.instance.spectator.Contains(player.NickName))
-                playerListText.text += player.NickName + " (Spectator)\n";
-            else
-                playerListText.text += player.NickName + "\n";
-        }
-
-        //only host can start the game
-        if (PhotonNetwork.IsMasterClient)
-            startGameButton.interactable = true;
-        else
-            startGameButton.interactable = false;
-
-        //roomListText.text = PhotonNetwork.CloudRegion;
-
+        howToPlay.SetActive(false);
     }
 
-    public void OnLeaveLobbyButton()
+    public void OpenHowToPlay()
     {
-        PhotonNetwork.LeaveRoom();
-        SetScreen(mainScreen);
+        howToPlay.SetActive(true);
     }
+    #endregion
+    
 
-    public void CreateGame()
-    {
-        SetScreen(createLobbyScreen);
-    }
 
-    public void ReturnToMenu()
-    {
-        SetScreen(mainScreen);
-    }
-    public void OnStartGameButton()
-    {
-        //Scene that will be loaded is Duplicate instead of MasterScene
-
-        NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, sceneName);
-    }
-
-    public void OnGalleryModeButton()
-    {
-        SceneManager.LoadScene(galleryScene, LoadSceneMode.Single);
-    }
 
 }
