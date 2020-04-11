@@ -93,7 +93,18 @@ public class HexMapController : MonoBehaviour
                 previousCell = currentCell;
                 currentCell = GetCellUnderCursor();
                 isMoving = true;
-                hexGrid.FindPath(startCell, currentCell, speed - hexGrid.hexesTravelled);
+                PlayerController localPlayer = null;
+                PlayerController[] players = FindObjectsOfType<PlayerController>();
+                foreach(PlayerController player in players)
+                {
+                    if(player.photonPlayer.IsLocal)
+                    {
+                        localPlayer = player;
+                    }
+                }
+
+                if (localPlayer.Turn)
+                    hexGrid.FindPath(startCell, currentCell, speed - hexGrid.hexesTravelled);
                 break;
 
             case TouchPhase.Ended:

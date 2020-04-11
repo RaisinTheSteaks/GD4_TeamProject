@@ -436,6 +436,7 @@ public class HexGrid : MonoBehaviour
                         hexesTravelled += currentPathTo.Distance;
                     }
                     selectedBot.transform.parent.GetComponent<PlayerController>().actionCount++;
+                    
                 }
             }
             DisableAllHighlights();
