@@ -63,6 +63,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public bool showBubble;
     public ParticleSystem attackedSparks;
     public ParticleSystem muzzleEffect;
+    public ParticleSystem guardEffect;
     public string tooFarResponse = "Sire, the enemy target is too far!";
     public string coverOnTheWay = "According to my calculation, there is a foreign object in the way!";
     public string alliedBotOnTheWay = "Sire, allied bot is in the way!";
@@ -346,9 +347,15 @@ public class BotController : MonoBehaviourPunCallbacks
         }else if(boolName == "IsGuarding")
         {
             if (guardMode)
+            {
+                guardEffect.Play();
                 yield break;
+            }
             else
+            {
+                guardEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
                 waitTime = 0;
+            }
         }
 
         yield return new WaitForSeconds(waitTime);
@@ -592,6 +599,9 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         attackingMode = false;
         specialAbilityMode = false;
+        guardMode = false;
+        if(animator.GetBool("IsGuarding"))
+            StartCoroutine(Animation("IsGuarding"));
         //GameManager.instance.mapController.SetMovementState(false);
 
     }
