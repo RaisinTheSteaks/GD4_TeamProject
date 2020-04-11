@@ -288,6 +288,7 @@ public class HexMapController : MonoBehaviour
         i = 0;
         return cell;
     }
+
     void ClearStartingCells()
     {
         if (currentCell)

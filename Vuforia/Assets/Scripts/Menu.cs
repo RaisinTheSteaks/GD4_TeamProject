@@ -64,7 +64,7 @@ public class Menu : MonoBehaviourPunCallbacks
 
     void SetScreen(GameObject screen)
     {
-        Debug.Log("Setting Active Screen");
+        //Debug.Log("Setting Active Screen");
         if (screen.Equals(listingScreen))
         {
             mainScreen.SetActive(false);
