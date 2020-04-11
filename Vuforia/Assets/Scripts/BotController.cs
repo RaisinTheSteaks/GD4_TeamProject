@@ -154,6 +154,9 @@ public class BotController : MonoBehaviourPunCallbacks
         if (isSelected && playerScript.Turn && !specialAbilityMode && !pause && CheckActionCount())
         {
             ResetAllMode();
+            guardMode = false;
+            if (animator.GetBool("IsGuarding"))
+                StartCoroutine(Animation("IsGuarding"));
             // print(transform.name + "moving");
             GameManager.instance.mapController.SetMovementState(true);
         }
@@ -168,7 +171,9 @@ public class BotController : MonoBehaviourPunCallbacks
 
             ResetAllMode();
             //enter attacking mode
-
+            guardMode = false;
+            if (animator.GetBool("IsGuarding"))
+                StartCoroutine(Animation("IsGuarding"));
 
             float offset = gridScale * 10.0f;
 
@@ -210,6 +215,7 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         if (attackingMode && !pause)
         {
+
             //if attacking mode, pressing down mouse button will do something different
             if (Input.GetMouseButtonDown(0))
             {
@@ -327,6 +333,22 @@ public class BotController : MonoBehaviourPunCallbacks
         target.muzzleEffect.Play();
     }
 
+    [PunRPC]
+    public void PlayGuardEffect(string botName)
+    {
+        GameObject bot = GameObject.Find(botName);
+        BotController target = bot.GetComponent<BotController>();
+        target.guardEffect.Play();
+    }
+
+    [PunRPC]
+    public void StopGuardEffect(string botName)
+    {
+        GameObject bot = GameObject.Find(botName);
+        BotController target = bot.GetComponent<BotController>();
+        target.guardEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+    }
+
     public IEnumerator Animation(string boolName)
     {
         
@@ -348,12 +370,12 @@ public class BotController : MonoBehaviourPunCallbacks
         {
             if (guardMode)
             {
-                guardEffect.Play();
+                photonView.RPC("PlayGuardEffect", RpcTarget.All, transform.name);
                 yield break;
             }
             else
             {
-                guardEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                photonView.RPC("StopGuardEffect", RpcTarget.All, transform.name);
                 waitTime = 0;
             }
         }
@@ -500,6 +522,9 @@ public class BotController : MonoBehaviourPunCallbacks
         if (isSelected && playerScript.Turn && !specialAbilityUsed && !pause && CheckActionCount())
         {
             ResetAllMode();
+            guardMode = false;
+            if (animator.GetBool("IsGuarding"))
+                StartCoroutine(Animation("IsGuarding"));
             if (Type.Equals("Tank"))
                 specialAbilityMode = true;
             else
@@ -599,9 +624,6 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         attackingMode = false;
         specialAbilityMode = false;
-        guardMode = false;
-        if(animator.GetBool("IsGuarding"))
-            StartCoroutine(Animation("IsGuarding"));
         //GameManager.instance.mapController.SetMovementState(false);
 
     }
