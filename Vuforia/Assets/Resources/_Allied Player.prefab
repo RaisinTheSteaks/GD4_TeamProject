@@ -218,16 +218,6 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -1
       objectReference: {fileID: 0}
-    - target: {fileID: 7345049439230344709, guid: d425422358808b540bf5593f26332cf3,
-        type: 3}
-      propertyPath: m_Name
-      value: Tank
-      objectReference: {fileID: 0}
-    - target: {fileID: 7345049439230344709, guid: d425422358808b540bf5593f26332cf3,
-        type: 3}
-      propertyPath: m_TagString
-      value: Bot
-      objectReference: {fileID: 0}
     - target: {fileID: 3756958227071221501, guid: d425422358808b540bf5593f26332cf3,
         type: 3}
       propertyPath: OutputAudioMixerGroup
@@ -278,6 +268,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SynchronizeParameters.Array.data[0].Name
       value: IsShooting
+      objectReference: {fileID: 0}
+    - target: {fileID: 7345049439230344709, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_Name
+      value: Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 7345049439230344709, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_TagString
+      value: Bot
       objectReference: {fileID: 0}
     - target: {fileID: 7345049439230632933, guid: d425422358808b540bf5593f26332cf3,
         type: 3}
