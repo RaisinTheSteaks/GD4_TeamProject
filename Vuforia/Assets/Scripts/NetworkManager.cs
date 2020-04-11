@@ -38,7 +38,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnCreatedRoom()
     {
-        print("Created room: " + PhotonNetwork.CurrentRoom.Name);
+
     }
 
     public void JoinRoom (string roomName)

@@ -17,13 +17,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/HowToPlay/HowToPlayMasterScene.unity
     guid: 1e15acda568fa084794e490c4a4c0432
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Gallery.unity
     guid: 5f3b04a44342b8242a875709f48cd123
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
-    guid: edad5e58163854c4da03ea0eee715023
+    path: Assets/Scenes/LobbyMenu/LobbyMenu.unity
+    guid: 16b8961cda188d54ca8a40bdbf6b65e2
   - enabled: 1
     path: Assets/Scenes/MasterScene.unity
     guid: 9b81f4131ee1ef5498d869143fb17e99
+  - enabled: 1
+    path: Assets/Scenes/LobbyMenu/LobbyMasterScene.unity
+    guid: 1a17442ea460fc04aa5bbecd452ac4dc
   m_configObjects: {}
