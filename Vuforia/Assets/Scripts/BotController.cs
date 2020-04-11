@@ -540,6 +540,7 @@ public class BotController : MonoBehaviourPunCallbacks
                 once = false;
             }
 
+
         }
         else if (isSelected == false)
         {
