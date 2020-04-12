@@ -58,5 +58,7 @@ MonoBehaviour:
   - PlayMuzzleEffect
   - PlayGuardEffect
   - StopGuardEffect
+  - PlayHealEffect
+  - StopHealEffect
   DisableAutoOpenWizard: 1
   ShowSettings: 1

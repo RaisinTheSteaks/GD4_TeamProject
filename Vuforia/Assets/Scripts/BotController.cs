@@ -64,6 +64,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public ParticleSystem attackedSparks;
     public ParticleSystem muzzleEffect;
     public ParticleSystem guardEffect;
+    public ParticleSystem healEffect;
     public string tooFarResponse = "Sire, the enemy target is too far!";
     public string coverOnTheWay = "According to my calculation, there is a foreign object in the way!";
     public string alliedBotOnTheWay = "Sire, allied bot is in the way!";
@@ -349,6 +350,22 @@ public class BotController : MonoBehaviourPunCallbacks
         target.guardEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
     }
 
+    [PunRPC]
+    public void PlayHealEffect(string botName)
+    {
+        GameObject bot = GameObject.Find(botName);
+        BotController target = bot.GetComponent<BotController>();
+        target.healEffect.Play();
+    }
+
+    [PunRPC]
+    public void StopHealEffect(string botName)
+    {
+        GameObject bot = GameObject.Find(botName);
+        BotController target = bot.GetComponent<BotController>();
+        target.healEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+    }
+
     public IEnumerator Animation(string boolName)
     {
         
@@ -549,6 +566,8 @@ public class BotController : MonoBehaviourPunCallbacks
                    {
                         if (hit.transform.parent == playerScript.transform)
                             photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, 0.0f, -30.0f);
+                            photonView.RPC("PlayHealEffect", RpcTarget.All, transform.name);
+
                         specialAbilityUsed = true;
                         playerScript.EndTurn();
                    }                                    
