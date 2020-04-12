@@ -13,10 +13,14 @@ public class Menu : MonoBehaviourPunCallbacks
 
 
     [Header("Screens")]
+    public static int screenCount = 5;
+    public GameObject[] screens = new GameObject[screenCount];
+
     public GameObject mainScreen;
     public GameObject lobbyScreen;
     public GameObject createLobbyScreen;
     public GameObject listingScreen;
+    public GameObject playGameScreen;
     public string sceneName;
     public string galleryScene;
 
@@ -24,9 +28,7 @@ public class Menu : MonoBehaviourPunCallbacks
     public Button createRoomButton;
     public Button joinRoomButton;
     public TextMeshProUGUI roomListText;
-
-
-
+    
     [Header("Lobby Screen")]
     public TextMeshProUGUI playerListText;
     public Button startGameButton;
@@ -41,12 +43,12 @@ public class Menu : MonoBehaviourPunCallbacks
         joinRoomButton.interactable = false;
 
     }
+
     private void Awake()
     {
         listingScreen.GetComponent<CanvasScaler>().scaleFactor = 0.001f;
     }
-
-
+    
     public override void OnConnectedToMaster()
     {
         createRoomButton.interactable = true;
@@ -54,6 +56,7 @@ public class Menu : MonoBehaviourPunCallbacks
 
         PhotonNetwork.JoinLobby();
     }
+
     public void QuitGame()
     {
         Application.Quit();
@@ -61,23 +64,66 @@ public class Menu : MonoBehaviourPunCallbacks
 
     void SetScreen(GameObject screen)
     {
+        //Debug.Log("Setting Active Screen");
         if (screen.Equals(listingScreen))
         {
             mainScreen.SetActive(false);
+            playGameScreen.SetActive(false);
             listingScreen.GetComponent<CanvasScaler>().scaleFactor = 1;
+            listingScreen.GetComponent<Canvas>().enabled = true;
         }
         else
         {
-            //deactivate all screen
-            mainScreen.SetActive(false);
-            lobbyScreen.SetActive(false);
-            howToPlay.SetActive(false);
-            createLobbyScreen.SetActive(false);
-            listingScreen.GetComponent<CanvasScaler>().scaleFactor = 0.01f;
-            Debug.Log(listingScreen.GetComponent<CanvasScaler>().scaleFactor);
-            //enable requested scene
+            //deactivate all screens
+            foreach (GameObject sc in screens)
+            {
+                if(sc != listingScreen)
+                { 
+                    sc.SetActive(false);
+                }
+            }
+            //The Listing Screen needs to stay active throughout runtime, so it's canvas gets enabled/disabled
+
+            listingScreen.GetComponent<Canvas>().enabled = false;
             screen.SetActive(true);
         }
+    }
+
+    [PunRPC]
+    public void UpdateLobbyUI()
+    {
+        playerListText.text = "";
+
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            if (player.IsMasterClient)
+                playerListText.text += player.NickName + " (Host) \n";
+            else if (NetworkManager.instance.spectator.Contains(player.NickName))
+                playerListText.text += player.NickName + " (Spectator)\n";
+            else
+                playerListText.text += player.NickName + "\n";
+        }
+
+        //only host can start the game
+        if (PhotonNetwork.IsMasterClient)
+            startGameButton.interactable = true;
+        else
+            startGameButton.interactable = false;
+
+        //roomListText.text = PhotonNetwork.CloudRegion;
+
+    }
+
+    public void ReturnToMenu()
+    {
+        SetScreen(mainScreen);
+    }
+
+    #region Buttons
+
+    public void OnCreateGameButton()
+    {
+        SetScreen(createLobbyScreen);
     }
 
     public void OnCreateRoomButton(TMP_InputField roomNameInput)
@@ -87,7 +133,6 @@ public class Menu : MonoBehaviourPunCallbacks
             NetworkManager.instance.CreateRoom(roomNameInput.text);
             roomNameText.text = roomNameInput.text;
         }
-
     }
 
     public void OnJoinGameButton()
@@ -110,6 +155,32 @@ public class Menu : MonoBehaviourPunCallbacks
         joinAsSpectator = true;
     }
 
+    public void OnGalleryModeButton()
+    {
+        SceneManager.LoadScene(galleryScene, LoadSceneMode.Single);
+    }
+    
+    public void OnLeaveLobbyButton()
+    {
+        PhotonNetwork.LeaveRoom();
+        SetScreen(mainScreen);
+    }
+    
+    public void OnStartGameButton()
+    {
+        //Scene that will be loaded is Duplicate instead of MasterScene
+
+        NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, sceneName);
+    }
+    
+    public void OnPlayGameButton()
+    {
+        SetScreen(playGameScreen);
+    }
+
+    #endregion
+
+    #region Player Joining & Leaving Room
     [PunRPC]
     public void AddSpectator(string nickname)
     {
@@ -143,14 +214,6 @@ public class Menu : MonoBehaviourPunCallbacks
         photonView.RPC("UpdateLobbyUI", RpcTarget.All);
     }
 
-    public void CloseHowToPlay()
-    {
-        howToPlay.SetActive(false);
-    }
-    public void OpenHowToPlay()
-    {
-        howToPlay.SetActive(true);
-    }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         //we dont use RPC like when we join the lobby
@@ -158,57 +221,22 @@ public class Menu : MonoBehaviourPunCallbacks
         //OnPlayerLeftRoom gets called for all clients in the room, so we don't need RPC
         UpdateLobbyUI();
     }
-
-    [PunRPC]
-    public void UpdateLobbyUI()
+    
+    #endregion
+    
+    #region How To play
+    public void CloseHowToPlay()
     {
-        playerListText.text = "";
-
-        foreach (Player player in PhotonNetwork.PlayerList)
-        {
-            if (player.IsMasterClient)
-                playerListText.text += player.NickName + " (Host) \n";
-            else if (NetworkManager.instance.spectator.Contains(player.NickName))
-                playerListText.text += player.NickName + " (Spectator)\n";
-            else
-                playerListText.text += player.NickName + "\n";
-        }
-
-        //only host can start the game
-        if (PhotonNetwork.IsMasterClient)
-            startGameButton.interactable = true;
-        else
-            startGameButton.interactable = false;
-
-        //roomListText.text = PhotonNetwork.CloudRegion;
-
+        howToPlay.SetActive(false);
     }
 
-    public void OnLeaveLobbyButton()
+    public void OpenHowToPlay()
     {
-        PhotonNetwork.LeaveRoom();
-        SetScreen(mainScreen);
+        howToPlay.SetActive(true);
     }
+    #endregion
+    
 
-    public void CreateGame()
-    {
-        SetScreen(createLobbyScreen);
-    }
 
-    public void ReturnToMenu()
-    {
-        SetScreen(mainScreen);
-    }
-    public void OnStartGameButton()
-    {
-        //Scene that will be loaded is Duplicate instead of MasterScene
-
-        NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, sceneName);
-    }
-
-    public void OnGalleryModeButton()
-    {
-        SceneManager.LoadScene(galleryScene, LoadSceneMode.Single);
-    }
 
 }

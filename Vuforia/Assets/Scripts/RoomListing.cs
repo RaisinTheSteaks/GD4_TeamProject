@@ -26,6 +26,7 @@ public class RoomListing : MonoBehaviour
 
     public void updateSelectedRoom()
     {
+        selectedRoom.enabled = true;
         selectedRoom.text = text.text;
     }
 

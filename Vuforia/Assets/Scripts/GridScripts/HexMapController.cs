@@ -92,19 +92,24 @@ public class HexMapController : MonoBehaviour
                 debugString = "[TOUCH PHASE MOVED]";
                 previousCell = currentCell;
                 currentCell = GetCellUnderCursor();
-                isMoving = true;
-                PlayerController localPlayer = null;
-                PlayerController[] players = FindObjectsOfType<PlayerController>();
-                foreach(PlayerController player in players)
-                {
-                    if(player.photonPlayer.IsLocal)
-                    {
-                        localPlayer = player;
-                    }
-                }
-
-                if (localPlayer.Turn)
-                    hexGrid.FindPath(startCell, currentCell, speed - hexGrid.hexesTravelled);
+                if(currentCell)
+				{
+					isMoving = true;
+					PlayerController localPlayer = null;
+					PlayerController[] players = FindObjectsOfType<PlayerController>();
+					foreach(PlayerController player in players)
+					{
+						if(player.photonPlayer.IsLocal)
+						{
+							localPlayer = player;
+						}
+					}
+					
+					if (localPlayer.Turn)
+					{
+						hexGrid.FindPath(startCell, currentCell, speed - hexGrid.hexesTravelled);
+					}
+				}
                 break;
 
             case TouchPhase.Ended:
@@ -276,9 +281,9 @@ public class HexMapController : MonoBehaviour
         BotController[] bots = FindObjectsOfType<BotController>();
         int i = 0;
 
-        if (cell != null)
+        if (cell)
         {
-            if (cell.unit != null)
+            if (cell.unit)
             {
                 foreach (BotController bot in bots)
                 {
@@ -296,6 +301,7 @@ public class HexMapController : MonoBehaviour
         i = 0;
         return cell;
     }
+
     void ClearStartingCells()
     {
         if (currentCell)
