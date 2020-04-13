@@ -67,6 +67,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public ParticleSystem guardEffect;
     public ParticleSystem healEffect;
     public ParticleSystem missileEffect;
+    public ParticleSystem missileExplosion;
     public string tooFarResponse = "Sire, the enemy target is too far!";
     public string coverOnTheWay = "According to my calculation, there is a foreign object in the way!";
     public string alliedBotOnTheWay = "Sire, allied bot is in the way!";
@@ -366,6 +367,7 @@ public class BotController : MonoBehaviourPunCallbacks
         GameObject bot = GameObject.Find(botName);
         BotController target = bot.GetComponent<BotController>();
         target.missileEffect.Play();
+        target.missileExplosion.Play();
     }
 
 
@@ -604,13 +606,12 @@ public class BotController : MonoBehaviourPunCallbacks
 
     private void LoadExplosion()
     {
-        HexCell hex = hexGrid.GetCell(tap);             //if the player has confirmed the area they want to attack then a hex is created with the tap location.
-                                                        //Sphere is for debugging purposes                                  
-                                                        //GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        HexCell hex = hexGrid.GetCell(tap);      
+
         var explode = Instantiate(explosion, hex.transform.position, Quaternion.identity);
 
-        missileEffect = explode.GetComponentInChildren<ParticleSystem>();
-        missileEffect.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+        missileExplosion = explode.GetComponentInChildren<ParticleSystem>();
+        missileExplosion.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
         photonView.RPC("PlayMissileEffect", RpcTarget.All, transform.name);
         
         hitColliders = Physics.OverlapSphere(hex.transform.position, 0.035f);
@@ -625,7 +626,7 @@ public class BotController : MonoBehaviourPunCallbacks
                 }
             }
         }
-        Destroy(explode, 3.0f);
+        Destroy(explode, 2.0f);
         specialAbilityUsed = true;
         transform.parent.GetComponent<PlayerController>().actionCount++;
 
