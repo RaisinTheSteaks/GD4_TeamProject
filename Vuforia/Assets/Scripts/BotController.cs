@@ -362,10 +362,12 @@ public class BotController : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void PlayMissileEffect(string botName)
+    public void PlayMissileEffect(string botName, Vector3 position)
     {
         GameObject bot = GameObject.Find(botName);
-        BotController target = bot.GetComponent<BotController>();
+        BotController target = bot.GetComponent<BotController>(); 
+        target.missileExplosion.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+        target.missileExplosion.transform.position = position;
         target.missileEffect.Play();
         target.missileExplosion.Play();
     }
@@ -608,11 +610,10 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         HexCell hex = hexGrid.GetCell(tap);      
 
-        var explode = Instantiate(explosion, hex.transform.position, Quaternion.identity);
+        //var explode = Instantiate(explosion, hex.transform.position, Quaternion.identity);
 
-        missileExplosion = explode.GetComponentInChildren<ParticleSystem>();
-        missileExplosion.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
-        photonView.RPC("PlayMissileEffect", RpcTarget.All, transform.name);
+        //missileExplosion = explode.GetComponentInChildren<ParticleSystem>();
+        photonView.RPC("PlayMissileEffect", RpcTarget.All, transform.name, hex.transform.position);
         
         hitColliders = Physics.OverlapSphere(hex.transform.position, 0.035f);
         photonView.RPC("MissileAudio", RpcTarget.All, transform.name);
@@ -626,7 +627,7 @@ public class BotController : MonoBehaviourPunCallbacks
                 }
             }
         }
-        Destroy(explode, 2.0f);
+        //Destroy(explode, 2.0f);
         specialAbilityUsed = true;
         transform.parent.GetComponent<PlayerController>().actionCount++;
 
