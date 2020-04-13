@@ -28,7 +28,7 @@ public class Unit : MonoBehaviour
             {
                 multiplier = -1;
             }
-            transform.localPosition = value.Position +  new Vector3(0,0,3) * multiplier;
+            transform.localPosition = value.Position +  new Vector3(0,0,8f) * multiplier;
             //transform.position = transform.localPosition;
         }
     }
