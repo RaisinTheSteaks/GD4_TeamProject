@@ -413,7 +413,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
             BotController botScript = child.GetComponent<BotController>();
             if (!Turn)
             {
-                botScript.SelectedStatus.SetText(Turn.ToString());
                 grid.hexesTravelled = 0;
             }
         }
