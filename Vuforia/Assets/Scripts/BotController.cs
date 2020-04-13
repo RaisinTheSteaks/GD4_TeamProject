@@ -571,8 +571,8 @@ public class BotController : MonoBehaviourPunCallbacks
                    if (hit.transform.tag == "Bot") 
                    {
                         if (hit.transform.parent == playerScript.transform)
-                            photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, 0.0f, -30.0f);
-                            photonView.RPC("PlayHealEffect", RpcTarget.All, transform.name);
+                        photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, 0.0f, -30.0f);
+                        photonView.RPC("PlayHealEffect", RpcTarget.All, hit.transform.name);
 
                         specialAbilityUsed = true;
                         playerScript.EndTurn();
