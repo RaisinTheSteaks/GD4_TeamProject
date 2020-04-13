@@ -630,7 +630,7 @@ Transform:
   - {fileID: 2893824366969147183}
   - {fileID: 2893824366969147179}
   m_Father: {fileID: 2893824366969147155}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2893824366969574099
 GameObject:
@@ -748,6 +748,7 @@ MonoBehaviour:
   specialAbilityMode: 0
   specialAbilityUsed: 0
   guardMode: 0
+  explosion: {fileID: 0}
   hexGrid: {fileID: 0}
   Type: 
   botPopUp: {fileID: 0}
@@ -772,6 +773,8 @@ MonoBehaviour:
   muzzleEffect: {fileID: 0}
   guardEffect: {fileID: 0}
   healEffect: {fileID: 0}
+  missileEffect: {fileID: 0}
+  missileExplosion: {fileID: 0}
   tooFarResponse: Sire, the enemy target is too far!
   coverOnTheWay: According to my calculation, there is a foreign object in the way!
   alliedBotOnTheWay: Sire, allied bot is in the way!
@@ -2575,6 +2578,7 @@ Transform:
   - {fileID: 2893824366969147157}
   - {fileID: 2893824366969147187}
   - {fileID: 6469320510655678472}
+  - {fileID: 8215114834017985252}
   - {fileID: 2893824366969147185}
   - {fileID: 8076681673315041353}
   m_Father: {fileID: 2893824366969147181}
@@ -13894,7 +13898,7 @@ Transform:
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children: []
   m_Father: {fileID: 2893824366969147155}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &7484415737893938431
 ParticleSystem:
@@ -18766,4 +18770,79 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1813772141695732162, guid: bff2b76dc0effce49bea57efa294ab8a,
     type: 3}
   m_PrefabInstance: {fileID: 4678242331906916810}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5743202971130485236
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2893824366969147155}
+    m_Modifications:
+    - target: {fileID: 1396821563463300366, guid: e4f6a21aee04e9741a67d63251ea9c9f,
+        type: 3}
+      propertyPath: m_Name
+      value: Explosion Particle Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445624329582705424, guid: e4f6a21aee04e9741a67d63251ea9c9f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445624329582705424, guid: e4f6a21aee04e9741a67d63251ea9c9f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445624329582705424, guid: e4f6a21aee04e9741a67d63251ea9c9f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445624329582705424, guid: e4f6a21aee04e9741a67d63251ea9c9f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445624329582705424, guid: e4f6a21aee04e9741a67d63251ea9c9f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445624329582705424, guid: e4f6a21aee04e9741a67d63251ea9c9f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445624329582705424, guid: e4f6a21aee04e9741a67d63251ea9c9f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445624329582705424, guid: e4f6a21aee04e9741a67d63251ea9c9f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445624329582705424, guid: e4f6a21aee04e9741a67d63251ea9c9f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445624329582705424, guid: e4f6a21aee04e9741a67d63251ea9c9f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445624329582705424, guid: e4f6a21aee04e9741a67d63251ea9c9f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e4f6a21aee04e9741a67d63251ea9c9f, type: 3}
+--- !u!4 &8215114834017985252 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4445624329582705424, guid: e4f6a21aee04e9741a67d63251ea9c9f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5743202971130485236}
   m_PrefabAsset: {fileID: 0}
