@@ -609,9 +609,10 @@ public class BotController : MonoBehaviourPunCallbacks
                                                         //GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         var explode = Instantiate(explosion, hex.transform.position, Quaternion.identity);
 
-        GameObject ChildGameObject1 = explode.transform.GetChild(0).gameObject;
-        ChildGameObject1.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
-
+        missileEffect = explode.GetComponentInChildren<ParticleSystem>();
+        missileEffect.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+        photonView.RPC("PlayMissileEffect", RpcTarget.All, transform.name);
+        
         hitColliders = Physics.OverlapSphere(hex.transform.position, 0.035f);
         photonView.RPC("MissileAudio", RpcTarget.All, transform.name);
         for (int i = 0; i < hitColliders.Length; i++)                               //are then placed in an array called hitColliders. A for loop then iterates through the hitColliders arrayand if the object 
@@ -625,17 +626,11 @@ public class BotController : MonoBehaviourPunCallbacks
             }
         }
         Destroy(explode, 3.0f);
-        //DespawnExplosion(explosion);
         specialAbilityUsed = true;
         transform.parent.GetComponent<PlayerController>().actionCount++;
 
     }
 
-    //public void DespawnExplosion(GameObject explosion)
-    //{
-        //yield return new WaitForSeconds(1.0f);
-        //Destroy(explosion, 1.0f);
-    //}
 
     [PunRPC]
     public void MissileAudio(string botName)
