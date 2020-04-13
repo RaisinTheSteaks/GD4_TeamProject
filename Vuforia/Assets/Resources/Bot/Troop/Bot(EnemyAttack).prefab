@@ -11956,6 +11956,7 @@ MonoBehaviour:
   muzzleEffect: {fileID: 0}
   guardEffect: {fileID: 0}
   healEffect: {fileID: 0}
+  missileEffect: {fileID: 0}
   tooFarResponse: Sire, the enemy target is too far!
   coverOnTheWay: According to my calculation, there is a foreign object in the way!
   alliedBotOnTheWay: Sire, allied bot is in the way!
@@ -22213,12 +22214,12 @@ PrefabInstance:
     - target: {fileID: 6147083531484085709, guid: 114d61ce29650b148b8543715864cb8b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.45004886
+      value: -0.45
       objectReference: {fileID: 0}
     - target: {fileID: 6147083531484085709, guid: 114d61ce29650b148b8543715864cb8b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.39699054
+      value: 0.63
       objectReference: {fileID: 0}
     - target: {fileID: 6147083531484085709, guid: 114d61ce29650b148b8543715864cb8b,
         type: 3}
@@ -22263,17 +22264,17 @@ PrefabInstance:
     - target: {fileID: 6147083531484085709, guid: 114d61ce29650b148b8543715864cb8b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.1
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 6147083531484085709, guid: 114d61ce29650b148b8543715864cb8b,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.1
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 6147083531484085709, guid: 114d61ce29650b148b8543715864cb8b,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.1
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 6147083531484085708, guid: 114d61ce29650b148b8543715864cb8b,
         type: 3}

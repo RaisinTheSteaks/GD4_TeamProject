@@ -60,5 +60,6 @@ MonoBehaviour:
   - StopGuardEffect
   - PlayHealEffect
   - StopHealEffect
+  - PlayMissileEffect
   DisableAutoOpenWizard: 1
   ShowSettings: 1

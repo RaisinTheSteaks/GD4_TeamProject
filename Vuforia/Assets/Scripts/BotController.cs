@@ -65,6 +65,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public ParticleSystem muzzleEffect;
     public ParticleSystem guardEffect;
     public ParticleSystem healEffect;
+    public ParticleSystem missileEffect;
     public string tooFarResponse = "Sire, the enemy target is too far!";
     public string coverOnTheWay = "According to my calculation, there is a foreign object in the way!";
     public string alliedBotOnTheWay = "Sire, allied bot is in the way!";
@@ -359,12 +360,13 @@ public class BotController : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void StopHealEffect(string botName)
+    public void PlayMissileEffect(string botName)
     {
         GameObject bot = GameObject.Find(botName);
         BotController target = bot.GetComponent<BotController>();
-        target.healEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        target.missileEffect.Play();
     }
+
 
     public IEnumerator Animation(string boolName)
     {
@@ -608,6 +610,7 @@ public class BotController : MonoBehaviourPunCallbacks
         sphere.transform.localScale = new Vector3(0.035f, 0.02f, 0.035f);
         hitColliders = Physics.OverlapSphere(hex.transform.position, 0.035f);
         photonView.RPC("MissileAudio", RpcTarget.All, transform.name);
+        photonView.RPC("PlayMissileEffect", RpcTarget.All, transform.name);
         for (int i = 0; i < hitColliders.Length; i++)                               //are then placed in an array called hitColliders. A for loop then iterates through the hitColliders arrayand if the object 
         {
             if (hitColliders[i].transform.parent != playerScript.transform)
