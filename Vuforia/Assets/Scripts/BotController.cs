@@ -27,6 +27,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public bool specialAbilityMode;
     public bool specialAbilityUsed;
     public bool guardMode;
+    public GameObject explosion;
     public HexGrid hexGrid;
     public string Type;
     Collider[] hitColliders;
@@ -605,12 +606,14 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         HexCell hex = hexGrid.GetCell(tap);             //if the player has confirmed the area they want to attack then a hex is created with the tap location.
                                                         //Sphere is for debugging purposes                                  
-        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        sphere.transform.position = hex.transform.position;
-        sphere.transform.localScale = new Vector3(0.035f, 0.02f, 0.035f);
+                                                        //GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        var explode = Instantiate(explosion, hex.transform.position, Quaternion.identity);
+
+        GameObject ChildGameObject1 = explode.transform.GetChild(0).gameObject;
+        ChildGameObject1.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+
         hitColliders = Physics.OverlapSphere(hex.transform.position, 0.035f);
         photonView.RPC("MissileAudio", RpcTarget.All, transform.name);
-        photonView.RPC("PlayMissileEffect", RpcTarget.All, transform.name);
         for (int i = 0; i < hitColliders.Length; i++)                               //are then placed in an array called hitColliders. A for loop then iterates through the hitColliders arrayand if the object 
         {
             if (hitColliders[i].transform.parent != playerScript.transform)
@@ -621,18 +624,18 @@ public class BotController : MonoBehaviourPunCallbacks
                 }
             }
         }
-
-        StartCoroutine(DespawnSphere(sphere));
+        Destroy(explode, 3.0f);
+        //DespawnExplosion(explosion);
         specialAbilityUsed = true;
         transform.parent.GetComponent<PlayerController>().actionCount++;
 
     }
 
-    public IEnumerator DespawnSphere(GameObject sphere)
-    {
-        yield return new WaitForSeconds(1.0f);
-        Destroy(sphere);
-    }
+    //public void DespawnExplosion(GameObject explosion)
+    //{
+        //yield return new WaitForSeconds(1.0f);
+        //Destroy(explosion, 1.0f);
+    //}
 
     [PunRPC]
     public void MissileAudio(string botName)

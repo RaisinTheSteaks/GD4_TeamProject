@@ -543,6 +543,12 @@ PrefabInstance:
       propertyPath: missileEffect
       value: 
       objectReference: {fileID: 4450999470813406978}
+    - target: {fileID: 2203084645548401852, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: explosion
+      value: 
+      objectReference: {fileID: 4081411133713482935, guid: afeb7fd000bea664dadff5a9a5ac37f9,
+        type: 3}
     - target: {fileID: 8466277487690579185, guid: d425422358808b540bf5593f26332cf3,
         type: 3}
       propertyPath: ObservedComponents.Array.size
