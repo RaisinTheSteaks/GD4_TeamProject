@@ -34,8 +34,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
     [Header("PopUp")]
     public GameObject botPopUp;
-
-
+    public RawImage crossHair;
 
     public TextMeshProUGUI healthNumberIndicator;
     public GameObject healthBar;
@@ -114,7 +113,7 @@ public class BotController : MonoBehaviourPunCallbacks
         AttackTarget = GameObject.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
         
         showBubble = false;
-
+        crossHair.enabled = false;
     }
     private void Update()
     {
@@ -597,7 +596,9 @@ public class BotController : MonoBehaviourPunCallbacks
                     {
                         if (hit.transform.name == "hexagon") //if the player has touched a hexagon
                         {
-                            tap = hit.point;                //the global vector tap stores the location the player touched. 
+                            tap = hit.point;
+                            crossHair.enabled = true;
+                            crossHair.GetComponent<RectTransform>().position = tap;       //the global vector tap stores the location the player touched. 
                             botPopUp.SetActive(true);          //the popup activates.
                         }                                   //once the popup activates the popupControllers asks the player to confirm if the area they want to attack is the area they've selected.
                     }
@@ -608,11 +609,10 @@ public class BotController : MonoBehaviourPunCallbacks
 
     private void LoadExplosion()
     {
-        HexCell hex = hexGrid.GetCell(tap);      
+        HexCell hex = hexGrid.GetCell(tap);
 
-        //var explode = Instantiate(explosion, hex.transform.position, Quaternion.identity);
+        crossHair.enabled = false;
 
-        //missileExplosion = explode.GetComponentInChildren<ParticleSystem>();
         photonView.RPC("PlayMissileEffect", RpcTarget.All, transform.name, hex.transform.position);
         
         hitColliders = Physics.OverlapSphere(hex.transform.position, 0.035f);
