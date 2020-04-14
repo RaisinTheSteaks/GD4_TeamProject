@@ -112,7 +112,8 @@ public class BotController : MonoBehaviourPunCallbacks
         AttackTarget = GameObject.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
         
         showBubble = false;
-        crossHair.enabled = false;
+        if(crossHair)
+            crossHair.enabled = false;
     }
     private void Update()
     {
@@ -244,12 +245,12 @@ public class BotController : MonoBehaviourPunCallbacks
                             if (Vector3.Distance(transform.position, hit.transform.position) < range * gridScale * 2)
                             {
 
-                                transform.LookAt(hit.transform);
+                                transform.Find("Body").LookAt(hit.transform);
                                 Vector3 offsetY = new Vector3(0, 0.001f, 0);
                                 RaycastHit raycastHit;
 
                                 //check if the ray cast hit something
-                                if (Physics.Raycast(transform.position + offsetY, ((hit.transform.position + offsetY) - (transform.position + offsetY)), out raycastHit, maxRayDistance))
+                                if (Physics.Raycast(transform.Find("Body").position + offsetY, ((hit.transform.position + offsetY) - (transform.Find("Body").position + offsetY)), out raycastHit, maxRayDistance))
                                 {
                                     //check if the ray cast hit a bot type game object
                                     if (raycastHit.transform.tag == "Bot")
