@@ -278,6 +278,21 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1978190986398441019, guid: 2de66523797ad474cb232778e4ca5289,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1978190986398441019, guid: 2de66523797ad474cb232778e4ca5289,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1978190986398441019, guid: 2de66523797ad474cb232778e4ca5289,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2893824366969147207, guid: 2de66523797ad474cb232778e4ca5289,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -572,6 +587,11 @@ PrefabInstance:
     - target: {fileID: 2470008417587641574, guid: 2de66523797ad474cb232778e4ca5289,
         type: 3}
       propertyPath: InitialModule.gravityModifier.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2470008417587641574, guid: 2de66523797ad474cb232778e4ca5289,
+        type: 3}
+      propertyPath: scalingMode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7632476409000360055, guid: 2de66523797ad474cb232778e4ca5289,

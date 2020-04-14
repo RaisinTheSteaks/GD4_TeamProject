@@ -253,7 +253,11 @@ public class BotController : MonoBehaviourPunCallbacks
                                 else
                                 {
                                     transform.LookAt(hit.transform);
+                                    transform.localPosition = transform.GetComponent<Unit>().Location.Position + 8 * transform.forward.normalized;
+
                                 }
+
+
                                 Vector3 offsetY = new Vector3(0, 0.001f, 0);
                                 RaycastHit raycastHit;
 
