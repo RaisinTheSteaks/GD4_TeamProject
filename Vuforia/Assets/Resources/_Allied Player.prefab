@@ -615,6 +615,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4270547983034000180, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00099
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d425422358808b540bf5593f26332cf3, type: 3}
 --- !u!4 &5920658917450400159 stripped
