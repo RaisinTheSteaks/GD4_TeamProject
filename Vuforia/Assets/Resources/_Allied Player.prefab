@@ -529,7 +529,7 @@ PrefabInstance:
         type: 3}
       propertyPath: healEffect
       value: 
-      objectReference: {fileID: 2752365745346614717}
+      objectReference: {fileID: 8321682304369272946}
     - target: {fileID: 8466277487690579185, guid: d425422358808b540bf5593f26332cf3,
         type: 3}
       propertyPath: ObservedComponents.Array.size
@@ -877,7 +877,7 @@ PrefabInstance:
         type: 3}
       propertyPath: healEffect
       value: 
-      objectReference: {fileID: 2326725033418189758}
+      objectReference: {fileID: 8432115022681167473}
     - target: {fileID: 8421178250987500984, guid: b9db03348c7325349b02383b6c8a2086,
         type: 3}
       propertyPath: m_Name
@@ -1085,7 +1085,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 114d61ce29650b148b8543715864cb8b, type: 3}
---- !u!198 &2752365745346614717 stripped
+--- !u!198 &8321682304369272946 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 6147083531484085708, guid: 114d61ce29650b148b8543715864cb8b,
     type: 3}
@@ -1175,7 +1175,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 114d61ce29650b148b8543715864cb8b, type: 3}
---- !u!198 &2326725033418189758 stripped
+--- !u!198 &8432115022681167473 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 6147083531484085708, guid: 114d61ce29650b148b8543715864cb8b,
     type: 3}
