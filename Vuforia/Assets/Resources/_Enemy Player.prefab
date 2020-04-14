@@ -783,6 +783,12 @@ PrefabInstance:
       propertyPath: m_SynchronizeParameters.Array.data[2].Name
       value: IsGuarding
       objectReference: {fileID: 0}
+    - target: {fileID: 82359548268176138, guid: 3878de0e168dd934292fdba2c096f502,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 243802090497023772, guid: b63268997c4d44943b368a3796bb55b8,
+        type: 2}
     - target: {fileID: 7267562832532574014, guid: 3878de0e168dd934292fdba2c096f502,
         type: 3}
       propertyPath: m_textInfo.characterCount
