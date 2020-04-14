@@ -244,13 +244,21 @@ public class BotController : MonoBehaviourPunCallbacks
                             //check if target bot is within distancce
                             if (Vector3.Distance(transform.position, hit.transform.position) < range * gridScale * 2)
                             {
-
-                                transform.Find("Body").LookAt(hit.transform);
+                                Vector3 start = transform.position;
+                                if(Type == "Troop")
+                                {
+                                    transform.Find("Body").LookAt(hit.transform);
+                                    start = transform.Find("Body").position;
+                                }
+                                else
+                                {
+                                    transform.LookAt(hit.transform);
+                                }
                                 Vector3 offsetY = new Vector3(0, 0.001f, 0);
                                 RaycastHit raycastHit;
 
                                 //check if the ray cast hit something
-                                if (Physics.Raycast(transform.Find("Body").position + offsetY, ((hit.transform.position + offsetY) - (transform.Find("Body").position + offsetY)), out raycastHit, maxRayDistance))
+                                if (Physics.Raycast(start + offsetY, ((hit.transform.position + offsetY) - (start + offsetY)), out raycastHit, maxRayDistance))
                                 {
                                     //check if the ray cast hit a bot type game object
                                     if (raycastHit.transform.tag == "Bot")
