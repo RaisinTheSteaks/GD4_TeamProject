@@ -11932,9 +11932,11 @@ MonoBehaviour:
   specialAbilityMode: 0
   specialAbilityUsed: 0
   guardMode: 0
+  explosion: {fileID: 0}
   hexGrid: {fileID: 0}
   Type: 
   botPopUp: {fileID: 0}
+  crossHair: {fileID: 0}
   healthNumberIndicator: {fileID: 0}
   healthBar: {fileID: 0}
   maxWidth: 0
@@ -11957,6 +11959,7 @@ MonoBehaviour:
   guardEffect: {fileID: 0}
   healEffect: {fileID: 0}
   missileEffect: {fileID: 0}
+  missileExplosion: {fileID: 0}
   tooFarResponse: Sire, the enemy target is too far!
   coverOnTheWay: According to my calculation, there is a foreign object in the way!
   alliedBotOnTheWay: Sire, allied bot is in the way!
