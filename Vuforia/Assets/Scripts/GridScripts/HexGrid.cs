@@ -14,10 +14,13 @@ pathfinding in player movement
 
 */
 
+enum CoverColor { Red,Blue}
+
 struct CoverHex
 {
     public HexCell cell;
     public HexDirection direction;
+    public CoverColor color;
 }
 
 public class HexGrid : MonoBehaviour
@@ -53,7 +56,8 @@ public class HexGrid : MonoBehaviour
     public HexCell[] spawnPoints;
 
     public float directionRotationFraction = (360f/(int)HexDirection.HexDirectionCount);
-    public Cover coverPrefab;
+    public Cover coverRedPrefab;
+    public Cover coverBluePrefab;
     //If I want to add these cover hexes in the inspector, I would add it here.
     //public string[] coverHexNames;
     public static int coverObjectCount=14;
@@ -118,60 +122,74 @@ public class HexGrid : MonoBehaviour
         CoverHex coverHex = new CoverHex
         {
             cell = cells[1],
-            direction = HexDirection.NE
+            direction = HexDirection.NE,
+            color = CoverColor.Blue
         };
         coverHexes[0] = coverHex;
         
         coverHex.cell = cells[8];
         coverHex.direction = HexDirection.NE;
+        coverHex.color = CoverColor.Blue;
         coverHexes[1] = coverHex;
 
         coverHex.cell = cells[11];
         coverHex.direction = HexDirection.NW;
+        coverHex.color = CoverColor.Blue;
         coverHexes[2] = coverHex;
 
         coverHex.cell = cells[13];
         coverHex.direction = HexDirection.E;
+        coverHex.color = CoverColor.Blue;
         coverHexes[3] = coverHex;
 
         coverHex.cell = cells[20];
         coverHex.direction = HexDirection.SW;
+        coverHex.color = CoverColor.Blue;
         coverHexes[4] = coverHex;
 
         coverHex.cell = cells[25];
         coverHex.direction = HexDirection.NE;
+        coverHex.color = CoverColor.Blue;
         coverHexes[5] = coverHex;
 
         coverHex.cell = cells[29];
         coverHex.direction = HexDirection.E;
+        coverHex.color = CoverColor.Blue;
         coverHexes[6] = coverHex;
 
         coverHex.cell = cells[33];
         coverHex.direction = HexDirection.E;
+        coverHex.color = CoverColor.Red;
         coverHexes[7] = coverHex;
 
         coverHex.cell = cells[38];
         coverHex.direction = HexDirection.SW;
+        coverHex.color = CoverColor.Red;
         coverHexes[8] = coverHex;
 
         coverHex.cell = cells[43];
         coverHex.direction = HexDirection.NW;
+        coverHex.color = CoverColor.Red;
         coverHexes[9] = coverHex;
 
         coverHex.cell = cells[46];
         coverHex.direction = HexDirection.NE;
+        coverHex.color = CoverColor.Red;
         coverHexes[10] = coverHex;
 
         coverHex.cell = cells[49];
         coverHex.direction = HexDirection.E;
+        coverHex.color = CoverColor.Red;
         coverHexes[11] = coverHex;
 
         coverHex.cell = cells[52];
         coverHex.direction = HexDirection.SW;
+        coverHex.color = CoverColor.Red;
         coverHexes[12] = coverHex;
 
         coverHex.cell = cells[54];
         coverHex.direction = HexDirection.NE;
+        coverHex.color = CoverColor.Red;
         coverHexes[13] = coverHex;
     }
 
@@ -179,7 +197,16 @@ public class HexGrid : MonoBehaviour
     {
         foreach(CoverHex coverHex in coverHexes)
         {
-            Cover cover = Instantiate<Cover>(coverPrefab);
+            Cover cover;
+            if(coverHex.color == CoverColor.Red)
+            {
+                 cover = Instantiate<Cover>(coverRedPrefab);
+
+            }else
+            {
+                 cover = Instantiate<Cover>(coverBluePrefab);
+
+            }
             cover.ParentCell = coverHex.cell;
             cover.direction = coverHex.direction;
 

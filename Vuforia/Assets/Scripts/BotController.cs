@@ -580,11 +580,15 @@ public class BotController : MonoBehaviourPunCallbacks
                    if (hit.transform.tag == "Bot") 
                    {
                         if (hit.transform.parent == playerScript.transform)
-                        photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, 0.0f, -30.0f);
-                        photonView.RPC("PlayHealEffect", RpcTarget.All, hit.transform.name);
-
-                        specialAbilityUsed = true;
-                        playerScript.EndTurn();
+                        {
+                            transform.Find("Body").LookAt(hit.transform);
+                            photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, 0.0f, -30.0f);
+                            photonView.RPC("PlayHealEffect", RpcTarget.All, hit.transform.name);
+                            StartCoroutine(Animation("IsAbility"));
+                            specialAbilityUsed = true;
+                            playerScript.EndTurn();
+                        }
+                        
                    }                                    
                 }
             }
@@ -621,7 +625,7 @@ public class BotController : MonoBehaviourPunCallbacks
         HexCell hex = hexGrid.GetCell(tap);
 
         crossHair.enabled = false;
-
+        StartCoroutine(Animation("IsAbility"));
         photonView.RPC("PlayMissileEffect", RpcTarget.All, transform.name, hex.transform.position);
         
         hitColliders = Physics.OverlapSphere(hex.transform.position, 0.035f);
