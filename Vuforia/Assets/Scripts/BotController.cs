@@ -362,6 +362,7 @@ public class BotController : MonoBehaviourPunCallbacks
     [PunRPC]
     public void PlayMissileEffect(string botName, Vector3 position)
     {
+        Debug.Log("BOOM BOOM");
         GameObject bot = GameObject.Find(botName);
         BotController target = bot.GetComponent<BotController>(); 
         target.missileExplosion.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
