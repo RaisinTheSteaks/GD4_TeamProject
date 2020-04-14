@@ -19,7 +19,6 @@ public class BotController : MonoBehaviourPunCallbacks
     [Header("Info")]
     public bool isSelected = false;
     public PlayerController playerScript;
-    public TextMeshProUGUI SelectedStatus;
     public TextMeshProUGUI AttackTarget;
 
     [Header("Component")]
@@ -119,8 +118,8 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            showBubble = true;
-            StartCoroutine(HideBubble());
+            photonView.RPC("StartDamage", RpcTarget.All, transform.name, 15.0f, 5.0f);
+
         }
 
         AttackingPhase();
@@ -654,17 +653,16 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         if (isSelected)
         {
-            SelectedStatus.text = "Selected";
             if (once)
             {
                 StartCoroutine(Animation("IsSelected"));
                 once = false;
             }
 
+
         }
         else if (isSelected == false)
         {
-            SelectedStatus.text = "Not Selected";
             once = true;
             ResetAllMode();
         }

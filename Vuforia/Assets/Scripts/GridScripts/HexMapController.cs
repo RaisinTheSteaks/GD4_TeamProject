@@ -276,7 +276,17 @@ public class HexMapController : MonoBehaviour
     HexCell GetCellUnderCursor()
     {
         hexGrid.DisableAllHighlights();
-        HexCell cell = hexGrid.GetCell(Camera.main.ScreenPointToRay(Input.mousePosition));
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 100))
+        {
+            if(hit.transform.tag == "Bot")
+            {
+                return hit.transform.GetComponent<Unit>().Location;
+            }
+        }
+
+        HexCell cell = hexGrid.GetCell(ray);
 
         BotController[] bots = FindObjectsOfType<BotController>();
         int i = 0;
