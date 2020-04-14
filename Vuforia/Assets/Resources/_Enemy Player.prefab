@@ -117,7 +117,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 5
+  viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!1001 &708091764459480293
@@ -632,7 +632,7 @@ PrefabInstance:
     - target: {fileID: 4435679543290670995, guid: 2de66523797ad474cb232778e4ca5289,
         type: 3}
       propertyPath: viewIdField
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7484415737893938431, guid: 2de66523797ad474cb232778e4ca5289,
         type: 3}
@@ -992,7 +992,7 @@ PrefabInstance:
     - target: {fileID: 7326950034815043141, guid: 3878de0e168dd934292fdba2c096f502,
         type: 3}
       propertyPath: viewIdField
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6067397495075071546, guid: 3878de0e168dd934292fdba2c096f502,
         type: 3}
