@@ -117,7 +117,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 0
+  viewIdField: 5
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!1001 &708091764459480293
@@ -204,7 +204,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 114d61ce29650b148b8543715864cb8b, type: 3}
---- !u!198 &708091764459480294 stripped
+--- !u!198 &6673620319309109545 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 6147083531484085708, guid: 114d61ce29650b148b8543715864cb8b,
     type: 3}
@@ -537,7 +537,7 @@ PrefabInstance:
         type: 3}
       propertyPath: healEffect
       value: 
-      objectReference: {fileID: 708091764459480294}
+      objectReference: {fileID: 6673620319309109545}
     - target: {fileID: 745559396504838579, guid: 2de66523797ad474cb232778e4ca5289,
         type: 3}
       propertyPath: crossHair
@@ -629,6 +629,11 @@ PrefabInstance:
       propertyPath: ObservedComponents.Array.data[1]
       value: 
       objectReference: {fileID: 5524640850749917877}
+    - target: {fileID: 4435679543290670995, guid: 2de66523797ad474cb232778e4ca5289,
+        type: 3}
+      propertyPath: viewIdField
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7484415737893938431, guid: 2de66523797ad474cb232778e4ca5289,
         type: 3}
       propertyPath: playOnAwake
@@ -811,7 +816,7 @@ PrefabInstance:
     - target: {fileID: 7326950034814556776, guid: 3878de0e168dd934292fdba2c096f502,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.08
+      value: -4.7
       objectReference: {fileID: 0}
     - target: {fileID: 7326950034814556776, guid: 3878de0e168dd934292fdba2c096f502,
         type: 3}
@@ -968,6 +973,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 136020876879983764, guid: 3878de0e168dd934292fdba2c096f502,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 82359548268176138, guid: 3878de0e168dd934292fdba2c096f502,
         type: 3}
       propertyPath: OutputAudioMixerGroup
@@ -978,6 +988,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -1.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 7326950034815043141, guid: 3878de0e168dd934292fdba2c096f502,
+        type: 3}
+      propertyPath: viewIdField
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6067397495075071546, guid: 3878de0e168dd934292fdba2c096f502,
         type: 3}
