@@ -123,6 +123,17 @@ public class BotController : MonoBehaviourPunCallbacks
 
         }
 
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //    RaycastHit hit;
+        //    if (Physics.Raycast(ray, out hit, maxRayDistance))
+        //    {
+        //        transform.LookAt(hit.transform);
+        //        transform.localPosition = transform.GetComponent<Unit>().Location.Position + 8 * transform.forward.normalized;
+        //    }
+        //}
+
         AttackingPhase();
         UpdateHealth();
         SelectedText();
