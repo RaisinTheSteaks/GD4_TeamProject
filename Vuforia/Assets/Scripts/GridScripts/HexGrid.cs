@@ -424,34 +424,31 @@ public class HexGrid : MonoBehaviour
 
     public void DoMove(BotController selectedBot)
     {
-
-            if (HasPath)
+        if (HasPath)
+        {
+            if (currentPathTo.inRange == true)
             {
-                if (currentPathTo.inRange == true)
+                if (currentPathTo.Distance < (speed - hexesTravelled))
                 {
-                    if (currentPathTo.Distance < (speed - hexesTravelled))
+                    if (!currentPathTo.unit)
                     {
-                        if (!currentPathTo.unit)
-                        {
-                            selectedUnit.Location = currentPathTo;
-                            hexesTravelled += currentPathTo.Distance;
-                        }
-                        selectedBot.transform.parent.GetComponent<PlayerController>().actionCount++;
-                        selectedBot.transform.parent.GetComponent<PlayerController>().botHasMoved = true;
+                        selectedUnit.Location = currentPathTo;
+                        hexesTravelled += currentPathTo.Distance;
                     }
+                    selectedBot.transform.parent.GetComponent<PlayerController>().actionCount++;
+                    
                 }
             }
-        //}
-        DisableAllHighlights();
-        ClearPath();
+            DisableAllHighlights();
+            ClearPath();
+        }
     }
-
 
     /*
      The GetCell(Vector3) is used to get the grid cell from a click or player's world position
      The GetCell(HexCoordinates) uses a pre-defined co-ordinate to retrieve the position
      */
-
+     
     public HexCell GetCell(Ray ray)
     {
         RaycastHit hit;

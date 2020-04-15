@@ -44,8 +44,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public GameObject action1;
     public GameObject action2;
 
-    public bool botHasMoved;
-
     //GameOver
     public bool hasChildren = true;
     public bool winner = true;
@@ -219,9 +217,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         else if(actionCount == 2)
         {
-            action1.GetComponent<Image>().color = Color.grey;
             action2.GetComponent<Image>().color = Color.grey;
-            botHasMoved = true;
         }
     }
 
@@ -350,6 +346,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public void CheckTurn()
     {
         if (photonPlayer == PhotonNetwork.LocalPlayer)
+        //EndTurnButton.interactable = Turn;
         {
             foreach (Transform text in EndTurnButton.transform)
             {
@@ -426,8 +423,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         pause = true;
         pauseScreen.SetActive(true);
-        action1.SetActive(false);
-        action2.SetActive(false);
         foreach (Transform child in transform)
         {
             BotController botScript = child.GetComponent<BotController>();
@@ -437,8 +432,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public void Resume()
     {
         pause = false;
-        action1.SetActive(true);
-        action2.SetActive(true);
         pauseScreen.SetActive(false);
         foreach (Transform child in transform)
         {

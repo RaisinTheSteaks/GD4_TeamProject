@@ -78,7 +78,6 @@ MonoBehaviour:
   pause: 0
   action1: {fileID: 0}
   action2: {fileID: 0}
-  botHasMoved: 0
   hasChildren: 1
   winner: 1
   endGame: 0
