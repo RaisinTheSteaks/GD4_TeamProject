@@ -37,6 +37,8 @@ public class PopUpController : MonoBehaviour
         {
             bot.transform.GetComponent<BotController>().specialAbilityMode = false;
             bot.transform.GetComponent<BotController>().confirm = false;
+            bot.transform.GetComponent<BotController>().crossHair.enabled = false;
+
         }
 
     }

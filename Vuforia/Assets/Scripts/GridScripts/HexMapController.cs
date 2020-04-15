@@ -282,6 +282,7 @@ public class HexMapController : MonoBehaviour
         {
             if(hit.transform.tag == "Bot")
             {
+                selectedBot = hit.transform.GetComponent<BotController>();
                 return hit.transform.GetComponent<Unit>().Location;
             }
         }

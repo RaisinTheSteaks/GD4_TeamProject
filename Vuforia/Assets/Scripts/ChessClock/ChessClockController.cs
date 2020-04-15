@@ -9,6 +9,11 @@ public class ChessClockController : MonoBehaviour
     public float player2Time = 300.1f; //player 2 clock is set as 300.1 because otherwise it spawns at 4:60.
     public Text player1Clock;
     public Text player2Clock;
+    public GameObject player1Frame;
+    public GameObject player2Frame;
+    public Text player1Name;
+    public Text player2Name;
+    private bool assigned = false;
 
 
     string player1Minutes = "00";
@@ -23,6 +28,7 @@ public class ChessClockController : MonoBehaviour
     {
         UpdatePlayer1Clock();
         UpdatePlayer2Clock();
+        
     }
 
     // Update is called once per frame
@@ -30,14 +36,27 @@ public class ChessClockController : MonoBehaviour
     {
         if (startClock)
         {
+            if(!assigned)
+            {
+                GameManager.instance.assignPlayerName();
+                assigned = true;
+            }
 
             if (player1Turn)
             {
                 UpdatePlayer1Clock();
+                player1Frame.SetActive(true);
+                player1Name.gameObject.SetActive(true);
+                player2Frame.SetActive(false);
+                player2Name.gameObject.SetActive(false);
             }
             else if (!player1Turn)
             {
                 UpdatePlayer2Clock();
+                player1Frame.SetActive(false);
+                player1Name.gameObject.SetActive(false);
+                player2Frame.SetActive(true);
+                player2Name.gameObject.SetActive(true);
             }
         }
     }
