@@ -101,6 +101,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         transform.name = photonPlayer.NickName;
 
         endScreen = GameObject.Find("EndScreen");
+        endText = endScreen.transform.Find("Text").GetComponent<Text>();
         EndTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
         endTurnMessageImage = GameObject.Find("EndTurnMessage");
         endTurnMessage = endTurnMessageImage.transform.Find("Text").GetComponent<Text>();
@@ -121,9 +122,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
         operatorObject = GameObject.Find("Operator").gameObject;
         GameObject attackDebug = GameObject.Find("AttackDebug").gameObject;
         attackBubbleChat = new ActionPanel(attackDebug, attackDebug.transform.position, attackDebug.transform.localScale, false, 5);
-
-        endText = endScreen.transform.Find("Text").GetComponent<Text>();
-
     }
 
     private void Update()
