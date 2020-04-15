@@ -226,17 +226,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (actionCount == 0)
         {
-            action1.GetComponent<Image>().color = Color.white;
-            action2.GetComponent<Image>().color = Color.white;
+            action1.GetComponent<Image>().color = new Color (50f/255f,175f/255f,240f/255f,200f/255f);
+            action2.GetComponent<Image>().color = new Color(50f / 255f, 175f / 255f, 240f / 255f, 200f / 255f);
         }
         if (actionCount == 1)
         {
-            action1.GetComponent<Image>().color = Color.grey;
+            action1.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 200f/255f);
 
         }
         else if(actionCount == 2)
         {
-            action2.GetComponent<Image>().color = Color.grey;
+            action2.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 200f / 255f);
         }
     }
 
