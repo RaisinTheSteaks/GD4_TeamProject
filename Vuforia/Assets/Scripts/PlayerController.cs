@@ -147,10 +147,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         if (endTurnPressed && Turn && !pause)
         {
-            endTurnMessage.text = "End Turn \n" + (3 - (int)timer);
+            endTurnMessage.text = "End Turn \n" + (2 - (int)timer);
             timer += Time.deltaTime;
 
-            if (timer >= 3)
+            if (timer >= 2)
             {
 
                 EndTurn();
