@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class ChessClockController : MonoBehaviour
 {
-    public float player1Time = 300;
-    public float player2Time = 300.1f; //player 2 clock is set as 300.1 because otherwise it spawns at 4:60.
+    public float player1Time = 120;
+    public float player2Time = 120.1f; //player 2 clock is set as 300.1 because otherwise it spawns at 4:60.
     public Text player1Clock;
     public Text player2Clock;
     public GameObject player1Frame;
