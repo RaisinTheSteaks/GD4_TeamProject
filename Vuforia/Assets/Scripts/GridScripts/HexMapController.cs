@@ -283,6 +283,7 @@ public class HexMapController : MonoBehaviour
             if(hit.transform.tag == "Bot")
             {
                 selectedBot = hit.transform.GetComponent<BotController>();
+                FindObjectOfType<VoiceLineManager>().SetBotName(selectedBot.botName);
                 return hit.transform.GetComponent<Unit>().Location;
             }
         }

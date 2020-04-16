@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43680978, g: 0.48444068, b: 0.56469655, a: 1}
+  m_IndirectSpecularColor: {r: 0.43681002, g: 0.48444092, b: 0.56469697, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -491,6 +491,26 @@ PrefabInstance:
     - target: {fileID: 132491906, guid: f8e604de16356d640a964b4a9baf88d7, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5113832684927442375, guid: f8e604de16356d640a964b4a9baf88d7,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7510623082475355854, guid: f8e604de16356d640a964b4a9baf88d7,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2493624937861935763, guid: f8e604de16356d640a964b4a9baf88d7,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1418666181613053615, guid: f8e604de16356d640a964b4a9baf88d7,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8e604de16356d640a964b4a9baf88d7, type: 3}
@@ -1556,6 +1576,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1853004574890200914, guid: a73a129f637b1af45b5b4acb6ce8e2c0,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: ad58b7551dea7144280054b3d6b4203c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a73a129f637b1af45b5b4acb6ce8e2c0, type: 3}
 --- !u!1 &1002013032

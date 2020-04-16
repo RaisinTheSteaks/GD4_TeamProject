@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public enum GalleryBot
 {
-    Troop = 0,
+    BlueTroop = 0,
+    RedTroop,
     BlueTank,
     RedTank,
     Count
@@ -15,7 +16,8 @@ public enum GalleryBot
 public class GalleryMode : MonoBehaviour
 {
     public string menuScene;
-    public GameObject troop;
+    public GameObject blueTroop;
+    public GameObject redTroop;
     public GameObject blueTank;
     public GameObject redTank;
     public Scrollbar scaler;
@@ -23,7 +25,8 @@ public class GalleryMode : MonoBehaviour
 
     private void Start()
     {
-        troop.SetActive(true);
+        blueTroop.SetActive(true);
+        redTroop.SetActive(true);
         blueTank.SetActive(false);
         redTank.SetActive(false);
  
@@ -42,7 +45,8 @@ public class GalleryMode : MonoBehaviour
             value = 0.1f;
         }
         float modifier = value / 0.5f;
-        troop.transform.localScale = Vector3.one * originalScale * modifier;
+        blueTroop.transform.localScale = Vector3.one * originalScale * modifier;
+        redTroop.transform.localScale = Vector3.one * originalScale * modifier;
         blueTank.transform.localScale = Vector3.one * originalScale * modifier;
         redTank.transform.localScale = Vector3.one * originalScale * modifier;
     }
@@ -51,9 +55,14 @@ public class GalleryMode : MonoBehaviour
     {
         switch((GalleryBot)bot)
         {
-            case GalleryBot.Troop:
+            case GalleryBot.BlueTroop:
                 HideAllBot();
-                troop.SetActive(true);
+                blueTroop.SetActive(true);
+                break;
+
+            case GalleryBot.RedTroop:
+                HideAllBot();
+                redTroop.SetActive(true);
                 break;
 
             case GalleryBot.BlueTank:
@@ -71,7 +80,8 @@ public class GalleryMode : MonoBehaviour
 
     public void HideAllBot()
     {
-        troop.SetActive(false);
+        blueTroop.SetActive(false);
+        redTroop.SetActive(false);
         blueTank.SetActive(false);
         redTank.SetActive(false);
     }

@@ -206,7 +206,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.8073438, y: 0}
   m_AnchorMax: {x: 1, y: 0.32222226}
-  m_AnchoredPosition: {x: -0.5999756, y: 1.300003}
+  m_AnchoredPosition: {x: -0.5999756, y: 1.2999878}
   m_SizeDelta: {x: 3.100006, y: 2.600006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &500228871
@@ -1664,7 +1664,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1670567274}
         m_MethodName: SetAction
         m_Mode: 5
         m_Arguments:
@@ -1675,7 +1675,7 @@ MonoBehaviour:
           m_StringArgument: SpecialAbility
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1670567274}
         m_MethodName: PlayVoiceLine
         m_Mode: 1
         m_Arguments:
@@ -2945,7 +2945,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1670567274}
         m_MethodName: SetAction
         m_Mode: 5
         m_Arguments:
@@ -2956,7 +2956,7 @@ MonoBehaviour:
           m_StringArgument: Attack
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1670567274}
         m_MethodName: PlayVoiceLine
         m_Mode: 1
         m_Arguments:
@@ -3294,7 +3294,7 @@ RectTransform:
   m_Children:
   - {fileID: 6592695238093022092}
   m_Father: {fileID: 6350253553445170109}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.039437503, y: 0.28333333}
   m_AnchorMax: {x: 0.22021876, y: 0.35427782}
@@ -3376,7 +3376,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1670567274}
         m_MethodName: SetAction
         m_Mode: 5
         m_Arguments:
@@ -3387,7 +3387,7 @@ MonoBehaviour:
           m_StringArgument: Move
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1670567274}
         m_MethodName: PlayVoiceLine
         m_Mode: 1
         m_Arguments:
@@ -3542,8 +3542,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 3673754543701093008}
-  - {fileID: 6760491152816832661}
   - {fileID: 6760844723160361726}
+  - {fileID: 6760491152816832661}
   - {fileID: 607350249140641763}
   - {fileID: 2964674083697974958}
   - {fileID: 8738742938523736395}
@@ -3812,7 +3812,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1670567274}
         m_MethodName: SetAction
         m_Mode: 5
         m_Arguments:
@@ -3823,7 +3823,7 @@ MonoBehaviour:
           m_StringArgument: Guard
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1670567274}
         m_MethodName: PlayVoiceLine
         m_Mode: 1
         m_Arguments:
@@ -4471,7 +4471,7 @@ RectTransform:
   m_Children:
   - {fileID: 8501387430796827111}
   m_Father: {fileID: 6350253553445170109}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.8466563, y: 0}
   m_AnchorMax: {x: 1, y: 0.28333333}

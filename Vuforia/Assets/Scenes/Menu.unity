@@ -5326,7 +5326,7 @@ MonoBehaviour:
   createLobbyScreen: {fileID: 510931619}
   listingScreen: {fileID: 1479502468}
   playGameScreen: {fileID: 2104321652}
-  sceneName: SpecialMasterScene
+  sceneName: MasterScene
   galleryScene: Gallery
   createRoomButton: {fileID: 1861304945}
   joinRoomButton: {fileID: 1657381943}
