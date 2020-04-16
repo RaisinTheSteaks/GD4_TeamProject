@@ -1441,6 +1441,18 @@ PrefabInstance:
       propertyPath: speed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 969398884590114037, guid: 092b2c1be01130a418a193da686715f4,
+        type: 3}
+      propertyPath: coverRedPrefab
+      value: 
+      objectReference: {fileID: 2410370982979009138, guid: 98102061d5ef10f4cb6b9157e56c4a50,
+        type: 3}
+    - target: {fileID: 969398884590114037, guid: 092b2c1be01130a418a193da686715f4,
+        type: 3}
+      propertyPath: coverBluePrefab
+      value: 
+      objectReference: {fileID: 2410370982979009138, guid: 3231c1ff5c53db94f96e84e5a41eb504,
+        type: 3}
     - target: {fileID: 8360002907322761999, guid: 092b2c1be01130a418a193da686715f4,
         type: 3}
       propertyPath: m_LocalScale.x
