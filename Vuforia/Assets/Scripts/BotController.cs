@@ -26,13 +26,14 @@ public class BotController : MonoBehaviourPunCallbacks
     public bool specialAbilityMode;
     public bool specialAbilityUsed;
     public bool guardMode;
+    public GameObject explosion;
     public HexGrid hexGrid;
     public string Type;
     Collider[] hitColliders;
 
     [Header("PopUp")]
     public GameObject botPopUp;
-
+    public RawImage crossHair;
 
     public TextMeshProUGUI healthNumberIndicator;
     public GameObject healthBar;
@@ -62,6 +63,9 @@ public class BotController : MonoBehaviourPunCallbacks
     public ParticleSystem attackedSparks;
     public ParticleSystem muzzleEffect;
     public ParticleSystem guardEffect;
+    public ParticleSystem healEffect;
+    public ParticleSystem missileEffect;
+    public ParticleSystem missileExplosion;
     public string tooFarResponse = "Sire, the enemy target is too far!";
     public string coverOnTheWay = "According to my calculation, there is a foreign object in the way!";
     public string alliedBotOnTheWay = "Sire, allied bot is in the way!";
@@ -108,7 +112,8 @@ public class BotController : MonoBehaviourPunCallbacks
         AttackTarget = GameObject.Find("AttackDebug").transform.Find("Text").GetComponent<TextMeshProUGUI>();
         
         showBubble = false;
-
+        if(crossHair)
+            crossHair.enabled = false;
     }
     private void Update()
     {
@@ -117,6 +122,17 @@ public class BotController : MonoBehaviourPunCallbacks
             photonView.RPC("StartDamage", RpcTarget.All, transform.name, 15.0f, 5.0f);
 
         }
+
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //    RaycastHit hit;
+        //    if (Physics.Raycast(ray, out hit, maxRayDistance))
+        //    {
+        //        transform.LookAt(hit.transform);
+        //        transform.localPosition = transform.GetComponent<Unit>().Location.Position + 8 * transform.forward.normalized;
+        //    }
+        //}
 
         AttackingPhase();
         UpdateHealth();
@@ -137,14 +153,8 @@ public class BotController : MonoBehaviourPunCallbacks
     }
     public bool CheckActionCount()
     {
-        if (transform.parent.GetComponent<PlayerController>().actionCount > 1)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return transform.parent.GetComponent<PlayerController>().CheckActionCount();
+        
     }
     public void Move()
     {
@@ -239,13 +249,25 @@ public class BotController : MonoBehaviourPunCallbacks
                             //check if target bot is within distancce
                             if (Vector3.Distance(transform.position, hit.transform.position) < range * gridScale * 2)
                             {
+                                Vector3 start = transform.position;
+                                if(Type == "Troop")
+                                {
+                                    transform.Find("Body").LookAt(hit.transform);
+                                    start = transform.Find("Body").position;
+                                }
+                                else
+                                {
+                                    transform.LookAt(hit.transform);
+                                    transform.localPosition = transform.GetComponent<Unit>().Location.Position + 8 * transform.forward.normalized;
 
-                                transform.LookAt(hit.transform);
+                                }
+
+
                                 Vector3 offsetY = new Vector3(0, 0.001f, 0);
                                 RaycastHit raycastHit;
 
                                 //check if the ray cast hit something
-                                if (Physics.Raycast(transform.position + offsetY, ((hit.transform.position + offsetY) - (transform.position + offsetY)), out raycastHit, maxRayDistance))
+                                if (Physics.Raycast(start + offsetY, ((hit.transform.position + offsetY) - (start + offsetY)), out raycastHit, maxRayDistance))
                                 {
                                     //check if the ray cast hit a bot type game object
                                     if (raycastHit.transform.tag == "Bot")
@@ -347,6 +369,27 @@ public class BotController : MonoBehaviourPunCallbacks
         target.guardEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
     }
 
+    [PunRPC]
+    public void PlayHealEffect(string botName)
+    {
+        GameObject bot = GameObject.Find(botName);
+        BotController target = bot.GetComponent<BotController>();
+        target.healEffect.Play();
+    }
+
+    [PunRPC]
+    public void PlayMissileEffect(string botName, Vector3 position)
+    {
+        Debug.Log("BOOM BOOM");
+        GameObject bot = GameObject.Find(botName);
+        BotController target = bot.GetComponent<BotController>(); 
+        target.missileExplosion.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+        target.missileExplosion.transform.position = position;
+        target.missileEffect.Play();
+        target.missileExplosion.Play();
+    }
+
+
     public IEnumerator Animation(string boolName)
     {
         
@@ -417,7 +460,7 @@ public class BotController : MonoBehaviourPunCallbacks
         BotController target = bot.GetComponent<BotController>();
         target.guardMode = true;
         
-        transform.parent.GetComponent<PlayerController>().actionCount++;
+        //transform.parent.GetComponent<PlayerController>().actionCount++;
     }
 
     [PunRPC]
@@ -546,9 +589,16 @@ public class BotController : MonoBehaviourPunCallbacks
                    if (hit.transform.tag == "Bot") 
                    {
                         if (hit.transform.parent == playerScript.transform)
+                        {
+                            transform.Find("Body").LookAt(hit.transform);
                             photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, 0.0f, -30.0f);
-                        specialAbilityUsed = true;
-                        playerScript.EndTurn();
+                            photonView.RPC("PlayHealEffect", RpcTarget.All, hit.transform.name);
+                            StartCoroutine(Animation("IsAbility"));
+                            specialAbilityUsed = true;
+                            transform.parent.GetComponent<PlayerController>().actionCount += 2;
+                            playerScript.EndTurn();
+                        }
+                        
                    }                                    
                 }
             }
@@ -569,7 +619,9 @@ public class BotController : MonoBehaviourPunCallbacks
                     {
                         if (hit.transform.name == "hexagon") //if the player has touched a hexagon
                         {
-                            tap = hit.point;                //the global vector tap stores the location the player touched. 
+                            tap = hit.point;
+                            crossHair.enabled = true;
+                            crossHair.GetComponent<RectTransform>().position = tap;       //the global vector tap stores the location the player touched. 
                             botPopUp.SetActive(true);          //the popup activates.
                         }                                   //once the popup activates the popupControllers asks the player to confirm if the area they want to attack is the area they've selected.
                     }
@@ -580,11 +632,12 @@ public class BotController : MonoBehaviourPunCallbacks
 
     private void LoadExplosion()
     {
-        HexCell hex = hexGrid.GetCell(tap);             //if the player has confirmed the area they want to attack then a hex is created with the tap location.
-                                                        //Sphere is for debugging purposes                                  
-        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        sphere.transform.position = hex.transform.position;
-        sphere.transform.localScale = new Vector3(0.035f, 0.02f, 0.035f);
+        HexCell hex = hexGrid.GetCell(tap);
+
+        crossHair.enabled = false;
+        StartCoroutine(Animation("IsAbility"));
+        photonView.RPC("PlayMissileEffect", RpcTarget.All, transform.name, hex.transform.position);
+        
         hitColliders = Physics.OverlapSphere(hex.transform.position, 0.035f);
         photonView.RPC("MissileAudio", RpcTarget.All, transform.name);
         for (int i = 0; i < hitColliders.Length; i++)                               //are then placed in an array called hitColliders. A for loop then iterates through the hitColliders arrayand if the object 
@@ -593,22 +646,17 @@ public class BotController : MonoBehaviourPunCallbacks
             {                                                                       // is a Bot then the "Start Damage function is called." Once the loop is completed the "specialAbilityUsed" boolean is turned true
                 if (hitColliders[i].transform.tag == "Bot")                         //stopping this bot from using their special ability again.
                 {
-                    photonView.RPC("StartDamage", RpcTarget.All, hitColliders[i].transform.name, 30.0f, 0.0f);
+                    photonView.RPC("StartDamage", RpcTarget.All, hitColliders[i].transform.name, 0.0f, 30.0f);
                 }
             }
         }
-
-        StartCoroutine(DespawnSphere(sphere));
+        //Destroy(explode, 2.0f);
         specialAbilityUsed = true;
-        transform.parent.GetComponent<PlayerController>().actionCount++;
+        transform.parent.GetComponent<PlayerController>().actionCount+= 2;
+        playerScript.EndTurn();
 
     }
 
-    public IEnumerator DespawnSphere(GameObject sphere)
-    {
-        yield return new WaitForSeconds(1.0f);
-        Destroy(sphere);
-    }
 
     [PunRPC]
     public void MissileAudio(string botName)

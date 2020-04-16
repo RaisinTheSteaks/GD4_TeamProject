@@ -10651,7 +10651,7 @@ Transform:
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 30715111581776056}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &4199281092586239046
 ParticleSystem:
@@ -15510,6 +15510,7 @@ Transform:
   m_LocalPosition: {x: 0.8867865, y: 3.8976135, z: -0.07309628}
   m_LocalScale: {x: 2.5400026, y: 2.5400002, z: 2.5400026}
   m_Children:
+  - {fileID: 4676455825545220659}
   - {fileID: 4658534942650060773}
   m_Father: {fileID: 7551631671056414466}
   m_RootOrder: 74
@@ -16938,10 +16939,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7326950034815043144}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.2, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_Children:
-  - {fileID: 316321513791977480}
+  - {fileID: 6067397495075071546}
   - {fileID: 7551631671056414466}
   - {fileID: 2609184220829781539}
   m_Father: {fileID: 0}
@@ -16989,7 +16990,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7326950034815043144}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2be00b61d7028284da3962e415b83d60, type: 3}
   m_Name: 
@@ -17004,9 +17005,11 @@ MonoBehaviour:
   specialAbilityMode: 0
   specialAbilityUsed: 0
   guardMode: 0
+  explosion: {fileID: 0}
   hexGrid: {fileID: 0}
   Type: 
   botPopUp: {fileID: 0}
+  crossHair: {fileID: 0}
   healthNumberIndicator: {fileID: 0}
   healthBar: {fileID: 0}
   maxWidth: 0
@@ -17027,6 +17030,9 @@ MonoBehaviour:
   attackedSparks: {fileID: 0}
   muzzleEffect: {fileID: 0}
   guardEffect: {fileID: 0}
+  healEffect: {fileID: 0}
+  missileEffect: {fileID: 0}
+  missileExplosion: {fileID: 0}
   tooFarResponse: Sire, the enemy target is too far!
   coverOnTheWay: According to my calculation, there is a foreign object in the way!
   alliedBotOnTheWay: Sire, allied bot is in the way!
@@ -17104,6 +17110,9 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 0
     Name: IsSelected
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsGuarding
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
@@ -23783,6 +23792,81 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.54234713, y: -0.121069044, z: 0.033356193}
     m_Extent: {x: 0.10279846, y: 0.096028805, z: 0.107127905}
   m_DirtyAABB: 0
+--- !u!1001 &4676455825545220657
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 30715111581776056}
+    m_Modifications:
+    - target: {fileID: 6147083531484085698, guid: 114d61ce29650b148b8543715864cb8b,
+        type: 3}
+      propertyPath: m_Name
+      value: HealingParticles
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147083531484085709, guid: 114d61ce29650b148b8543715864cb8b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.585
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147083531484085709, guid: 114d61ce29650b148b8543715864cb8b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.399
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147083531484085709, guid: 114d61ce29650b148b8543715864cb8b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147083531484085709, guid: 114d61ce29650b148b8543715864cb8b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147083531484085709, guid: 114d61ce29650b148b8543715864cb8b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147083531484085709, guid: 114d61ce29650b148b8543715864cb8b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147083531484085709, guid: 114d61ce29650b148b8543715864cb8b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147083531484085709, guid: 114d61ce29650b148b8543715864cb8b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147083531484085709, guid: 114d61ce29650b148b8543715864cb8b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147083531484085709, guid: 114d61ce29650b148b8543715864cb8b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147083531484085709, guid: 114d61ce29650b148b8543715864cb8b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 114d61ce29650b148b8543715864cb8b, type: 3}
+--- !u!4 &4676455825545220659 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6147083531484085709, guid: 114d61ce29650b148b8543715864cb8b,
+    type: 3}
+  m_PrefabInstance: {fileID: 4676455825545220657}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6067397495075071549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23790,11 +23874,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7326950034814556776}
     m_Modifications:
-    - target: {fileID: 8174043895717215362, guid: 5b837867ddda315488493f6adceb77e0,
-        type: 3}
-      propertyPath: m_Name
-      value: Red Aura Effect
-      objectReference: {fileID: 0}
     - target: {fileID: 5787254566641278517, guid: 5b837867ddda315488493f6adceb77e0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23808,7 +23887,7 @@ PrefabInstance:
     - target: {fileID: 5787254566641278517, guid: 5b837867ddda315488493f6adceb77e0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.43
+      value: -0.011
       objectReference: {fileID: 0}
     - target: {fileID: 5787254566641278517, guid: 5b837867ddda315488493f6adceb77e0,
         type: 3}
@@ -23850,9 +23929,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8174043895717215362, guid: 5b837867ddda315488493f6adceb77e0,
+        type: 3}
+      propertyPath: m_Name
+      value: Red Aura Effect
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b837867ddda315488493f6adceb77e0, type: 3}
---- !u!4 &316321513791977480 stripped
+--- !u!4 &6067397495075071546 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5787254566641278517, guid: 5b837867ddda315488493f6adceb77e0,
     type: 3}

@@ -99,7 +99,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
         transform.name = photonPlayer.NickName;
 
         endScreen = GameObject.Find("EndScreen");
-        endText = endScreen.transform.Find("Text").GetComponent<Text>();
         EndTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
         endTurnMessageImage = GameObject.Find("EndTurnMessage");
         endTurnMessage = endTurnMessageImage.transform.Find("Text").GetComponent<Text>();
@@ -120,6 +119,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
         operatorObject = GameObject.Find("Operator").gameObject;
         GameObject attackDebug = GameObject.Find("AttackDebug").gameObject;
         attackBubbleChat = new ActionPanel(attackDebug, attackDebug.transform.position, attackDebug.transform.localScale, false, 5);
+
+        endText = endScreen.transform.Find("Text").GetComponent<Text>();
+
     }
 
     private void Update()
@@ -145,10 +147,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         if (endTurnPressed && Turn && !pause)
         {
-            endTurnMessage.text = "End Turn \n" + (3 - (int)timer);
+            endTurnMessage.text = "End Turn \n" + (2 - (int)timer);
             timer += Time.deltaTime;
 
-            if (timer >= 3)
+            if (timer >= 2)
             {
 
                 EndTurn();
@@ -182,6 +184,23 @@ public class PlayerController : MonoBehaviourPunCallbacks
             WinScreens();
         }
 
+        if(!CheckActionCount())
+        {
+            EndTurn();
+        }
+
+    }
+
+    public bool CheckActionCount()
+    {
+        if (actionCount > 1)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     public void ShowAttackBubble()
@@ -207,17 +226,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (actionCount == 0)
         {
-            action1.GetComponent<Image>().color = Color.white;
-            action2.GetComponent<Image>().color = Color.white;
+            action1.GetComponent<Image>().color = new Color (50f/255f,175f/255f,240f/255f,200f/255f);
+            action2.GetComponent<Image>().color = new Color(50f / 255f, 175f / 255f, 240f / 255f, 200f / 255f);
         }
         if (actionCount == 1)
         {
-            action1.GetComponent<Image>().color = Color.grey;
+            action1.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 200f/255f);
 
         }
         else if(actionCount == 2)
         {
-            action2.GetComponent<Image>().color = Color.grey;
+            action2.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 200f / 255f);
         }
     }
 
@@ -383,7 +402,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public void EndTurn()
     {
         GameManager.instance.photonView.RPC("ChangeActivePlayer", RpcTarget.AllBuffered);
-        actionCount = 0;
         if (timeStop)
         {
             photonView.RPC("SetClockState", RpcTarget.All, true);

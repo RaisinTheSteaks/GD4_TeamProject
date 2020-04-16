@@ -106,6 +106,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             playerPrefabLocation = playerOnePrefabLocation;
             spawnPoint1 = 0;
             spawnPoint2 = 1;
+            //clocks.GetComponent<ChessClockController>().player1Name.text = PhotonNetwork.NickName + "\nTurn";
+
             //Hex points is these 2 points
         }
         else
@@ -113,6 +115,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             playerPrefabLocation = playerTwoPrefabLocation;
             spawnPoint1 = 2;
             spawnPoint2 = 3;
+            //clocks.GetComponent<ChessClockController>().player2Name.text = PhotonNetwork.NickName + "\nTurn";
+
         }
 
 
@@ -136,6 +140,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         PlayerController playerScript = playerObject.GetComponent<PlayerController>();
         playerScript.photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
         // playerScript.grid = grid;
+        //assignPlayerName();
     }
 
 
@@ -160,6 +165,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         clocks.GetComponent<ChessClockController>().SwapClock();
         foreach (PlayerController player in players)
         {
+            player.actionCount = 0;
             player.Turn = !player.Turn;
             player.setTurn(player.Turn);
             foreach (Transform child in player.gameObject.transform)
@@ -177,6 +183,30 @@ public class GameManager : MonoBehaviourPunCallbacks
         foreach (PlayerController player in players)
         {
             player.endGame = true;
+        }
+    }
+
+    public void assignPlayerName()
+    {
+        foreach (PlayerController player in players)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                clocks.GetComponent<ChessClockController>().player1Name.text = PhotonNetwork.NickName + "\nTurn";
+                if (player.transform.name != PhotonNetwork.NickName)
+                {
+                    clocks.GetComponent<ChessClockController>().player2Name.text = player.transform.name + "\nTurn";
+                }
+
+            }
+            else
+            {
+                clocks.GetComponent<ChessClockController>().player2Name.text = PhotonNetwork.NickName + "\nTurn";
+                if (player.transform.name != PhotonNetwork.NickName)
+                {
+                    clocks.GetComponent<ChessClockController>().player1Name.text = player.transform.name + "\nTurn";
+                }
+            }
         }
     }
 }
