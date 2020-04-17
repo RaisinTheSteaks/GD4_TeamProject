@@ -747,6 +747,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6541500507518648656, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e494b9a2d8a0b4d479cad0fb0c882680, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d425422358808b540bf5593f26332cf3, type: 3}
 --- !u!114 &1818615079296632419 stripped
@@ -1154,6 +1159,11 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8869085266606548015, guid: b9db03348c7325349b02383b6c8a2086,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e494b9a2d8a0b4d479cad0fb0c882680, type: 2}
     - target: {fileID: 4836865839831923764, guid: b9db03348c7325349b02383b6c8a2086,
         type: 3}
       propertyPath: m_LocalPosition.x
