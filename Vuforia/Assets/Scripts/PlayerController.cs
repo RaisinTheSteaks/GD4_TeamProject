@@ -286,7 +286,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
        int powerUpCount = (int)PowerUp.Random;
        int rng = UnityEngine.Random.Range(0, powerUpCount);
        PowerUp choice = (PowerUp)rng;
-        choice = PowerUp.SwapPosition;
+        //choice = PowerUp.SwapPosition;
        switch (choice)
        {
             case PowerUp.DoubleDamage:
