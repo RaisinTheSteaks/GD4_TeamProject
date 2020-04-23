@@ -67,5 +67,5 @@ MonoBehaviour:
     autoStartTracker: 0
   webcam:
     deviceNameSetInEditor: Trust Webcam
-    turnOffWebCam: 0
+    turnOffWebCam: 1
     renderTextureLayer: 30

@@ -7,6 +7,8 @@ using Photon.Realtime;
 using System.Linq;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -32,6 +34,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     
     //Clock
     public GameObject clocks;
+    
 
 
 
@@ -78,8 +81,25 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             Application.Quit();
         }
+
+        if(gameEnded)
+        {
+            NetworkManager.instance.spectator.Clear();
+            NetworkManager.instance.LeaveRoom();
+        }
     }
 
+    [PunRPC]
+    public void KickAllPlayer()
+    {
+        gameEnded = false;
+    }
+
+    public override void OnLeftRoom()
+    {
+        NetworkManager.instance.ChangeScene("Menu");
+                  
+    }
 
     [PunRPC]
     void ImInGame()
@@ -183,6 +203,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         foreach (PlayerController player in players)
         {
             player.endGame = true;
+        }
+
+        if (NetworkManager.instance.spectator.Contains(PhotonNetwork.NickName))
+        {
+            gameEnded = true;
         }
     }
 
