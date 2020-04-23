@@ -7330,7 +7330,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e84afb2d708acf548bdca9c2b1dac509, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -21422,7 +21422,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7326950034815043144}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: f9761dad9ff7e3445b5034fa547d3454, type: 3}
+  m_Avatar: {fileID: 9000000, guid: b58efe8836fbb18449bfcaf46b3821c9, type: 3}
   m_Controller: {fileID: 9100000, guid: d758fa22c261e7349baa6b70ee09d73c, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -21578,6 +21578,9 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 0
     Name: IsGuarding
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsAbility
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
@@ -23964,7 +23967,7 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 25.056818
       objectReference: {fileID: 0}
-    - target: {fileID: 5459011635969309906, guid: 300b7f62fca1615438054f48e2583154,
+    - target: {fileID: 9120511116295980560, guid: 300b7f62fca1615438054f48e2583154,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
@@ -23974,7 +23977,7 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9120511116295980560, guid: 300b7f62fca1615438054f48e2583154,
+    - target: {fileID: 5459011635969309906, guid: 300b7f62fca1615438054f48e2583154,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0

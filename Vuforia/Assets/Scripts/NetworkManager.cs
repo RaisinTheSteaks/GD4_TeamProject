@@ -66,4 +66,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel(sceneName);
     }
 
+    
+    public void LeaveRoom()
+    {
+        if(PhotonNetwork.InRoom)
+            PhotonNetwork.LeaveRoom();
+    }
+
 };

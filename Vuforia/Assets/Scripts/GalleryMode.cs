@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using Photon.Realtime;
+using Photon.Pun;
 public enum GalleryBot
 {
     BlueTroop = 0,
@@ -13,7 +14,7 @@ public enum GalleryBot
     Count
 }
 
-public class GalleryMode : MonoBehaviour
+public class GalleryMode : MonoBehaviourPunCallbacks
 {
     public string menuScene;
     public GameObject blueTroop;
@@ -88,6 +89,8 @@ public class GalleryMode : MonoBehaviour
 
     public void OnBackToMenu()
     {
-        SceneManager.LoadScene(menuScene, LoadSceneMode.Single);
+        NetworkManager.instance.ChangeScene(menuScene);
     }
+
+   
 }

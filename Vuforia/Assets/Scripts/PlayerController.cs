@@ -6,7 +6,6 @@ using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
-using UnityEngine.SceneManagement;
 
 enum PowerUp
 {
@@ -181,7 +180,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         if (endGame)
         {
-            WinScreens();
+            StartCoroutine(EndScreens());
         }
 
         if(!CheckActionCount())
@@ -460,19 +459,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public void CheckChildren()
     {
-        
+        hasChildren = false;
         foreach (Transform bot in transform)
         {
-            if (bot.GetComponent<BotController>().health <= 0)
+            if (bot.GetComponent<BotController>().health > 0)
             {
-                hasChildren = false;
-            }
-            else
-            {
-                hasChildren = true;
-                break;
+                return;
             }
         }
+
         if (hasChildren)
         {
             Debug.Log("I HAVE CHILDREN");
@@ -485,35 +480,31 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void WinScreens()
+    public IEnumerator EndScreens()
     {
+        yield return new WaitForSeconds(0.5f);
         if (winner)
         {
-            DisplayWinScreen();
+            DisplayEndScreen( "You Win!");
         }
-        else if (!winner)
+        else
         {
-            DisplayLoseScreen();
+            DisplayEndScreen("You Lose");
         }
+
         StartCoroutine(WaitForSceneLoad());
     }
 
-    private void DisplayWinScreen()
+    private void DisplayEndScreen( string text)
     {
         endScreen.SetActive(true);
-        endText.text = "You Win";
+        endText.text = text;
     }
 
-    public void DisplayLoseScreen()
-    {
-        endScreen.SetActive(true);
-        endText.text = "You Lose";
-    }
-
-    private IEnumerator WaitForSceneLoad()
+    public IEnumerator WaitForSceneLoad()
     {
       yield return new WaitForSeconds(3);
-      SceneManager.LoadScene("Menu");
+      GameManager.instance.gameEnded = true;
 
     }
 }

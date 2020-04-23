@@ -39,8 +39,14 @@ public class Menu : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        createRoomButton.interactable = false;
-        joinRoomButton.interactable = false;
+        if(!PhotonNetwork.IsConnectedAndReady)
+        {
+            createRoomButton.interactable = false;
+            joinRoomButton.interactable = false;
+        }
+        
+
+       
 
     }
 
@@ -157,13 +163,17 @@ public class Menu : MonoBehaviourPunCallbacks
 
     public void OnGalleryModeButton()
     {
-        SceneManager.LoadScene(galleryScene, LoadSceneMode.Single);
+        NetworkManager.instance.ChangeScene(galleryScene);
     }
     
     public void OnLeaveLobbyButton()
     {
         PhotonNetwork.LeaveRoom();
         SetScreen(mainScreen);
+        if (NetworkManager.instance.spectator.Contains(PhotonNetwork.NickName))
+        {
+            NetworkManager.instance.spectator.Remove(PhotonNetwork.NickName);
+        }
     }
     
     public void OnStartGameButton()
@@ -187,6 +197,7 @@ public class Menu : MonoBehaviourPunCallbacks
         NetworkManager.instance.spectator.Add(nickname);
     }
 
+
     public void OnPlayerNameUpdate(TMP_InputField playerNameInput)
     {
         PhotonNetwork.NickName = playerNameInput.text;
@@ -209,6 +220,7 @@ public class Menu : MonoBehaviourPunCallbacks
         if (joinAsSpectator)
         {
             photonView.RPC("AddSpectator", RpcTarget.All, PhotonNetwork.NickName);
+            joinAsSpectator = false ;
         }
 
         photonView.RPC("UpdateLobbyUI", RpcTarget.All);
@@ -220,6 +232,11 @@ public class Menu : MonoBehaviourPunCallbacks
         //that is because OnJoinedRoom is only called for the client who just joined the room
         //OnPlayerLeftRoom gets called for all clients in the room, so we don't need RPC
         UpdateLobbyUI();
+        if (NetworkManager.instance.spectator.Contains(otherPlayer.NickName))
+        {
+            NetworkManager.instance.spectator.Remove(otherPlayer.NickName);
+        }
+
     }
     
     #endregion
