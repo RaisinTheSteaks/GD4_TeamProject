@@ -68,5 +68,7 @@ MonoBehaviour:
   - LeaveRoom
   - GameEnded
   - KickAllPlayer
+  - PlaySelectedEffect
+  - StopSelectedEffect
   DisableAutoOpenWizard: 1
   ShowSettings: 1

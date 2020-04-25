@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bot
   - HexCell
+  - Cover
   layers:
   - Default
   - TransparentFX

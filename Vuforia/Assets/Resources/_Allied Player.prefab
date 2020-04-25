@@ -667,6 +667,11 @@ PrefabInstance:
       propertyPath: crossHair
       value: 
       objectReference: {fileID: 900918548828734076}
+    - target: {fileID: 2203084645548401852, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: selectedEffect
+      value: 
+      objectReference: {fileID: 6448636797223301130}
     - target: {fileID: 8466277487690579185, guid: d425422358808b540bf5593f26332cf3,
         type: 3}
       propertyPath: ObservedComponents.Array.size
@@ -732,6 +737,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -0.00099
       objectReference: {fileID: 0}
+    - target: {fileID: 3287667287503224401, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187514483279349208, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680126812300507131, guid: d425422358808b540bf5593f26332cf3,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6116118886009457997, guid: d425422358808b540bf5593f26332cf3,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -787,6 +807,12 @@ Rigidbody:
 --- !u!82 &281433178917887111 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 3756958227071221501, guid: d425422358808b540bf5593f26332cf3,
+    type: 3}
+  m_PrefabInstance: {fileID: 4018543913825952378}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6448636797223301130 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7978853955996652144, guid: d425422358808b540bf5593f26332cf3,
     type: 3}
   m_PrefabInstance: {fileID: 4018543913825952378}
   m_PrefabAsset: {fileID: 0}
@@ -959,6 +985,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -2.2
       objectReference: {fileID: 0}
+    - target: {fileID: 3890781357660098811, guid: b9db03348c7325349b02383b6c8a2086,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 5505762049933800047, guid: b9db03348c7325349b02383b6c8a2086,
         type: 3}
       propertyPath: m_SynchronizeParameters.Array.size
@@ -1089,6 +1120,11 @@ PrefabInstance:
       propertyPath: healEffect
       value: 
       objectReference: {fileID: 1474217704654018110}
+    - target: {fileID: 6956144906709237833, guid: b9db03348c7325349b02383b6c8a2086,
+        type: 3}
+      propertyPath: selectedEffect
+      value: 
+      objectReference: {fileID: 3702939984385357445}
     - target: {fileID: 8421178250987500984, guid: b9db03348c7325349b02383b6c8a2086,
         type: 3}
       propertyPath: m_Name
@@ -1159,6 +1195,21 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5102595522582515763, guid: b9db03348c7325349b02383b6c8a2086,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 305964070989668880, guid: b9db03348c7325349b02383b6c8a2086,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4018547444709153177, guid: b9db03348c7325349b02383b6c8a2086,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8869085266606548015, guid: b9db03348c7325349b02383b6c8a2086,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1195,6 +1246,12 @@ Rigidbody:
 --- !u!82 &5087357674532184119 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 82359548268176138, guid: b9db03348c7325349b02383b6c8a2086,
+    type: 3}
+  m_PrefabInstance: {fileID: 5169416914316542781}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3702939984385357445 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8421178250987500984, guid: b9db03348c7325349b02383b6c8a2086,
     type: 3}
   m_PrefabInstance: {fileID: 5169416914316542781}
   m_PrefabAsset: {fileID: 0}

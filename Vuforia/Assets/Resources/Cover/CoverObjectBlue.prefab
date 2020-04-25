@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 2329636952137693524}
   m_Layer: 0
   m_Name: cover_01
-  m_TagString: Untagged
+  m_TagString: Cover
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,7 +179,7 @@ Transform:
   m_GameObject: {fileID: 2329636952137917812}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 2.3062, z: 1}
   m_Children:
   - {fileID: 6256110116227952989}
   - {fileID: 3093626962286787240}
@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 2410370982979009138}
   m_Layer: 0
   m_Name: CoverObjectBlue
-  m_TagString: Untagged
+  m_TagString: Cover
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 1107868203794527194}
   m_Layer: 0
   m_Name: BoxCollider
-  m_TagString: Untagged
+  m_TagString: Cover
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -274,5 +274,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5461, y: 0.54610014, z: 0.5340849}
-  m_Center: {x: 0.019049987, y: -0.01904999, z: 0.26704246}
+  m_Size: {x: 0.3715704, y: 0.27021253, z: 0.52388835}
+  m_Center: {x: -0.003707548, y: -0.20977888, z: 0.26194084}

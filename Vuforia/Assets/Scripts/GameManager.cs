@@ -191,7 +191,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             foreach (Transform child in player.gameObject.transform)
             {
                 child.GetComponent<BotController>().isSelected = false;
-                child.GetComponent<BotController>().attackingMode = false;
                 child.GetComponent<BotController>().ResetAllMode();
             }
 

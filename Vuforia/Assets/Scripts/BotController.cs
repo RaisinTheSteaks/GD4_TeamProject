@@ -24,7 +24,9 @@ public class BotController : MonoBehaviourPunCallbacks
     [Header("Component")]
     public Rigidbody rig;
     public bool specialAbilityMode;
-    public bool specialAbilityUsed;
+    public bool tankAbilityUsed;
+    public bool troopAbilityUsed;
+
     public bool guardMode;
     public GameObject explosion;
     public HexGrid hexGrid;
@@ -50,7 +52,8 @@ public class BotController : MonoBehaviourPunCallbacks
     public float attackDamage;
     public bool attackingMode = false;
     private bool updatingHealth;
-    private bool once;
+    private bool firstTimeSelected;
+    private bool firstTimeUnSelected;
     private const int minRng = 1, maxRng = 21;
     private const int maxRayDistance = 100;
     public Material symbol;
@@ -66,6 +69,7 @@ public class BotController : MonoBehaviourPunCallbacks
     public ParticleSystem healEffect;
     public ParticleSystem missileEffect;
     public ParticleSystem missileExplosion;
+    public GameObject selectedEffect;
     public string tooFarResponse = "Sire, the enemy target is too far!";
     public string coverOnTheWay = "According to my calculation, there is a foreign object in the way!";
     public string alliedBotOnTheWay = "Sire, allied bot is in the way!";
@@ -141,7 +145,7 @@ public class BotController : MonoBehaviourPunCallbacks
         DespawnAttackRange();
         Explosion(); //first part of tank Special Ability
         Heal();
-        if (confirm && !specialAbilityUsed)
+        if (confirm && !tankAbilityUsed)
         {
             LoadExplosion();   //second part of tank special Ability
         }
@@ -162,7 +166,7 @@ public class BotController : MonoBehaviourPunCallbacks
         if (isSelected && playerScript.Turn && !specialAbilityMode && !pause && CheckActionCount())
         {
             ResetAllMode();
-            guardMode = false;
+            photonView.RPC("GuardPhase", RpcTarget.All, transform.name, false);
             if (animator.GetBool("IsGuarding"))
                 StartCoroutine(Animation("IsGuarding"));
             // print(transform.name + "moving");
@@ -179,7 +183,7 @@ public class BotController : MonoBehaviourPunCallbacks
 
             ResetAllMode();
             //enter attacking mode
-            guardMode = false;
+            photonView.RPC("GuardPhase", RpcTarget.All, transform.name, false);
             if (animator.GetBool("IsGuarding"))
                 StartCoroutine(Animation("IsGuarding"));
 
@@ -192,7 +196,7 @@ public class BotController : MonoBehaviourPunCallbacks
             if (!attackRangeIndicator)
             {
                 attackRangeIndicator = Instantiate(Resources.Load("VisualFeedback/AttackRange"), transform.position, Quaternion.identity) as GameObject;
-                attackRangeIndicator.transform.localScale = new Vector3(range * offset, 0.01f, range * offset) * 0.5f;
+                attackRangeIndicator.transform.localScale = new Vector3(range * offset, 0.01f, range * offset) * 0.4f;
                 attackRangeIndicator.transform.SetParent(GameManager.instance.imageTarget.transform);
 
             }
@@ -246,8 +250,10 @@ public class BotController : MonoBehaviourPunCallbacks
                             Debug.Log("its a bot");
                             print(Vector3.Distance(transform.position, hit.transform.position));
 
+                            float targetRange = Vector3.Distance(transform.position, hit.transform.position);
+
                             //check if target bot is within distancce
-                            if (Vector3.Distance(transform.position, hit.transform.position) < range * gridScale * 2)
+                            if (targetRange < range * gridScale * 2)
                             {
                                 Vector3 start = transform.position;
                                 if(Type == "Troop")
@@ -266,59 +272,32 @@ public class BotController : MonoBehaviourPunCallbacks
                                 Vector3 offsetY = new Vector3(0, 0.001f, 0);
                                 RaycastHit raycastHit;
 
+
                                 //check if the ray cast hit something
                                 if (Physics.Raycast(start + offsetY, ((hit.transform.position + offsetY) - (start + offsetY)), out raycastHit, maxRayDistance))
                                 {
-                                    //check if the ray cast hit a bot type game object
-                                    if (raycastHit.transform.tag == "Bot")
-                                    {
-                                        //check if the bot is not allied
-                                        if (raycastHit.transform.gameObject.GetComponent<BotController>().playerScript != playerScript)
-                                        {
-                                            // AttackTarget.text = "valid target";
-                                            //creates random damage
-                                            float rng = Random.Range(minRng, maxRng);
-
-                                            //start shooting animation
-                                            StartCoroutine(Animation("IsShooting"));
-
-                                            //start attack audio and calculating damages
-
-                                            photonView.RPC("AttackAudio", RpcTarget.All, transform.name);
-
-
-                                            float damage = attackDamage;
-                                            if (doubleDamage)
-                                            {
-                                                damage *= 2;
-                                                doubleDamage = false;
-                                            }
-
-                                            photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, rng, damage);
-
-                                            //set attacking moded to false
-                                            attackingMode = false;
-
-                                            //Increase player action count
-                                            transform.parent.GetComponent<PlayerController>().actionCount++;
-
-                                            //end player turn
-                                            playerScript.EndTurn();
+                                    
+                                        if (raycastHit.transform.tag == "Cover")
+                                        {//checks if cover in the way
+                                            AttackTarget.text = coverOnTheWay;
+                                            showBubble = true;
+                                            StartCoroutine(HideBubble());
+                                            return;
                                         }
-                                        else
-                                        {
+                                        else if (raycastHit.transform.parent == playerScript.transform)
+                                        {//checks if allied bot in the way
                                             AttackTarget.text = alliedBotOnTheWay;
                                             showBubble = true;
                                             StartCoroutine(HideBubble());
+                                            return;
                                         }
-                                    }
-                                    else
-                                    {
-                                        AttackTarget.text = coverOnTheWay;
-                                        showBubble = true;
-                                        StartCoroutine(HideBubble());
-                                    }
+                                    
+                                    
                                 }
+                                
+                                //since there is no disruption
+                                InflictDamage(hit.transform.name);
+                                
                             }
                             else
                             {
@@ -335,6 +314,39 @@ public class BotController : MonoBehaviourPunCallbacks
             
         }
         
+    }
+
+    private void InflictDamage(string targetName)
+    {
+        // AttackTarget.text = "valid target";
+        //creates random damage
+        float rng = Random.Range(minRng, maxRng);
+
+        //start shooting animation
+        StartCoroutine(Animation("IsShooting"));
+
+        //start attack audio and calculating damages
+
+        photonView.RPC("AttackAudio", RpcTarget.All, transform.name);
+
+
+        float damage = attackDamage;
+        if (doubleDamage)
+        {
+            damage *= 2;
+            doubleDamage = false;
+        }
+
+        photonView.RPC("StartDamage", RpcTarget.All, targetName, rng, damage);
+
+        //set attacking moded to false
+        attackingMode = false;
+
+        //Increase player action count
+        transform.parent.GetComponent<PlayerController>().actionCount++;
+
+        //end player turn
+        playerScript.EndTurn();
     }
 
     public IEnumerator HideBubble()
@@ -367,6 +379,31 @@ public class BotController : MonoBehaviourPunCallbacks
         GameObject bot = GameObject.Find(botName);
         BotController target = bot.GetComponent<BotController>();
         target.guardEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+    }
+
+    [PunRPC]
+    public void PlaySelectedEffect(string botName)
+    {
+        GameObject bot = GameObject.Find(botName);
+        BotController target = bot.GetComponent<BotController>();
+
+        foreach(Transform effect in target.selectedEffect.transform)
+        {
+            effect.GetComponent<ParticleSystem>().Play();
+        }
+        
+    }
+
+    [PunRPC]
+    public void StopSelectedEffect(string botName)
+    {
+        GameObject bot = GameObject.Find(botName);
+        BotController target = bot.GetComponent<BotController>();
+
+        foreach (Transform effect in target.selectedEffect.transform)
+        {
+            effect.GetComponent<ParticleSystem>().Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
     }
 
     [PunRPC]
@@ -435,30 +472,21 @@ public class BotController : MonoBehaviourPunCallbacks
         {
             Debug.Log(transform.name + "guarding");
 
-            photonView.RPC("GuardPhase", RpcTarget.All, transform.name);
+            photonView.RPC("GuardPhase", RpcTarget.All, transform.name, true);
             //start shooting animation
             StartCoroutine(Animation("IsGuarding"));
 
-            //guardPhase(transform.name);
-            //end player turn
-            // playerScript.EndTurn();
         }
 
     }
 
     [PunRPC]
-    public void GuardPhase(string botName)
+    public void GuardPhase(string botName, bool mode)
     {
-        //if (guardMode)
-        //{
-        //    //set attacking mode to false
-        //    attackingMode = false;
-        //    //start guarding animation
-        //   // StartCoroutine(animation("IsGuarding"));
-        //}
+       
         GameObject bot = GameObject.Find(botName);
         BotController target = bot.GetComponent<BotController>();
-        target.guardMode = true;
+        target.guardMode = mode;
         
         //transform.parent.GetComponent<PlayerController>().actionCount++;
     }
@@ -560,23 +588,32 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         Debug.Log("Activating: " + name + "'s ability\nIsSelected: " + isSelected + ", Turn?: " + playerScript.Turn + "\nSpecAbil Used?: " + ", Paused?: " + pause);
         //debugging for action windows, replace this with real move method
-        if (isSelected && playerScript.Turn && !specialAbilityUsed && !pause && CheckActionCount())
+        if (isSelected && playerScript.Turn && !pause && CheckActionCount())
         {
             ResetAllMode();
-            guardMode = false;
+            photonView.RPC("GuardPhase", RpcTarget.All, transform.name, false);
             if (animator.GetBool("IsGuarding"))
                 StartCoroutine(Animation("IsGuarding"));
+
             if (Type.Equals("Tank"))
-                specialAbilityMode = true;
+            {
+                if(!tankAbilityUsed)
+                    specialAbilityMode = true;
+
+            }
             else
-                troopAbility = true;
+            {
+                if(!troopAbilityUsed)
+                    troopAbility = true;
+
+            }
         }
 
     }
 
     private void Heal()
     {
-        if (troopAbility && !specialAbilityUsed && !pause)
+        if (troopAbility && !pause)
         {
             if (Input.GetMouseButtonDown(0)) //this if statement creates a raycast that checks if the player has touched a hexagon.
             {
@@ -594,7 +631,8 @@ public class BotController : MonoBehaviourPunCallbacks
                             photonView.RPC("StartDamage", RpcTarget.All, hit.transform.name, 0.0f, -30.0f);
                             photonView.RPC("PlayHealEffect", RpcTarget.All, hit.transform.name);
                             StartCoroutine(Animation("IsAbility"));
-                            specialAbilityUsed = true;
+                            troopAbilityUsed = true;
+                            troopAbility = false;
                             transform.parent.GetComponent<PlayerController>().actionCount += 2;
                             playerScript.EndTurn();
                         }
@@ -651,7 +689,8 @@ public class BotController : MonoBehaviourPunCallbacks
             }
         }
         //Destroy(explode, 2.0f);
-        specialAbilityUsed = true;
+        tankAbilityUsed = true;
+        specialAbilityMode = false;
         transform.parent.GetComponent<PlayerController>().actionCount+= 2;
         playerScript.EndTurn();
 
@@ -678,17 +717,22 @@ public class BotController : MonoBehaviourPunCallbacks
     {
         if (isSelected)
         {
-            if (once)
+            if (firstTimeSelected)
             {
                 StartCoroutine(Animation("IsSelected"));
-                once = false;
+                photonView.RPC("PlaySelectedEffect", RpcTarget.All, transform.name);
+                firstTimeSelected = false;
             }
-
-
+            firstTimeUnSelected = true;
         }
-        else if (isSelected == false)
+        else
         {
-            once = true;
+            if(firstTimeUnSelected)
+            {
+                photonView.RPC("StopSelectedEffect", RpcTarget.All, transform.name);
+                firstTimeUnSelected = false;
+            }
+            firstTimeSelected = true;
             ResetAllMode();
         }
 
