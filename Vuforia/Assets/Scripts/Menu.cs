@@ -188,6 +188,11 @@ public class Menu : MonoBehaviourPunCallbacks
         SetScreen(playGameScreen);
     }
 
+    public void OnUpdateMapButton(string mapName)
+    {
+        sceneName = mapName;
+    }
+
     #endregion
 
     #region Player Joining & Leaving Room
