@@ -70,5 +70,6 @@ MonoBehaviour:
   - KickAllPlayer
   - PlaySelectedEffect
   - StopSelectedEffect
+  - SetLevelMap
   DisableAutoOpenWizard: 1
   ShowSettings: 1

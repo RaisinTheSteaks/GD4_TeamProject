@@ -79,21 +79,28 @@ public class GameManager : MonoBehaviourPunCallbacks
             levelMap = NetworkManager.instance.levelMap;
             photonView.RPC("SetLevelMap", RpcTarget.All, (int)levelMap);
         }
+        
+        mapController.SetSpeed(playerSpeed);
+        grid.hexesTravelled = 0;
 
-         GameLevel gl = new GameLevel();
 
+    }
 
+    [PunRPC]
+    public void SetLevelMap(int levelMap)
+    {
+        GameLevel gl = new GameLevel();
         switch (levelMap)
         {
-            case LevelMap.MiningRig:
+            case (int)LevelMap.MiningRig:
                 gl.levelMapType = LevelMap.SpaceStation;
                 gl.levelMusicName = "SpaceStation_Music";
-                gl.levelObjName =  "SpaceStation";
+                gl.levelObjName = "SpaceStation";
                 break;
-            case LevelMap.SpaceStation:
+            case (int)LevelMap.SpaceStation:
                 gl.levelMapType = LevelMap.MiningRig;
                 gl.levelMusicName = "MiningRig_Music";
-                gl.levelObjName =  "MiningRig";
+                gl.levelObjName = "MiningRig";
                 break;
             default:
                 gl.levelMapType = LevelMap.MiningRig;
@@ -101,18 +108,8 @@ public class GameManager : MonoBehaviourPunCallbacks
                 gl.levelObjName = "MiningRig";
                 break;
         }
-        
+
         SetLevelInactive(gl);
-
-        mapController.SetSpeed(playerSpeed);
-        grid.hexesTravelled = 0;
-
-
-    }
-
-    public void SetLevelMap(int levelMap)
-    {
-
     }
 
     private void SetLevelInactive(GameLevel gameLevel)
