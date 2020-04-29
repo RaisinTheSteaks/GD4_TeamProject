@@ -74,8 +74,15 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         }
 
-        levelMap = NetworkManager.instance.levelMap;
-        GameLevel gl = new GameLevel();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            levelMap = NetworkManager.instance.levelMap;
+            photonView.RPC("SetLevelMap", RpcTarget.All, (int)levelMap);
+        }
+
+         GameLevel gl = new GameLevel();
+
+
         switch (levelMap)
         {
             case LevelMap.MiningRig:
@@ -100,6 +107,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         mapController.SetSpeed(playerSpeed);
         grid.hexesTravelled = 0;
 
+
+    }
+
+    public void SetLevelMap(int levelMap)
+    {
 
     }
 
