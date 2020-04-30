@@ -9,6 +9,12 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
+struct GameLevel
+{
+    public LevelMap levelMapType;
+    public string levelObjName;
+    public string levelMusicName;
+}
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -34,7 +40,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     
     //Clock
     public GameObject clocks;
-    
+
+    public LevelMap levelMap;
 
 
 
@@ -66,11 +73,66 @@ public class GameManager : MonoBehaviourPunCallbacks
             clocks.GetComponent<ChessClockController>().startClock = true;
 
         }
-        
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            levelMap = NetworkManager.instance.levelMap;
+            photonView.RPC("SetLevelMap", RpcTarget.All, (int)levelMap);
+        }
         
         mapController.SetSpeed(playerSpeed);
         grid.hexesTravelled = 0;
 
+
+    }
+
+    [PunRPC]
+    public void SetLevelMap(int levelMap)
+    {
+        GameLevel gl = new GameLevel();
+        switch (levelMap)
+        {
+            case (int)LevelMap.MiningRig:
+                gl.levelMapType = LevelMap.SpaceStation;
+                gl.levelMusicName = "SpaceStation_Music";
+                gl.levelObjName = "SpaceStation";
+                break;
+            case (int)LevelMap.SpaceStation:
+                gl.levelMapType = LevelMap.MiningRig;
+                gl.levelMusicName = "MiningRig_Music";
+                gl.levelObjName = "MiningRig";
+                break;
+            default:
+                gl.levelMapType = LevelMap.MiningRig;
+                gl.levelMusicName = "MiningRig_Music";
+                gl.levelObjName = "MiningRig";
+                break;
+        }
+
+        SetLevelInactive(gl);
+    }
+
+    private void SetLevelInactive(GameLevel gameLevel)
+    {
+        var levelMap = GameObject.Find(gameLevel.levelObjName);
+        var levelMusic = GameObject.Find(gameLevel.levelMusicName);
+
+        if(levelMap)
+        {
+            levelMap.SetActive(false);            
+        }
+        else
+        {
+            Debug.LogError("Unable to locate level object: " + gameLevel.levelObjName);
+        }
+        if(levelMusic)
+        {
+            levelMusic.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("Unable to locate level music: " + gameLevel.levelMusicName);
+        }
 
     }
 

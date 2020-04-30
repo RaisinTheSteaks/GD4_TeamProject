@@ -5,11 +5,14 @@ using Photon.Pun;
 
 public enum PlayerType {Player, Spectator }
 
+public enum LevelMap { SpaceStation, MiningRig}
+
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     //instance
     public static NetworkManager instance;
     public List<string> spectator;
+    public LevelMap levelMap = LevelMap.MiningRig;
 
     private void Awake()
     {
@@ -59,6 +62,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //}
     }
 
+    public void SetGameLevel(string newLevelMap)
+    {
+        switch (newLevelMap)
+        {
+            case "SpaceStation":
+                levelMap = LevelMap.SpaceStation;
+                break;
+            case "MiningRig":
+                levelMap = LevelMap.MiningRig;
+                break;
+        }
+    }
 
     [PunRPC]
     public void ChangeScene (string sceneName)

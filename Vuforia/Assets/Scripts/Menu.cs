@@ -13,7 +13,7 @@ public class Menu : MonoBehaviourPunCallbacks
 
 
     [Header("Screens")]
-    public static int screenCount = 5;
+    public static int screenCount = 6;
     public GameObject[] screens = new GameObject[screenCount];
 
     public GameObject mainScreen;
@@ -21,6 +21,7 @@ public class Menu : MonoBehaviourPunCallbacks
     public GameObject createLobbyScreen;
     public GameObject listingScreen;
     public GameObject playGameScreen;
+    public GameObject settingScreen;
     public string sceneName;
     public string galleryScene;
 
@@ -186,6 +187,16 @@ public class Menu : MonoBehaviourPunCallbacks
     public void OnPlayGameButton()
     {
         SetScreen(playGameScreen);
+    }
+
+    public void OnUpdateMapButton(string mapName)
+    {
+        sceneName = mapName;
+    }
+
+    public void OnSettingsButton()
+    {
+        SetScreen(settingScreen);
     }
 
     #endregion
