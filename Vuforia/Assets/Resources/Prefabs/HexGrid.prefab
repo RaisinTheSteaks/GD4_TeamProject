@@ -140,7 +140,7 @@ MonoBehaviour:
   pathHexColor: {r: 0.13679248, g: 0.7846361, b: 1, a: 0.67058825}
   startHexColor: {r: 0.1372549, g: 0.30409348, b: 1, a: 0.69803923}
   destinationHexColor: {r: 1, g: 0, b: 0, a: 0.6862745}
-  defaultHexColor: {r: 1, g: 1, b: 1, a: 1}
+  defaultHexColor: {r: 0.35243437, g: 0.9622642, b: 0.28595585, a: 1}
   spawnPoints:
   - {fileID: 0}
   - {fileID: 0}
