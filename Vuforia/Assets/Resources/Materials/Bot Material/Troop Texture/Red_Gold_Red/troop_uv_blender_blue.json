@@ -1,0 +1,28 @@
+{
+    "format": {
+        "version": "1.0"
+    },
+    "shaders": {
+        "Main shader": {
+            "parameters": {
+                "Common Parameters": {
+                    "alpha_dither": false,
+                    "alpha_threshold": 0.33000001311302185,
+                    "ao_intensity": 0.75,
+                    "emissive_intensity": 1
+                },
+                "ambient_str": 0.25,
+                "fresnel_power": 5,
+                "fresnel_str": 1,
+                "light_str": 1
+            },
+            "shader": "non-pbr-spec-gloss",
+            "shaderInstance": "Main shader"
+        }
+    },
+    "texturesets": {
+        "DefaultMaterial": {
+            "shader": "Main shader"
+        }
+    }
+}
